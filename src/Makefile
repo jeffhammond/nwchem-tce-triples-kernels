@@ -19,8 +19,7 @@ LDFLAGS  = $(COPT) $(CFLAGS)
 #LIBS	 = -mkl
 
 TESTS := test_ccsd_t.x
-OBJECTS := ccsd_t_kernels_cyrus.o safemalloc.o
-#OBJECTS := ccsd_t_kernels_clean.o safemalloc.o
+OBJECTS := ccsd_t_kernels_clean.o safemalloc.o
 HEADERS := ccsd_t_kernels.h safemalloc.h
 
 all: $(TESTS)
