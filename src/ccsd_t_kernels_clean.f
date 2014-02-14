@@ -3,6 +3,13 @@ c These have been separated out from ccsd_t_singles_l.F and ccsd_t_doubles_l.F
 c
       subroutine clean_sd_t_s1_1(h3d,h2d,h1d,p6d,p5d,p4d,
      2                     triplesx,t1sub,v2sub)
+c
+c     This is the LaTeX for this subroutine:
+c
+c     T_{i,j,k}^{a,b,c} += S_{k}^{c} D_{i,j}^{a,b}
+c
+c     T is triplesx, S is t1sub and D is v2sub.
+c
       IMPLICIT NONE
       integer h3d,h2d,h1d,p6d,p5d,p4d
       integer h3,h2,h1,p6,p5,p4
