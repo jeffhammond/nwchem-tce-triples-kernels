@@ -305,6 +305,7 @@ int main(int argc, char * argv[])
 
         fflush(stdout);
     }
+    printf("\n");
 
     double e1 = diff_array(tile2, t1r, t1o);
     double e2 = diff_array(tile4, t2r, t2o);
