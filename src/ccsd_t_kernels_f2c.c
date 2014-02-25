@@ -1,21 +1,13 @@
 /* These have been separated out from ccsd_t_singles_l.F and ccsd_t_doubles_l.F
  * and converted from Fortran 77 to C99 by hand. */
 
-#include <stdint.h>
-
-#if FORTRAN_INTEGER_SIZE==4
-typedef int32_t fint;
-#elif FORTRAN_INTEGER_SIZE==8
-typedef int64_t fint;
-#else
-#error You must define FORTRAN_INTEGER_SIZE to 4 or 8.
-#endif
+#include "ccsd_t_kernels.h"
 
 /* The possible downcast from fint to int is safe because array dimensions
  * are on the order of 30, i.e. nowhere near INT_MAX. */
 
-void f2c_sd_t_s1_1_(const fint * h3d, const fint * h2d, const fint * h1d, 
-                    const fint * p6d, const fint * p5d, const fint * p4d, 
+void f2c_sd_t_s1_1_(fint * h3d, fint * h2d, fint * h1d, 
+                    fint * p6d, fint * p5d, fint * p4d, 
                     double * restrict t3, double * restrict t1, double * restrict v2)
 {
     const int h1u = (int)(*h1d);
@@ -35,8 +27,8 @@ void f2c_sd_t_s1_1_(const fint * h3d, const fint * h2d, const fint * h1d,
     return;
 }
 
-void f2c_sd_t_s1_2_(const fint * h3d, const fint * h2d, const fint * h1d, 
-                    const fint * p6d, const fint * p5d, const fint * p4d, 
+void f2c_sd_t_s1_2_(fint * h3d, fint * h2d, fint * h1d, 
+                    fint * p6d, fint * p5d, fint * p4d, 
                     double * restrict t3, double * restrict t1, double * restrict v2)
 {
     const int h1u = (int)(*h1d);
@@ -56,8 +48,8 @@ void f2c_sd_t_s1_2_(const fint * h3d, const fint * h2d, const fint * h1d,
     return;
 }
 
-void f2c_sd_t_s1_3_(const fint * h3d, const fint * h2d, const fint * h1d, 
-                    const fint * p6d, const fint * p5d, const fint * p4d, 
+void f2c_sd_t_s1_3_(fint * h3d, fint * h2d, fint * h1d, 
+                    fint * p6d, fint * p5d, fint * p4d, 
                     double * restrict t3, double * restrict t1, double * restrict v2)
 {
     const int h1u = (int)(*h1d);
@@ -77,8 +69,8 @@ void f2c_sd_t_s1_3_(const fint * h3d, const fint * h2d, const fint * h1d,
     return;
 }
 
-void f2c_sd_t_s1_4_(const fint * h3d, const fint * h2d, const fint * h1d, 
-                    const fint * p6d, const fint * p5d, const fint * p4d, 
+void f2c_sd_t_s1_4_(fint * h3d, fint * h2d, fint * h1d, 
+                    fint * p6d, fint * p5d, fint * p4d, 
                     double * restrict t3, double * restrict t1, double * restrict v2)
 {
     const int h1u = (int)(*h1d);
@@ -98,8 +90,8 @@ void f2c_sd_t_s1_4_(const fint * h3d, const fint * h2d, const fint * h1d,
     return;
 }
 
-void f2c_sd_t_s1_5_(const fint * h3d, const fint * h2d, const fint * h1d, 
-                    const fint * p6d, const fint * p5d, const fint * p4d, 
+void f2c_sd_t_s1_5_(fint * h3d, fint * h2d, fint * h1d, 
+                    fint * p6d, fint * p5d, fint * p4d, 
                     double * restrict t3, double * restrict t1, double * restrict v2)
 {
     const int h1u = (int)(*h1d);
@@ -119,8 +111,8 @@ void f2c_sd_t_s1_5_(const fint * h3d, const fint * h2d, const fint * h1d,
     return;
 }
 
-void f2c_sd_t_s1_6_(const fint * h3d, const fint * h2d, const fint * h1d, 
-                    const fint * p6d, const fint * p5d, const fint * p4d, 
+void f2c_sd_t_s1_6_(fint * h3d, fint * h2d, fint * h1d, 
+                    fint * p6d, fint * p5d, fint * p4d, 
                     double * restrict t3, double * restrict t1, double * restrict v2)
 {
     const int h1u = (int)(*h1d);
@@ -140,8 +132,8 @@ void f2c_sd_t_s1_6_(const fint * h3d, const fint * h2d, const fint * h1d,
     return;
 }
 
-void f2c_sd_t_s1_7_(const fint * h3d, const fint * h2d, const fint * h1d, 
-                    const fint * p6d, const fint * p5d, const fint * p4d, 
+void f2c_sd_t_s1_7_(fint * h3d, fint * h2d, fint * h1d, 
+                    fint * p6d, fint * p5d, fint * p4d, 
                     double * restrict t3, double * restrict t1, double * restrict v2)
 {
     const int h1u = (int)(*h1d);
@@ -161,8 +153,8 @@ void f2c_sd_t_s1_7_(const fint * h3d, const fint * h2d, const fint * h1d,
     return;
 }
 
-void f2c_sd_t_s1_8_(const fint * h3d, const fint * h2d, const fint * h1d, 
-                    const fint * p6d, const fint * p5d, const fint * p4d, 
+void f2c_sd_t_s1_8_(fint * h3d, fint * h2d, fint * h1d, 
+                    fint * p6d, fint * p5d, fint * p4d, 
                     double * restrict t3, double * restrict t1, double * restrict v2)
 {
     const int h1u = (int)(*h1d);
@@ -182,8 +174,8 @@ void f2c_sd_t_s1_8_(const fint * h3d, const fint * h2d, const fint * h1d,
     return;
 }
 
-void f2c_sd_t_s1_9_(const fint * h3d, const fint * h2d, const fint * h1d, 
-                    const fint * p6d, const fint * p5d, const fint * p4d, 
+void f2c_sd_t_s1_9_(fint * h3d, fint * h2d, fint * h1d, 
+                    fint * p6d, fint * p5d, fint * p4d, 
                     double * restrict t3, double * restrict t1, double * restrict v2)
 {
     const int h1u = (int)(*h1d);
@@ -204,9 +196,9 @@ void f2c_sd_t_s1_9_(const fint * h3d, const fint * h2d, const fint * h1d,
 }
 
 #if 0
-void f2c_sd_t_d1_1_(const fint * h3d, const fint * h2d, const fint * h1d, 
-                    const fint * p6d, const fint * p5d, const fint * p4d, 
-                    const fint * h7d, 
+void f2c_sd_t_d1_1_(fint * h3d, fint * h2d, fint * h1d, 
+                    fint * p6d, fint * p5d, fint * p4d, 
+                    fint * h7d, 
                     double * restrict t3, double * restrict t2, double * restrict v2)
 {
     const int h1u = (int)(*h1d);
@@ -227,9 +219,9 @@ void f2c_sd_t_d1_1_(const fint * h3d, const fint * h2d, const fint * h1d,
     return;
 }
 
-void f2c_sd_t_d1_2_(const fint * h3d, const fint * h2d, const fint * h1d, 
-                    const fint * p6d, const fint * p5d, const fint * p4d,
-                    const fint * h7d, 
+void f2c_sd_t_d1_2_(fint * h3d, fint * h2d, fint * h1d, 
+                    fint * p6d, fint * p5d, fint * p4d,
+                    fint * h7d, 
                     double * restrict t3, double * restrict t2, double * restrict v2)
 {
     const int h1u = (int)(*h1d);
@@ -250,9 +242,9 @@ void f2c_sd_t_d1_2_(const fint * h3d, const fint * h2d, const fint * h1d,
     return;
 }
 
-void f2c_sd_t_d1_3_(const fint * h3d, const fint * h2d, const fint * h1d, 
-                    const fint * p6d, const fint * p5d, const fint * p4d,
-                    const fint * h7d, 
+void f2c_sd_t_d1_3_(fint * h3d, fint * h2d, fint * h1d, 
+                    fint * p6d, fint * p5d, fint * p4d,
+                    fint * h7d, 
                     double * restrict t3, double * restrict t2, double * restrict v2)
 {
     const int h1u = (int)(*h1d);
@@ -273,9 +265,9 @@ void f2c_sd_t_d1_3_(const fint * h3d, const fint * h2d, const fint * h1d,
     return;
 }
 
-void f2c_sd_t_d1_4_(const fint * h3d, const fint * h2d, const fint * h1d, 
-                    const fint * p6d, const fint * p5d, const fint * p4d,
-                    const fint * h7d, 
+void f2c_sd_t_d1_4_(fint * h3d, fint * h2d, fint * h1d, 
+                    fint * p6d, fint * p5d, fint * p4d,
+                    fint * h7d, 
                     double * restrict t3, double * restrict t2, double * restrict v2)
 {
     const int h1u = (int)(*h1d);
@@ -296,9 +288,9 @@ void f2c_sd_t_d1_4_(const fint * h3d, const fint * h2d, const fint * h1d,
     return;
 }
 
-void f2c_sd_t_d1_5_(const fint * h3d, const fint * h2d, const fint * h1d, 
-                    const fint * p6d, const fint * p5d, const fint * p4d,
-                    const fint * h7d, 
+void f2c_sd_t_d1_5_(fint * h3d, fint * h2d, fint * h1d, 
+                    fint * p6d, fint * p5d, fint * p4d,
+                    fint * h7d, 
                     double * restrict t3, double * restrict t2, double * restrict v2)
 {
     const int h1u = (int)(*h1d);
@@ -319,9 +311,9 @@ void f2c_sd_t_d1_5_(const fint * h3d, const fint * h2d, const fint * h1d,
     return;
 }
 
-void f2c_sd_t_d1_6_(const fint * h3d, const fint * h2d, const fint * h1d, 
-                    const fint * p6d, const fint * p5d, const fint * p4d,
-                    const fint * h7d, 
+void f2c_sd_t_d1_6_(fint * h3d, fint * h2d, fint * h1d, 
+                    fint * p6d, fint * p5d, fint * p4d,
+                    fint * h7d, 
                     double * restrict t3, double * restrict t2, double * restrict v2)
 {
     const int h1u = (int)(*h1d);
@@ -342,9 +334,9 @@ void f2c_sd_t_d1_6_(const fint * h3d, const fint * h2d, const fint * h1d,
     return;
 }
 
-void f2c_sd_t_d1_7_(const fint * h3d, const fint * h2d, const fint * h1d, 
-                    const fint * p6d, const fint * p5d, const fint * p4d, 
-                    const fint * h7d, 
+void f2c_sd_t_d1_7_(fint * h3d, fint * h2d, fint * h1d, 
+                    fint * p6d, fint * p5d, fint * p4d, 
+                    fint * h7d, 
                     double * restrict t3, double * restrict t2, double * restrict v2)
 {
     const int h1u = (int)(*h1d);
@@ -365,9 +357,9 @@ void f2c_sd_t_d1_7_(const fint * h3d, const fint * h2d, const fint * h1d,
     return;
 }
 
-void f2c_sd_t_d1_8_(const fint * h3d, const fint * h2d, const fint * h1d, 
-                    const fint * p6d, const fint * p5d, const fint * p4d, 
-                    const fint * h7d, 
+void f2c_sd_t_d1_8_(fint * h3d, fint * h2d, fint * h1d, 
+                    fint * p6d, fint * p5d, fint * p4d, 
+                    fint * h7d, 
                     double * restrict t3, double * restrict t2, double * restrict v2)
 {
     for (int p4=0; p4<p4u; p4++)
@@ -381,9 +373,9 @@ void f2c_sd_t_d1_8_(const fint * h3d, const fint * h2d, const fint * h1d,
     return;
 }
 
-void f2c_sd_t_d1_9_(const fint * h3d, const fint * h2d, const fint * h1d, 
-                    const fint * p6d, const fint * p5d, const fint * p4d, 
-                    const fint * h7d, 
+void f2c_sd_t_d1_9_(fint * h3d, fint * h2d, fint * h1d, 
+                    fint * p6d, fint * p5d, fint * p4d, 
+                    fint * h7d, 
                     double * restrict t3, double * restrict t2, double * restrict v2)
 {
     const int h1u = (int)(*h1d);
@@ -404,9 +396,9 @@ void f2c_sd_t_d1_9_(const fint * h3d, const fint * h2d, const fint * h1d,
     return;
 }
 
-void f2c_sd_t_d2_1_(const fint * h3d, const fint * h2d, const fint * h1d, 
-                    const fint * p6d, const fint * p5d, const fint * p4d, 
-                    const fint * p7d, 
+void f2c_sd_t_d2_1_(fint * h3d, fint * h2d, fint * h1d, 
+                    fint * p6d, fint * p5d, fint * p4d, 
+                    fint * p7d, 
                     double * restrict t3, double * restrict t2, double * restrict v2)
 {
     const int h1u = (int)(*h1d);
@@ -427,9 +419,9 @@ void f2c_sd_t_d2_1_(const fint * h3d, const fint * h2d, const fint * h1d,
     return;
 }
 
-void f2c_sd_t_d2_2_(const fint * h3d, const fint * h2d, const fint * h1d, 
-                    const fint * p6d, const fint * p5d, const fint * p4d, 
-                    const fint * p7d, 
+void f2c_sd_t_d2_2_(fint * h3d, fint * h2d, fint * h1d, 
+                    fint * p6d, fint * p5d, fint * p4d, 
+                    fint * p7d, 
                     double * restrict t3, double * restrict t2, double * restrict v2)
 {
     const int h1u = (int)(*h1d);
@@ -450,9 +442,9 @@ void f2c_sd_t_d2_2_(const fint * h3d, const fint * h2d, const fint * h1d,
     return;
 }
 
-void f2c_sd_t_d2_3_(const fint * h3d, const fint * h2d, const fint * h1d, 
-                    const fint * p6d, const fint * p5d, const fint * p4d, 
-                    const fint * p7d, 
+void f2c_sd_t_d2_3_(fint * h3d, fint * h2d, fint * h1d, 
+                    fint * p6d, fint * p5d, fint * p4d, 
+                    fint * p7d, 
                     double * restrict t3, double * restrict t2, double * restrict v2)
 {
     const int h1u = (int)(*h1d);
@@ -473,9 +465,9 @@ void f2c_sd_t_d2_3_(const fint * h3d, const fint * h2d, const fint * h1d,
     return;
 }
 
-void f2c_sd_t_d2_4_(const fint * h3d, const fint * h2d, const fint * h1d, 
-                    const fint * p6d, const fint * p5d, const fint * p4d, 
-                    const fint * p7d, 
+void f2c_sd_t_d2_4_(fint * h3d, fint * h2d, fint * h1d, 
+                    fint * p6d, fint * p5d, fint * p4d, 
+                    fint * p7d, 
                     double * restrict t3, double * restrict t2, double * restrict v2)
 {
     const int h1u = (int)(*h1d);
@@ -496,9 +488,9 @@ void f2c_sd_t_d2_4_(const fint * h3d, const fint * h2d, const fint * h1d,
     return;
 }
 
-void f2c_sd_t_d2_5_(const fint * h3d, const fint * h2d, const fint * h1d, 
-                    const fint * p6d, const fint * p5d, const fint * p4d, 
-                    const fint * p7d, 
+void f2c_sd_t_d2_5_(fint * h3d, fint * h2d, fint * h1d, 
+                    fint * p6d, fint * p5d, fint * p4d, 
+                    fint * p7d, 
                     double * restrict t3, double * restrict t2, double * restrict v2)
 {
     const int h1u = (int)(*h1d);
@@ -519,9 +511,9 @@ void f2c_sd_t_d2_5_(const fint * h3d, const fint * h2d, const fint * h1d,
     return;
 }
 
-void f2c_sd_t_d2_6_(const fint * h3d, const fint * h2d, const fint * h1d, 
-                    const fint * p6d, const fint * p5d, const fint * p4d, 
-                    const fint * p7d, 
+void f2c_sd_t_d2_6_(fint * h3d, fint * h2d, fint * h1d, 
+                    fint * p6d, fint * p5d, fint * p4d, 
+                    fint * p7d, 
                     double * restrict t3, double * restrict t2, double * restrict v2)
 {
     const int h1u = (int)(*h1d);
@@ -542,9 +534,9 @@ void f2c_sd_t_d2_6_(const fint * h3d, const fint * h2d, const fint * h1d,
     return;
 }
 
-void f2c_sd_t_d2_7_(const fint * h3d, const fint * h2d, const fint * h1d, 
-                    const fint * p6d, const fint * p5d, const fint * p4d, 
-                    const fint * p7d, 
+void f2c_sd_t_d2_7_(fint * h3d, fint * h2d, fint * h1d, 
+                    fint * p6d, fint * p5d, fint * p4d, 
+                    fint * p7d, 
                     double * restrict t3, double * restrict t2, double * restrict v2)
 {
     const int h1u = (int)(*h1d);
@@ -565,9 +557,9 @@ void f2c_sd_t_d2_7_(const fint * h3d, const fint * h2d, const fint * h1d,
     return;
 }
 
-void f2c_sd_t_d2_8_(const fint * h3d, const fint * h2d, const fint * h1d, 
-                    const fint * p6d, const fint * p5d, const fint * p4d, 
-                    const fint * p7d, 
+void f2c_sd_t_d2_8_(fint * h3d, fint * h2d, fint * h1d, 
+                    fint * p6d, fint * p5d, fint * p4d, 
+                    fint * p7d, 
                     double * restrict t3, double * restrict t2, double * restrict v2)
 {
     const int h1u = (int)(*h1d);
@@ -588,9 +580,9 @@ void f2c_sd_t_d2_8_(const fint * h3d, const fint * h2d, const fint * h1d,
     return;
 }
 
-void f2c_sd_t_d2_9_(const fint * h3d, const fint * h2d, const fint * h1d, 
-                    const fint * p6d, const fint * p5d, const fint * p4d, 
-                    const fint * p7d, 
+void f2c_sd_t_d2_9_(fint * h3d, fint * h2d, fint * h1d, 
+                    fint * p6d, fint * p5d, fint * p4d, 
+                    fint * p7d, 
                     double * restrict t3, double * restrict t2, double * restrict v2)
 {
     const int h1u = (int)(*h1d);
