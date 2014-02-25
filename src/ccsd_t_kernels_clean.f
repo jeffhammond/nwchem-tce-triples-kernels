@@ -1,7 +1,7 @@
 c
 c These have been separated out from ccsd_t_singles_l.F and ccsd_t_doubles_l.F
 c
-      subroutine sd_t_s1_1(h3d,h2d,h1d,p6d,p5d,p4d,
+      subroutine ref_sd_t_s1_1(h3d,h2d,h1d,p6d,p5d,p4d,
      2               triplesx,t1sub,v2sub)
       IMPLICIT NONE
       integer h3d,h2d,h1d,p6d,p5d,p4d
@@ -26,7 +26,7 @@ c
       return
       end
 c
-      subroutine sd_t_s1_2(h3d,h2d,h1d,p6d,p5d,p4d,
+      subroutine ref_sd_t_s1_2(h3d,h2d,h1d,p6d,p5d,p4d,
      2               triplesx,t1sub,v2sub)
       IMPLICIT NONE
       integer h3d,h2d,h1d,p6d,p5d,p4d
@@ -51,7 +51,7 @@ c
       return
       end
 c
-      subroutine sd_t_s1_3(h3d,h2d,h1d,p6d,p5d,p4d,
+      subroutine ref_sd_t_s1_3(h3d,h2d,h1d,p6d,p5d,p4d,
      2               triplesx,t1sub,v2sub)
       IMPLICIT NONE
       integer h3d,h2d,h1d,p6d,p5d,p4d
@@ -76,7 +76,7 @@ c
       return
       end
 c
-      subroutine sd_t_s1_4(h3d,h2d,h1d,p6d,p5d,p4d,
+      subroutine ref_sd_t_s1_4(h3d,h2d,h1d,p6d,p5d,p4d,
      2               triplesx,t1sub,v2sub)
       IMPLICIT NONE
       integer h3d,h2d,h1d,p6d,p5d,p4d
@@ -101,7 +101,7 @@ c
       return
       end
 c
-      subroutine sd_t_s1_5(h3d,h2d,h1d,p6d,p5d,p4d,
+      subroutine ref_sd_t_s1_5(h3d,h2d,h1d,p6d,p5d,p4d,
      2               triplesx,t1sub,v2sub)
       IMPLICIT NONE
       integer h3d,h2d,h1d,p6d,p5d,p4d
@@ -126,7 +126,7 @@ c
       return
       end
 c
-      subroutine sd_t_s1_6(h3d,h2d,h1d,p6d,p5d,p4d,
+      subroutine ref_sd_t_s1_6(h3d,h2d,h1d,p6d,p5d,p4d,
      2               triplesx,t1sub,v2sub)
       IMPLICIT NONE
       integer h3d,h2d,h1d,p6d,p5d,p4d
@@ -151,7 +151,7 @@ c
       return
       end
 c
-      subroutine sd_t_s1_7(h3d,h2d,h1d,p6d,p5d,p4d,
+      subroutine ref_sd_t_s1_7(h3d,h2d,h1d,p6d,p5d,p4d,
      2               triplesx,t1sub,v2sub)
       IMPLICIT NONE
       integer h3d,h2d,h1d,p6d,p5d,p4d
@@ -176,7 +176,7 @@ c
       return
       end
 c
-      subroutine sd_t_s1_8(h3d,h2d,h1d,p6d,p5d,p4d,
+      subroutine ref_sd_t_s1_8(h3d,h2d,h1d,p6d,p5d,p4d,
      2               triplesx,t1sub,v2sub)
       IMPLICIT NONE
       integer h3d,h2d,h1d,p6d,p5d,p4d
@@ -201,7 +201,7 @@ c
       return
       end
 c
-      subroutine sd_t_s1_9(h3d,h2d,h1d,p6d,p5d,p4d,
+      subroutine ref_sd_t_s1_9(h3d,h2d,h1d,p6d,p5d,p4d,
      2               triplesx,t1sub,v2sub)
       IMPLICIT NONE
       integer h3d,h2d,h1d,p6d,p5d,p4d
@@ -226,7 +226,7 @@ c
       return
       end
 c
-      subroutine sd_t_d1_1(h3d,h2d,h1d,p6d,p5d,p4d,h7d,
+      subroutine ref_sd_t_d1_1(h3d,h2d,h1d,p6d,p5d,p4d,h7d,
      2               triplesx,t2sub,v2sub)
       IMPLICIT NONE
       integer h3d,h2d,h1d,p6d,p5d,p4d,h7d
@@ -253,7 +253,7 @@ c
       return
       end
 c
-      subroutine sd_t_d1_2(h3d,h2d,h1d,p6d,p5d,p4d,h7d,
+      subroutine ref_sd_t_d1_2(h3d,h2d,h1d,p6d,p5d,p4d,h7d,
      2               triplesx,t2sub,v2sub)
       IMPLICIT NONE
       integer h3d,h2d,h1d,p6d,p5d,p4d,h7d
@@ -280,7 +280,7 @@ c
       return
       end
 c
-      subroutine sd_t_d1_3(h3d,h2d,h1d,p6d,p5d,p4d,h7d,
+      subroutine ref_sd_t_d1_3(h3d,h2d,h1d,p6d,p5d,p4d,h7d,
      2               triplesx,t2sub,v2sub)
       IMPLICIT NONE
       integer h3d,h2d,h1d,p6d,p5d,p4d,h7d
@@ -307,7 +307,7 @@ c
       return
       end
 c
-      subroutine sd_t_d1_4(h3d,h2d,h1d,p6d,p5d,p4d,h7d,
+      subroutine ref_sd_t_d1_4(h3d,h2d,h1d,p6d,p5d,p4d,h7d,
      2               triplesx,t2sub,v2sub)
       IMPLICIT NONE
       integer h3d,h2d,h1d,p6d,p5d,p4d,h7d
@@ -334,7 +334,7 @@ c
       return
       end
 c
-      subroutine sd_t_d1_5(h3d,h2d,h1d,p6d,p5d,p4d,h7d,
+      subroutine ref_sd_t_d1_5(h3d,h2d,h1d,p6d,p5d,p4d,h7d,
      2               triplesx,t2sub,v2sub)
       IMPLICIT NONE
       integer h3d,h2d,h1d,p6d,p5d,p4d,h7d
@@ -361,7 +361,7 @@ c
       return
       end
 c
-      subroutine sd_t_d1_6(h3d,h2d,h1d,p6d,p5d,p4d,h7d,
+      subroutine ref_sd_t_d1_6(h3d,h2d,h1d,p6d,p5d,p4d,h7d,
      2               triplesx,t2sub,v2sub)
       IMPLICIT NONE
       integer h3d,h2d,h1d,p6d,p5d,p4d,h7d
@@ -388,7 +388,7 @@ c
       return
       end
 c
-      subroutine sd_t_d1_7(h3d,h2d,h1d,p6d,p5d,p4d,h7d,
+      subroutine ref_sd_t_d1_7(h3d,h2d,h1d,p6d,p5d,p4d,h7d,
      2               triplesx,t2sub,v2sub)
       IMPLICIT NONE
       integer h3d,h2d,h1d,p6d,p5d,p4d,h7d
@@ -415,7 +415,7 @@ c
       return
       end
 c
-      subroutine sd_t_d1_8(h3d,h2d,h1d,p6d,p5d,p4d,h7d,
+      subroutine ref_sd_t_d1_8(h3d,h2d,h1d,p6d,p5d,p4d,h7d,
      2               triplesx,t2sub,v2sub)
       IMPLICIT NONE
       integer h3d,h2d,h1d,p6d,p5d,p4d,h7d
@@ -442,7 +442,7 @@ c
       return
       end
 c
-      subroutine sd_t_d1_9(h3d,h2d,h1d,p6d,p5d,p4d,h7d,
+      subroutine ref_sd_t_d1_9(h3d,h2d,h1d,p6d,p5d,p4d,h7d,
      2               triplesx,t2sub,v2sub)
       IMPLICIT NONE
       integer h3d,h2d,h1d,p6d,p5d,p4d,h7d
@@ -469,7 +469,7 @@ c
       return
       end
 c
-      subroutine sd_t_d2_1(h3d,h2d,h1d,p6d,p5d,p4d,p7d,
+      subroutine ref_sd_t_d2_1(h3d,h2d,h1d,p6d,p5d,p4d,p7d,
      2               triplesx,t2sub,v2sub)
       IMPLICIT NONE
       integer h3d,h2d,h1d,p6d,p5d,p4d,p7d
@@ -496,7 +496,7 @@ c
       return
       end
 c
-      subroutine sd_t_d2_2(h3d,h2d,h1d,p6d,p5d,p4d,p7d,
+      subroutine ref_sd_t_d2_2(h3d,h2d,h1d,p6d,p5d,p4d,p7d,
      2               triplesx,t2sub,v2sub)
       IMPLICIT NONE
       integer h3d,h2d,h1d,p6d,p5d,p4d,p7d
@@ -523,7 +523,7 @@ c
       return
       end
 c
-      subroutine sd_t_d2_3(h3d,h2d,h1d,p6d,p5d,p4d,p7d,
+      subroutine ref_sd_t_d2_3(h3d,h2d,h1d,p6d,p5d,p4d,p7d,
      2               triplesx,t2sub,v2sub)
       IMPLICIT NONE
       integer h3d,h2d,h1d,p6d,p5d,p4d,p7d
@@ -550,7 +550,7 @@ c
       return
       end
 c
-      subroutine sd_t_d2_4(h3d,h2d,h1d,p6d,p5d,p4d,p7d,
+      subroutine ref_sd_t_d2_4(h3d,h2d,h1d,p6d,p5d,p4d,p7d,
      2               triplesx,t2sub,v2sub)
       IMPLICIT NONE
       integer h3d,h2d,h1d,p6d,p5d,p4d,p7d
@@ -577,7 +577,7 @@ c
       return
       end
 c
-      subroutine sd_t_d2_5(h3d,h2d,h1d,p6d,p5d,p4d,p7d,
+      subroutine ref_sd_t_d2_5(h3d,h2d,h1d,p6d,p5d,p4d,p7d,
      2               triplesx,t2sub,v2sub)
       IMPLICIT NONE
       integer h3d,h2d,h1d,p6d,p5d,p4d,p7d
@@ -604,7 +604,7 @@ c
       return
       end
 c
-      subroutine sd_t_d2_6(h3d,h2d,h1d,p6d,p5d,p4d,p7d,
+      subroutine ref_sd_t_d2_6(h3d,h2d,h1d,p6d,p5d,p4d,p7d,
      2               triplesx,t2sub,v2sub)
       IMPLICIT NONE
       integer h3d,h2d,h1d,p6d,p5d,p4d,p7d
@@ -631,7 +631,7 @@ c
       return
       end
 c
-      subroutine sd_t_d2_7(h3d,h2d,h1d,p6d,p5d,p4d,p7d,
+      subroutine ref_sd_t_d2_7(h3d,h2d,h1d,p6d,p5d,p4d,p7d,
      2               triplesx,t2sub,v2sub)
       IMPLICIT NONE
       integer h3d,h2d,h1d,p6d,p5d,p4d,p7d
@@ -658,7 +658,7 @@ c
       return
       end
 c
-      subroutine sd_t_d2_8(h3d,h2d,h1d,p6d,p5d,p4d,p7d,
+      subroutine ref_sd_t_d2_8(h3d,h2d,h1d,p6d,p5d,p4d,p7d,
      2               triplesx,t2sub,v2sub)
       IMPLICIT NONE
       integer h3d,h2d,h1d,p6d,p5d,p4d,p7d
@@ -685,7 +685,7 @@ c
       return
       end
 c
-      subroutine sd_t_d2_9(h3d,h2d,h1d,p6d,p5d,p4d,p7d,
+      subroutine ref_sd_t_d2_9(h3d,h2d,h1d,p6d,p5d,p4d,p7d,
      2               triplesx,t2sub,v2sub)
       IMPLICIT NONE
       integer h3d,h2d,h1d,p6d,p5d,p4d,p7d

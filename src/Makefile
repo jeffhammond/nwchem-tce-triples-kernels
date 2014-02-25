@@ -3,7 +3,7 @@
 CC       = gcc
 #CC       = icc
 ACTIVE   = -DDO_S1 -DDO_D1 -DDO_D2
-ACTIVE   = -DDO_D1
+#ACTIVE   = -DDO_D1
 CFLAGS   = -O2 -fopenmp -std=c99 $(TARGET_FLAGS) $(REPORT) $(ACTIVE)
 #CFLAGS   = -O2 -openmp -std=c99 $(TARGET_FLAGS) $(REPORT) $(ACTIVE)
 
@@ -19,7 +19,7 @@ LDFLAGS  = $(COPT) $(CFLAGS)
 #LIBS	 = -mkl
 
 TESTS := test_ccsd_t.x
-OBJECTS := ccsd_t_kernels_clean.o safemalloc.o
+OBJECTS := ccsd_t_kernels.o ccsd_t_kernels_clean.o safemalloc.o
 HEADERS := ccsd_t_kernels.h safemalloc.h
 
 all: $(TESTS)
