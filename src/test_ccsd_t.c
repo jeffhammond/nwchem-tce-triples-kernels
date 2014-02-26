@@ -544,7 +544,6 @@ int main(int argc, char * argv[])
 #endif
 
 #ifdef DO_D1
-#error NOT IMPLEMENTED
         tt0 = omp_get_wtime();
         f2c_sd_t_d1_1_(&tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, t3c, t2, v2);
         tt1 = omp_get_wtime();
@@ -603,7 +602,6 @@ int main(int argc, char * argv[])
 #endif
 
 #ifdef DO_D2
-#error NOT IMPLEMENTED
         tt0 = omp_get_wtime();
         f2c_sd_t_d2_1_(&tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, t3c, t2, v2);
         tt1 = omp_get_wtime();
