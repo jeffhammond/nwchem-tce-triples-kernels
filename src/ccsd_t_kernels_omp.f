@@ -813,11 +813,11 @@ c
 !$omp  parallel do collapse(4)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,p7)
-      do p4=1,p4d
       do p5=1,p5d
       do p6=1,p6d
-      do h3=1,h3d
       do h1=1,h1d
+      do p4=1,p4d
+      do h3=1,h3d
 !dir$ loop count min(8)
 !dec$ unroll_and_jam = 8
       do h2=1,h2d
@@ -849,11 +849,11 @@ c
 !$omp  parallel do collapse(4)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,p7)
-      do p4=1,p4d
       do p5=1,p5d
       do p6=1,p6d
       do h1=1,h1d
       do h3=1,h3d
+      do p4=1,p4d
 !dir$ loop count min(8)
 !dec$ unroll_and_jam = 8
       do h2=1,h2d
