@@ -316,6 +316,10 @@ int main(int argc, char * argv[])
     double e3 = diff_array(tile4, v2, v2);
     double e4 = diff_array(tile6, t3r, t3o);
     printf("differences: t1 = %lf, t2 = %lf, v2 = %lf, t3 = %30.15lf \n", e1, e2, e3, e4);
+    if (fabs(e4)>1e-12) {
+        printf("ERROR!!!\n");
+        exit(1);
+    }
 
     double n1 = norm_array(tile2, t1);
     double n2 = norm_array(tile4, t2);
