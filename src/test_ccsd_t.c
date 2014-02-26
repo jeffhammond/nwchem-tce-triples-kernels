@@ -4,6 +4,7 @@
 #include "safemalloc.h"
 #include "ccsd_t_kernels.h"
 
+double dger_gflops(int m, int n);
 double dgemm_gflops(int m, int n, int k);
 
 void rand_array(long long n, double * a)
@@ -60,12 +61,18 @@ int main(int argc, char * argv[])
     long long tile6    = tile4*tile2;
     long long tile7    = tile6*tilesize;
 
+    double eff_peak = -9999.9;
+    /* approximate achievable peak by
+     * T3(ijk,abc) = T1(i,j)*V(k,abc) */
+    eff_peak = dger_gflops(tilesize*tilesize,
+                           tilesize*tilesize*tilesize*tilesize);
+    printf("DGER  gigaflop/s of your processor is %lf \n", eff_peak);
     /* approximate achievable peak by
      * T3(ijk,abc) = T2(ijk,l)*V(l,abc) */
-    double eff_peak = dgemm_gflops(tilesize*tilesize*tilesize,
-                                   tilesize*tilesize*tilesize,
-                                   tilesize);
-    printf("effective peak gigaflop/s of your processor is %lf \n", eff_peak);
+    eff_peak = dgemm_gflops(tilesize*tilesize*tilesize,
+                            tilesize*tilesize*tilesize,
+                            tilesize);
+    printf("DGEMM gigaflop/s of your processor is %lf \n", eff_peak);
     fflush(stdout);
 
     double tt0, tt1, ttt0, ttt1, dt;
@@ -77,10 +84,14 @@ int main(int argc, char * argv[])
     double * t3r = safemalloc( tile6*sizeof(double) );
     double * t3o = safemalloc( tile6*sizeof(double) );
 
+    tt0 = omp_get_wtime();
     rand_array(tile2, t1);
     rand_array(tile4, t2);
     rand_array(tile4, v2);
+    tt1 = omp_get_wtime();
+    printf("randomized initialization took %lf seconds \n", tt1-tt0);
 
+    tt0 = omp_get_wtime();
     {
         zero_array(tile6, t3r);
 
@@ -120,6 +131,8 @@ int main(int argc, char * argv[])
         ref_sd_t_d2_9_(&tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, t3r, t2, v2);
 #endif
     }
+    tt1 = omp_get_wtime();
+    printf("reference kernel evaluation took %lf seconds \n", tt1-tt0);
 
     for (int i=0; i<2; i++)
     {
@@ -321,9 +334,9 @@ int main(int argc, char * argv[])
         exit(1);
     }
 
-    double n1 = norm_array(tile2, t1);
-    double n2 = norm_array(tile4, t2);
-    double n3 = norm_array(tile4, v2);
+    double n1  = norm_array(tile2, t1);
+    double n2  = norm_array(tile4, t2);
+    double n3  = norm_array(tile4, v2);
     double n4r = norm_array(tile6, t3r);
     double n4o = norm_array(tile6, t3o);
     printf("norm: t1 = %lf, t2 = %lf, v2 = %lf, t3 = %lf, %lf \n", n1, n2, n3, n4r, n4o);
