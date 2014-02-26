@@ -9,8 +9,8 @@ LIBS     = -framework Accelerate
 #FC       = ifort
 #LIBS	 = -mkl
 
-ACTIVE   = -DDO_S1 -DDO_D1 -DDO_D2
-#ACTIVE   = -DDO_D1
+#ACTIVE   = -DDO_S1 -DDO_D1 -DDO_D2
+ACTIVE   = -DDO_S1 -DDO_C_KERNELS
 CFLAGS   = $(OPT) -std=c99 $(TARGET_FLAGS) $(REPORT) $(ACTIVE)
 #CFLAGS   = -O2 -openmp -std=c99 $(TARGET_FLAGS) $(REPORT) $(ACTIVE)
 
