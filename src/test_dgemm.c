@@ -2,21 +2,14 @@
 
 #include "safemalloc.h"
 
-#define DEBUG
-
 void dgemm_(char* , char* ,int* , int* , int* , double* , double* , int* , double* , int* , double* , double* , int* );
 
-/*int main(int argc, char * argv[])*/
-double dgemm_flops(int m, int n, int k)
+double dgemm_gflops(int m, int n, int k)
 {
 #ifdef DEBUG
     printf("testing DGEMM on %d threads with (m,n,k) = (%d,%d,%d) \n", omp_get_max_threads(), m, n, k);
     fflush(stdout);
 #endif
-
-    //int m = ((argc>1) ? atoi(argv[1]) : 400);
-    //int n = ((argc>2) ? atoi(argv[2]) : 400);
-    //int k = ((argc>3) ? atoi(argv[3]) : 400);
 
     int mn = m*n;
     int mk = m*k;
@@ -52,7 +45,7 @@ double dgemm_flops(int m, int n, int k)
             c[i] = 1.0/(1.0+i);
     }
 
-    //for (int i=0; i<2; i++)
+    double result = -9999999.9;
     {
         double alpha;
         double beta;
@@ -68,7 +61,7 @@ double dgemm_flops(int m, int n, int k)
         dt1 = tt1-tt0;
 #ifdef DEBUG
         printf("DGEMM(%c,%c,m=%d,n=%d,k=%d,alpha=%lf,beta=%lf) took %lf seconds, GF/s = %lf \n",
-               'n', 'n', m, n, k, alpha, beta, dt1, 2.0*mnk*1e-9/dt1);
+               'n', 'n', m, n, k, alpha, beta, dt1, 2.0*mnk*1.e-9/dt1);
 #endif
 
         alpha = 1.0;
@@ -80,9 +73,11 @@ double dgemm_flops(int m, int n, int k)
                &beta, c, &rowc);
         tt1 = omp_get_wtime();
         dt2 = tt1-tt0;
+        result = (2.0*mnk*1.e-9/dt2);
 #ifdef DEBUG
         printf("DGEMM(%c,%c,m=%d,n=%d,k=%d,alpha=%lf,beta=%lf) took %lf seconds, GF/s = %lf \n",
-               'n', 'n', m, n, k, alpha, beta, dt2, 2.0*mnk*1e-9/dt2);
+               'n', 'n', m, n, k, alpha, beta, dt2, 2.0*mnk*1.e-9/dt2);
+        printf("result = %lf \n", result);
 #endif
 
         alpha = 0.5;
@@ -96,7 +91,7 @@ double dgemm_flops(int m, int n, int k)
         dt3 = tt1-tt0;
 #ifdef DEBUG
         printf("DGEMM(%c,%c,m=%d,n=%d,k=%d,alpha=%lf,beta=%lf) took %lf seconds, GF/s = %lf \n",
-               'n', 'n', m, n, k, alpha, beta, dt3, 2.0*mnk*1e-9/dt3);
+               'n', 'n', m, n, k, alpha, beta, dt3, 2.0*mnk*1.e-9/dt3);
 #endif
 
         fflush(stdout);
@@ -106,5 +101,5 @@ double dgemm_flops(int m, int n, int k)
     free(b);
     free(a);
 
-    return (2.0*mnk/dt2);
+    return result;
 }
