@@ -1,9 +1,14 @@
 #TARGET_FLAGS = -mmic
 
-OPT = -O2 -fopenmp 
+#OPT      = -O2 -fopenmp 
+#CC       = gcc
+#FC       = gfortran
+#LIBS     = -framework Accelerate
+OPT 	 = -O3 -openmp 
+CC       = icc
+FC       = ifort
+LIBS	 = -mkl
 
-CC       = gcc
-#CC       = icc
 ACTIVE   = -DDO_S1 -DDO_D1 -DDO_D2
 #ACTIVE   = -DDO_D1
 CFLAGS   = $(OPT) -std=c99 $(TARGET_FLAGS) $(REPORT) $(ACTIVE)
@@ -11,15 +16,11 @@ CFLAGS   = $(OPT) -std=c99 $(TARGET_FLAGS) $(REPORT) $(ACTIVE)
 
 CFLAGS += -DFORTRAN_INTEGER_SIZE=4
 
-FC       = gfortran
-#FC       = ifort
 FOPT     = $(OPT)
 FFLAGS   = $(FOPT) $(TARGET_FLAGS) $(REPORT) $(GUIDE)
 
 LD       = $(CC)
 LDFLAGS  = $(COPT) $(CFLAGS)
-LIBS     = -framework Accelerate
-#LIBS	 = -mkl
 
 TESTS := test_ccsd_t.x
 OBJECTS := ccsd_t_kernels_omp.o ccsd_t_kernels_clean.o ccsd_t_kernels_f2c.o safemalloc.o test_dgemm.o
