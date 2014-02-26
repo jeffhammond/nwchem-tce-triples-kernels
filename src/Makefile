@@ -23,13 +23,10 @@ LD       = $(CC)
 LDFLAGS  = $(COPT) $(CFLAGS)
 
 TESTS := test_ccsd_t.x
-OBJECTS := ccsd_t_kernels_omp.o ccsd_t_kernels_clean.o ccsd_t_kernels_f2c.o safemalloc.o test_dgemm.o
+OBJECTS := ccsd_t_kernels_omp.o ccsd_t_kernels_clean.o ccsd_t_kernels_f2c.o safemalloc.o blas_flops.o
 HEADERS := ccsd_t_kernels.h safemalloc.h
 
 all: $(TESTS)
-
-test_dgemm.x: test_dgemm.o safemalloc.o
-	$(LD) $(LDFLAGS) $< safemalloc.o $(LIBS) -o $@
 
 %.x: %.o $(OBJECTS)
 	$(LD) $(LDFLAGS) $< $(OBJECTS) $(LIBS) -o $@
