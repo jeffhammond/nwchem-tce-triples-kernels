@@ -315,22 +315,14 @@ int main(int argc, char * argv[])
     double e2 = diff_array(tile4, t2, t2);
     double e3 = diff_array(tile4, v2, v2);
     double e4 = diff_array(tile6, t3r, t3o);
-
     printf("differences: t1 = %lf, t2 = %lf, v2 = %lf, t3 = %30.15lf \n", e1, e2, e3, e4);
 
-    double n1r = norm_array(tile2, t1);
-    double n2r = norm_array(tile4, t2);
-    double n3r = norm_array(tile4, v2);
+    double n1 = norm_array(tile2, t1);
+    double n2 = norm_array(tile4, t2);
+    double n3 = norm_array(tile4, v2);
     double n4r = norm_array(tile6, t3r);
-
-    printf("norms (r): t1 = %lf, t2 = %lf, v2 = %lf, t3 = %30.15lf \n", n1r, n2r, n3r, n4r);
-
-    double n1o = norm_array(tile2, t1);
-    double n2o = norm_array(tile4, t2);
-    double n3o = norm_array(tile4, v2);
     double n4o = norm_array(tile6, t3o);
-
-    printf("norms (o): t1 = %lf, t2 = %lf, v2 = %lf, t3 = %30.15lf \n", n1o, n2o, n3o, n4o);
+    printf("norms (r): t1 = %lf, t2 = %lf, v2 = %lf, t3 = %30.15lf \n", n1, n2, n3, n4r, n4o);
 
     free(t3o);
     free(t3r);
