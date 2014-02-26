@@ -326,7 +326,7 @@ int main(int argc, char * argv[])
     double n3 = norm_array(tile4, v2);
     double n4r = norm_array(tile6, t3r);
     double n4o = norm_array(tile6, t3o);
-    printf("norms (r): t1 = %lf, t2 = %lf, v2 = %lf, t3 = %30.15lf \n", n1, n2, n3, n4r, n4o);
+    printf("norm: t1 = %lf, t2 = %lf, v2 = %lf, t3 = %lf, %lf \n", n1, n2, n3, n4r, n4o);
 
     free(t3o);
     free(t3r);
