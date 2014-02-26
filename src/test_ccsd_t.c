@@ -4,6 +4,8 @@
 #include "safemalloc.h"
 #include "ccsd_t_kernels.h"
 
+double dgemm_flops(int m, int n, int k);
+
 void zero_arrays(int tilesize, double * t1, double * t2, double * v2, double * t3)
 {
     long long tile2    = tilesize*tilesize;
@@ -56,12 +58,19 @@ int main(int argc, char * argv[])
     int tilesize = ((argc>1) ? atoi(argv[1]) : 10);
 
     printf("testing NWChem CCSD(T) kernels on %d threads with tilesize %d \n", omp_get_max_threads(), tilesize);
-    fflush(stdout);
 
     long long tile2    = tilesize*tilesize;
     long long tile4    = tile2*tile2;
     long long tile6    = tile4*tile2;
     long long tile7    = tile6*tilesize;
+
+    /* approximate achievable peak by
+     * T3(ijk,abc) = T2(ijk,l)*V(l,abc) */
+    double eff_peak = dgemm_flops(tilesize*tilesize*tilesize,
+                                  tilesize*tilesize*tilesize,
+                                  tilesize);
+    printf("effective peak flop/s of your processor is %lf \n", eff_peak);
+    fflush(stdout);
 
     double tt0, tt1, ttt0, ttt1, dt;
 
