@@ -1,13 +1,13 @@
 #TARGET_FLAGS = -mmic
 
-#OPT      = -O2 -fopenmp 
-#CC       = gcc
-#FC       = gfortran
-#LIBS     = -framework Accelerate
-OPT 	 = -O3 -openmp 
-CC       = icc
-FC       = ifort
-LIBS	 = -mkl
+OPT      = -O2 -fopenmp
+CC       = gcc
+FC       = gfortran
+LIBS     = -framework Accelerate
+#OPT 	 = -O3 -openmp
+#CC       = icc
+#FC       = ifort
+#LIBS	 = -mkl
 
 ACTIVE   = -DDO_S1 -DDO_D1 -DDO_D2
 #ACTIVE   = -DDO_D1
