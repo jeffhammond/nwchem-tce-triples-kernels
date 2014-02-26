@@ -55,7 +55,7 @@ double diff_array(long long n, const double * a, const double * b)
 
 int main(int argc, char * argv[])
 {
-    int tilesize = ((argc>1) ? atoi(argv[1]) : 10);
+    int tilesize = ((argc>1) ? atoi(argv[1]) : 20);
 
     printf("testing NWChem CCSD(T) kernels on %d threads with tilesize %d \n", omp_get_max_threads(), tilesize);
 

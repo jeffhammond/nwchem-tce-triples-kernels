@@ -1,6 +1,6 @@
 #TARGET_FLAGS = -mmic
 
-OPT = -O2 -fopenmp -g
+OPT = -O2 -fopenmp 
 
 CC       = gcc
 #CC       = icc
