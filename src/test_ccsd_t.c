@@ -673,9 +673,14 @@ int main(int argc, char * argv[])
     double e2 = diff_array(tile4, t2, t2);
     double e3 = diff_array(tile4, v2, v2);
     double e4 = diff_array(tile6, t3r, t3o);
+#if DO_C_KERNELS
     double e5 = diff_array(tile6, t3r, t3c);
+#else
+    double e5 = 0.0;
+#endif // DO_C_KERNELS
+
     printf("differences: t1 = %lf, t2 = %lf, v2 = %lf, t3o = %30.15lf, t3c = %30.15lf \n", e1, e2, e3, e4, e5);
-    if (fabs(e4)>1.e-7 || fabs(e5)>1.e-7) {
+    if ( fabs(e4)>1.e-7 || fabs(e5)>1.e-7) {
         printf("ERROR!!!\n");
         exit(1);
     }
@@ -686,6 +691,7 @@ int main(int argc, char * argv[])
     double n4r = norm_array(tile6, t3r);
     double n4o = norm_array(tile6, t3o);
     double n4c = norm_array(tile6, t3c);
+
     printf("norm: t1 = %lf, t2 = %lf, v2 = %lf, t3 = %lf, %lf, %lf \n", n1, n2, n3, n4r, n4o, n4c);
 
     free(t3c);

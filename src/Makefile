@@ -4,16 +4,17 @@
 #CC       = gcc
 #FC       = gfortran
 #LIBS     = -framework Accelerate
-OPT 	 = -O3 -openmp -fno-alias
+OPT 	 = -O3 -openmp -fno-alias -mavx -multiple-processes=8
 ASM      = -S -fsource-asm -fcode-asm
-REPORT   = -vec-report2 -opt-report2 -guide
+#REPORT   = -guide -parallel
+#REPORT   = -vec-report2 -opt-report2
 CC       = icc
 FC       = ifort
 LIBS	 = -mkl=parallel
 
 LD       = $(CC)
 
-ACTIVE   = -DDO_S1 -DDO_D1 -DDO_D2 -DDO_C_KERNELS
+ACTIVE   = -DDO_S1 -DDO_D1 -DDO_D2 #-DDO_C_KERNELS
 
 CFLAGS   = $(OPT) -std=c99 $(TARGET_FLAGS) $(ACTIVE) $(REPORT)
 FFLAGS   = $(OPT) $(TARGET_FLAGS) $(REPORT) $(GUIDE)

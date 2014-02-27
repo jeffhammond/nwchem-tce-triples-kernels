@@ -16,10 +16,10 @@ c
       do p5=1,p5d
       do p6=1,p6d
       do h1=1,h1d
-!dir$ loop count min(8)
+!!!dir$ loop count min(8) 
 !dec$ unroll_and_jam = 8
       do h2=1,h2d
-!dir$ loop count min(8)
+!!!dir$ loop count min(8) 
 !dec$ unroll_and_jam = 8
 !dec$ vector always nontemporal
 !dir$ simd
@@ -51,11 +51,11 @@ c
       do p5=1,p5d
       do p6=1,p6d
       do h2=1,h2d
-!dir$ loop count min(8)
-!dir$ loop count min(8)
+!!!dir$ loop count min(8) 
+!!!dir$ loop count min(8) 
 !dec$ unroll_and_jam = 8
       do h1=1,h1d
-!dir$ loop count min(8)
+!!!dir$ loop count min(8) 
 !dec$ unroll_and_jam = 8
 !dec$ vector always nontemporal
 !dir$ simd
@@ -88,10 +88,10 @@ c
       do p5=1,p5d
       do p6=1,p6d
       do h2=1,h2d
-!dir$ loop count min(8)
+!!!dir$ loop count min(8) 
 !dec$ unroll_and_jam = 8
       do h3=1,h3d
-!dir$ loop count min(8)
+!!!dir$ loop count min(8) 
 !dec$ unroll_and_jam = 8
 !dec$ vector always nontemporal
 !dir$ simd
@@ -124,10 +124,10 @@ c
       do p4=1,p4d
       do p6=1,p6d
       do h1=1,h1d
-!dir$ loop count min(8)
+!!!dir$ loop count min(8) 
 !dec$ unroll_and_jam = 8
       do h2=1,h2d
-!dir$ loop count min(8)
+!!!dir$ loop count min(8) 
 !dec$ unroll_and_jam = 8
 !dec$ vector always nontemporal
 !dir$ simd
@@ -160,10 +160,10 @@ c
       do p4=1,p4d
       do p6=1,p6d
       do h2=1,h2d
-!dir$ loop count min(8)
+!!!dir$ loop count min(8) 
 !dec$ unroll_and_jam = 8
       do h1=1,h1d
-!dir$ loop count min(8)
+!!!dir$ loop count min(8) 
 !dec$ unroll_and_jam = 8
 !dec$ vector always nontemporal
 !dir$ simd
@@ -196,10 +196,10 @@ c
       do p4=1,p4d
       do p6=1,p6d
       do h2=1,h2d
-!dir$ loop count min(8)
+!!!dir$ loop count min(8) 
 !dec$ unroll_and_jam = 8
       do h3=1,h3d
-!dir$ loop count min(8)
+!!!dir$ loop count min(8) 
 !dec$ unroll_and_jam = 8
 !dec$ vector always nontemporal
 !dir$ simd
@@ -232,10 +232,10 @@ c
 !!!dir$ prefetch t1sub
       do p4=1,p4d
       do h1=1,h1d
-!dir$ loop count min(8)
+!!!dir$ loop count min(8) 
 !dec$ unroll_and_jam = 8
       do h2=1,h2d
-!dir$ loop count min(8)
+!!!dir$ loop count min(8) 
 !dec$ unroll_and_jam = 8
 !dec$ vector always nontemporal
 !dir$ simd
@@ -268,9 +268,9 @@ c
 !!!dir$ prefetch t1sub
       do p4=1,p4d
       do h2=1,h2d
-!dir$ loop count min(8)
+!!!dir$ loop count min(8) 
       do h1=1,h1d
-!dir$ loop count min(8)
+!!!dir$ loop count min(8) 
 !dec$ unroll_and_jam = 8
 !dec$ vector always nontemporal
 !dir$ simd
@@ -303,9 +303,9 @@ c
 !!!dir$ prefetch t1sub
       do p4=1,p4d
       do h2=1,h2d
-!dir$ loop count min(8)
+!!!dir$ loop count min(8) 
       do h3=1,h3d
-!dir$ loop count min(8)
+!!!dir$ loop count min(8) 
 !dec$ unroll_and_jam = 8
 !dec$ vector always nontemporal
 !dir$ simd
@@ -331,12 +331,14 @@ c
       double precision t2sub(h7d,p4d,p5d,h1d)
       double precision v2sub(h3d,h2d,p6d,h7d)
       double precision v2tmp(h7d,h3d,h2d,p6d)
-!$omp  parallel do collapse(4)
+!$omp  parallel do 
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
       do p6=1,p6d
       do h7=1,h7d
       do h2=1,h2d
+!dec$ vector always nontemporal
+!dir$ simd
       do h3=1,h3d
         v2tmp(h7,h3,h2,p6) = v2sub(h3,h2,p6,h7)
       enddo
@@ -350,13 +352,13 @@ c
       do p6=1,p6d
       do p4=1,p4d
       do h1=1,h1d
-!dir$ loop count min(8)
+!!!dir$ loop count min(8) 
 !dec$ unroll_and_jam = 8
       do h2=1,h2d
-!dir$ loop count min(8)
+!!!dir$ loop count min(8) 
 !dec$ unroll_and_jam = 8
       do h3=1,h3d
-!dir$ loop count min(8)
+!!!dir$ loop count min(8) 
 !dec$ unroll_and_jam = 8
 !dir$ simd
       do h7=1,h7d
@@ -382,7 +384,7 @@ c
       double precision t2sub(h7d,p4d,p5d,h1d)
       double precision v2sub(h3d,h2d,p6d,h7d)
       double precision v2tmp(h7d,h3d,h2d,p6d)
-!$omp  parallel do collapse(4)
+!$omp  parallel do 
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
       do p6=1,p6d
@@ -402,10 +404,10 @@ c
       do p6=1,p6d
       do h2=1,h2d
       do h1=1,h1d
-!dir$ loop count min(8)
+!!!dir$ loop count min(8) 
 !dec$ unroll_and_jam = 8
       do h3=1,h3d
-!dir$ loop count min(8)
+!!!dir$ loop count min(8) 
 !dec$ unroll_and_jam = 8
 !dir$ simd
       do h7=1,h7d
@@ -431,7 +433,7 @@ c
       double precision t2sub(h7d,p4d,p5d,h1d)
       double precision v2sub(h3d,h2d,p6d,h7d)
       double precision v2tmp(h7d,h3d,h2d,p6d)
-!$omp  parallel do collapse(4)
+!$omp  parallel do 
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
       do p6=1,p6d
@@ -451,10 +453,10 @@ c
       do p6=1,p6d
       do h2=1,h2d
       do h3=1,h3d
-!dir$ loop count min(8)
+!!!dir$ loop count min(8) 
 !dec$ unroll_and_jam = 8
       do h1=1,h1d
-!dir$ loop count min(8)
+!!!dir$ loop count min(8) 
 !dec$ unroll_and_jam = 8
 !dir$ simd
       do h7=1,h7d
@@ -480,7 +482,7 @@ c
       double precision t2sub(h7d,p4d,p5d,h1d)
       double precision v2sub(h3d,h2d,p6d,h7d)
       double precision v2tmp(h7d,h3d,h2d,p6d)
-!$omp  parallel do collapse(4)
+!$omp  parallel do 
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
       do p6=1,p6d
@@ -501,10 +503,10 @@ c
       do h1=1,h1d
       do h2=1,h2d
       do p4=1,p4d ! this loop used to be between p6 and p5
-!dir$ loop count min(8)
+!!!dir$ loop count min(8) 
 !dec$ unroll_and_jam = 8
       do h3=1,h3d
-!dir$ loop count min(8)
+!!!dir$ loop count min(8) 
 !dec$ unroll_and_jam = 8
 !dir$ simd
       do h7=1,h7d
@@ -530,7 +532,7 @@ c
       double precision t2sub(h7d,p4d,p5d,h1d)
       double precision v2sub(h3d,h2d,p6d,h7d)
       double precision v2tmp(h7d,h3d,h2d,p6d)
-!$omp  parallel do collapse(4)
+!$omp  parallel do 
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
       do p6=1,p6d
@@ -550,10 +552,10 @@ c
       do p5=1,p5d
       do h2=1,h2d
       do h1=1,h1d
-!dir$ loop count min(8)
+!!!dir$ loop count min(8) 
 !dec$ unroll_and_jam = 8
       do h3=1,h3d
-!dir$ loop count min(8)
+!!!dir$ loop count min(8) 
 !dec$ unroll_and_jam = 8
 !dir$ simd
       do h7=1,h7d
@@ -579,7 +581,7 @@ c
       double precision t2sub(h7d,p4d,p5d,h1d)
       double precision v2sub(h3d,h2d,p6d,h7d)
       double precision v2tmp(h7d,h3d,h2d,p6d)
-!$omp  parallel do collapse(4)
+!$omp  parallel do 
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
       do p6=1,p6d
@@ -599,10 +601,10 @@ c
       do p5=1,p5d
       do h2=1,h2d
       do h3=1,h3d
-!dec$ loop count min(8), avg(16), max(32)
+!dec$ loop count min(8)
 !dec$ unroll_and_jam = 8
       do h1=1,h1d
-!dec$ loop count min(8), avg(16), max(32)
+!dec$ loop count min(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd
       do h7=1,h7d
@@ -628,7 +630,7 @@ c
       double precision t2sub(h7d,p4d,p5d,h1d)
       double precision v2sub(h3d,h2d,p6d,h7d)
       double precision v2tmp(h7d,h3d,h2d,p6d)
-!$omp  parallel do collapse(4)
+!$omp  parallel do
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
       do p6=1,p6d
@@ -648,10 +650,10 @@ c
       do p5=1,p5d
       do h1=1,h1d
       do h2=1,h2d
-!dir$ loop count min(8)
+!!!dir$ loop count min(8) 
 !dec$ unroll_and_jam = 8
       do h3=1,h3d
-!dir$ loop count min(8)
+!!!dir$ loop count min(8) 
 !dec$ unroll_and_jam = 8
 !dir$ simd
       do h7=1,h7d
@@ -677,7 +679,7 @@ c
       double precision t2sub(h7d,p4d,p5d,h1d)
       double precision v2sub(h3d,h2d,p6d,h7d)
       double precision v2tmp(h7d,h3d,h2d,p6d)
-!$omp  parallel do collapse(4)
+!$omp  parallel do
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
       do p6=1,p6d
@@ -697,10 +699,10 @@ c
       do p5=1,p5d
       do h2=1,h2d
       do h1=1,h1d
-!dir$ loop count min(8)
+!!!dir$ loop count min(8) 
 !dec$ unroll_and_jam = 8
       do h3=1,h3d
-!dir$ loop count min(8)
+!!!dir$ loop count min(8) 
 !dec$ unroll_and_jam = 8
 !dir$ simd
       do h7=1,h7d
@@ -726,7 +728,7 @@ c
       double precision t2sub(h7d,p4d,p5d,h1d)
       double precision v2sub(h3d,h2d,p6d,h7d)
       double precision v2tmp(h7d,h3d,h2d,p6d)
-!$omp  parallel do collapse(4)
+!$omp  parallel do
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
       do p6=1,p6d
@@ -745,11 +747,11 @@ c
       do p6=1,p6d
       do p5=1,p5d
       do h2=1,h2d
-!dir$ loop count min(8)
+!!!dir$ loop count min(8) 
 !dec$ unroll_and_jam = 8
       do h1=1,h1d
       do h3=1,h3d
-!dir$ loop count min(8)
+!!!dir$ loop count min(8) 
 !dec$ unroll_and_jam = 8
 !dir$ simd
       do h7=1,h7d
@@ -782,10 +784,10 @@ c
       do p6=1,p6d
       do h1=1,h1d
       do h2=1,h2d
-!dir$ loop count min(8)
+!!!dir$ loop count min(8) 
 !dec$ unroll_and_jam = 8
       do h3=1,h3d
-!dir$ loop count min(8)
+!!!dir$ loop count min(8) 
 !dec$ unroll_and_jam = 8
 !dir$ simd
       do p7=1,p7d
@@ -818,10 +820,10 @@ c
       do h1=1,h1d
       do p4=1,p4d
       do h3=1,h3d
-!dir$ loop count min(8)
+!!!dir$ loop count min(8) 
 !dec$ unroll_and_jam = 8
       do h2=1,h2d
-!dir$ loop count min(8)
+!!!dir$ loop count min(8) 
 !dec$ unroll_and_jam = 8
 !dir$ simd
       do p7=1,p7d
@@ -852,12 +854,12 @@ c
       do p5=1,p5d
       do p6=1,p6d
       do h1=1,h1d
-      do h3=1,h3d
       do p4=1,p4d
-!dir$ loop count min(8)
+      do h3=1,h3d
+!!!dir$ loop count min(8) 
 !dec$ unroll_and_jam = 8
       do h2=1,h2d
-!dir$ loop count min(8)
+!!!dir$ loop count min(8) 
 !dec$ unroll_and_jam = 8
 !dir$ simd
       do p7=1,p7d
@@ -890,10 +892,10 @@ c
       do p6=1,p6d
       do h1=1,h1d
       do h2=1,h2d
-!dir$ loop count min(8)
+!!!dir$ loop count min(8) 
 !dec$ unroll_and_jam = 8
       do h3=1,h3d
-!dir$ loop count min(8)
+!!!dir$ loop count min(8) 
 !dec$ unroll_and_jam = 8
 !dir$ simd
       do p7=1,p7d
@@ -925,11 +927,11 @@ c
       do p4=1,p4d
       do p6=1,p6d
       do h1=1,h1d
-!dir$ loop count min(8)
+!!!dir$ loop count min(8) 
 !dec$ unroll_and_jam = 8
       do h2=1,h2d
       do h3=1,h3d
-!dir$ loop count min(8)
+!!!dir$ loop count min(8) 
 !dec$ unroll_and_jam = 8
 !dir$ simd
       do p7=1,p7d
@@ -962,10 +964,10 @@ c
       do p6=1,p6d
       do h1=1,h1d
       do h3=1,h3d
-!dir$ loop count min(8)
+!!!dir$ loop count min(8) 
 !dec$ unroll_and_jam = 8
       do h2=1,h2d
-!dir$ loop count min(8)
+!!!dir$ loop count min(8) 
 !dec$ unroll_and_jam = 8
 !dir$ simd
       do p7=1,p7d
@@ -998,10 +1000,10 @@ c
       do p4=1,p4d
       do h1=1,h1d
       do h2=1,h2d
-!dir$ loop count min(8)
+!!!dir$ loop count min(8) 
 !dec$ unroll_and_jam = 8
       do h3=1,h3d
-!dir$ loop count min(8)
+!!!dir$ loop count min(8) 
 !dec$ unroll_and_jam = 8
 !dir$ simd
       do p7=1,p7d
@@ -1035,10 +1037,10 @@ c
 !      do h3=1,h3d
       do h1=1,h1d
       do h3=1,h3d
-!dir$ loop count min(8)
+!!!dir$ loop count min(8) 
 !dec$ unroll_and_jam = 8
       do h2=1,h2d
-!dir$ loop count min(8)
+!!!dir$ loop count min(8) 
 !dec$ unroll_and_jam = 8
 !dir$ simd
       do p7=1,p7d
@@ -1071,10 +1073,10 @@ c
       do h1=1,h1d
       do h2=1,h2d
       do p4=1,p4d
-!dir$ loop count min(8)
+!!!dir$ loop count min(8) 
 !dec$ unroll_and_jam = 8
       do h3=1,h3d
-!dir$ loop count min(8)
+!!!dir$ loop count min(8) 
 !dec$ unroll_and_jam = 8
 !dir$ simd
       do p7=1,p7d
