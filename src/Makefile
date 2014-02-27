@@ -1,18 +1,18 @@
-#TARGET_FLAGS = -mmic 
+#TARGET_FLAGS = -mmic
 
-#OPT      = -O2 -fopenmp
-#CC       = gcc
-#FC       = gfortran
-#LIBS     = -framework Accelerate
-OPT 	 = -O3 -openmp -fno-alias -mavx -multiple-processes=8
-ASM      = -S -fsource-asm -fcode-asm
+OPT      = -O3 -fopenmp -march=native -mno-avx
+CC       = gcc
+FC       = gfortran
+LD       = clang -L/usr/local/Cellar/gfortran/4.8.2/gfortran/lib
+LIBS     = -framework Accelerate
+#OPT 	 = -O3 -openmp -fno-alias -mavx -multiple-processes=8
+#ASM      = -S -fsource-asm -fcode-asm
 #REPORT   = -guide -parallel
 #REPORT   = -vec-report2 -opt-report2
-CC       = icc
-FC       = ifort
-LIBS	 = -mkl=parallel
-
-LD       = $(CC)
+#CC       = icc
+#FC       = ifort
+#LD       = $(CC)
+#LIBS	 = -mkl=parallel
 
 ACTIVE   = -DDO_S1 -DDO_D1 -DDO_D2 #-DDO_C_KERNELS
 
