@@ -1,10 +1,13 @@
 #TARGET_FLAGS = -mmic
 
+# JEFF'S MAC
 OPT      = -O3 -fopenmp -march=native -mno-avx
 CC       = gcc
 FC       = gfortran
 LD       = clang -L/usr/local/Cellar/gfortran/4.8.2/gfortran/lib
 LIBS     = -framework Accelerate
+
+# INTEL WORKSTATION (protos.mcs.anl.gov)
 #OPT 	 = -O3 -openmp -fno-alias -mavx -multiple-processes=8
 #ASM      = -S -fsource-asm -fcode-asm
 #REPORT   = -guide -parallel
