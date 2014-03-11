@@ -1,8 +1,22 @@
+ACTIVE   = -DDO_S1 -DDO_D1 -DDO_D2 #-DDO_C_KERNELS
+
+ifeq ($(TARGET),CLANG)
+    CC       = clang
+    FC       = gfortran
+    OPT      = -O3 -march=native -mno-avx
+    CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
+    FFLAGS   = $(OPT)
+    CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
+    LD       = clang -L/usr/local/Cellar/gfortran/4.8.2/gfortran/lib
+    LDFLAGS  = $(CFLAGS)
+    LIBS     = -framework Accelerate
+endif
+
 ifeq ($(TARGET),MAC)
     CC       = gcc
     FC       = gfortran
     OPT      = -O3 -fopenmp -march=native -mno-avx
-    CFLAGS   = $(OPT) -std=c99
+    CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
     FFLAGS   = $(OPT)
     CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
     LD       = clang -L/usr/local/Cellar/gfortran/4.8.2/gfortran/lib
@@ -26,8 +40,6 @@ ifeq ($(TARGET),INTEL)
     LDFLAGS  = $(CFLAGS)
     LIBS     = -mkl=parallel
 endif
-
-ACTIVE   = -DDO_S1 -DDO_D1 -DDO_D2 #-DDO_C_KERNELS
 
 TESTS   := test_ccsd_t.x
 OBJECTS := ccsd_t_kernels_omp.o ccsd_t_kernels_ref.o ccsd_t_kernels_f2c.o blas_flops.o
