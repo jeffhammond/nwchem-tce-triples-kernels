@@ -1,6 +1,6 @@
-ACTIVE   = -DDO_S1 -DDO_D1 -DDO_D2 #-DDO_C_KERNELS
+ACTIVE   = -DDO_S1 -DDO_D1 -DDO_D2 -DDO_C_KERNELS
 
-ifeq ($(TARGET),CLANG)
+ifeq ($(TARGET),MAC-CLANG)
     CC       = clang
     FC       = gfortran
     OPT      = -O3 -march=native -mno-avx
