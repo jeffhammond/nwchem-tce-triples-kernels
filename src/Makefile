@@ -30,8 +30,8 @@ endif
 ACTIVE   = -DDO_S1 -DDO_D1 -DDO_D2 #-DDO_C_KERNELS
 
 TESTS   := test_ccsd_t.x
-OBJECTS := ccsd_t_kernels_omp.o ccsd_t_kernels_clean.o ccsd_t_kernels_f2c.o blas_flops.o
-HEADERS := ccsd_t_kernels.h safemalloc.h
+OBJECTS := ccsd_t_kernels_omp.o ccsd_t_kernels_ref.o ccsd_t_kernels_f2c.o blas_flops.o
+HEADERS := ccsd_t_kernels_omp.h ccsd_t_kernels_ref.h ccsd_t_kernels_f2c.h safemalloc.h
 
 all: $(TESTS)
 

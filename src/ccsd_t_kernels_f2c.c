@@ -8,7 +8,7 @@
 
 void f2c_sd_t_s1_1_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
-                    double * restrict t3, double * restrict t1, double * restrict v2)
+                    double * restrict t3, const double * restrict t1, const double * restrict v2)
 {
     const int h1u = (int)(*h1d);
     const int h2u = (int)(*h2d);
@@ -29,7 +29,7 @@ void f2c_sd_t_s1_1_(fint * h3d, fint * h2d, fint * h1d,
 
 void f2c_sd_t_s1_2_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
-                    double * restrict t3, double * restrict t1, double * restrict v2)
+                    double * restrict t3, const double * restrict t1, const double * restrict v2)
 {
     const int h1u = (int)(*h1d);
     const int h2u = (int)(*h2d);
@@ -50,7 +50,7 @@ void f2c_sd_t_s1_2_(fint * h3d, fint * h2d, fint * h1d,
 
 void f2c_sd_t_s1_3_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
-                    double * restrict t3, double * restrict t1, double * restrict v2)
+                    double * restrict t3, const double * restrict t1, const double * restrict v2)
 {
     const int h1u = (int)(*h1d);
     const int h2u = (int)(*h2d);
@@ -71,7 +71,7 @@ void f2c_sd_t_s1_3_(fint * h3d, fint * h2d, fint * h1d,
 
 void f2c_sd_t_s1_4_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
-                    double * restrict t3, double * restrict t1, double * restrict v2)
+                    double * restrict t3, const double * restrict t1, const double * restrict v2)
 {
     const int h1u = (int)(*h1d);
     const int h2u = (int)(*h2d);
@@ -92,7 +92,7 @@ void f2c_sd_t_s1_4_(fint * h3d, fint * h2d, fint * h1d,
 
 void f2c_sd_t_s1_5_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
-                    double * restrict t3, double * restrict t1, double * restrict v2)
+                    double * restrict t3, const double * restrict t1, const double * restrict v2)
 {
     const int h1u = (int)(*h1d);
     const int h2u = (int)(*h2d);
@@ -113,7 +113,7 @@ void f2c_sd_t_s1_5_(fint * h3d, fint * h2d, fint * h1d,
 
 void f2c_sd_t_s1_6_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
-                    double * restrict t3, double * restrict t1, double * restrict v2)
+                    double * restrict t3, const double * restrict t1, const double * restrict v2)
 {
     const int h1u = (int)(*h1d);
     const int h2u = (int)(*h2d);
@@ -134,7 +134,7 @@ void f2c_sd_t_s1_6_(fint * h3d, fint * h2d, fint * h1d,
 
 void f2c_sd_t_s1_7_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
-                    double * restrict t3, double * restrict t1, double * restrict v2)
+                    double * restrict t3, const double * restrict t1, const double * restrict v2)
 {
     const int h1u = (int)(*h1d);
     const int h2u = (int)(*h2d);
@@ -155,7 +155,7 @@ void f2c_sd_t_s1_7_(fint * h3d, fint * h2d, fint * h1d,
 
 void f2c_sd_t_s1_8_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
-                    double * restrict t3, double * restrict t1, double * restrict v2)
+                    double * restrict t3, const double * restrict t1, const double * restrict v2)
 {
     const int h1u = (int)(*h1d);
     const int h2u = (int)(*h2d);
@@ -176,7 +176,7 @@ void f2c_sd_t_s1_8_(fint * h3d, fint * h2d, fint * h1d,
 
 void f2c_sd_t_s1_9_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
-                    double * restrict t3, double * restrict t1, double * restrict v2)
+                    double * restrict t3, const double * restrict t1, const double * restrict v2)
 {
     const int h1u = (int)(*h1d);
     const int h2u = (int)(*h2d);
@@ -198,7 +198,7 @@ void f2c_sd_t_s1_9_(fint * h3d, fint * h2d, fint * h1d,
 void f2c_sd_t_d1_1_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
                     fint * h7d,
-                    double * restrict t3, double * restrict t2, double * restrict v2)
+                    double * restrict t3, const double * restrict t2, const double * restrict v2)
 {
     const int h1u = (int)(*h1d);
     const int h2u = (int)(*h2d);
@@ -222,7 +222,7 @@ void f2c_sd_t_d1_1_(fint * h3d, fint * h2d, fint * h1d,
 void f2c_sd_t_d1_2_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
                     fint * h7d,
-                    double * restrict t3, double * restrict t2, double * restrict v2)
+                    double * restrict t3, const double * restrict t2, const double * restrict v2)
 {
     const int h1u = (int)(*h1d);
     const int h2u = (int)(*h2d);
@@ -246,7 +246,7 @@ void f2c_sd_t_d1_2_(fint * h3d, fint * h2d, fint * h1d,
 void f2c_sd_t_d1_3_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
                     fint * h7d,
-                    double * restrict t3, double * restrict t2, double * restrict v2)
+                    double * restrict t3, const double * restrict t2, const double * restrict v2)
 {
     const int h1u = (int)(*h1d);
     const int h2u = (int)(*h2d);
@@ -270,7 +270,7 @@ void f2c_sd_t_d1_3_(fint * h3d, fint * h2d, fint * h1d,
 void f2c_sd_t_d1_4_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
                     fint * h7d,
-                    double * restrict t3, double * restrict t2, double * restrict v2)
+                    double * restrict t3, const double * restrict t2, const double * restrict v2)
 {
     const int h1u = (int)(*h1d);
     const int h2u = (int)(*h2d);
@@ -294,7 +294,7 @@ void f2c_sd_t_d1_4_(fint * h3d, fint * h2d, fint * h1d,
 void f2c_sd_t_d1_5_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
                     fint * h7d,
-                    double * restrict t3, double * restrict t2, double * restrict v2)
+                    double * restrict t3, const double * restrict t2, const double * restrict v2)
 {
     const int h1u = (int)(*h1d);
     const int h2u = (int)(*h2d);
@@ -318,7 +318,7 @@ void f2c_sd_t_d1_5_(fint * h3d, fint * h2d, fint * h1d,
 void f2c_sd_t_d1_6_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
                     fint * h7d,
-                    double * restrict t3, double * restrict t2, double * restrict v2)
+                    double * restrict t3, const double * restrict t2, const double * restrict v2)
 {
     const int h1u = (int)(*h1d);
     const int h2u = (int)(*h2d);
@@ -342,7 +342,7 @@ void f2c_sd_t_d1_6_(fint * h3d, fint * h2d, fint * h1d,
 void f2c_sd_t_d1_7_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
                     fint * h7d,
-                    double * restrict t3, double * restrict t2, double * restrict v2)
+                    double * restrict t3, const double * restrict t2, const double * restrict v2)
 {
     const int h1u = (int)(*h1d);
     const int h2u = (int)(*h2d);
@@ -366,7 +366,7 @@ void f2c_sd_t_d1_7_(fint * h3d, fint * h2d, fint * h1d,
 void f2c_sd_t_d1_8_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
                     fint * h7d,
-                    double * restrict t3, double * restrict t2, double * restrict v2)
+                    double * restrict t3, const double * restrict t2, const double * restrict v2)
 {
     const int h1u = (int)(*h1d);
     const int h2u = (int)(*h2d);
@@ -390,7 +390,7 @@ void f2c_sd_t_d1_8_(fint * h3d, fint * h2d, fint * h1d,
 void f2c_sd_t_d1_9_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
                     fint * h7d,
-                    double * restrict t3, double * restrict t2, double * restrict v2)
+                    double * restrict t3, const double * restrict t2, const double * restrict v2)
 {
     const int h1u = (int)(*h1d);
     const int h2u = (int)(*h2d);
@@ -414,7 +414,7 @@ void f2c_sd_t_d1_9_(fint * h3d, fint * h2d, fint * h1d,
 void f2c_sd_t_d2_1_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
                     fint * h7d,
-                    double * restrict t3, double * restrict t2, double * restrict v2)
+                    double * restrict t3, const double * restrict t2, const double * restrict v2)
 {
     const int h1u = (int)(*h1d);
     const int h2u = (int)(*h2d);
@@ -438,7 +438,7 @@ void f2c_sd_t_d2_1_(fint * h3d, fint * h2d, fint * h1d,
 void f2c_sd_t_d2_2_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
                     fint * h7d,
-                    double * restrict t3, double * restrict t2, double * restrict v2)
+                    double * restrict t3, const double * restrict t2, const double * restrict v2)
 {
     const int h1u = (int)(*h1d);
     const int h2u = (int)(*h2d);
@@ -462,7 +462,7 @@ void f2c_sd_t_d2_2_(fint * h3d, fint * h2d, fint * h1d,
 void f2c_sd_t_d2_3_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
                     fint * h7d,
-                    double * restrict t3, double * restrict t2, double * restrict v2)
+                    double * restrict t3, const double * restrict t2, const double * restrict v2)
 {
     const int h1u = (int)(*h1d);
     const int h2u = (int)(*h2d);
@@ -486,7 +486,7 @@ void f2c_sd_t_d2_3_(fint * h3d, fint * h2d, fint * h1d,
 void f2c_sd_t_d2_4_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
                     fint * h7d,
-                    double * restrict t3, double * restrict t2, double * restrict v2)
+                    double * restrict t3, const double * restrict t2, const double * restrict v2)
 {
     const int h1u = (int)(*h1d);
     const int h2u = (int)(*h2d);
@@ -510,7 +510,7 @@ void f2c_sd_t_d2_4_(fint * h3d, fint * h2d, fint * h1d,
 void f2c_sd_t_d2_5_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
                     fint * h7d,
-                    double * restrict t3, double * restrict t2, double * restrict v2)
+                    double * restrict t3, const double * restrict t2, const double * restrict v2)
 {
     const int h1u = (int)(*h1d);
     const int h2u = (int)(*h2d);
@@ -534,7 +534,7 @@ void f2c_sd_t_d2_5_(fint * h3d, fint * h2d, fint * h1d,
 void f2c_sd_t_d2_6_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
                     fint * h7d,
-                    double * restrict t3, double * restrict t2, double * restrict v2)
+                    double * restrict t3, const double * restrict t2, const double * restrict v2)
 {
     const int h1u = (int)(*h1d);
     const int h2u = (int)(*h2d);
@@ -558,7 +558,7 @@ void f2c_sd_t_d2_6_(fint * h3d, fint * h2d, fint * h1d,
 void f2c_sd_t_d2_7_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
                     fint * h7d,
-                    double * restrict t3, double * restrict t2, double * restrict v2)
+                    double * restrict t3, const double * restrict t2, const double * restrict v2)
 {
     const int h1u = (int)(*h1d);
     const int h2u = (int)(*h2d);
@@ -582,7 +582,7 @@ void f2c_sd_t_d2_7_(fint * h3d, fint * h2d, fint * h1d,
 void f2c_sd_t_d2_8_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
                     fint * h7d,
-                    double * restrict t3, double * restrict t2, double * restrict v2)
+                    double * restrict t3, const double * restrict t2, const double * restrict v2)
 {
     const int h1u = (int)(*h1d);
     const int h2u = (int)(*h2d);
@@ -606,7 +606,7 @@ void f2c_sd_t_d2_8_(fint * h3d, fint * h2d, fint * h1d,
 void f2c_sd_t_d2_9_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
                     fint * h7d,
-                    double * restrict t3, double * restrict t2, double * restrict v2)
+                    double * restrict t3, const double * restrict t2, const double * restrict v2)
 {
     const int h1u = (int)(*h1d);
     const int h2u = (int)(*h2d);
