@@ -1,5 +1,10 @@
 #include <math.h>
+
+#ifdef _OPENMP
 #include <omp.h>
+#else
+#include "fake-omp.h"
+#endif
 
 #include "safemalloc.h"
 
