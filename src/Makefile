@@ -12,6 +12,18 @@ ifeq ($(TARGET),MAC-CLANG)
     LIBS     = -framework Accelerate
 endif
 
+ifeq ($(TARGET),MAC-PGI)
+    CC       = pgcc
+    FC       = pgf77
+    OPT      = -O3
+    CFLAGS   = $(OPT) $(ACTIVE) # -c99
+    FFLAGS   = $(OPT)
+    CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
+    LD       = pgcc
+    LDFLAGS  = $(CFLAGS)
+    LIBS     = -framework Accelerate
+endif
+
 ifeq ($(TARGET),MAC)
     CC       = gcc
     FC       = gfortran

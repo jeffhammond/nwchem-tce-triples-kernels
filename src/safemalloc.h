@@ -5,13 +5,11 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <string.h>
-#include <assert.h>
 
 int posix_memalign(void **memptr, size_t alignment, size_t size);
 
 #define ALIGNMENT 64
 
-//void * safemalloc(size_t n);
 static void * safemalloc(size_t n)
 {
     int rc = -1;
