@@ -331,7 +331,7 @@ c
       double precision t2sub(h7d,p4d,p5d,h1d)
       double precision v2sub(h3d,h2d,p6d,h7d)
       double precision v2tmp(h7d,h3d,h2d,p6d)
-!$omp  parallel do 
+!$omp  parallel do
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
       do p6=1,p6d
@@ -384,7 +384,7 @@ c
       double precision t2sub(h7d,p4d,p5d,h1d)
       double precision v2sub(h3d,h2d,p6d,h7d)
       double precision v2tmp(h7d,h3d,h2d,p6d)
-!$omp  parallel do 
+!$omp  parallel do
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
       do p6=1,p6d
@@ -418,7 +418,7 @@ c
       enddo
       enddo
       enddo
-      enddo  
+      enddo
       enddo
 !$omp end parallel do
       return
@@ -433,7 +433,7 @@ c
       double precision t2sub(h7d,p4d,p5d,h1d)
       double precision v2sub(h3d,h2d,p6d,h7d)
       double precision v2tmp(h7d,h3d,h2d,p6d)
-!$omp  parallel do 
+!$omp  parallel do
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
       do p6=1,p6d
@@ -482,7 +482,7 @@ c
       double precision t2sub(h7d,p4d,p5d,h1d)
       double precision v2sub(h3d,h2d,p6d,h7d)
       double precision v2tmp(h7d,h3d,h2d,p6d)
-!$omp  parallel do 
+!$omp  parallel do
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
       do p6=1,p6d
@@ -532,7 +532,7 @@ c
       double precision t2sub(h7d,p4d,p5d,h1d)
       double precision v2sub(h3d,h2d,p6d,h7d)
       double precision v2tmp(h7d,h3d,h2d,p6d)
-!$omp  parallel do 
+!$omp  parallel do
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
       do p6=1,p6d
@@ -581,7 +581,7 @@ c
       double precision t2sub(h7d,p4d,p5d,h1d)
       double precision v2sub(h3d,h2d,p6d,h7d)
       double precision v2tmp(h7d,h3d,h2d,p6d)
-!$omp  parallel do 
+!$omp  parallel do
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
       do p6=1,p6d
