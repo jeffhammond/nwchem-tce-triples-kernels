@@ -89,6 +89,7 @@ int main(int argc, char * argv[])
     double * t3r = safemalloc( tile6*sizeof(double) );
     double * t3o = safemalloc( tile6*sizeof(double) );
     double * t3c = safemalloc( tile6*sizeof(double) );
+    double * t3d = safemalloc( tile6*sizeof(double) );
 
     tt0 = omp_get_wtime();
     rand_array(tile2, t1);
@@ -480,7 +481,7 @@ int main(int argc, char * argv[])
     }
 
 #if DO_C_KERNELS
-    printf("\nSTARTING C99 KERNELS \n");
+    printf("\nSTARTING F2C KERNELS \n");
     fflush(stdout);
     for (int i=0; i<2; i++)
     {
@@ -670,9 +671,198 @@ int main(int argc, char * argv[])
 
         fflush(stdout);
     }
-#endif // DO_C_KERNELS
 
-    printf("\n");
+    printf("\nSTARTING C99 KERNELS \n");
+    fflush(stdout);
+    for (int i=0; i<2; i++)
+    {
+        long long totalflops = 0;
+
+        zero_array(tile6, t3d);
+
+        ttt0 = omp_get_wtime();
+
+#ifdef DO_S1
+        tt0 = omp_get_wtime();
+        f2c_sd_t_s1_1_(&tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, t3d, t1, v2);
+        tt1 = omp_get_wtime();
+        dt = tt1-tt0;
+        printf("%d: %s time = %lf seconds gigaflop/s = %lf \n", i, "sd_t_s1_1_", dt, (2e-9*tile6)/dt );
+
+        tt0 = omp_get_wtime();
+        f2c_sd_t_s1_2_(&tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, t3d, t1, v2);
+        tt1 = omp_get_wtime();
+        dt = tt1-tt0;
+        printf("%d: %s time = %lf seconds gigaflop/s = %lf \n", i, "sd_t_s1_2_", dt, (2e-9*tile6)/dt );
+
+        tt0 = omp_get_wtime();
+        f2c_sd_t_s1_3_(&tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, t3d, t1, v2);
+        tt1 = omp_get_wtime();
+        dt = tt1-tt0;
+        printf("%d: %s time = %lf seconds gigaflop/s = %lf \n", i, "sd_t_s1_3_", dt, (2e-9*tile6)/dt );
+
+        tt0 = omp_get_wtime();
+        f2c_sd_t_s1_4_(&tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, t3d, t1, v2);
+        tt1 = omp_get_wtime();
+        dt = tt1-tt0;
+        printf("%d: %s time = %lf seconds gigaflop/s = %lf \n", i, "sd_t_s1_4_", dt, (2e-9*tile6)/dt );
+
+        tt0 = omp_get_wtime();
+        f2c_sd_t_s1_5_(&tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, t3d, t1, v2);
+        tt1 = omp_get_wtime();
+        dt = tt1-tt0;
+        printf("%d: %s time = %lf seconds gigaflop/s = %lf \n", i, "sd_t_s1_5_", dt, (2e-9*tile6)/dt );
+
+        tt0 = omp_get_wtime();
+        f2c_sd_t_s1_6_(&tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, t3d, t1, v2);
+        tt1 = omp_get_wtime();
+        dt = tt1-tt0;
+        printf("%d: %s time = %lf seconds gigaflop/s = %lf \n", i, "sd_t_s1_6_", dt, (2e-9*tile6)/dt );
+
+        tt0 = omp_get_wtime();
+        f2c_sd_t_s1_7_(&tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, t3d, t1, v2);
+        tt1 = omp_get_wtime();
+        dt = tt1-tt0;
+        printf("%d: %s time = %lf seconds gigaflop/s = %lf \n", i, "sd_t_s1_7_", dt, (2e-9*tile6)/dt );
+
+        tt0 = omp_get_wtime();
+        f2c_sd_t_s1_8_(&tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, t3d, t1, v2);
+        tt1 = omp_get_wtime();
+        dt = tt1-tt0;
+        printf("%d: %s time = %lf seconds gigaflop/s = %lf \n", i, "sd_t_s1_8_", dt, (2e-9*tile6)/dt );
+
+        tt0 = omp_get_wtime();
+        f2c_sd_t_s1_9_(&tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, t3d, t1, v2);
+        tt1 = omp_get_wtime();
+        dt = tt1-tt0;
+        printf("%d: %s time = %lf seconds gigaflop/s = %lf \n", i, "sd_t_s1_9_", dt, (2e-9*tile6)/dt );
+
+        totalflops = 2*9*tile6;
+#endif
+
+#ifdef DO_D1
+        tt0 = omp_get_wtime();
+        f2c_sd_t_d1_1_(&tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, t3d, t2, v2);
+        tt1 = omp_get_wtime();
+        dt = tt1-tt0;
+        printf("%d: %s time = %lf seconds gigaflop/s = %lf \n", i, "sd_t_d1_1_", dt, (2e-9*tile7)/dt );
+
+        tt0 = omp_get_wtime();
+        f2c_sd_t_d1_2_(&tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, t3d, t2, v2);
+        tt1 = omp_get_wtime();
+        dt = tt1-tt0;
+        printf("%d: %s time = %lf seconds gigaflop/s = %lf \n", i, "sd_t_d1_2_", dt, (2e-9*tile7)/dt );
+
+        tt0 = omp_get_wtime();
+        f2c_sd_t_d1_3_(&tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, t3d, t2, v2);
+        tt1 = omp_get_wtime();
+        dt = tt1-tt0;
+        printf("%d: %s time = %lf seconds gigaflop/s = %lf \n", i, "sd_t_d1_3_", dt, (2e-9*tile7)/dt );
+
+        tt0 = omp_get_wtime();
+        f2c_sd_t_d1_4_(&tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, t3d, t2, v2);
+        tt1 = omp_get_wtime();
+        dt = tt1-tt0;
+        printf("%d: %s time = %lf seconds gigaflop/s = %lf \n", i, "sd_t_d1_4_", dt, (2e-9*tile7)/dt );
+
+        tt0 = omp_get_wtime();
+        f2c_sd_t_d1_5_(&tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, t3d, t2, v2);
+        tt1 = omp_get_wtime();
+        dt = tt1-tt0;
+        printf("%d: %s time = %lf seconds gigaflop/s = %lf \n", i, "sd_t_d1_5_", dt, (2e-9*tile7)/dt );
+
+        tt0 = omp_get_wtime();
+        f2c_sd_t_d1_6_(&tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, t3d, t2, v2);
+        tt1 = omp_get_wtime();
+        dt = tt1-tt0;
+        printf("%d: %s time = %lf seconds gigaflop/s = %lf \n", i, "sd_t_d1_6_", dt, (2e-9*tile7)/dt );
+
+        tt0 = omp_get_wtime();
+        f2c_sd_t_d1_7_(&tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, t3d, t2, v2);
+        tt1 = omp_get_wtime();
+        dt = tt1-tt0;
+        printf("%d: %s time = %lf seconds gigaflop/s = %lf \n", i, "sd_t_d1_7_", dt, (2e-9*tile7)/dt );
+
+        tt0 = omp_get_wtime();
+        f2c_sd_t_d1_8_(&tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, t3d, t2, v2);
+        tt1 = omp_get_wtime();
+        dt = tt1-tt0;
+        printf("%d: %s time = %lf seconds gigaflop/s = %lf \n", i, "sd_t_d1_8_", dt, (2e-9*tile7)/dt );
+
+        tt0 = omp_get_wtime();
+        f2c_sd_t_d1_9_(&tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, t3d, t2, v2);
+        tt1 = omp_get_wtime();
+        dt = tt1-tt0;
+        printf("%d: %s time = %lf seconds gigaflop/s = %lf \n", i, "sd_t_d1_9_", dt, (2e-9*tile7)/dt );
+
+        totalflops = 2*9*tile7;
+#endif
+
+#ifdef DO_D2
+        tt0 = omp_get_wtime();
+        f2c_sd_t_d2_1_(&tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, t3d, t2, v2);
+        tt1 = omp_get_wtime();
+        dt = tt1-tt0;
+        printf("%d: %s time = %lf seconds gigaflop/s = %lf \n", i, "sd_t_d2_1_", dt, (2e-9*tile7)/dt );
+
+        tt0 = omp_get_wtime();
+        f2c_sd_t_d2_2_(&tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, t3d, t2, v2);
+        tt1 = omp_get_wtime();
+        dt = tt1-tt0;
+        printf("%d: %s time = %lf seconds gigaflop/s = %lf \n", i, "sd_t_d2_2_", dt, (2e-9*tile7)/dt );
+
+        tt0 = omp_get_wtime();
+        f2c_sd_t_d2_3_(&tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, t3d, t2, v2);
+        tt1 = omp_get_wtime();
+        dt = tt1-tt0;
+        printf("%d: %s time = %lf seconds gigaflop/s = %lf \n", i, "sd_t_d2_3_", dt, (2e-9*tile7)/dt );
+
+        tt0 = omp_get_wtime();
+        f2c_sd_t_d2_4_(&tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, t3d, t2, v2);
+        tt1 = omp_get_wtime();
+        dt = tt1-tt0;
+        printf("%d: %s time = %lf seconds gigaflop/s = %lf \n", i, "sd_t_d2_4_", dt, (2e-9*tile7)/dt );
+
+        tt0 = omp_get_wtime();
+        f2c_sd_t_d2_5_(&tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, t3d, t2, v2);
+        tt1 = omp_get_wtime();
+        dt = tt1-tt0;
+        printf("%d: %s time = %lf seconds gigaflop/s = %lf \n", i, "sd_t_d2_5_", dt, (2e-9*tile7)/dt );
+
+        tt0 = omp_get_wtime();
+        f2c_sd_t_d2_6_(&tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, t3d, t2, v2);
+        tt1 = omp_get_wtime();
+        dt = tt1-tt0;
+        printf("%d: %s time = %lf seconds gigaflop/s = %lf \n", i, "sd_t_d2_6_", dt, (2e-9*tile7)/dt );
+
+        tt0 = omp_get_wtime();
+        f2c_sd_t_d2_7_(&tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, t3d, t2, v2);
+        tt1 = omp_get_wtime();
+        dt = tt1-tt0;
+        printf("%d: %s time = %lf seconds gigaflop/s = %lf \n", i, "sd_t_d2_7_", dt, (2e-9*tile7)/dt );
+
+        tt0 = omp_get_wtime();
+        f2c_sd_t_d2_8_(&tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, t3d, t2, v2);
+        tt1 = omp_get_wtime();
+        dt = tt1-tt0;
+        printf("%d: %s time = %lf seconds gigaflop/s = %lf \n", i, "sd_t_d2_8_", dt, (2e-9*tile7)/dt );
+
+        tt0 = omp_get_wtime();
+        f2c_sd_t_d2_9_(&tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, t3d, t2, v2);
+        tt1 = omp_get_wtime();
+        dt = tt1-tt0;
+        printf("%d: %s time = %lf seconds gigaflop/s = %lf \n", i, "sd_t_d2_9_", dt, (2e-9*tile7)/dt );
+
+        totalflops = 2*9*tile7;
+#endif
+
+        ttt1 = omp_get_wtime();
+        dt = ttt1-ttt0;
+        printf("%d: %s time = %lf seconds gigaflop/s = %lf \n", i, "total", dt, (1e-9*totalflops)/dt );
+
+        fflush(stdout);
+    }
+#endif // DO_C_KERNELS
 
     double e1 = diff_array(tile2, t1, t1);
     double e2 = diff_array(tile4, t2, t2);
@@ -680,11 +870,13 @@ int main(int argc, char * argv[])
     double e4 = diff_array(tile6, t3r, t3o);
 #if DO_C_KERNELS
     double e5 = diff_array(tile6, t3r, t3c);
+    double e6 = diff_array(tile6, t3r, t3d);
 #else
-    double e5 = 0.0;
+    double e5 = 0.0, e6 = 0.0;
 #endif // DO_C_KERNELS
 
-    printf("differences: t1 = %lf, t2 = %lf, v2 = %lf, t3o = %30.15lf, t3c = %30.15lf \n", e1, e2, e3, e4, e5);
+    printf("differences: t1 = %lf, t2 = %lf, v2 = %lf, t3o = %30.15lf, t3c = %30.15lf, t3d = %30.15lf \n",
+            e1, e2, e3, e4, e5, e6);
     if ( fabs(e4)>1.e-7 || fabs(e5)>1.e-7) {
         printf("ERROR!!!\n");
         exit(1);
@@ -696,9 +888,11 @@ int main(int argc, char * argv[])
     double n4r = norm_array(tile6, t3r);
     double n4o = norm_array(tile6, t3o);
     double n4c = norm_array(tile6, t3c);
+    double n4d = norm_array(tile6, t3d);
 
-    printf("norm: t1 = %lf, t2 = %lf, v2 = %lf, t3 = %lf, %lf, %lf \n", n1, n2, n3, n4r, n4o, n4c);
+    printf("norm: t1 = %lf, t2 = %lf, v2 = %lf, t3 = %lf, %lf, %lf, %lf\n", n1, n2, n3, n4r, n4o, n4c, n4d);
 
+    free(t3d);
     free(t3c);
     free(t3o);
     free(t3r);
