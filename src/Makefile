@@ -1,5 +1,7 @@
 ACTIVE   = -DDO_S1 -DDO_D1 -DDO_D2 -DDO_C_KERNELS
 
+TARGET := MAC
+
 ifeq ($(TARGET),MAC-CLANG)
     CC       = clang
     FC       = gfortran
