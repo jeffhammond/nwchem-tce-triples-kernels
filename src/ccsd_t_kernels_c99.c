@@ -9,8 +9,13 @@
 static inline void __c99_sd_t_s1_1(const int h3u, const int h2u, const int h1u,
                                    const int p6u, const int p5u, const int p4u,
                                    double t3[p4u][p5u][p6u][h1u][h2u][h3u],
-                                   const double t1[h1u][p4u], const double v2[p5u][p6u][h2u][h3u])
+                                   const double t1[h1u][p4u],
+                                   const double v2[p5u][p6u][h2u][h3u])
 {
+#ifdef _OPENMP
+#pragma omp parallel for collapse(4)
+#pragma omp default(shared) schedule(static)
+#endif
     for (int p4=0; p4<p4u; p4++)
     for (int p5=0; p5<p5u; p5++)
     for (int p6=0; p6<p6u; p6++)
@@ -204,6 +209,29 @@ void c99_sd_t_s1_9_(fint * h3d, fint * h2d, fint * h1d,
     return;
 }
 
+static inline void __c99_sd_t_d1_1(const int h3u, const int h2u, const int h1u,
+                                   const int p6u, const int p5u, const int p4u,
+                                   const int h7u,
+                                   double t3[p4u][p5u][p6u][h1u][h2u][h3u],
+                                   const double t2[h1u][p5u][p4u][h7u],
+                                   const double v2[h7u][p6u][h2u][h3u])
+{
+#ifdef _OPENMP
+#pragma omp parallel for collapse(4)
+#pragma omp default(shared) schedule(static)
+#endif
+    for (int p4=0; p4<p4u; p4++)
+    for (int p5=0; p5<p5u; p5++)
+    for (int p6=0; p6<p6u; p6++)
+    for (int h1=0; h1<h1u; h1++)
+    for (int h2=0; h2<h2u; h2++)
+    for (int h3=0; h3<h3u; h3++)
+    for (int h7=0; h7<h7u; h7++)
+    //t3(h3,h2,h1,p6,p5,p4)-=t2(h7,p4,p5,h1)*v2(h3,h2,p6,h7);
+    t3[p4][p5][p6][h1][h2][h3] += t2[h1][p5][p4][h7] * v2[h7][p6][h2][h3];
+    return;
+}
+
 void c99_sd_t_d1_1_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
                     fint * h7d,
@@ -216,15 +244,7 @@ void c99_sd_t_d1_1_(fint * h3d, fint * h2d, fint * h1d,
     const int p5u = (int)(*p5d);
     const int p6u = (int)(*p6d);
     const int h7u = (int)(*h7d);
-    for (int p4=0; p4<p4u; p4++)
-    for (int p5=0; p5<p5u; p5++)
-    for (int p6=0; p6<p6u; p6++)
-    for (int h1=0; h1<h1u; h1++)
-    for (int h2=0; h2<h2u; h2++)
-    for (int h3=0; h3<h3u; h3++)
-    for (int h7=0; h7<h7u; h7++)
-    //t3(h3,h2,h1,p6,p5,p4)-=t2(h7,p4,p5,h1)*v2(h3,h2,p6,h7);
-    t3[h3+h3u*(h2+h2u*(h1+h1u*(p6+p6u*(p5+p5u*p4))))] -= t2[h7+h7u*(p4+p4u*(p5+p5u*h1))] * v2[h3+h3u*(h2+h2u*(p6+p6u*h7))];
+    __c99_sd_t_d1_1(h3u, h2u, h1u, p6u, p5u, p4u, h7u, t3, t2, v2);
     return;
 }
 
