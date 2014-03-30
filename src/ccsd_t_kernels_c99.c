@@ -6,6 +6,22 @@
 /* The possible downcast from fint to int is safe because array dimensions
  * are on the order of 30, i.e. nowhere near INT_MAX. */
 
+static inline void __c99_sd_t_s1_1(const int h3u, const int h2u, const int h1u,
+                                   const int p6u, const int p5u, const int p4u,
+                                   double t3[p4u][p5u][p6u][h1u][h2u][h3u],
+                                   const double t1[h1u][p4u], const double v2[p5u][p6u][h2u][h3u])
+{
+    for (int p4=0; p4<p4u; p4++)
+    for (int p5=0; p5<p5u; p5++)
+    for (int p6=0; p6<p6u; p6++)
+    for (int h1=0; h1<h1u; h1++)
+    for (int h2=0; h2<h2u; h2++)
+    for (int h3=0; h3<h3u; h3++)
+    //t3(h3,h2,h1,p6,p5,p4)+=t1(p4,h1)*v2(h3,h2,p6,p5);
+    t3[p4][p5][p6][h1][h2][h3] += t1[h1][p4] * v2[p5][p6][h2][h3];
+    return;
+}
+
 void c99_sd_t_s1_1_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
                     double * restrict t3, const double * restrict t1, const double * restrict v2)
@@ -16,14 +32,7 @@ void c99_sd_t_s1_1_(fint * h3d, fint * h2d, fint * h1d,
     const int p4u = (int)(*p4d);
     const int p5u = (int)(*p5d);
     const int p6u = (int)(*p6d);
-    for (int p4=0; p4<p4u; p4++)
-    for (int p5=0; p5<p5u; p5++)
-    for (int p6=0; p6<p6u; p6++)
-    for (int h1=0; h1<h1u; h1++)
-    for (int h2=0; h2<h2u; h2++)
-    for (int h3=0; h3<h3u; h3++)
-    //t3(h3,h2,h1,p6,p5,p4)+=t1(p4,h1)*v2(h3,h2,p6,p5);
-    t3[h3+h3u*(h2+h2u*(h1+h1u*(p6+p6u*(p5+p5u*p4))))] += t1[p4+p4u*h1] * v2[h3+h3u*(h2+h2u*(p6+p6u*p5))];
+    __c99_sd_t_s1_1(h3u, h2u, h1u, p6u, p5u, p4u, t3, t1, v2);
     return;
 }
 

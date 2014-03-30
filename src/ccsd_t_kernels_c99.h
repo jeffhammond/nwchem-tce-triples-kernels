@@ -10,7 +10,8 @@ typedef int32_t fint;
 typedef int64_t fint;
 #endif
 
-void c99_sd_t_s1_1_(fint * restrict h3, fint * restrict h2, fint * restrict h1, fint * restrict p6, fint * restrict p5, fint * restrict p4, double * restrict t3, const double * restrict t1, const double * restrict v2);
+void c99_sd_t_s1_1_(fint * restrict h3, fint * restrict h2, fint * restrict h1, fint * restrict p6, fint * restrict p5, fint * restrict p4,
+                    double * t3[][][][][][], double * t1[][], double * v2[][][][]);
 void c99_sd_t_s1_2_(fint * restrict h3, fint * restrict h2, fint * restrict h1, fint * restrict p6, fint * restrict p5, fint * restrict p4, double * restrict t3, const double * restrict t1, const double * restrict v2);
 void c99_sd_t_s1_3_(fint * restrict h3, fint * restrict h2, fint * restrict h1, fint * restrict p6, fint * restrict p5, fint * restrict p4, double * restrict t3, const double * restrict t1, const double * restrict v2);
 void c99_sd_t_s1_4_(fint * restrict h3, fint * restrict h2, fint * restrict h1, fint * restrict p6, fint * restrict p5, fint * restrict p4, double * restrict t3, const double * restrict t1, const double * restrict v2);
