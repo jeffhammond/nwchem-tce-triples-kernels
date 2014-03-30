@@ -338,7 +338,6 @@ c
       do h7=1,h7d
       do h2=1,h2d
 !dec$ vector always nontemporal
-!dir$ simd
       do h3=1,h3d
         v2tmp(h7,h3,h2,p6) = v2sub(h3,h2,p6,h7)
       enddo
@@ -390,6 +389,7 @@ c
       do p6=1,p6d
       do h7=1,h7d
       do h2=1,h2d
+!dec$ vector always nontemporal
       do h3=1,h3d
         v2tmp(h7,h3,h2,p6) = v2sub(h3,h2,p6,h7)
       enddo
@@ -439,6 +439,7 @@ c
       do p6=1,p6d
       do h7=1,h7d
       do h2=1,h2d
+!dec$ vector always nontemporal
       do h3=1,h3d
         v2tmp(h7,h3,h2,p6) = v2sub(h3,h2,p6,h7)
       enddo
@@ -488,6 +489,7 @@ c
       do p6=1,p6d
       do h7=1,h7d
       do h2=1,h2d
+!dec$ vector always nontemporal
       do h3=1,h3d
         v2tmp(h7,h3,h2,p6) = v2sub(h3,h2,p6,h7)
       enddo
@@ -538,6 +540,7 @@ c
       do p6=1,p6d
       do h7=1,h7d
       do h2=1,h2d
+!dec$ vector always nontemporal
       do h3=1,h3d
         v2tmp(h7,h3,h2,p6) = v2sub(h3,h2,p6,h7)
       enddo
@@ -587,6 +590,7 @@ c
       do p6=1,p6d
       do h7=1,h7d
       do h2=1,h2d
+!dec$ vector always nontemporal
       do h3=1,h3d
         v2tmp(h7,h3,h2,p6) = v2sub(h3,h2,p6,h7)
       enddo
@@ -636,6 +640,7 @@ c
       do p6=1,p6d
       do h7=1,h7d
       do h2=1,h2d
+!dec$ vector always nontemporal
       do h3=1,h3d
         v2tmp(h7,h3,h2,p6) = v2sub(h3,h2,p6,h7)
       enddo
@@ -685,6 +690,7 @@ c
       do p6=1,p6d
       do h7=1,h7d
       do h2=1,h2d
+!dec$ vector always nontemporal
       do h3=1,h3d
         v2tmp(h7,h3,h2,p6) = v2sub(h3,h2,p6,h7)
       enddo
@@ -734,6 +740,7 @@ c
       do p6=1,p6d
       do h7=1,h7d
       do h2=1,h2d
+!dec$ vector always nontemporal
       do h3=1,h3d
         v2tmp(h7,h3,h2,p6) = v2sub(h3,h2,p6,h7)
       enddo
