@@ -15,12 +15,25 @@ ifeq ($(TARGET),BGQ)
     LIBS     =  /soft/libraries/essl/current/essl/5.1/lib64/libesslsmpbg.a
 endif
 
+ifeq ($(TARGET),POWER7)
+    CC       = gcc
+    FC       = gfortran
+    OPT      = -O3 -mtune=power7 -ftree-vectorize -fopenmp -mvsx
+    CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
+    FFLAGS   = $(OPT)
+    CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
+    LD       = $(FC)
+    LDFLAGS  = $(FFLAGS)
+    # must build BLIS with 32b f77_int (not default)
+    LIBS     = /home/jhammond/BLIS/dowd/install/lib/libblis.a
+endif
+
 ifeq ($(TARGET),MAC-CLANG)
     CC       = clang
     FC       = gfortran
     OPT      = -O3 -march=native -mno-avx
     CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
-    FFLAGS   = $(OPT)
+    FFLAGS   = $(OPT) -fopenmp
     CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
     LD       = clang -L/usr/local/Cellar/gfortran/4.8.2/gfortran/lib
     LDFLAGS  = $(CFLAGS)
@@ -34,7 +47,7 @@ ifeq ($(TARGET),MAC-PGI)
     CFLAGS   = $(OPT) $(ACTIVE) # -c99
     FFLAGS   = $(OPT)
     CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
-    LD       = pgcc
+    LD       = $(CC)
     LDFLAGS  = $(CFLAGS)
     LIBS     = -framework Accelerate
 endif
@@ -42,7 +55,7 @@ endif
 ifeq ($(TARGET),MAC)
     CC       = gcc
     FC       = gfortran
-    OPT      = -O3 -fopenmp -march=native -mno-avx
+    OPT      = -O3 -fopenmp -march=native -mno-avx -ftree-vectorize
     CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
     FFLAGS   = $(OPT)
     CFLAGS  += -DFORTRAN_INTEGER_SIZE=4

@@ -2,6 +2,7 @@
 #include <assert.h>
 #endif
 
+#include <stddef.h>
 #include <sys/time.h>
 
 static int omp_get_max_threads(void)
