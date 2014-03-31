@@ -1,7 +1,19 @@
-ACTIVE   = -DDO_S1 -DDO_D1 #-DDO_D2
+ACTIVE   = -DDO_S1 -DDO_D1 -DDO_D2
 ACTIVE  += -DDO_C_KERNELS
 
 TARGET := MAC
+
+ifeq ($(TARGET),BGQ)
+    CC       = bgxlc_r
+    FC       = bgxlf_r
+    OPT      = -O5 -qtune=qp -qarch=qp -qsmp=omp -qsimd -qreport -qsource -qlist
+    CFLAGS   = $(OPT) -qlanglvl=stdc99 $(ACTIVE)
+    FFLAGS   = $(OPT) -qextname
+    CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
+    LD       = $(FC)
+    LDFLAGS  = $(FFLAGS)
+    LIBS     =  /soft/libraries/essl/current/essl/5.1/lib64/libesslsmpbg.a
+endif
 
 ifeq ($(TARGET),MAC-CLANG)
     CC       = clang

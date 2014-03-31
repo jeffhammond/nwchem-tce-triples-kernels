@@ -13,8 +13,7 @@ static inline void __c99_sd_t_s1_1(const int h3u, const int h2u, const int h1u,
                                    const double v2[p5u][p6u][h2u][h3u])
 {
 #ifdef _OPENMP
-#pragma omp parallel for collapse(4)
-#pragma omp default(shared) schedule(static)
+#pragma omp parallel for collapse(4) schedule(static)
 #endif
     for (int p4=0; p4<p4u; p4++)
     for (int p5=0; p5<p5u; p5++)
@@ -217,8 +216,7 @@ static inline void __c99_sd_t_d1_1(const int h3u, const int h2u, const int h1u,
                                    const double v2[h7u][p6u][h2u][h3u])
 {
 #ifdef _OPENMP
-#pragma omp parallel for collapse(4)
-#pragma omp default(shared) schedule(static)
+#pragma omp parallel for collapse(4) schedule(static)
 #endif
     for (int p4=0; p4<p4u; p4++)
     for (int p5=0; p5<p5u; p5++)
