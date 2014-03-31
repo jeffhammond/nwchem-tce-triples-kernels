@@ -16,6 +16,19 @@ ifeq ($(TARGET),BGQ)
 endif
 
 ifeq ($(TARGET),POWER7)
+    CC       = xlc_r
+    FC       = xlf_r
+    OPT      = -O3 -qhot -qsmp=omp -qsimd -qreport -qsource -qlist
+    CFLAGS   = $(OPT) -qlanglvl=stdc99 $(ACTIVE)
+    FFLAGS   = $(OPT) -qextname
+    CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
+    LD       = $(FC)
+    LDFLAGS  = $(FFLAGS)
+    # must build BLIS with 32b f77_int (not default)
+    LIBS     = $(HOME)/BLIS/power7/lib/libblis.a
+endif
+
+ifeq ($(TARGET),POWER7-GCC)
     CC       = gcc
     FC       = gfortran
     OPT      = -O3 -mtune=power7 -ftree-vectorize -fopenmp -mvsx
@@ -25,7 +38,7 @@ ifeq ($(TARGET),POWER7)
     LD       = $(FC)
     LDFLAGS  = $(FFLAGS)
     # must build BLIS with 32b f77_int (not default)
-    LIBS     = /home/jhammond/BLIS/dowd/install/lib/libblis.a
+    LIBS     = $(HOME)/BLIS/dowd/install/lib/libblis.a
 endif
 
 ifeq ($(TARGET),MAC-CLANG)
