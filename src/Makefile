@@ -3,6 +3,18 @@ ACTIVE   = -DDO_S1 -DDO_D1 -DDO_D2
 
 TARGET := MAC
 
+ifeq ($(TARGET),KAYLA)
+    CC       = gcc
+    FC       = gfortran
+    OPT      = -O3 -fopenmp -march=native -ftree-vectorize -ffp-contract=fast
+    CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
+    FFLAGS   = $(OPT)
+    CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
+    LD       = $(FC)
+    LDFLAGS  = $(FFLAGS)
+    LIBS     = -L/usr/lib/atlas-base -lptf77blas -latlas
+endif
+
 ifeq ($(TARGET),BGQ)
     CC       = bgxlc_r
     FC       = bgxlf_r
@@ -85,8 +97,8 @@ ifeq ($(TARGET),INTEL)
     FC       = ifort
     OPT      = -O3 -openmp -fno-alias -mavx -multiple-processes=8
     ASM      = -S -fsource-asm -fcode-asm
-    REPORT   = -guide -parallel
-    REPORT   = -vec-report2 -opt-report2
+    #REPORT   = -guide -parallel
+    #REPORT   = -vec-report2 -opt-report2
     #TARGET_FLAGS = -mmic
     CFLAGS   = $(OPT) -std=c99 $(TARGET_FLAGS) $(ACTIVE) $(REPORT)
     FFLAGS   = $(OPT) $(TARGET_FLAGS) $(REPORT) $(GUIDE)

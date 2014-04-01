@@ -15,7 +15,7 @@ void dger_(int* m, int* n, double* alpha, double* x, int* incx, double* y, int* 
 #ifdef __bgq__
 const int nr = 1;
 #else
-const int nr = 10;
+const int nr = 4;
 #endif
 
 double dgemm_gflops(int m, int n, int k)
@@ -61,6 +61,10 @@ double dgemm_gflops(int m, int n, int k)
     double alpha = 1.0;
     double beta  = 1.0;
 
+    /* warmup */
+    dgemm_(&notrans, &notrans, &rowa, &colb, &cola,
+           &alpha, a, &rowa, b, &rowb,
+           &beta, c, &rowc);
     double tt0 = omp_get_wtime();
     for (int r = 0; r<nr; r++)
         dgemm_(&notrans, &notrans, &rowa, &colb, &cola,
@@ -117,6 +121,8 @@ double dger_gflops(int m, int n)
     int inc = 1;
     double alpha = 1.0;
 
+    /* warmup */
+    dger_(&m, &n, &alpha, x, &inc, y, &inc, a, &m);
     double tt0 = omp_get_wtime();
     for (int r = 0; r<nr; r++)
         dger_(&m, &n, &alpha, x, &inc, y, &inc, a, &m);
