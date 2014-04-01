@@ -745,8 +745,13 @@ c
       do p4=1,p4d
       do p6=1,p6d
       do p5=1,p5d
+#ifdef CRAYFTN
+      do h2=1,h2d ! interchanging h1 and h2 was a huge win with Cray+OpenMP
+      do h1=1,h1d
+#else
       do h1=1,h1d
       do h2=1,h2d
+#endif
 !!!dir$ loop count min(8)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
