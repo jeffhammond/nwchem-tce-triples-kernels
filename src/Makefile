@@ -24,14 +24,16 @@ ifeq ($(TARGET),POWER7)
     CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
     LD       = $(FC)
     LDFLAGS  = $(FFLAGS)
-    # must build BLIS with 32b f77_int (not default)
     LIBS     = $(HOME)/BLIS/power7/lib/libblis.a
 endif
 
 ifeq ($(TARGET),POWER7-GCC)
-    CC       = gcc
-    FC       = gfortran
-    OPT      = -O3 -mtune=power7 -ftree-vectorize -fopenmp -mvsx
+    #GCC_PATH = $(HOME)/GCC/dowd/4.9-20140316/bin/
+    GCC_PATH = $(HOME)/GCC/dowd/4.8.2/bin/
+    #GCC_PATH = /usr/bin/
+    CC       = $(GCC_PATH)gcc
+    FC       = $(GCC_PATH)gfortran
+    OPT      = -O3 -mtune=power7 -ftree-vectorize -fopenmp -mvsx -floop-interchange -ffp-contract=fast
     CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
     FFLAGS   = $(OPT)
     CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
@@ -68,7 +70,7 @@ endif
 ifeq ($(TARGET),MAC)
     CC       = gcc
     FC       = gfortran
-    OPT      = -O3 -fopenmp -march=native -mno-avx -ftree-vectorize
+    OPT      = -O3 -fopenmp -march=native -mno-avx -ftree-vectorize -ffp-contract=fast
     CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
     FFLAGS   = $(OPT)
     CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
