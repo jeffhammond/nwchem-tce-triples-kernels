@@ -527,13 +527,14 @@ c
       double precision v2sub(h3d,h2d,p6d,h7d)
       double precision v2tmp(h7d,h3d,h2d,p6d)
 !IBM* ALIGN(64,triplesx,t2sub,v2sub,v2tmp)
-!$omp  parallel do
+!$omp  parallel do collapse(3)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
       do p6=1,p6d
       do h7=1,h7d
       do h2=1,h2d
 !dec$ vector always nontemporal
+!IBM* UNROLL(8)
 !IBM* INDEPENDENT, NEW(h3)
       do h3=1,h3d
         v2tmp(h7,h3,h2,p6) = v2sub(h3,h2,p6,h7)
@@ -545,11 +546,15 @@ c
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
       do p6=1,p6d
-!      do p4=1,p4d
+#ifdef __ppc64__
+      do p4=1,p4d ! this loop used to be between p6 and p5
+#endif
       do p5=1,p5d
       do h1=1,h1d
       do h2=1,h2d
+#ifndef __ppc64__
       do p4=1,p4d ! this loop used to be between p6 and p5
+#endif
 !!!dir$ loop count min(8)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
