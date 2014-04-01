@@ -68,7 +68,7 @@ ifeq ($(TARGET),POWER7)
     FC       = xlf_r
     OPT      = -O3 -qhot -qsmp=omp -qsimd -qreport -qsource -qlist
     CFLAGS   = $(OPT) -qlanglvl=stdc99 $(ACTIVE)
-    FFLAGS   = $(OPT) -qextname
+    FFLAGS   = $(OPT) -qextname -WF,-DIBMXLF
     CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
     LD       = $(FC)
     LDFLAGS  = $(FFLAGS)
