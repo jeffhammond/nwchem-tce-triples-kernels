@@ -98,7 +98,7 @@ endif
 
 TESTS   := test_ccsd_t.x
 OBJECTS := ccsd_t_kernels_omp.o ccsd_t_kernels_ref.o ccsd_t_kernels_f2c.o ccsd_t_kernels_c99.o blas_flops.o
-HEADERS := ccsd_t_kernels_omp.h ccsd_t_kernels_ref.h ccsd_t_kernels_f2c.h ccsd_t_kernels_c99.h safemalloc.h
+HEADERS := ccsd_t_kernels_omp.h ccsd_t_kernels_ref.h ccsd_t_kernels_f2c.h ccsd_t_kernels_c99.h safemalloc.h pragmas.h
 
 all: $(TESTS)
 
