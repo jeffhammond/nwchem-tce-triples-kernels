@@ -144,6 +144,18 @@ ifeq ($(TARGET),INTEL)
     LIBS     = -mkl=parallel
 endif
 
+ifeq ($(TARGET),MIC)
+    CC       = icc
+    FC       = ifort
+    OPT      = -O3 -openmp -fno-alias -mmic
+    CFLAGS   = $(OPT) #-std=c99
+    FFLAGS   = $(OPT)
+    CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
+    LD       = $(CC)
+    LDFLAGS  = $(CFLAGS)
+    LIBS     = -mkl=parallel
+endif
+
 TESTS   := test_ccsd_t.x
 OBJECTS := ccsd_t_kernels_omp.o ccsd_t_kernels_ref.o ccsd_t_kernels_f2c.o ccsd_t_kernels_c99.o blas_flops.o
 HEADERS := ccsd_t_kernels_omp.h ccsd_t_kernels_ref.h ccsd_t_kernels_f2c.h ccsd_t_kernels_c99.h safemalloc.h pragmas.h
