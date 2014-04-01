@@ -15,7 +15,7 @@ void dger_(int* m, int* n, double* alpha, double* x, int* incx, double* y, int* 
 #ifdef __bgq__
 const int nr = 1;
 #else
-const int nr = 10;
+const int nr = 4;
 #endif
 
 double dgemm_gflops(int m, int n, int k)

@@ -1,7 +1,19 @@
 ACTIVE   = -DDO_S1 -DDO_D1 -DDO_D2
-ACTIVE  += -DDO_C_KERNELS
+#ACTIVE  += -DDO_C_KERNELS
 
 TARGET := MAC
+
+ifeq ($(TARGET),KAYLA)
+    CC       = gcc
+    FC       = gfortran
+    OPT      = -O3 -fopenmp -march=native -ftree-vectorize -ffp-contract=fast
+    CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
+    FFLAGS   = $(OPT)
+    CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
+    LD       = $(FC)
+    LDFLAGS  = $(FFLAGS)
+    LIBS     = -L/usr/lib/atlas-base -lptf77blas -latlas
+endif
 
 ifeq ($(TARGET),BGQ)
     CC       = bgxlc_r
