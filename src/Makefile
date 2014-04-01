@@ -97,8 +97,8 @@ ifeq ($(TARGET),INTEL)
     FC       = ifort
     OPT      = -O3 -openmp -fno-alias -mavx -multiple-processes=8
     ASM      = -S -fsource-asm -fcode-asm
-    REPORT   = -guide -parallel
-    REPORT   = -vec-report2 -opt-report2
+    #REPORT   = -guide -parallel
+    #REPORT   = -vec-report2 -opt-report2
     #TARGET_FLAGS = -mmic
     CFLAGS   = $(OPT) -std=c99 $(TARGET_FLAGS) $(ACTIVE) $(REPORT)
     FFLAGS   = $(OPT) $(TARGET_FLAGS) $(REPORT) $(GUIDE)

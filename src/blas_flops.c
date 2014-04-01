@@ -61,6 +61,10 @@ double dgemm_gflops(int m, int n, int k)
     double alpha = 1.0;
     double beta  = 1.0;
 
+    /* warmup */
+    dgemm_(&notrans, &notrans, &rowa, &colb, &cola,
+           &alpha, a, &rowa, b, &rowb,
+           &beta, c, &rowc);
     double tt0 = omp_get_wtime();
     for (int r = 0; r<nr; r++)
         dgemm_(&notrans, &notrans, &rowa, &colb, &cola,
@@ -117,6 +121,8 @@ double dger_gflops(int m, int n)
     int inc = 1;
     double alpha = 1.0;
 
+    /* warmup */
+    dger_(&m, &n, &alpha, x, &inc, y, &inc, a, &m);
     double tt0 = omp_get_wtime();
     for (int r = 0; r<nr; r++)
         dger_(&m, &n, &alpha, x, &inc, y, &inc, a, &m);
