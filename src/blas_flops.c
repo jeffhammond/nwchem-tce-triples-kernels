@@ -72,7 +72,9 @@ double dgemm_gflops(int m, int n, int k)
                &beta, c, &rowc);
     double tt1 = omp_get_wtime();
 
-    unsigned long long mnk = m*n*k;
+    unsigned long long mnk = m;
+    mnk *= n;
+    mnk *= k;
     double dt = (tt1-tt0)/nr;
     double result = (2.e-9*mnk/dt);
 #ifdef DEBUG
