@@ -36,7 +36,10 @@ void c99_sd_t_s1_1_(fint * h3d, fint * h2d, fint * h1d,
     const int p4u = (int)(*p4d);
     const int p5u = (int)(*p5d);
     const int p6u = (int)(*p6d);
-    __c99_sd_t_s1_1(h3u, h2u, h1u, p6u, p5u, p4u, t3, t1, v2);
+    __c99_sd_t_s1_1(h3u, h2u, h1u, p6u, p5u, p4u,
+                    (double (*)[p4u][p5u][p6u][h1u][h2u])t3,
+                    (const double (*) [h1u])t1,
+                    (const double (*) [p5u][p6u][h2u])v2);
     return;
 }
 
@@ -242,7 +245,7 @@ void c99_sd_t_d1_1_(fint * h3d, fint * h2d, fint * h1d,
     const int p5u = (int)(*p5d);
     const int p6u = (int)(*p6d);
     const int h7u = (int)(*h7d);
-    __c99_sd_t_d1_1(h3u, h2u, h1u, p6u, p5u, p4u, h7u, t3, t2, v2);
+    __c99_sd_t_d1_1(h3u, h2u, h1u, p6u, p5u, p4u, h7u, (void*)t3, (void*)t2, (void*)v2);
     return;
 }
 
