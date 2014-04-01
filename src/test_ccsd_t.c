@@ -291,11 +291,12 @@ int main(int argc, char * argv[])
         totalflops = 2*9*tile7;
 #endif
 
+#if defined(DO_S1) || defined(DO_D1) || defined(DO_D2)
         ttt1 = omp_get_wtime();
         dt = ttt1-ttt0;
         printf("%d: %s time = %lf seconds gigaflop/s = %lf \n", i, "total", dt, (1e-9*totalflops)/dt );
-
         fflush(stdout);
+#endif
     }
 
     printf("\nSTARTING FORTRAN REFERENCE KERNELS \n");
@@ -482,11 +483,12 @@ int main(int argc, char * argv[])
         totalflops = 2*9*tile7;
 #endif
 
+#if defined(DO_S1) || defined(DO_D1) || defined(DO_D2)
         ttt1 = omp_get_wtime();
         dt = ttt1-ttt0;
         printf("%d: %s time = %lf seconds gigaflop/s = %lf \n", i, "total", dt, (1e-9*totalflops)/dt );
-
         fflush(stdout);
+#endif
     }
 
 #if DO_C_KERNELS
@@ -674,11 +676,12 @@ int main(int argc, char * argv[])
         totalflops = 2*9*tile7;
 #endif
 
+#if defined(DO_S1) || defined(DO_D1) || defined(DO_D2)
         ttt1 = omp_get_wtime();
         dt = ttt1-ttt0;
         printf("%d: %s time = %lf seconds gigaflop/s = %lf \n", i, "total", dt, (1e-9*totalflops)/dt );
-
         fflush(stdout);
+#endif
     }
 
     printf("\nSTARTING C99 KERNELS \n");
@@ -865,11 +868,12 @@ int main(int argc, char * argv[])
         totalflops = 2*9*tile7;
 #endif
 
+#if defined(DO_S1) || defined(DO_D1) || defined(DO_D2)
         ttt1 = omp_get_wtime();
         dt = ttt1-ttt0;
         printf("%d: %s time = %lf seconds gigaflop/s = %lf \n", i, "total", dt, (1e-9*totalflops)/dt );
-
         fflush(stdout);
+#endif
     }
 #endif // DO_C_KERNELS
 

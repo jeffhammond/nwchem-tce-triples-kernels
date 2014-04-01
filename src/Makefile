@@ -128,16 +128,13 @@ ifeq ($(TARGET),MAC)
 endif
 
 ifeq ($(TARGET),INTEL)
-    # INTEL WORKSTATION (protos.mcs.anl.gov)
     CC       = icc
     FC       = ifort
-    OPT      = -O3 -openmp -fno-alias -mavx -multiple-processes=8
+    OPT      = -O3 -openmp -fno-alias -multiple-processes=8 -msse4.2
+    #OPT      = -O3 -openmp -fno-alias -multiple-processes=8 -mavx
     ASM      = -S -fsource-asm -fcode-asm
-    #REPORT   = -guide -parallel
-    #REPORT   = -vec-report2 -opt-report2
-    #TARGET_FLAGS = -mmic
-    CFLAGS   = $(OPT) -std=c99 $(TARGET_FLAGS) $(ACTIVE) $(REPORT)
-    FFLAGS   = $(OPT) $(TARGET_FLAGS) $(REPORT) $(GUIDE)
+    CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
+    FFLAGS   = $(OPT)
     CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
     LD       = $(CC)
     LDFLAGS  = $(CFLAGS)
@@ -147,8 +144,9 @@ endif
 ifeq ($(TARGET),MIC)
     CC       = icc
     FC       = ifort
-    OPT      = -O3 -openmp -fno-alias -mmic
-    CFLAGS   = $(OPT) #-std=c99
+    OPT      = -O2 -openmp -mmic -multiple-processes=8
+    ASM      = -S -fsource-asm -fcode-asm
+    CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
     FFLAGS   = $(OPT)
     CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
     LD       = $(CC)
