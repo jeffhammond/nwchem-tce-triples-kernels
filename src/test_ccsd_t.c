@@ -80,12 +80,14 @@ int main(int argc, char * argv[])
     printf("DGEMM gigaflop/s of your processor is %lf \n", eff_peak);
     fflush(stdout);
 
+#if 0
     /* approximate achievable peak for a rather large DGEMM */
     eff_peak = dgemm_gflops(tilesize*tilesize*tilesize,
                             tilesize*tilesize*tilesize,
                             tilesize*tilesize*tilesize);
     printf("PEAK* gigaflop/s of your processor is %lf \n", eff_peak);
     fflush(stdout);
+#endif
 
     double tt0, tt1, ttt0, ttt1, dt;
 

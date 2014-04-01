@@ -27,6 +27,7 @@ c
 !dec$ vector always nontemporal
 !dir$ simd
 !IBM* INDEPENDENT, NEW(h3)
+!DIR$ IVDEP
       do h3=1,h3d
        triplesx(h3,h2,h1,p6,p5,p4)=triplesx(h3,h2,h1,p6,p5,p4)
      1   + t1sub(p4,h1)*v2sub(h3,h2,p6,p5)
@@ -55,17 +56,18 @@ c
       do p4=1,p4d
       do p5=1,p5d
       do p6=1,p6d
-      do h2=1,h2d
+      do h1=1,h1d
 !!!dir$ loop count min(8)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
-      do h1=1,h1d
+      do h2=1,h2d ! interchanging h1 and h2 was a huge win with Cray+OpenMP
 !!!dir$ loop count min(8)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dec$ vector always nontemporal
 !dir$ simd
 !IBM* INDEPENDENT, NEW(h3)
+!DIR$ IVDEP
       do h3=1,h3d
        triplesx(h3,h1,h2,p6,p5,p4)=triplesx(h3,h1,h2,p6,p5,p4)
      1   - t1sub(p4,h1)*v2sub(h3,h2,p6,p5)
@@ -95,6 +97,9 @@ c
       do p4=1,p4d
       do p5=1,p5d
       do p6=1,p6d
+#ifdef CRAYFTN
+      do h1=1,h1d
+#endif
       do h2=1,h2d
 !!!dir$ loop count min(8)
 !IBM* UNROLL(8)
@@ -105,7 +110,10 @@ c
 !dec$ unroll_and_jam = 8
 !dec$ vector always nontemporal
 !dir$ simd
+!DIR$ IVDEP
+#ifndef CRAYFTN
       do h1=1,h1d
+#endif
        triplesx(h1,h3,h2,p6,p5,p4)=triplesx(h1,h3,h2,p6,p5,p4)
      1   + t1sub(p4,h1)*v2sub(h3,h2,p6,p5)
       enddo
@@ -144,7 +152,9 @@ c
 !dec$ unroll_and_jam = 8
 !dec$ vector always nontemporal
 !dir$ simd
+!DIR$ IVDEP
 !IBM* INDEPENDENT, NEW(h3)
+!DIR$ IVDEP
       do h3=1,h3d
        triplesx(h3,h2,h1,p6,p4,p5)=triplesx(h3,h2,h1,p6,p4,p5)
      1   - t1sub(p4,h1)*v2sub(h3,h2,p6,p5)
@@ -174,17 +184,18 @@ c
 !!!dir$ prefetch t1sub
       do p4=1,p4d
       do p6=1,p6d
-      do h2=1,h2d
+      do h1=1,h1d
 !!!dir$ loop count min(8)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
-      do h1=1,h1d
+      do h2=1,h2d
 !!!dir$ loop count min(8)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dec$ vector always nontemporal
 !dir$ simd
 !IBM* INDEPENDENT, NEW(h3)
+!DIR$ IVDEP
       do h3=1,h3d
        triplesx(h3,h1,h2,p6,p4,p5)=triplesx(h3,h1,h2,p6,p4,p5)
      1   + t1sub(p4,h1)*v2sub(h3,h2,p6,p5)
@@ -224,6 +235,7 @@ c
 !dec$ unroll_and_jam = 8
 !dec$ vector always nontemporal
 !dir$ simd
+!DIR$ IVDEP
       do h1=1,h1d
        triplesx(h1,h3,h2,p6,p4,p5)=triplesx(h1,h3,h2,p6,p4,p5)
      1   - t1sub(p4,h1)*v2sub(h3,h2,p6,p5)
@@ -264,6 +276,7 @@ c
 !dec$ vector always nontemporal
 !dir$ simd
 !IBM* INDEPENDENT, NEW(h3)
+!DIR$ IVDEP
       do h3=1,h3d
        triplesx(h3,h2,h1,p4,p6,p5)=triplesx(h3,h2,h1,p4,p6,p5)
      1   + t1sub(p4,h1)*v2sub(h3,h2,p6,p5)
@@ -301,6 +314,7 @@ c
 !dec$ unroll_and_jam = 8
 !dec$ vector always nontemporal
 !dir$ simd
+!DIR$ IVDEP
 !IBM* INDEPENDENT, NEW(h3)
       do h3=1,h3d
        triplesx(h3,h1,h2,p4,p6,p5)=triplesx(h3,h1,h2,p4,p6,p5)
@@ -339,6 +353,7 @@ c
 !dec$ unroll_and_jam = 8
 !dec$ vector always nontemporal
 !dir$ simd
+!DIR$ IVDEP
       do h1=1,h1d
        triplesx(h1,h3,h2,p4,p6,p5)=triplesx(h1,h3,h2,p4,p6,p5)
      1   + t1sub(p4,h1)*v2sub(h3,h2,p6,p5)
@@ -362,7 +377,7 @@ c
       double precision v2sub(h3d,h2d,p6d,h7d)
       double precision v2tmp(h7d,h3d,h2d,p6d)
 !IBM* ALIGN(64,triplesx,t2sub,v2sub,v2tmp)
-!$omp  parallel do
+!$omp  parallel do collapse(3)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
       do p6=1,p6d
@@ -370,6 +385,7 @@ c
       do h2=1,h2d
 !dec$ vector always nontemporal
 !IBM* INDEPENDENT, NEW(h3)
+!DIR$ IVDEP
       do h3=1,h3d
         v2tmp(h7,h3,h2,p6) = v2sub(h3,h2,p6,h7)
       enddo
@@ -395,6 +411,7 @@ c
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd
+!DIR$ IVDEP
       do h7=1,h7d
        triplesx(h3,h2,h1,p6,p5,p4)=triplesx(h3,h2,h1,p6,p5,p4)
      1  -t2sub(h7,p4,p5,h1)*v2tmp(h7,h3,h2,p6)
@@ -419,7 +436,7 @@ c
       double precision v2sub(h3d,h2d,p6d,h7d)
       double precision v2tmp(h7d,h3d,h2d,p6d)
 !IBM* ALIGN(64,triplesx,t2sub,v2sub,v2tmp)
-!$omp  parallel do
+!$omp  parallel do collapse(3)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
       do p6=1,p6d
@@ -427,6 +444,7 @@ c
       do h2=1,h2d
 !dec$ vector always nontemporal
 !IBM* INDEPENDENT, NEW(h3)
+!DIR$ IVDEP
       do h3=1,h3d
         v2tmp(h7,h3,h2,p6) = v2sub(h3,h2,p6,h7)
       enddo
@@ -449,6 +467,7 @@ c
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd
+!DIR$ IVDEP
       do h7=1,h7d
        triplesx(h3,h1,h2,p6,p5,p4)=triplesx(h3,h1,h2,p6,p5,p4)
      1   + t2sub(h7,p4,p5,h1)*v2tmp(h7,h3,h2,p6)
@@ -473,7 +492,7 @@ c
       double precision v2sub(h3d,h2d,p6d,h7d)
       double precision v2tmp(h7d,h3d,h2d,p6d)
 !IBM* ALIGN(64,triplesx,t2sub,v2sub,v2tmp)
-!$omp  parallel do
+!$omp  parallel do collapse(3)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
       do p6=1,p6d
@@ -481,6 +500,7 @@ c
       do h2=1,h2d
 !dec$ vector always nontemporal
 !IBM* INDEPENDENT, NEW(h3)
+!DIR$ IVDEP
       do h3=1,h3d
         v2tmp(h7,h3,h2,p6) = v2sub(h3,h2,p6,h7)
       enddo
@@ -503,6 +523,7 @@ c
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd
+!DIR$ IVDEP
       do h7=1,h7d
        triplesx(h1,h3,h2,p6,p5,p4)=triplesx(h1,h3,h2,p6,p5,p4)
      1  -t2sub(h7,p4,p5,h1)*v2tmp(h7,h3,h2,p6)
@@ -536,6 +557,7 @@ c
 !dec$ vector always nontemporal
 !IBM* UNROLL(8)
 !IBM* INDEPENDENT, NEW(h3)
+!DIR$ IVDEP
       do h3=1,h3d
         v2tmp(h7,h3,h2,p6) = v2sub(h3,h2,p6,h7)
       enddo
@@ -563,6 +585,7 @@ c
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd
+!DIR$ IVDEP
       do h7=1,h7d
        triplesx(h3,h2,h1,p5,p4,p6)=triplesx(h3,h2,h1,p5,p4,p6)
      1  -t2sub(h7,p4,p5,h1)*v2tmp(h7,h3,h2,p6)
@@ -587,7 +610,7 @@ c
       double precision v2sub(h3d,h2d,p6d,h7d)
       double precision v2tmp(h7d,h3d,h2d,p6d)
 !IBM* ALIGN(64,triplesx,t2sub,v2sub,v2tmp)
-!$omp  parallel do
+!$omp  parallel do collapse(3)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
       do p6=1,p6d
@@ -595,6 +618,7 @@ c
       do h2=1,h2d
 !dec$ vector always nontemporal
 !IBM* INDEPENDENT, NEW(h3)
+!DIR$ IVDEP
       do h3=1,h3d
         v2tmp(h7,h3,h2,p6) = v2sub(h3,h2,p6,h7)
       enddo
@@ -617,6 +641,7 @@ c
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd
+!DIR$ IVDEP
       do h7=1,h7d
        triplesx(h3,h1,h2,p5,p4,p6)=triplesx(h3,h1,h2,p5,p4,p6)
      1   + t2sub(h7,p4,p5,h1)*v2tmp(h7,h3,h2,p6)
@@ -641,7 +666,7 @@ c
       double precision v2sub(h3d,h2d,p6d,h7d)
       double precision v2tmp(h7d,h3d,h2d,p6d)
 !IBM* ALIGN(64,triplesx,t2sub,v2sub,v2tmp)
-!$omp  parallel do
+!$omp  parallel do collapse(3)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
       do p6=1,p6d
@@ -649,6 +674,7 @@ c
       do h2=1,h2d
 !dec$ vector always nontemporal
 !IBM* INDEPENDENT, NEW(h3)
+!DIR$ IVDEP
       do h3=1,h3d
         v2tmp(h7,h3,h2,p6) = v2sub(h3,h2,p6,h7)
       enddo
@@ -671,6 +697,7 @@ c
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd
+!DIR$ IVDEP
       do h7=1,h7d
        triplesx(h1,h3,h2,p5,p4,p6)=triplesx(h1,h3,h2,p5,p4,p6)
      1  -t2sub(h7,p4,p5,h1)*v2tmp(h7,h3,h2,p6)
@@ -693,9 +720,10 @@ c
       double precision triplesx(h3d,h2d,h1d,p5d,p6d,p4d)
       double precision t2sub(h7d,p4d,p5d,h1d)
       double precision v2sub(h3d,h2d,p6d,h7d)
-      double precision v2tmp(h7d,h3d,h2d,p6d)
+#ifndef CRAYFTN
+      double precision v2tmp(h3d,h7d,h2d,p6d)
 !IBM* ALIGN(64,triplesx,t2sub,v2sub,v2tmp)
-!$omp  parallel do
+!$omp  parallel do collapse(3)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
       do p6=1,p6d
@@ -703,12 +731,14 @@ c
       do h2=1,h2d
 !dec$ vector always nontemporal
 !IBM* INDEPENDENT, NEW(h3)
+!DIR$ IVDEP
       do h3=1,h3d
-        v2tmp(h7,h3,h2,p6) = v2sub(h3,h2,p6,h7)
+        v2tmp(h3,h7,h2,p6) = v2sub(h3,h2,p6,h7)
       enddo
       enddo
       enddo
       enddo
+#endif
 !$omp  parallel do collapse(4)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
@@ -720,14 +750,19 @@ c
 !!!dir$ loop count min(8)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
-      do h3=1,h3d
+      do h7=1,h7d
 !!!dir$ loop count min(8)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd
-      do h7=1,h7d
+!DIR$ IVDEP
+      do h3=1,h3d
        triplesx(h3,h2,h1,p5,p6,p4)=triplesx(h3,h2,h1,p5,p6,p4)
-     1   + t2sub(h7,p4,p5,h1)*v2tmp(h7,h3,h2,p6)
+#ifndef CRAYFTN
+     1   + t2sub(h7,p4,p5,h1)*v2tmp(h3,h7,h2,p6)
+#else
+     1   + t2sub(h7,p4,p5,h1)*v2sub(h3,h2,p6,h7)
+#endif
       enddo
       enddo
       enddo
@@ -749,7 +784,7 @@ c
       double precision v2sub(h3d,h2d,p6d,h7d)
       double precision v2tmp(h7d,h3d,h2d,p6d)
 !IBM* ALIGN(64,triplesx,t2sub,v2sub,v2tmp)
-!$omp  parallel do
+!$omp  parallel do collapse(3)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
       do p6=1,p6d
@@ -757,6 +792,7 @@ c
       do h2=1,h2d
 !dec$ vector always nontemporal
 !IBM* INDEPENDENT, NEW(h3)
+!DIR$ IVDEP
       do h3=1,h3d
         v2tmp(h7,h3,h2,p6) = v2sub(h3,h2,p6,h7)
       enddo
@@ -779,6 +815,7 @@ c
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd
+!DIR$ IVDEP
       do h7=1,h7d
        triplesx(h3,h1,h2,p5,p6,p4)=triplesx(h3,h1,h2,p5,p6,p4)
      1  -t2sub(h7,p4,p5,h1)*v2tmp(h7,h3,h2,p6)
@@ -803,7 +840,7 @@ c
       double precision v2sub(h3d,h2d,p6d,h7d)
       double precision v2tmp(h7d,h3d,h2d,p6d)
 !IBM* ALIGN(64,triplesx,t2sub,v2sub,v2tmp)
-!$omp  parallel do
+!$omp  parallel do collapse(3)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
       do p6=1,p6d
@@ -811,6 +848,7 @@ c
       do h2=1,h2d
 !dec$ vector always nontemporal
 !IBM* INDEPENDENT, NEW(h3)
+!DIR$ IVDEP
       do h3=1,h3d
         v2tmp(h7,h3,h2,p6) = v2sub(h3,h2,p6,h7)
       enddo
@@ -833,6 +871,7 @@ c
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd
+!DIR$ IVDEP
       do h7=1,h7d
        triplesx(h1,h3,h2,p5,p6,p4)=triplesx(h1,h3,h2,p5,p6,p4)
      1   + t2sub(h7,p4,p5,h1)*v2tmp(h7,h3,h2,p6)
@@ -872,6 +911,7 @@ c
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd
+!DIR$ IVDEP
       do p7=1,p7d
        triplesx(h3,h2,h1,p6,p5,p4)=triplesx(h3,h2,h1,p6,p5,p4)
      1  -t2sub(p7,p4,h1,h2)*v2sub(p7,h3,p6,p5)
@@ -911,6 +951,7 @@ c
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd
+!DIR$ IVDEP
       do p7=1,p7d
        triplesx(h2,h1,h3,p6,p5,p4)=triplesx(h2,h1,h3,p6,p5,p4)
      1  -t2sub(p7,p4,h1,h2)*v2sub(p7,h3,p6,p5)
@@ -950,6 +991,7 @@ c
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd
+!DIR$ IVDEP
       do p7=1,p7d
        triplesx(h2,h3,h1,p6,p5,p4)=triplesx(h2,h3,h1,p6,p5,p4)
      1   + t2sub(p7,p4,h1,h2)*v2sub(p7,h3,p6,p5)
@@ -989,6 +1031,7 @@ c
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd
+!DIR$ IVDEP
       do p7=1,p7d
        triplesx(h3,h2,h1,p6,p4,p5)=triplesx(h3,h2,h1,p6,p4,p5)
      1   + t2sub(p7,p4,h1,h2)*v2sub(p7,h3,p6,p5)
@@ -1028,6 +1071,7 @@ c
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd
+!DIR$ IVDEP
       do p7=1,p7d
        triplesx(h2,h1,h3,p6,p4,p5)=triplesx(h2,h1,h3,p6,p4,p5)
      1   + t2sub(p7,p4,h1,h2)*v2sub(p7,h3,p6,p5)
@@ -1067,6 +1111,7 @@ c
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd
+!DIR$ IVDEP
       do p7=1,p7d
        triplesx(h2,h3,h1,p6,p4,p5)=triplesx(h2,h3,h1,p6,p4,p5)
      1  -t2sub(p7,p4,h1,h2)*v2sub(p7,h3,p6,p5)
@@ -1106,6 +1151,7 @@ c
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd
+!DIR$ IVDEP
       do p7=1,p7d
        triplesx(h3,h2,h1,p4,p6,p5)=triplesx(h3,h2,h1,p4,p6,p5)
      1  -t2sub(p7,p4,h1,h2)*v2sub(p7,h3,p6,p5)
@@ -1146,6 +1192,7 @@ c
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd
+!DIR$ IVDEP
       do p7=1,p7d
        triplesx(h2,h1,h3,p4,p6,p5)=triplesx(h2,h1,h3,p4,p6,p5)
      1  -t2sub(p7,p4,h1,h2)*v2sub(p7,h3,p6,p5)
@@ -1185,6 +1232,7 @@ c
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd
+!DIR$ IVDEP
       do p7=1,p7d
        triplesx(h2,h3,h1,p4,p6,p5)=triplesx(h2,h3,h1,p4,p6,p5)
      1   + t2sub(p7,p4,h1,h2)*v2sub(p7,h3,p6,p5)
