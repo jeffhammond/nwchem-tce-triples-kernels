@@ -3,6 +3,18 @@ ACTIVE   = -DDO_S1 -DDO_D1 -DDO_D2
 
 TARGET := MAC
 
+ifeq ($(TARGET),BW-CRAY)
+    CC       = cc
+    FC       = ftn
+    OPT      = -O3 -h omp
+    CFLAGS   = $(OPT) -h c99 $(ACTIVE)
+    FFLAGS   = $(OPT)
+    CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
+    LD       = $(FC)
+    LDFLAGS  = $(FFLAGS)
+    LIBS     = -lsci_cray
+endif
+
 ifeq ($(TARGET),KAYLA)
     CC       = gcc
     FC       = gfortran

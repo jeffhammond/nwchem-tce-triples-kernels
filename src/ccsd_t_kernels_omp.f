@@ -546,15 +546,15 @@ c
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
       do p6=1,p6d
-#ifdef __ppc64__
-      do p4=1,p4d ! this loop used to be between p6 and p5
-#endif
+!#ifdef __ppc64__
+!      do p4=1,p4d ! this loop used to be between p6 and p5
+!#endif
       do p5=1,p5d
       do h1=1,h1d
       do h2=1,h2d
-#ifndef __ppc64__
+!#ifndef __ppc64__
       do p4=1,p4d ! this loop used to be between p6 and p5
-#endif
+!#endif
 !!!dir$ loop count min(8)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
