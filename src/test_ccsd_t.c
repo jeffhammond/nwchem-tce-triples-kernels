@@ -61,17 +61,13 @@ int main(int argc, char * argv[])
 
     printf("testing NWChem CCSD(T) kernels on %d threads with tilesize %d \n", omp_get_max_threads(), tilesize);
 
-    long long tile2    = tilesize*tilesize;
-    long long tile4    = tile2*tile2;
-    long long tile6    = tile4*tile2;
-    long long tile7    = tile6*tilesize;
-
     double eff_peak = -9999.9;
     /* approximate achievable peak by
      * T3(ijk,abc) = T1(i,j)*V(k,abc) */
     eff_peak = dger_gflops(tilesize*tilesize,
                            tilesize*tilesize*tilesize*tilesize);
     printf("DGER  gigaflop/s of your processor is %lf \n", eff_peak);
+    fflush(stdout);
     /* approximate achievable peak by
      * T3(ijk,abc) = T2(ijk,l)*V(l,abc) */
     eff_peak = dgemm_gflops(tilesize*tilesize*tilesize,
@@ -80,14 +76,17 @@ int main(int argc, char * argv[])
     printf("DGEMM gigaflop/s of your processor is %lf \n", eff_peak);
     fflush(stdout);
 
-#if 0
     /* approximate achievable peak for a rather large DGEMM */
     eff_peak = dgemm_gflops(tilesize*tilesize*tilesize,
                             tilesize*tilesize*tilesize,
                             tilesize*tilesize*tilesize);
     printf("PEAK* gigaflop/s of your processor is %lf \n", eff_peak);
     fflush(stdout);
-#endif
+
+    long long tile2    = tilesize*tilesize;
+    long long tile4    = tile2*tile2;
+    long long tile6    = tile4*tile2;
+    long long tile7    = tile6*tilesize;
 
     double tt0, tt1, ttt0, ttt1, dt;
 
@@ -95,10 +94,7 @@ int main(int argc, char * argv[])
     double * t1  = safemalloc( tile2*sizeof(double) );
     double * t2  = safemalloc( tile4*sizeof(double) );
     double * v2  = safemalloc( tile4*sizeof(double) );
-    double * t3r = safemalloc( tile6*sizeof(double) );
     double * t3o = safemalloc( tile6*sizeof(double) );
-    double * t3c = safemalloc( tile6*sizeof(double) );
-    double * t3d = safemalloc( tile6*sizeof(double) );
 
     tt0 = omp_get_wtime();
     rand_array(tile2, t1);
@@ -299,6 +295,8 @@ int main(int argc, char * argv[])
 #endif
     }
 
+    double * t3r = safemalloc( tile6*sizeof(double) );
+
     printf("\nSTARTING FORTRAN REFERENCE KERNELS \n");
     fflush(stdout);
     for (int i=0; i<2; i++)
@@ -492,6 +490,8 @@ int main(int argc, char * argv[])
     }
 
 #if DO_C_KERNELS
+    double * t3c = safemalloc( tile6*sizeof(double) );
+
     printf("\nSTARTING F2C KERNELS \n");
     fflush(stdout);
     for (int i=0; i<2; i++)
@@ -683,6 +683,8 @@ int main(int argc, char * argv[])
         fflush(stdout);
 #endif
     }
+
+    double * t3d = safemalloc( tile6*sizeof(double) );
 
     printf("\nSTARTING C99 KERNELS \n");
     fflush(stdout);
@@ -877,36 +879,31 @@ int main(int argc, char * argv[])
     }
 #endif // DO_C_KERNELS
 
-    double e1 = diff_array(tile2, t1, t1);
-    double e2 = diff_array(tile4, t2, t2);
-    double e3 = diff_array(tile4, v2, v2);
-    double e4 = diff_array(tile6, t3r, t3o);
+    printf("||t3o-t3r||_1 = %30.15lf \n", diff_array(tile6, t3r, t3o));
 #if DO_C_KERNELS
-    double e5 = diff_array(tile6, t3r, t3c);
-    double e6 = diff_array(tile6, t3r, t3d);
-#else
-    double e5 = 0.0, e6 = 0.0;
+    printf("||t3c-t3r||_1 = %30.15lf \n", diff_array(tile6, t3r, t3c));
+    printf("||t3d-t3r||_1 = %30.15lf \n", diff_array(tile6, t3r, t3d));
 #endif // DO_C_KERNELS
-
-    printf("differences: t1 = %lf, t2 = %lf, v2 = %lf, t3o = %30.15lf, t3c = %30.15lf, t3d = %30.15lf \n",
-            e1, e2, e3, e4, e5, e6);
-    if ( fabs(e4)>1.e-7 || fabs(e5)>1.e-7) {
-        printf("ERROR!!!\n");
-        exit(1);
-    }
 
     double n1  = norm_array(tile2, t1);
     double n2  = norm_array(tile4, t2);
     double n3  = norm_array(tile4, v2);
     double n4r = norm_array(tile6, t3r);
     double n4o = norm_array(tile6, t3o);
+#if DO_C_KERNELS
     double n4c = norm_array(tile6, t3c);
     double n4d = norm_array(tile6, t3d);
+#else
+    double n4c = 0.0;
+    double n4d = 0.0;
+#endif
 
     printf("norm: t1 = %lf, t2 = %lf, v2 = %lf, t3 = %lf, %lf, %lf, %lf\n", n1, n2, n3, n4r, n4o, n4c, n4d);
 
+#if DO_C_KERNELS
     free(t3d);
     free(t3c);
+#endif
     free(t3o);
     free(t3r);
     free(v2);
