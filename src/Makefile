@@ -3,6 +3,30 @@ ACTIVE   = -DDO_S1 -DDO_D1 -DDO_D2
 
 TARGET := MAC
 
+ifeq ($(TARGET),TUKEY-INTEL)
+    CC       = icc
+    FC       = ifort
+    OPT      = -O3 -openmp -msse4.2 -fno-alias -multiple-processes=8
+    CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
+    FFLAGS   = $(OPT) -cpp -nofor-main
+    CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
+    LD       = $(FC)
+    LDFLAGS  = $(FFLAGS)
+    LIBS     = /soft/libraries/acml/5.3.1/ifort64_mp/lib/libacml_mp.a
+endif
+
+ifeq ($(TARGET),TUKEY-GCC)
+    CC       = gcc
+    FC       = gfortran
+    OPT      = -O3 -fopenmp -march=native -ftree-vectorize -ffp-contract=fast
+    CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
+    FFLAGS   = $(OPT) -cpp
+    CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
+    LD       = $(FC)
+    LDFLAGS  = $(FFLAGS)
+    LIBS     = /soft/libraries/acml/5.3.1/gfortran64_mp/lib/libacml_mp.a
+endif
+
 ifeq ($(TARGET),KAYLA)
     CC       = gcc
     FC       = gfortran
