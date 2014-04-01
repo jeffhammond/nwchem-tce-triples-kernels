@@ -8,7 +8,7 @@ ifeq ($(TARGET),BW-CRAY)
     FC       = ftn
     OPT      = -O3 -h omp
     CFLAGS   = $(OPT) -h c99 $(ACTIVE)
-    FFLAGS   = $(OPT)
+    FFLAGS   = $(OPT) -e F
     CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
     LD       = $(FC)
     LDFLAGS  = $(FFLAGS)
