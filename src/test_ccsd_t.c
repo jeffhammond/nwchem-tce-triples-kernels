@@ -9,15 +9,16 @@
 #include "safemalloc.h"
 #include "ccsd_t_kernels.h"
 
-double dger_gflops(int m, int n);
 double dgemm_gflops(int m, int n, int k);
+double dger_gflops(int m, int n);
+double daxpy_gflops(int n);
+double memcpy_bandwidth(size_t n);
 
 void rand_array(long long n, double * a)
 {
     #pragma omp parallel for schedule(static)
     for (long long i=0; i<n; i++)
         a[i] = 1.0 - 2*(double)rand()/(double)RAND_MAX;
-
     return;
 }
 
@@ -40,18 +41,18 @@ void copy_array(long long n, double * a, double * b)
 double norm_array(long long n, const double * a)
 {
     double norm = 0.0;
+    #pragma omp parallel for schedule(static) reduction(+ : norm)
     for (long long i=0; i<n; i++)
         norm += a[i]*a[i];
-
     return norm;
 }
 
 double diff_array(long long n, const double * a, const double * b)
 {
     double diff = 0.0;
+    #pragma omp parallel for schedule(static) reduction(+ : diff)
     for (long long i=0; i<n; i++)
         diff += fabs(a[i]-b[i]);
-
     return diff;
 }
 
@@ -59,36 +60,46 @@ int main(int argc, char * argv[])
 {
     int tilesize = ((argc>1) ? atoi(argv[1]) : 16);
 
+    long long tile2    = tilesize*tilesize;
+    long long tile3    = tile2*tilesize;
+    long long tile4    = tile2*tile2;
+    long long tile6    = tile3*tile3;
+    long long tile7    = tile4*tile3;
+
     printf("testing NWChem CCSD(T) kernels on %d threads with tilesize %d \n", omp_get_max_threads(), tilesize);
 
     double eff_peak = -9999.9;
-    /* approximate achievable peak by
-     * T3(ijk,abc) = T1(i,j)*V(k,abc) */
-    eff_peak = dger_gflops(tilesize*tilesize,
-                           tilesize*tilesize*tilesize*tilesize);
+
+    /* approximate memory bandwidth (memcpy) */
+    eff_peak = memcpy_bandwidth(tile6);
+    printf("MEMCPY gigabytes/s of your processor is %lf \n", eff_peak);
+    fflush(stdout);
+
+    if (tilesize <= 32) /* test for overflow */ {
+        /* approximate achievable peak for a rather large DAXPY */
+        eff_peak = daxpy_gflops(tile6);
+        printf("DAXPY gigaflop/s of your processor is %lf \n", eff_peak);
+        fflush(stdout);
+    }
+
+    /* approximate achievable peak by T3(ijk,abc) = T1(i,j)*V(k,abc) */
+    eff_peak = dger_gflops(tile2, tile4);
     printf("DGER  gigaflop/s of your processor is %lf \n", eff_peak);
     fflush(stdout);
-    /* approximate achievable peak by
-     * T3(ijk,abc) = T2(ijk,l)*V(l,abc) */
-    eff_peak = dgemm_gflops(tilesize*tilesize*tilesize,
-                            tilesize*tilesize*tilesize,
+
+    /* approximate achievable peak by T3(ijk,abc) = T2(ijk,l)*V(l,abc) */
+    eff_peak = dgemm_gflops(tile3,
+                            tile3,
                             tilesize);
-    printf("DGEMM gigaflop/s of your processor is %lf \n", eff_peak);
+    printf("DGEMM (k=t) gigaflop/s of your processor is %lf \n", eff_peak);
     fflush(stdout);
 
-    /* approximate achievable peak for a rather large DGEMM */
-    eff_peak = dgemm_gflops(tilesize*tilesize*tilesize,
-                            tilesize*tilesize*tilesize,
-                            tilesize*tilesize*tilesize);
-    printf("PEAK* gigaflop/s of your processor is %lf \n", eff_peak);
+    /* approximate achievable peak for a DGEMM with large enough k */
+    eff_peak = dgemm_gflops(tile3, tile3, tile2);
+    printf("DGEMM (k=t^2) gigaflop/s of your processor is %lf \n", eff_peak);
     fflush(stdout);
 
-    long long tile2    = tilesize*tilesize;
-    long long tile4    = tile2*tile2;
-    long long tile6    = tile4*tile2;
-    long long tile7    = tile6*tilesize;
-
-    double tt0, tt1, ttt0, ttt1, dt;
+    double tt0 = 0.0, tt1 = 0.0, ttt0 = 0.0, ttt1 = 0.0, dt = 0.0;
 
     /* reference */
     double * t1  = safemalloc( tile2*sizeof(double) );
@@ -890,15 +901,13 @@ int main(int argc, char * argv[])
     double n3  = norm_array(tile4, v2);
     double n4r = norm_array(tile6, t3r);
     double n4o = norm_array(tile6, t3o);
+    printf("norm: t1 = %lf, t2 = %lf, v2 = %lf\n", n1, n2, n3);
+    printf("norm: t3r = %lf, t3o = %lf\n", n4r, n4o);
 #if DO_C_KERNELS
     double n4c = norm_array(tile6, t3c);
     double n4d = norm_array(tile6, t3d);
-#else
-    double n4c = 0.0;
-    double n4d = 0.0;
+    printf("norm: t3c = %lf, t3d = %lf\n", n4c, n4d);
 #endif
-
-    printf("norm: t1 = %lf, t2 = %lf, v2 = %lf, t3 = %lf, %lf, %lf, %lf\n", n1, n2, n3, n4r, n4o, n4c, n4d);
 
 #if DO_C_KERNELS
     free(t3d);

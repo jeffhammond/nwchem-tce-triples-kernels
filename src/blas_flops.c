@@ -1,3 +1,4 @@
+#include <string.h>
 #include <math.h>
 
 #ifdef _OPENMP
@@ -10,6 +11,7 @@
 
 void dgemm_(char* , char* ,int* , int* , int* , double* , double* , int* , double* , int* , double* , double* , int* );
 void dger_(int* m, int* n, double* alpha, double* x, int* incx, double* y, int* incy, double* a, int* lda);
+void daxpy_(int* n, double* alpha, double* x, int* incx, double* y, int* incy);
 
 /* number of test repititions */
 const int nr = 1;
@@ -135,6 +137,92 @@ double dger_gflops(int m, int n)
 #endif
 
     free(a);
+    free(y);
+    free(x);
+
+    return result;
+}
+
+double daxpy_gflops(int n)
+{
+#ifdef DEBUG
+    printf("testing DAXPY on %d threads with n = %d \n", omp_get_max_threads(), n);
+    fflush(stdout);
+#endif
+
+    double * x = safemalloc( n*sizeof(double) );
+    double * y = safemalloc( n*sizeof(double) );
+
+    #pragma omp parallel
+    {
+        double denom = 2.0/(double)RAND_MAX;
+
+        #pragma omp for
+        for (int i=0; i<n; i++)
+            x[i] =  1.0 - denom*(double)rand();
+
+        #pragma omp for
+        for (int i=0; i<n; i++)
+            y[i] =  1.0 - denom*(double)rand();
+    }
+
+    int inc = 1;
+    double alpha = 1.0;
+
+    /* warmup */
+    daxpy_(&n, &alpha, x, &inc, y, &inc);
+    double tt0 = omp_get_wtime();
+    for (int r = 0; r<nr; r++)
+        daxpy_(&n, &alpha, x, &inc, y, &inc);
+    double tt1 = omp_get_wtime();
+
+    double dt = (tt1-tt0)/nr;
+    double result = (2.e-9*n/dt);
+#ifdef DEBUG
+    printf("DAXPY(n=%d,alpha=%lf) took %lf seconds, GF/s = %lf \n",
+           n, alpha, dt, result);
+    fflush(stdout);
+#endif
+
+    free(y);
+    free(x);
+
+    return result;
+}
+
+double memcpy_bandwidth(size_t n)
+{
+#ifdef DEBUG
+    printf("testing MEMCPY with %zu doubles\n", n);
+    fflush(stdout);
+#endif
+
+    size_t b = n*sizeof(double);
+
+    double * x = safemalloc(b);
+    double * y = safemalloc(b);
+
+    for (size_t i=0; i<n; i++)
+        x[i] =  (double)i;
+
+    for (size_t i=0; i<n; i++)
+        y[i] =  0.0;
+
+    /* warmup */
+    memcpy(y, x, b);
+    double tt0 = omp_get_wtime();
+    for (int r = 0; r<nr; r++)
+        memcpy(y, x, b);
+    double tt1 = omp_get_wtime();
+
+    double dt = (tt1-tt0)/nr;
+    double result = 1.e-9*b/dt;
+#ifdef DEBUG
+    printf("MEMCPY of %zu bytes took %lf seconds, GB/s = %lf \n",
+           b, dt, result);
+    fflush(stdout);
+#endif
+
     free(y);
     free(x);
 
