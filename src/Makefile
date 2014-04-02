@@ -3,16 +3,28 @@ ACTIVE   = -DDO_S1 -DDO_D1 -DDO_D2
 
 TARGET := MAC
 
-ifeq ($(TARGET),BW-CRAY)
+ifeq ($(TARGET),CRAY-GCC)
+    CC       = cc
+    FC       = ftn
+    OPT      = -O3 -fopenmp -march=native -ftree-vectorize -ffp-contract=fast
+    CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
+    FFLAGS   = $(OPT) -cpp
+    CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
+    LD       = $(FC)
+    LDFLAGS  = $(FFLAGS)
+    LIBS     = -lsci_gnu_48_mp
+endif
+
+ifeq ($(TARGET),CRAY)
     CC       = cc
     FC       = ftn
     OPT      = -O3 -h omp
-    CFLAGS   = $(OPT) -g -h c99 $(ACTIVE)
+    CFLAGS   = $(OPT) -h c99 $(ACTIVE)
     FFLAGS   = $(OPT) -e F -DCRAYFTN
     CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
     LD       = $(FC)
     LDFLAGS  = $(FFLAGS)
-    LIBS     = -lsci_cray
+    LIBS     = -lsci_cray_mp
 endif
 
 ifeq ($(TARGET),TUKEY-INTEL)
@@ -130,8 +142,8 @@ endif
 ifeq ($(TARGET),INTEL)
     CC       = icc
     FC       = ifort
-    OPT      = -O3 -openmp -fno-alias -multiple-processes=8 -msse4.2
-    #OPT      = -O3 -openmp -fno-alias -multiple-processes=8 -mavx
+    #OPT      = -O3 -openmp -fno-alias -multiple-processes=8 -msse4.2
+    OPT      = -O3 -openmp -fno-alias -multiple-processes=8 -mavx
     ASM      = -S -fsource-asm -fcode-asm
     CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
     FFLAGS   = $(OPT)

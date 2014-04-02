@@ -1,0 +1,124 @@
+testing NWChem CCSD(T) kernels on 48 threads with tilesize 16 
+DGER  gigaflop/s of your processor is 4.759007 
+DGEMM gigaflop/s of your processor is 76.951588 
+PEAK* gigaflop/s of your processor is 82.859730 
+randomized initialization took 0.016791 seconds 
+
+STARTING FORTRAN OPENMP KERNELS 
+0: sd_t_s1_1_ time = 0.007037 seconds gigaflop/s = 4.768057 
+0: sd_t_s1_2_ time = 0.007185 seconds gigaflop/s = 4.669819 
+0: sd_t_s1_3_ time = 0.007085 seconds gigaflop/s = 4.735743 
+0: sd_t_s1_4_ time = 0.006948 seconds gigaflop/s = 4.829206 
+0: sd_t_s1_5_ time = 0.007188 seconds gigaflop/s = 4.668043 
+0: sd_t_s1_6_ time = 0.016359 seconds gigaflop/s = 2.051090 
+0: sd_t_s1_7_ time = 0.006973 seconds gigaflop/s = 4.811854 
+0: sd_t_s1_8_ time = 0.017704 seconds gigaflop/s = 1.895268 
+0: sd_t_s1_9_ time = 0.016224 seconds gigaflop/s = 2.068198 
+0: sd_t_d1_1_ time = 0.261324 seconds gigaflop/s = 2.054423 
+0: sd_t_d1_2_ time = 0.037526 seconds gigaflop/s = 14.306731 
+0: sd_t_d1_3_ time = 0.064465 seconds gigaflop/s = 8.328070 
+0: sd_t_d1_4_ time = 0.007622 seconds gigaflop/s = 70.439203 
+0: sd_t_d1_5_ time = 0.007557 seconds gigaflop/s = 71.040015 
+0: sd_t_d1_6_ time = 0.007184 seconds gigaflop/s = 74.734417 
+0: sd_t_d1_7_ time = 0.007803 seconds gigaflop/s = 68.800045 
+0: sd_t_d1_8_ time = 0.007223 seconds gigaflop/s = 74.328492 
+0: sd_t_d1_9_ time = 0.007229 seconds gigaflop/s = 74.266306 
+0: sd_t_d2_1_ time = 0.007087 seconds gigaflop/s = 75.753588 
+0: sd_t_d2_2_ time = 0.009539 seconds gigaflop/s = 56.283116 
+0: sd_t_d2_3_ time = 0.007216 seconds gigaflop/s = 74.402318 
+0: sd_t_d2_4_ time = 0.007512 seconds gigaflop/s = 71.466395 
+0: sd_t_d2_5_ time = 0.007894 seconds gigaflop/s = 68.012237 
+0: sd_t_d2_6_ time = 0.007274 seconds gigaflop/s = 73.811451 
+0: sd_t_d2_7_ time = 0.007049 seconds gigaflop/s = 76.159550 
+0: sd_t_d2_8_ time = 0.007852 seconds gigaflop/s = 68.374424 
+0: sd_t_d2_9_ time = 0.007391 seconds gigaflop/s = 72.636079 
+0: total time = 0.569766 seconds gigaflop/s = 8.480392 
+1: sd_t_s1_1_ time = 0.007020 seconds gigaflop/s = 4.779667 
+1: sd_t_s1_2_ time = 0.007201 seconds gigaflop/s = 4.659651 
+1: sd_t_s1_3_ time = 0.007061 seconds gigaflop/s = 4.752266 
+1: sd_t_s1_4_ time = 0.006977 seconds gigaflop/s = 4.809492 
+1: sd_t_s1_5_ time = 0.007200 seconds gigaflop/s = 4.660628 
+1: sd_t_s1_6_ time = 0.016268 seconds gigaflop/s = 2.062594 
+1: sd_t_s1_7_ time = 0.006937 seconds gigaflop/s = 4.837081 
+1: sd_t_s1_8_ time = 0.016697 seconds gigaflop/s = 2.009605 
+1: sd_t_s1_9_ time = 0.016514 seconds gigaflop/s = 2.031930 
+1: sd_t_d1_1_ time = 0.257519 seconds gigaflop/s = 2.084779 
+1: sd_t_d1_2_ time = 0.007667 seconds gigaflop/s = 70.023960 
+1: sd_t_d1_3_ time = 0.007188 seconds gigaflop/s = 74.685047 
+1: sd_t_d1_4_ time = 0.007547 seconds gigaflop/s = 71.140956 
+1: sd_t_d1_5_ time = 0.007314 seconds gigaflop/s = 73.407905 
+1: sd_t_d1_6_ time = 0.007188 seconds gigaflop/s = 74.690533 
+1: sd_t_d1_7_ time = 0.007773 seconds gigaflop/s = 69.071255 
+1: sd_t_d1_8_ time = 0.007187 seconds gigaflop/s = 74.703065 
+1: sd_t_d1_9_ time = 0.007193 seconds gigaflop/s = 74.637710 
+1: sd_t_d2_1_ time = 0.007146 seconds gigaflop/s = 75.130321 
+1: sd_t_d2_2_ time = 0.009361 seconds gigaflop/s = 57.349358 
+1: sd_t_d2_3_ time = 0.007193 seconds gigaflop/s = 74.633661 
+1: sd_t_d2_4_ time = 0.007518 seconds gigaflop/s = 71.409939 
+1: sd_t_d2_5_ time = 0.007961 seconds gigaflop/s = 67.437742 
+1: sd_t_d2_6_ time = 0.007319 seconds gigaflop/s = 73.357031 
+1: sd_t_d2_7_ time = 0.007030 seconds gigaflop/s = 76.370648 
+1: sd_t_d2_8_ time = 0.007873 seconds gigaflop/s = 68.189272 
+1: sd_t_d2_9_ time = 0.007425 seconds gigaflop/s = 72.303958 
+1: total time = 0.477581 seconds gigaflop/s = 10.117311 
+
+STARTING FORTRAN REFERENCE KERNELS 
+0: sd_t_s1_1_ time = 0.017974 seconds gigaflop/s = 1.866829 
+0: sd_t_s1_2_ time = 0.534220 seconds gigaflop/s = 0.062810 
+0: sd_t_s1_3_ time = 0.539397 seconds gigaflop/s = 0.062207 
+0: sd_t_s1_4_ time = 0.018460 seconds gigaflop/s = 1.817685 
+0: sd_t_s1_5_ time = 0.526007 seconds gigaflop/s = 0.063791 
+0: sd_t_s1_6_ time = 0.539176 seconds gigaflop/s = 0.062233 
+0: sd_t_s1_7_ time = 0.018246 seconds gigaflop/s = 1.838971 
+0: sd_t_s1_8_ time = 0.533562 seconds gigaflop/s = 0.062888 
+0: sd_t_s1_9_ time = 0.538456 seconds gigaflop/s = 0.062316 
+0: sd_t_d1_1_ time = 0.217293 seconds gigaflop/s = 2.470728 
+0: sd_t_d1_2_ time = 0.317200 seconds gigaflop/s = 1.692529 
+0: sd_t_d1_3_ time = 0.319310 seconds gigaflop/s = 1.681345 
+0: sd_t_d1_4_ time = 0.213016 seconds gigaflop/s = 2.520335 
+0: sd_t_d1_5_ time = 0.316503 seconds gigaflop/s = 1.696261 
+0: sd_t_d1_6_ time = 0.317642 seconds gigaflop/s = 1.690174 
+0: sd_t_d1_7_ time = 0.215287 seconds gigaflop/s = 2.493740 
+0: sd_t_d1_8_ time = 0.316005 seconds gigaflop/s = 1.698929 
+0: sd_t_d1_9_ time = 0.318307 seconds gigaflop/s = 1.686647 
+0: sd_t_d2_1_ time = 0.321858 seconds gigaflop/s = 1.668035 
+0: sd_t_d2_2_ time = 0.351180 seconds gigaflop/s = 1.528762 
+0: sd_t_d2_3_ time = 0.316955 seconds gigaflop/s = 1.693837 
+0: sd_t_d2_4_ time = 0.318220 seconds gigaflop/s = 1.687105 
+0: sd_t_d2_5_ time = 0.340415 seconds gigaflop/s = 1.577109 
+0: sd_t_d2_6_ time = 0.314081 seconds gigaflop/s = 1.709339 
+0: sd_t_d2_7_ time = 0.318497 seconds gigaflop/s = 1.685640 
+0: sd_t_d2_8_ time = 0.347471 seconds gigaflop/s = 1.545083 
+0: sd_t_d2_9_ time = 0.316872 seconds gigaflop/s = 1.694285 
+0: total time = 8.761866 seconds gigaflop/s = 0.551462 
+1: sd_t_s1_1_ time = 0.017976 seconds gigaflop/s = 1.866593 
+1: sd_t_s1_2_ time = 0.536188 seconds gigaflop/s = 0.062580 
+1: sd_t_s1_3_ time = 0.536150 seconds gigaflop/s = 0.062584 
+1: sd_t_s1_4_ time = 0.018570 seconds gigaflop/s = 1.806920 
+1: sd_t_s1_5_ time = 0.527716 seconds gigaflop/s = 0.063584 
+1: sd_t_s1_6_ time = 0.537724 seconds gigaflop/s = 0.062401 
+1: sd_t_s1_7_ time = 0.018346 seconds gigaflop/s = 1.828951 
+1: sd_t_s1_8_ time = 0.540685 seconds gigaflop/s = 0.062059 
+1: sd_t_s1_9_ time = 0.536133 seconds gigaflop/s = 0.062586 
+1: sd_t_d1_1_ time = 0.217456 seconds gigaflop/s = 2.468872 
+1: sd_t_d1_2_ time = 0.317093 seconds gigaflop/s = 1.693102 
+1: sd_t_d1_3_ time = 0.318065 seconds gigaflop/s = 1.687928 
+1: sd_t_d1_4_ time = 0.213087 seconds gigaflop/s = 2.519496 
+1: sd_t_d1_5_ time = 0.316803 seconds gigaflop/s = 1.694652 
+1: sd_t_d1_6_ time = 0.318098 seconds gigaflop/s = 1.687751 
+1: sd_t_d1_7_ time = 0.215481 seconds gigaflop/s = 2.491500 
+1: sd_t_d1_8_ time = 0.318401 seconds gigaflop/s = 1.686148 
+1: sd_t_d1_9_ time = 0.318469 seconds gigaflop/s = 1.685786 
+1: sd_t_d2_1_ time = 0.318500 seconds gigaflop/s = 1.685622 
+1: sd_t_d2_2_ time = 0.351479 seconds gigaflop/s = 1.527462 
+1: sd_t_d2_3_ time = 0.317038 seconds gigaflop/s = 1.693394 
+1: sd_t_d2_4_ time = 0.317064 seconds gigaflop/s = 1.693256 
+1: sd_t_d2_5_ time = 0.340889 seconds gigaflop/s = 1.574915 
+1: sd_t_d2_6_ time = 0.314616 seconds gigaflop/s = 1.706432 
+1: sd_t_d2_7_ time = 0.316717 seconds gigaflop/s = 1.695112 
+1: sd_t_d2_8_ time = 0.347879 seconds gigaflop/s = 1.543268 
+1: sd_t_d2_9_ time = 0.316595 seconds gigaflop/s = 1.695764 
+1: total time = 8.763466 seconds gigaflop/s = 0.551362 
+||t3o-t3r||_1 =              0.000000010734749 
+norm: t1 = 88.746246, t2 = 21687.217326, v2 = 21893.710371, t3 = 465978123.270755, 465978123.270755, 0.000000, 0.000000
+ALL DONE 
