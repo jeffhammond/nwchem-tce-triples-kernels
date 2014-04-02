@@ -22,6 +22,7 @@ void f2c_sd_t_s1_1_(fint * h3d, fint * h2d, fint * h1d,
     for (int p6=0; p6<p6u; p6++)
     for (int h1=0; h1<h1u; h1++)
     for (int h2=0; h2<h2u; h2++)
+    PRAGMA_UNROLL
     PRAGMA_IVDEP
     for (int h3=0; h3<h3u; h3++)
     //t3(h3,h2,h1,p6,p5,p4)+=t1(p4,h1)*v2(h3,h2,p6,p5);
