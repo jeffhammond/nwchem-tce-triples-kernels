@@ -113,19 +113,7 @@ ifeq ($(TARGET),MAC-CLANG)
     CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
     LD       = clang -L/usr/local/Cellar/gfortran/4.8.2/gfortran/lib
     LDFLAGS  = $(CFLAGS)
-    LIBS     = -framework Accelerate
-endif
-
-ifeq ($(TARGET),MAC-PGI)
-    CC       = pgcc
-    FC       = pgf77
-    OPT      = -O3
-    CFLAGS   = $(OPT) $(ACTIVE) # -c99
-    FFLAGS   = $(OPT)
-    CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
-    LD       = $(CC)
-    LDFLAGS  = $(CFLAGS)
-    LIBS     = -framework Accelerate
+    LIBS     = -framework Accelerate -lgfortran
 endif
 
 ifeq ($(TARGET),MAC)
@@ -137,7 +125,7 @@ ifeq ($(TARGET),MAC)
     CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
     LD       = clang -L/usr/local/Cellar/gfortran/4.8.2/gfortran/lib
     LDFLAGS  = $(CFLAGS)
-    LIBS     = -framework Accelerate
+    LIBS     = -framework Accelerate -lgfortran
 endif
 
 ifeq ($(TARGET),INTEL)
@@ -167,7 +155,7 @@ ifeq ($(TARGET),MIC)
     LIBS     = -mkl=parallel
 endif
 
-TESTS   := test_ccsd_t.x
+TESTS   := test_ccsd_t.x test_fortran_math.x
 OBJECTS := ccsd_t_kernels_omp.o ccsd_t_kernels_ref.o ccsd_t_kernels_f2c.o ccsd_t_kernels_c99.o blas_flops.o
 HEADERS := ccsd_t_kernels_omp.h ccsd_t_kernels_ref.h ccsd_t_kernels_f2c.h ccsd_t_kernels_c99.h safemalloc.h pragma-vendor.h pragma-openmp.h
 
