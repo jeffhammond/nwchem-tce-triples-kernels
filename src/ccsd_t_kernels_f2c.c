@@ -1,7 +1,6 @@
 /* These have been separated out from ccsd_t_singles_l.F and ccsd_t_doubles_l.F
  * and converted from Fortran 77 to C99 by hand. */
 
-#include "pragmas.h"
 #include "ccsd_t_kernels.h"
 
 /* The possible downcast from fint to int is safe because array dimensions

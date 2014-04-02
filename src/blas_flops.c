@@ -6,6 +6,7 @@
 #else
 #include "fake-omp.h"
 #endif
+#include "pragma-openmp.h"
 
 #include "safemalloc.h"
 
@@ -38,19 +39,19 @@ double dgemm_gflops(int m, int n, int k)
     double * b = safemalloc( kn*sizeof(double) );
     double * c = safemalloc( mn*sizeof(double) );
 
-    #pragma omp parallel
+    OMP_PARALLEL
     {
         double denom = 2.0/(double)RAND_MAX;
 
-        #pragma omp for
+        OMP_FOR
         for (long i=0; i<mk; i++)
             a[i] =  1.0 - denom*(double)rand();
 
-        #pragma omp for
+        OMP_FOR
         for (long i=0; i<kn; i++)
             b[i] =  1.0 - denom*(double)rand();
 
-        #pragma omp for
+        OMP_FOR
         for (long i=0; i<mn; i++)
             c[i] =  1.0 - denom*(double)rand();
     }
@@ -101,19 +102,19 @@ double dger_gflops(int m, int n)
     double * y = safemalloc( n*sizeof(double) );
     double * a = safemalloc( mn*sizeof(double) );
 
-    #pragma omp parallel
+    OMP_PARALLEL
     {
         double denom = 2.0/(double)RAND_MAX;
 
-        #pragma omp for
+        OMP_FOR
         for (long i=0; i<m; i++)
             x[i] =  1.0 - denom*(double)rand();
 
-        #pragma omp for
+        OMP_FOR
         for (long i=0; i<n; i++)
             y[i] =  1.0 - denom*(double)rand();
 
-        #pragma omp for
+        OMP_FOR
         for (long i=0; i<mn; i++)
             a[i] =  1.0 - denom*(double)rand();
     }
@@ -153,15 +154,15 @@ double daxpy_gflops(int n)
     double * x = safemalloc( n*sizeof(double) );
     double * y = safemalloc( n*sizeof(double) );
 
-    #pragma omp parallel
+    OMP_PARALLEL
     {
         double denom = 2.0/(double)RAND_MAX;
 
-        #pragma omp for
+        OMP_FOR
         for (int i=0; i<n; i++)
             x[i] =  1.0 - denom*(double)rand();
 
-        #pragma omp for
+        OMP_FOR
         for (int i=0; i<n; i++)
             y[i] =  1.0 - denom*(double)rand();
     }

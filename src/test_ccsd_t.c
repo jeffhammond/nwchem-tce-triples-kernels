@@ -5,6 +5,7 @@
 #else
 #include "fake-omp.h"
 #endif
+#include "pragma-openmp.h"
 
 #include "safemalloc.h"
 #include "ccsd_t_kernels.h"
@@ -16,7 +17,7 @@ double memcpy_bandwidth(size_t n);
 
 void rand_array(long long n, double * a)
 {
-    #pragma omp parallel for schedule(static)
+    OMP_PARALLEL_FOR
     for (long long i=0; i<n; i++)
         a[i] = 1.0 - 2*(double)rand()/(double)RAND_MAX;
     return;
@@ -24,7 +25,7 @@ void rand_array(long long n, double * a)
 
 void zero_array(long long n, double * a)
 {
-    #pragma omp parallel for schedule(static)
+    OMP_PARALLEL_FOR
     for (long long i=0; i<n; i++)
         a[i] = 0.0;
     return;
@@ -32,7 +33,7 @@ void zero_array(long long n, double * a)
 
 void copy_array(long long n, double * a, double * b)
 {
-    #pragma omp parallel for schedule(static)
+    OMP_PARALLEL_FOR
     for (long long i=0; i<n; i++)
         b[i] = a[i];
     return;
@@ -40,20 +41,20 @@ void copy_array(long long n, double * a, double * b)
 
 double norm_array(long long n, const double * a)
 {
-    double norm = 0.0;
-    #pragma omp parallel for schedule(static) reduction(+ : norm)
+    double r = 0.0;
+    OMP_PARALLEL_FOR_REDUCE_ADD
     for (long long i=0; i<n; i++)
-        norm += a[i]*a[i];
-    return norm;
+        r += a[i]*a[i];
+    return r;
 }
 
 double diff_array(long long n, const double * a, const double * b)
 {
-    double diff = 0.0;
-    #pragma omp parallel for schedule(static) reduction(+ : diff)
+    double r = 0.0;
+    OMP_PARALLEL_FOR_REDUCE_ADD
     for (long long i=0; i<n; i++)
-        diff += fabs(a[i]-b[i]);
-    return diff;
+        r += fabs(a[i]-b[i]);
+    return r;
 }
 
 int main(int argc, char * argv[])
