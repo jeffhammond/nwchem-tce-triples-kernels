@@ -1186,7 +1186,7 @@ c
       do p5=1,p5d
       do p6=1,p6d
       do p4=1,p4d
-!      do h3=1,h3d
+!      do h3=1,h3d ! this loop order drops Edison from 80 to 50
       do h1=1,h1d
       do h3=1,h3d
 !!!dir$ loop count min(8)

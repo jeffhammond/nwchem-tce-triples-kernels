@@ -1,5 +1,5 @@
 ACTIVE   = -DDO_S1 -DDO_D1 -DDO_D2
-ACTIVE  += -DDO_C_KERNELS
+#ACTIVE  += -DDO_C_KERNELS
 #ACTIVE  += -DDEBUG
 
 TARGET := MAC
@@ -33,10 +33,10 @@ ifeq ($(TARGET),TUKEY-INTEL)
     FC       = ifort
     OPT      = -O3 -openmp -msse4.2 -fno-alias -multiple-processes=8
     CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
-    FFLAGS   = $(OPT) -cpp -nofor-main
+    FFLAGS   = $(OPT) -cpp
     CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
     LD       = $(FC)
-    LDFLAGS  = $(FFLAGS)
+    LDFLAGS  = $(FFLAGS) -nofor-main
     LIBS     = /soft/libraries/acml/5.3.1/ifort64_mp/lib/libacml_mp.a
 endif
 
@@ -137,8 +137,8 @@ ifeq ($(TARGET),INTEL)
     CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
     FFLAGS   = $(OPT)
     CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
-    LD       = $(CC)
-    LDFLAGS  = $(CFLAGS)
+    LD       = $(FC)
+    LDFLAGS  = $(FFLAGS) -nofor-main
     LIBS     = -mkl=parallel
 endif
 
@@ -150,8 +150,8 @@ ifeq ($(TARGET),MIC)
     CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
     FFLAGS   = $(OPT)
     CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
-    LD       = $(CC)
-    LDFLAGS  = $(CFLAGS)
+    LD       = $(FC)
+    LDFLAGS  = $(FFLAGS) -nofor-main
     LIBS     = -mkl=parallel
 endif
 
