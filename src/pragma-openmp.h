@@ -10,7 +10,8 @@
 #define OMP_PARALLEL_FOR_REDUCE_ADD _Pragma("omp parallel for reduction (+ : r) schedule(static)")
 
 #else
-#warning No OpenMP, either because compiler does not understand OpenMP or C99 _Pragma.
+
+#error No OpenMP, either because compiler does not understand OpenMP or C99 _Pragma.
 
 #define OMP_PARALLEL
 #define OMP_PARALLEL_FOR
