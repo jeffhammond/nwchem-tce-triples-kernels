@@ -18,8 +18,8 @@ static inline void __c99_sd_t_s1_1(const int h3u, const int h2u, const int h1u,
     for (int p6=0; p6<p6u; p6++)
     for (int h1=0; h1<h1u; h1++)
     for (int h2=0; h2<h2u; h2++)
-    for (int h3=0; h3<h3u; h3++)
     PRAGMA_IVDEP
+    for (int h3=0; h3<h3u; h3++)
     //t3(h3,h2,h1,p6,p5,p4)+=t1(p4,h1)*v2(h3,h2,p6,p5);
     t3[p4][p5][p6][h1][h2][h3] += t1[h1][p4] * v2[p5][p6][h2][h3];
     return;
@@ -58,8 +58,8 @@ void c99_sd_t_s1_2_(fint * h3d, fint * h2d, fint * h1d,
     for (int p6=0; p6<p6u; p6++)
     for (int h2=0; h2<h2u; h2++)
     for (int h1=0; h1<h1u; h1++)
-    for (int h3=0; h3<h3u; h3++)
     PRAGMA_IVDEP
+    for (int h3=0; h3<h3u; h3++)
     //t3(h3,h1,h2,p6,p5,p4)-=t1(p4,h1)*v2(h3,h2,p6,p5);
     t3[h3+h3u*(h1+h1u*(h2+h2u*(p6+p6u*(p5+p5u*p4))))] -= t1[p4+p4u*h1] * v2[h3+h3u*(h2+h2u*(p6+p6u*p5))];
     return;
@@ -233,8 +233,8 @@ static inline void __c99_sd_t_d1_1(const int h3u, const int h2u, const int h1u,
     for (int h1=0; h1<h1u; h1++)
     for (int h2=0; h2<h2u; h2++)
     for (int h3=0; h3<h3u; h3++)
-    for (int h7=0; h7<h7u; h7++)
     PRAGMA_IVDEP
+    for (int h7=0; h7<h7u; h7++)
     //t3(h3,h2,h1,p6,p5,p4)-=t2(h7,p4,p5,h1)*v2(h3,h2,p6,h7);
     t3[p4][p5][p6][h1][h2][h3] += t2[h1][p5][p4][h7] * v2[h7][p6][h2][h3];
     return;
@@ -275,8 +275,8 @@ void c99_sd_t_d1_2_(fint * h3d, fint * h2d, fint * h1d,
     for (int h2=0; h2<h2u; h2++)
     for (int h1=0; h1<h1u; h1++)
     for (int h3=0; h3<h3u; h3++)
-    for (int h7=0; h7<h7u; h7++)
     PRAGMA_IVDEP
+    for (int h7=0; h7<h7u; h7++)
     //t3(h3,h1,h2,p6,p5,p4)+=t2(h7,p4,p5,h1)*v2(h3,h2,p6,h7);
     t3[h3+h3u*(h1+h1u*(h2+h2u*(p6+p6u*(p5+p5u*p4))))] += t2[h7+h7u*(p4+p4u*(p5+p5u*h1))] * v2[h3+h3u*(h2+h2u*(p6+p6u*h7))];
     return;
@@ -301,8 +301,8 @@ void c99_sd_t_d1_3_(fint * h3d, fint * h2d, fint * h1d,
     for (int h2=0; h2<h2u; h2++)
     for (int h3=0; h3<h3u; h3++)
     for (int h1=0; h1<h1u; h1++)
-    for (int h7=0; h7<h7u; h7++)
     PRAGMA_IVDEP
+    for (int h7=0; h7<h7u; h7++)
     //t3(h1,h3,h2,p6,p5,p4)-=t2(h7,p4,p5,h1)*v2(h3,h2,p6,h7);
     t3[h1+h1u*(h3+h3u*(h2+h2u*(p6+p6u*(p5+p5u*p4))))] -= t2[h7+h7u*(p4+p4u*(p5+p5u*h1))] * v2[h3+h3u*(h2+h2u*(p6+p6u*h7))];
     return;
@@ -327,8 +327,8 @@ void c99_sd_t_d1_4_(fint * h3d, fint * h2d, fint * h1d,
     for (int h1=0; h1<h1u; h1++)
     for (int h2=0; h2<h2u; h2++)
     for (int h3=0; h3<h3u; h3++)
-    for (int h7=0; h7<h7u; h7++)
     PRAGMA_IVDEP
+    for (int h7=0; h7<h7u; h7++)
     //t3(h3,h2,h1,p5,p4,p6)-=t2(h7,p4,p5,h1)*v2(h3,h2,p6,h7);
     t3[h3+h3u*(h2+h2u*(h1+h1u*(p5+p5u*(p4+p4u*p6))))] -= t2[h7+h7u*(p4+p4u*(p5+p5u*h1))] * v2[h3+h3u*(h2+h2u*(p6+p6u*h7))];
     return;
@@ -353,8 +353,8 @@ void c99_sd_t_d1_5_(fint * h3d, fint * h2d, fint * h1d,
     for (int h2=0; h2<h2u; h2++)
     for (int h1=0; h1<h1u; h1++)
     for (int h3=0; h3<h3u; h3++)
-    for (int h7=0; h7<h7u; h7++)
     PRAGMA_IVDEP
+    for (int h7=0; h7<h7u; h7++)
     //t3(h3,h1,h2,p5,p4,p6)+=t2(h7,p4,p5,h1)*v2(h3,h2,p6,h7);
     t3[h3+h3u*(h1+h1u*(h2+h2u*(p5+p5u*(p4+p4u*p6))))] += t2[h7+h7u*(p4+p4u*(p5+p5u*h1))] * v2[h3+h3u*(h2+h2u*(p6+p6u*h7))];
     return;
@@ -379,8 +379,8 @@ void c99_sd_t_d1_6_(fint * h3d, fint * h2d, fint * h1d,
     for (int h2=0; h2<h2u; h2++)
     for (int h3=0; h3<h3u; h3++)
     for (int h1=0; h1<h1u; h1++)
-    for (int h7=0; h7<h7u; h7++)
     PRAGMA_IVDEP
+    for (int h7=0; h7<h7u; h7++)
     //t3(h1,h3,h2,p5,p4,p6)-=t2(h7,p4,p5,h1)*v2(h3,h2,p6,h7);
     t3[h1+h1u*(h3+h3u*(h2+h2u*(p5+p5u*(p4+p4u*p6))))] -= t2[h7+h7u*(p4+p4u*(p5+p5u*h1))] * v2[h3+h3u*(h2+h2u*(p6+p6u*h7))];
     return;
@@ -405,8 +405,8 @@ void c99_sd_t_d1_7_(fint * h3d, fint * h2d, fint * h1d,
     for (int h1=0; h1<h1u; h1++)
     for (int h2=0; h2<h2u; h2++)
     for (int h3=0; h3<h3u; h3++)
-    for (int h7=0; h7<h7u; h7++)
     PRAGMA_IVDEP
+    for (int h7=0; h7<h7u; h7++)
     //t3(h3,h2,h1,p5,p6,p4)+=t2(h7,p4,p5,h1)*v2(h3,h2,p6,h7);
     t3[h3+h3u*(h2+h2u*(h1+h1u*(p5+p5u*(p6+p6u*p4))))] += t2[h7+h7u*(p4+p4u*(p5+p5u*h1))] * v2[h3+h3u*(h2+h2u*(p6+p6u*h7))];
     return;
@@ -431,8 +431,8 @@ void c99_sd_t_d1_8_(fint * h3d, fint * h2d, fint * h1d,
     for (int h2=0; h2<h2u; h2++)
     for (int h1=0; h1<h1u; h1++)
     for (int h3=0; h3<h3u; h3++)
-    for (int h7=0; h7<h7u; h7++)
     PRAGMA_IVDEP
+    for (int h7=0; h7<h7u; h7++)
     //t3(h3,h1,h2,p5,p6,p4)-=t2(h7,p4,p5,h1)*v2(h3,h2,p6,h7);
     t3[h3+h3u*(h1+h1u*(h2+h2u*(p5+p5u*(p6+p6u*p4))))] -= t2[h7+h7u*(p4+p4u*(p5+p5u*h1))] * v2[h3+h3u*(h2+h2u*(p6+p6u*h7))];
     return;
@@ -457,8 +457,8 @@ void c99_sd_t_d1_9_(fint * h3d, fint * h2d, fint * h1d,
     for (int h2=0; h2<h2u; h2++)
     for (int h3=0; h3<h3u; h3++)
     for (int h1=0; h1<h1u; h1++)
-    for (int h7=0; h7<h7u; h7++)
     PRAGMA_IVDEP
+    for (int h7=0; h7<h7u; h7++)
     //t3(h1,h3,h2,p5,p6,p4)+=t2(h7,p4,p5,h1)*v2(h3,h2,p6,h7);
     t3[h1+h1u*(h3+h3u*(h2+h2u*(p5+p5u*(p6+p6u*p4))))] += t2[h7+h7u*(p4+p4u*(p5+p5u*h1))] * v2[h3+h3u*(h2+h2u*(p6+p6u*h7))];
     return;
@@ -483,8 +483,8 @@ void c99_sd_t_d2_1_(fint * h3d, fint * h2d, fint * h1d,
     for (int h1=0; h1<h1u; h1++)
     for (int h2=0; h2<h2u; h2++)
     for (int h3=0; h3<h3u; h3++)
-    for (int h7=0; h7<h7u; h7++)
     PRAGMA_IVDEP
+    for (int h7=0; h7<h7u; h7++)
     //t3(h3,h2,h1,p6,p5,p4)-=t2(h7,p4,h1,h2)*v2(h7,h3,p6,p5);
     t3[h3+h3u*(h2+h2u*(h1+h1u*(p6+p6u*(p5+p5u*p4))))] -= t2[h7+h7u*(p4+p4u*(h1+h1u*h2))] * v2[h7+h7u*(h3+h3u*(p6+p6u*p5))];
     return;
@@ -509,8 +509,8 @@ void c99_sd_t_d2_2_(fint * h3d, fint * h2d, fint * h1d,
     for (int h3=0; h3<h3u; h3++)
     for (int h1=0; h1<h1u; h1++)
     for (int h2=0; h2<h2u; h2++)
-    for (int h7=0; h7<h7u; h7++)
     PRAGMA_IVDEP
+    for (int h7=0; h7<h7u; h7++)
     //t3(h2,h1,h3,p6,p5,p4)-=t2(h7,p4,h1,h2)*v2(h7,h3,p6,p5);
     t3[h2+h2u*(h1+h1u*(h3+h3u*(p6+p6u*(p5+p5u*p4))))] -= t2[h7+h7u*(p4+p4u*(h1+h1u*h2))] * v2[h7+h7u*(h3+h3u*(p6+p6u*p5))];
     return;
@@ -535,8 +535,8 @@ void c99_sd_t_d2_3_(fint * h3d, fint * h2d, fint * h1d,
     for (int h1=0; h1<h1u; h1++)
     for (int h3=0; h3<h3u; h3++)
     for (int h2=0; h2<h2u; h2++)
-    for (int h7=0; h7<h7u; h7++)
     PRAGMA_IVDEP
+    for (int h7=0; h7<h7u; h7++)
     //t3(h2,h3,h1,p6,p5,p4)+=t2(h7,p4,h1,h2)*v2(h7,h3,p6,p5);
     t3[h2+h2u*(h3+h3u*(h1+h1u*(p6+p6u*(p5+p5u*p4))))] += t2[h7+h7u*(p4+p4u*(h1+h1u*h2))] * v2[h7+h7u*(h3+h3u*(p6+p6u*p5))];
     return;
@@ -561,8 +561,8 @@ void c99_sd_t_d2_4_(fint * h3d, fint * h2d, fint * h1d,
     for (int h1=0; h1<h1u; h1++)
     for (int h2=0; h2<h2u; h2++)
     for (int h3=0; h3<h3u; h3++)
-    for (int h7=0; h7<h7u; h7++)
     PRAGMA_IVDEP
+    for (int h7=0; h7<h7u; h7++)
     //t3(h3,h2,h1,p6,p4,p5)+=t2(h7,p4,h1,h2)*v2(h7,h3,p6,p5);
     t3[h3+h3u*(h2+h2u*(h1+h1u*(p6+p6u*(p4+p4u*p5))))] += t2[h7+h7u*(p4+p4u*(h1+h1u*h2))] * v2[h7+h7u*(h3+h3u*(p6+p6u*p5))];
     return;
@@ -587,8 +587,8 @@ void c99_sd_t_d2_5_(fint * h3d, fint * h2d, fint * h1d,
     for (int h3=0; h3<h3u; h3++)
     for (int h1=0; h1<h1u; h1++)
     for (int h2=0; h2<h2u; h2++)
-    for (int h7=0; h7<h7u; h7++)
     PRAGMA_IVDEP
+    for (int h7=0; h7<h7u; h7++)
     //t3(h2,h1,h3,p6,p4,p5)+=t2(h7,p4,h1,h2)*v2(h7,h3,p6,p5);
     t3[h2+h2u*(h1+h1u*(h3+h3u*(p6+p6u*(p4+p4u*p5))))] += t2[h7+h7u*(p4+p4u*(h1+h1u*h2))] * v2[h7+h7u*(h3+h3u*(p6+p6u*p5))];
     return;
@@ -613,8 +613,8 @@ void c99_sd_t_d2_6_(fint * h3d, fint * h2d, fint * h1d,
     for (int h1=0; h1<h1u; h1++)
     for (int h3=0; h3<h3u; h3++)
     for (int h2=0; h2<h2u; h2++)
-    for (int h7=0; h7<h7u; h7++)
     PRAGMA_IVDEP
+    for (int h7=0; h7<h7u; h7++)
     //t3(h2,h3,h1,p6,p4,p5)-=t2(h7,p4,h1,h2)*v2(h7,h3,p6,p5);
     t3[h2+h2u*(h3+h3u*(h1+h1u*(p6+p6u*(p4+p4u*p5))))] -= t2[h7+h7u*(p4+p4u*(h1+h1u*h2))] * v2[h7+h7u*(h3+h3u*(p6+p6u*p5))];
     return;
@@ -639,8 +639,8 @@ void c99_sd_t_d2_7_(fint * h3d, fint * h2d, fint * h1d,
     for (int h1=0; h1<h1u; h1++)
     for (int h2=0; h2<h2u; h2++)
     for (int h3=0; h3<h3u; h3++)
-    for (int h7=0; h7<h7u; h7++)
     PRAGMA_IVDEP
+    for (int h7=0; h7<h7u; h7++)
     //t3(h3,h2,h1,p4,p6,p5)-=t2(h7,p4,h1,h2)*v2(h7,h3,p6,p5);
     t3[h3+h3u*(h2+h2u*(h1+h1u*(p4+p4u*(p6+p6u*p5))))] -= t2[h7+h7u*(p4+p4u*(h1+h1u*h2))] * v2[h7+h7u*(h3+h3u*(p6+p6u*p5))];
     return;
@@ -665,8 +665,8 @@ void c99_sd_t_d2_8_(fint * h3d, fint * h2d, fint * h1d,
     for (int h3=0; h3<h3u; h3++)
     for (int h1=0; h1<h1u; h1++)
     for (int h2=0; h2<h2u; h2++)
-    for (int h7=0; h7<h7u; h7++)
     PRAGMA_IVDEP
+    for (int h7=0; h7<h7u; h7++)
     //t3(h2,h1,h3,p4,p6,p5)-=t2(h7,p4,h1,h2)*v2(h7,h3,p6,p5);
     t3[h2+h2u*(h1+h1u*(h3+h3u*(p4+p4u*(p6+p6u*p5))))] -= t2[h7+h7u*(p4+p4u*(h1+h1u*h2))] * v2[h7+h7u*(h3+h3u*(p6+p6u*p5))];
     return;
@@ -691,8 +691,8 @@ void c99_sd_t_d2_9_(fint * h3d, fint * h2d, fint * h1d,
     for (int h1=0; h1<h1u; h1++)
     for (int h3=0; h3<h3u; h3++)
     for (int h2=0; h2<h2u; h2++)
-    for (int h7=0; h7<h7u; h7++)
     PRAGMA_IVDEP
+    for (int h7=0; h7<h7u; h7++)
     //t3(h2,h3,h1,p4,p6,p5)+=t2(h7,p4,h1,h2)*v2(h7,h3,p6,p5);
     t3[h2+h2u*(h3+h3u*(h1+h1u*(p4+p4u*(p6+p6u*p5))))] += t2[h7+h7u*(p4+p4u*(h1+h1u*h2))] * v2[h7+h7u*(h3+h3u*(p6+p6u*p5))];
     return;
