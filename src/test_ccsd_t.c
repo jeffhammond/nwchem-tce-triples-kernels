@@ -41,20 +41,20 @@ void copy_array(long long n, double * a, double * b)
 
 double norm_array(long long n, const double * a)
 {
-    double r = 0.0;
-    OMP_PARALLEL_FOR_REDUCE_ADD
+    double norm = 0.0;
+    OMP_PARALLEL_FOR_REDUCE_ADD(norm)
     for (long long i=0; i<n; i++)
-        r += a[i]*a[i];
-    return r;
+        norm += a[i]*a[i];
+    return norm;
 }
 
 double diff_array(long long n, const double * a, const double * b)
 {
-    double r = 0.0;
-    OMP_PARALLEL_FOR_REDUCE_ADD
+    double diff = 0.0;
+    OMP_PARALLEL_FOR_REDUCE_ADD(diff)
     for (long long i=0; i<n; i++)
-        r += fabs(a[i]-b[i]);
-    return r;
+        diff += fabs(a[i]-b[i]);
+    return diff;
 }
 
 int main(int argc, char * argv[])

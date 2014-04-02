@@ -1,13 +1,17 @@
 #if defined(_OPENMP) && ( __STDC_VERSION__ >= 199901L )
 
-#define OMP_PARALLEL _Pragma("omp parallel")
-#define OMP_PARALLEL_FOR _Pragma("omp parallel for schedule(static)")
-#define OMP_FOR _Pragma("omp for schedule(static)")
-/* I cannot figure out how to use variables inside of these things... */
-#define OMP_PARALLEL_FOR_COLLAPSE2 _Pragma("omp parallel for collapse(2) schedule(static)")
-#define OMP_PARALLEL_FOR_COLLAPSE3 _Pragma("omp parallel for collapse(3) schedule(static)")
-#define OMP_PARALLEL_FOR_COLLAPSE4 _Pragma("omp parallel for collapse(4) schedule(static)")
-#define OMP_PARALLEL_FOR_REDUCE_ADD _Pragma("omp parallel for reduction (+ : r) schedule(static)")
+#define PRAGMA(x) _Pragma(#x)
+
+#define OMP_PARALLEL PRAGMA(omp parallel)
+#define OMP_PARALLEL_FOR PRAGMA(omp parallel for schedule(static))
+#define OMP_FOR PRAGMA(omp for schedule(static))
+
+#define OMP_PARALLEL_FOR_COLLAPSE(n) PRAGMA(omp parallel for collapse(n) schedule(static))
+#define OMP_PARALLEL_FOR_COLLAPSE2 OMP_PARALLEL_FOR_COLLAPSE(2)
+#define OMP_PARALLEL_FOR_COLLAPSE3 OMP_PARALLEL_FOR_COLLAPSE(3)
+#define OMP_PARALLEL_FOR_COLLAPSE4 OMP_PARALLEL_FOR_COLLAPSE(4)
+
+#define OMP_PARALLEL_FOR_REDUCE_ADD(r) PRAGMA(omp parallel for reduction (+ : r) schedule(static))
 
 #else
 
@@ -16,9 +20,10 @@
 #define OMP_PARALLEL
 #define OMP_PARALLEL_FOR
 #define OMP_FOR
+#define OMP_PARALLEL_FOR_COLLAPSE(n)
 #define OMP_PARALLEL_FOR_COLLAPSE2
 #define OMP_PARALLEL_FOR_COLLAPSE3
 #define OMP_PARALLEL_FOR_COLLAPSE4
-#define OMP_PARALLEL_FOR_REDUCE_ADD
+#define OMP_PARALLEL_FOR_REDUCE_ADD(r)
 
 #endif
