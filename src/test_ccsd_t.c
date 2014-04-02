@@ -9,9 +9,10 @@
 #include "safemalloc.h"
 #include "ccsd_t_kernels.h"
 
-double daxpy_gflops(int n);
-double dger_gflops(int m, int n);
 double dgemm_gflops(int m, int n, int k);
+double dger_gflops(int m, int n);
+double daxpy_gflops(int n);
+double memcpy_bandwidth(size_t n);
 
 void rand_array(long long n, double * a)
 {
@@ -68,6 +69,11 @@ int main(int argc, char * argv[])
     printf("testing NWChem CCSD(T) kernels on %d threads with tilesize %d \n", omp_get_max_threads(), tilesize);
 
     double eff_peak = -9999.9;
+
+    /* approximate memory bandwidth (memcpy) */
+    eff_peak = memcpy_bandwidth(tile6);
+    printf("MEMCPY gigabytes/s of your processor is %lf \n", eff_peak);
+    fflush(stdout);
 
     if (tilesize <= 32) /* test for overflow */ {
         /* approximate achievable peak for a rather large DAXPY */

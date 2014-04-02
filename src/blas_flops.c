@@ -1,3 +1,4 @@
+#include <string.h>
 #include <math.h>
 
 #ifdef _OPENMP
@@ -180,6 +181,45 @@ double daxpy_gflops(int n)
 #ifdef DEBUG
     printf("DAXPY(n=%d,alpha=%lf) took %lf seconds, GF/s = %lf \n",
            n, alpha, dt, result);
+    fflush(stdout);
+#endif
+
+    free(y);
+    free(x);
+
+    return result;
+}
+
+double memcpy_bandwidth(size_t n)
+{
+#ifdef DEBUG
+    printf("testing MEMCPY with %zu doubles\n", n);
+    fflush(stdout);
+#endif
+
+    size_t b = n*sizeof(double);
+
+    double * x = safemalloc(b);
+    double * y = safemalloc(b);
+
+    for (size_t i=0; i<n; i++)
+        x[i] =  (double)i;
+
+    for (size_t i=0; i<n; i++)
+        y[i] =  0.0;
+
+    /* warmup */
+    memcpy(y, x, b);
+    double tt0 = omp_get_wtime();
+    for (int r = 0; r<nr; r++)
+        memcpy(y, x, b);
+    double tt1 = omp_get_wtime();
+
+    double dt = (tt1-tt0)/nr;
+    double result = 1.e-9*b/dt;
+#ifdef DEBUG
+    printf("MEMCPY of %zu bytes took %lf seconds, GB/s = %lf \n",
+           b, dt, result);
     fflush(stdout);
 #endif
 
