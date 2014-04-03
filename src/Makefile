@@ -74,6 +74,7 @@ ifeq ($(TARGET),BGQ)
     LD       = $(FC)
     LDFLAGS  = $(FFLAGS)
     #LIBS     = /soft/libraries/essl/current/essl/5.1/lib64/libesslsmpbg.a
+    CFLAGS  += -DBLAS_NO_UNDERSCORE
     LIBS     = $(HOME)/BLIS/bgq/lib/libblis.a
 endif
 
@@ -158,7 +159,7 @@ endif
 
 TESTS   := test_ccsd_t.x test_fortran_math.x test_dgemm_shapes.x
 OBJECTS := ccsd_t_kernels_omp.o ccsd_t_kernels_ref.o ccsd_t_kernels_f2c.o ccsd_t_kernels_c99.o blas_flops.o
-HEADERS := ccsd_t_kernels.h ccsd_t_kernels_omp.h ccsd_t_kernels_ref.h ccsd_t_kernels_f2c.h ccsd_t_kernels_c99.h safemalloc.h pragma_vendor.h pragma_openmp.h fake_omp.h
+HEADERS := ccsd_t_kernels.h ccsd_t_kernels_omp.h ccsd_t_kernels_ref.h ccsd_t_kernels_f2c.h ccsd_t_kernels_c99.h safemalloc.h pragma_vendor.h pragma_openmp.h fake_omp.h blas.h
 
 all: $(TESTS)
 

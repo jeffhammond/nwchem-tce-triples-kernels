@@ -11,9 +11,7 @@
 
 #include "safemalloc.h"
 
-void dgemm_(char* , char* ,int* , int* , int* , double* , double* , int* , double* , int* , double* , double* , int* );
-void dger_(int* m, int* n, double* alpha, double* x, int* incx, double* y, int* incy, double* a, int* lda);
-void daxpy_(int* n, double* alpha, double* x, int* incx, double* y, int* incy);
+#include "blas.h"
 
 /* number of test repititions */
 const int nr = 1;
@@ -65,12 +63,12 @@ double dgemm_gflops(int m, int n, int k)
     double beta  = 1.0;
 
     /* warmup */
-    dgemm_(&notrans, &notrans, &rowa, &colb, &cola,
+    DGEMM_NAME(&notrans, &notrans, &rowa, &colb, &cola,
            &alpha, a, &rowa, b, &rowb,
            &beta, c, &rowc);
     double tt0 = omp_get_wtime();
     for (int r = 0; r<nr; r++)
-        dgemm_(&notrans, &notrans, &rowa, &colb, &cola,
+        DGEMM_NAME(&notrans, &notrans, &rowa, &colb, &cola,
                &alpha, a, &rowa, b, &rowb,
                &beta, c, &rowc);
     double tt1 = omp_get_wtime();
@@ -130,10 +128,10 @@ double dger_gflops(int m, int n)
     double alpha = 1.0;
 
     /* warmup */
-    dger_(&m, &n, &alpha, x, &inc, y, &inc, a, &m);
+    DGER_NAME(&m, &n, &alpha, x, &inc, y, &inc, a, &m);
     double tt0 = omp_get_wtime();
     for (int r = 0; r<nr; r++)
-        dger_(&m, &n, &alpha, x, &inc, y, &inc, a, &m);
+        DGER_NAME(&m, &n, &alpha, x, &inc, y, &inc, a, &m);
     double tt1 = omp_get_wtime();
 
     double dt = (tt1-tt0)/nr;
@@ -180,10 +178,10 @@ double daxpy_gflops(int n)
     double alpha = 1.0;
 
     /* warmup */
-    daxpy_(&n, &alpha, x, &inc, y, &inc);
+    DAXPY_NAME(&n, &alpha, x, &inc, y, &inc);
     double tt0 = omp_get_wtime();
     for (int r = 0; r<nr; r++)
-        daxpy_(&n, &alpha, x, &inc, y, &inc);
+        DAXPY_NAME(&n, &alpha, x, &inc, y, &inc);
     double tt1 = omp_get_wtime();
 
     double dt = (tt1-tt0)/nr;
