@@ -1,14 +1,6 @@
+#include "fortran_integer.h"
+
 /* declared with Fortran semantics, hence no use of const but all pointers are restrict */
-
-#include <stdint.h>
-
-/* TODO The Fortran interfaces need to use fint not int. */
-
-#if FORTRAN_INTEGER_SIZE==4
-typedef int32_t fint;
-#else
-typedef int64_t fint;
-#endif
 
 void f2c_sd_t_s1_1_(fint * restrict h3, fint * restrict h2, fint * restrict h1, fint * restrict p6, fint * restrict p5, fint * restrict p4, double * restrict t3, const double * restrict t1, const double * restrict v2);
 void f2c_sd_t_s1_2_(fint * restrict h3, fint * restrict h2, fint * restrict h1, fint * restrict p6, fint * restrict p5, fint * restrict p4, double * restrict t3, const double * restrict t1, const double * restrict v2);
