@@ -1,7 +1,7 @@
 #ifdef _OPENMP
 #include <omp.h>
 #else
-#include "fake-omp.h"
+#include "fake_omp.h"
 #endif
 
 #include "safemalloc.h"

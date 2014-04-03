@@ -1,3 +1,6 @@
+#ifndef CCSD_T_KERNELS_REF_H
+#define CCSD_T_KERNELS_REF_H
+
 /* declared with Fortran semantics, hence no use of const but all pointers are restrict */
 
 void ref_sd_t_s1_1_(int * restrict h3, int * restrict h2, int * restrict h1, int * restrict p6, int * restrict p5, int * restrict p4, double * restrict t3, double * restrict t1, double * restrict v2);
@@ -29,3 +32,5 @@ void ref_sd_t_d2_6_(int * restrict h3, int * restrict h2, int * restrict h1, int
 void ref_sd_t_d2_7_(int * restrict h3, int * restrict h2, int * restrict h1, int * restrict p6, int * restrict p5, int * restrict p4, int * restrict p7, double * restrict t3, double * restrict t2, double * restrict v2);
 void ref_sd_t_d2_8_(int * restrict h3, int * restrict h2, int * restrict h1, int * restrict p6, int * restrict p5, int * restrict p4, int * restrict p7, double * restrict t3, double * restrict t2, double * restrict v2);
 void ref_sd_t_d2_9_(int * restrict h3, int * restrict h2, int * restrict h1, int * restrict p6, int * restrict p5, int * restrict p4, int * restrict p7, double * restrict t3, double * restrict t2, double * restrict v2);
+
+#endif // CCSD_T_KERNELS_REF_H

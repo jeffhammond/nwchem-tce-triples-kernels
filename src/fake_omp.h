@@ -1,3 +1,6 @@
+#ifndef FAKE_OMP_H
+#define FAKE_OMP_H
+
 #ifndef __PGI
 #include <assert.h>
 #include <sys/time.h>
@@ -23,3 +26,5 @@ static double omp_get_wtime(void)
 #endif
     return t;
 }
+
+#endif // FAKE_OMP_H

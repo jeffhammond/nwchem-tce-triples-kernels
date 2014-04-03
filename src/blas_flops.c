@@ -4,10 +4,10 @@
 #ifdef _OPENMP
 #include <omp.h>
 #else
-#include "fake-omp.h"
+#include "fake_omp.h"
 #endif
-#include "pragma-openmp.h"
-#include "pragma-vendor.h"
+#include "pragma_openmp.h"
+#include "pragma_vendor.h"
 
 #include "safemalloc.h"
 

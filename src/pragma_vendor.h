@@ -1,3 +1,6 @@
+#ifndef PRAGMA_VENDOR_H
+#define PRAGMA_VENDOR_H
+
 /* see http://stackoverflow.com/questions/2706286/pragmas-swp-ivdep-prefetch-support-in-various-compilers
  * if one desires support for additional compilers */
 
@@ -54,3 +57,5 @@
 # define PRAGMA_UNROLL
 # define PRAGMA_UNROLLN(n)
 # endif
+
+#endif // PRAGMA_VENDOR_H

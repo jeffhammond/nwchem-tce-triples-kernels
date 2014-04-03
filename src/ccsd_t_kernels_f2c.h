@@ -1,3 +1,6 @@
+#ifndef CCSD_T_KERNELS_F2C_H
+#define CCSD_T_KERNELS_F2C_H
+
 #include "fortran_integer.h"
 
 /* declared with Fortran semantics, hence no use of const but all pointers are restrict */
@@ -31,3 +34,5 @@ void f2c_sd_t_d2_6_(fint * restrict h3, fint * restrict h2, fint * restrict h1, 
 void f2c_sd_t_d2_7_(fint * restrict h3, fint * restrict h2, fint * restrict h1, fint * restrict p6, fint * restrict p5, fint * restrict p4, fint * restrict p7, double * restrict t3, const double * restrict t2, const double * restrict v2);
 void f2c_sd_t_d2_8_(fint * restrict h3, fint * restrict h2, fint * restrict h1, fint * restrict p6, fint * restrict p5, fint * restrict p4, fint * restrict p7, double * restrict t3, const double * restrict t2, const double * restrict v2);
 void f2c_sd_t_d2_9_(fint * restrict h3, fint * restrict h2, fint * restrict h1, fint * restrict p6, fint * restrict p5, fint * restrict p4, fint * restrict p7, double * restrict t3, const double * restrict t2, const double * restrict v2);
+
+#endif // CCSD_T_KERNELS_F2C_H

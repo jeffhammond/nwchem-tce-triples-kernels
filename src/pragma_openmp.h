@@ -1,3 +1,6 @@
+#ifndef PRAGMA_OPENMP_H
+#define PRAGMA_OPENMP_H
+
 #if defined(_OPENMP) && ( __STDC_VERSION__ >= 199901L )
 
 #define PRAGMA(x) _Pragma(#x)
@@ -27,3 +30,5 @@
 #define OMP_PARALLEL_FOR_REDUCE_ADD(r)
 
 #endif
+
+#endif // PRAGMA_OPENMP_H
