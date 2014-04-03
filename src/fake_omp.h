@@ -7,6 +7,7 @@
 #endif
 
 #include <stddef.h>
+#include <stdlib.h>
 
 static int omp_get_max_threads(void)
 {
