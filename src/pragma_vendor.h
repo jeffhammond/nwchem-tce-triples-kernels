@@ -35,7 +35,9 @@
 #  define PRAGMA_UNROLLN
 /* IBM XL */
 # elif defined(__IBMC__)
-#  define PRAGMA_IVDEP PRAGMA(ibm independent_loop)
+#  ifndef __bgq__
+#   define PRAGMA_IVDEP PRAGMA(ibm independent_loop)
+#  endif
 #  define PRAGMA_UNROLL PRAGMA(unroll)
 #  define PRAGMA_UNROLLN(n) PRAGMA(unroll(n))
 /* Unsupported */
