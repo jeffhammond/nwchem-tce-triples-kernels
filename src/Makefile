@@ -73,9 +73,9 @@ ifeq ($(TARGET),BGQ)
     CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
     LD       = $(FC)
     LDFLAGS  = $(FFLAGS)
-    #LIBS     = /soft/libraries/essl/current/essl/5.1/lib64/libesslsmpbg.a
-    CFLAGS  += -DBLAS_NO_UNDERSCORE
-    LIBS     = $(HOME)/BLIS/bgq/lib/libblis.a
+    LIBS     = /soft/libraries/essl/current/essl/5.1/lib64/libesslsmpbg.a
+    #CFLAGS  += -DBLAS_NO_UNDERSCORE
+    #LIBS     = $(HOME)/BLIS/bgq/lib/libblis.a
 endif
 
 ifeq ($(TARGET),POWER7)
