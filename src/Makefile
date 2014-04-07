@@ -106,6 +106,9 @@ ifeq ($(TARGET),POWER7-GCC)
     LIBS     = $(HOME)/BLIS/dowd/install/lib/libblis.a
 endif
 
+# test_tce_sort6.x requires enlarged stack because Fortran
+FAT_STACK = -Wl,-stack_size -Wl,100000000
+
 ifeq ($(TARGET),MAC-CLANG)
     CC       = clang
     FC       = gfortran
@@ -114,7 +117,7 @@ ifeq ($(TARGET),MAC-CLANG)
     FFLAGS   = $(OPT) -fopenmp
     CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
     LD       = clang -L/usr/local/Cellar/gfortran/4.8.2/gfortran/lib
-    LDFLAGS  = $(CFLAGS)
+    LDFLAGS  = $(CFLAGS) $(FAT_STACK)
     LIBS     = -framework Accelerate -lgfortran
 endif
 
@@ -126,7 +129,7 @@ ifeq ($(TARGET),MAC)
     FFLAGS   = $(OPT)
     CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
     LD       = clang -L/usr/local/Cellar/gfortran/4.8.2/gfortran/lib
-    LDFLAGS  = $(CFLAGS)
+    LDFLAGS  = $(CFLAGS) $(FAT_STACK)
     LIBS     = -framework Accelerate -lgfortran
 endif
 
