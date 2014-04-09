@@ -10,7 +10,7 @@ c
       double precision t1sub(p4d,h1d)
       double precision v2sub(h3d,h2d,p6d,p5d)
 !IBM* ALIGN(64,triplesx,t1sub,v2sub)
-!$omp  parallel do collapse(4)
+!$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6)
       do p4=1,p4d
@@ -50,7 +50,7 @@ c
       double precision t1sub(p4d,h1d)
       double precision v2sub(h3d,h2d,p6d,p5d)
 !IBM* ALIGN(64,triplesx,t1sub,v2sub)
-!$omp  parallel do collapse(4)
+!$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6)
       do p4=1,p4d
@@ -90,7 +90,7 @@ c
       double precision t1sub(p4d,h1d)
       double precision v2sub(h3d,h2d,p6d,p5d)
 !IBM* ALIGN(64,triplesx,t1sub,v2sub)
-!$omp  parallel do collapse(4)
+!$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6)
 !!!!dir$ prefetch t1sub
@@ -135,7 +135,7 @@ c
       double precision t1sub(p4d,h1d)
       double precision v2sub(h3d,h2d,p6d,p5d)
 !IBM* ALIGN(64,triplesx,t1sub,v2sub)
-!$omp  parallel do collapse(4)
+!$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6)
       do p5=1,p5d
@@ -177,7 +177,7 @@ c
       double precision t1sub(p4d,h1d)
       double precision v2sub(h3d,h2d,p6d,p5d)
 !IBM* ALIGN(64,triplesx,t1sub,v2sub)
-!$omp  parallel do collapse(4)
+!$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6)
       do p5=1,p5d
@@ -218,7 +218,7 @@ c
       double precision t1sub(p4d,h1d)
       double precision v2sub(h3d,h2d,p6d,p5d)
 !IBM* ALIGN(64,triplesx,t1sub,v2sub)
-!$omp  parallel do collapse(4)
+!$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6)
       do p5=1,p5d
@@ -258,7 +258,7 @@ c
       double precision t1sub(p4d,h1d)
       double precision v2sub(h3d,h2d,p6d,p5d)
 !IBM* ALIGN(64,triplesx,t1sub,v2sub)
-!$omp  parallel do collapse(4)
+!$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6)
       do p5=1,p5d
@@ -299,7 +299,7 @@ c
       double precision t1sub(p4d,h1d)
       double precision v2sub(h3d,h2d,p6d,p5d)
 !IBM* ALIGN(64,triplesx,t1sub,v2sub)
-!$omp  parallel do collapse(4)
+!$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6)
       do p5=1,p5d
@@ -338,7 +338,7 @@ c
       double precision t1sub(p4d,h1d)
       double precision v2sub(h3d,h2d,p6d,p5d)
 !IBM* ALIGN(64,triplesx,t1sub,v2sub)
-!$omp  parallel do collapse(4)
+!$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6)
       do p5=1,p5d
@@ -392,7 +392,7 @@ c
       enddo
       enddo
       enddo
-!$omp  parallel do collapse(4)
+!$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
       do p5=1,p5d
@@ -451,7 +451,7 @@ c
       enddo
       enddo
       enddo
-!$omp  parallel do collapse(4)
+!$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
       do p4=1,p4d
@@ -507,7 +507,7 @@ c
       enddo
       enddo
       enddo
-!$omp  parallel do collapse(4)
+!$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6)
       do p4=1,p4d
@@ -564,7 +564,7 @@ c
       enddo
       enddo
       enddo
-!$omp  parallel do collapse(4)
+!$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
       do p6=1,p6d
@@ -625,7 +625,7 @@ c
       enddo
       enddo
       enddo
-!$omp  parallel do collapse(4)
+!$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6)
       do p6=1,p6d
@@ -681,7 +681,7 @@ c
       enddo
       enddo
       enddo
-!$omp  parallel do collapse(4)
+!$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
       do p6=1,p6d
@@ -739,7 +739,7 @@ c
       enddo
       enddo
 #endif
-!$omp  parallel do collapse(4)
+!$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
       do p4=1,p4d
@@ -804,7 +804,7 @@ c
       enddo
       enddo
       enddo
-!$omp  parallel do collapse(4)
+!$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
       do p4=1,p4d
@@ -860,7 +860,7 @@ c
       enddo
       enddo
       enddo
-!$omp  parallel do collapse(4)
+!$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
       do p4=1,p4d
@@ -900,7 +900,7 @@ c
       double precision t2sub(p7d,p4d,h1d,h2d)
       double precision v2sub(p7d,h3d,p6d,p5d)
 !IBM* ALIGN(64,triplesx,t2sub,v2sub)
-!$omp  parallel do collapse(4)
+!$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,p7)
       do p4=1,p4d
@@ -940,7 +940,7 @@ c
       double precision t2sub(p7d,p4d,h1d,h2d)
       double precision v2sub(p7d,h3d,p6d,p5d)
 !IBM* ALIGN(64,triplesx,t2sub,v2sub)
-!$omp  parallel do collapse(4)
+!$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,p7)
       do p5=1,p5d
@@ -980,7 +980,7 @@ c
       double precision t2sub(p7d,p4d,h1d,h2d)
       double precision v2sub(p7d,h3d,p6d,p5d)
 !IBM* ALIGN(64,triplesx,t2sub,v2sub)
-!$omp  parallel do collapse(4)
+!$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,p7)
       do p5=1,p5d
@@ -1020,7 +1020,7 @@ c
       double precision t2sub(p7d,p4d,h1d,h2d)
       double precision v2sub(p7d,h3d,p6d,p5d)
 !IBM* ALIGN(64,triplesx,t2sub,v2sub)
-!$omp  parallel do collapse(4)
+!$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,p7)
       do p5=1,p5d
@@ -1060,7 +1060,7 @@ c
       double precision t2sub(p7d,p4d,h1d,h2d)
       double precision v2sub(p7d,h3d,p6d,p5d)
 !IBM* ALIGN(64,triplesx,t2sub,v2sub)
-!$omp  parallel do collapse(4)
+!$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,p7)
       do p5=1,p5d
@@ -1100,7 +1100,7 @@ c
       double precision t2sub(p7d,p4d,h1d,h2d)
       double precision v2sub(p7d,h3d,p6d,p5d)
 !IBM* ALIGN(64,triplesx,t2sub,v2sub)
-!$omp  parallel do collapse(4)
+!$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,p7)
       do p5=1,p5d
@@ -1140,7 +1140,7 @@ c
       double precision t2sub(p7d,p4d,h1d,h2d)
       double precision v2sub(p7d,h3d,p6d,p5d)
 !IBM* ALIGN(64,triplesx,t2sub,v2sub)
-!$omp  parallel do collapse(4)
+!$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,p7)
       do p5=1,p5d
@@ -1180,7 +1180,7 @@ c
       double precision t2sub(p7d,p4d,h1d,h2d)
       double precision v2sub(p7d,h3d,p6d,p5d)
 !IBM* ALIGN(64,triplesx,t2sub,v2sub)
-!$omp  parallel do collapse(4)
+!$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,p7)
       do p5=1,p5d
@@ -1221,7 +1221,7 @@ c
       double precision t2sub(p7d,p4d,h1d,h2d)
       double precision v2sub(p7d,h3d,p6d,p5d)
 !IBM* ALIGN(64,triplesx,t2sub,v2sub)
-!$omp  parallel do collapse(4)
+!$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,p7)
       do p5=1,p5d

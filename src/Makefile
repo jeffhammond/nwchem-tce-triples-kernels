@@ -4,10 +4,12 @@ ACTIVE  += -DDO_C_KERNELS
 
 TARGET := MAC
 
+OPT = -DOMP_COLLAPSE_LEVEL=1
+
 ifeq ($(TARGET),CRAY-GCC)
     CC       = cc
     FC       = ftn
-    OPT      = -O3 -fopenmp -march=native -ftree-vectorize -ffp-contract=fast
+    OPT     += -O3 -fopenmp -march=native -ftree-vectorize -ffp-contract=fast
     CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
     FFLAGS   = $(OPT) -cpp
     CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
@@ -19,7 +21,7 @@ endif
 ifeq ($(TARGET),CRAY)
     CC       = cc
     FC       = ftn
-    OPT      = -O3 -h omp
+    OPT     += -O3 -h omp
     CFLAGS   = $(OPT) -h c99 $(ACTIVE)
     FFLAGS   = $(OPT) -e F -DCRAYFTN
     CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
@@ -31,7 +33,7 @@ endif
 ifeq ($(TARGET),TUKEY-INTEL)
     CC       = icc
     FC       = ifort
-    OPT      = -O3 -openmp -msse4.2 -fno-alias -multiple-processes=8
+    OPT     += -O3 -openmp -msse4.2 -fno-alias -multiple-processes=8
     CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
     FFLAGS   = $(OPT) -cpp
     CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
@@ -43,7 +45,7 @@ endif
 ifeq ($(TARGET),TUKEY-GCC)
     CC       = gcc
     FC       = gfortran
-    OPT      = -O3 -fopenmp -march=native -ftree-vectorize -ffp-contract=fast
+    OPT     += -O3 -fopenmp -march=native -ftree-vectorize -ffp-contract=fast
     CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
     FFLAGS   = $(OPT) -cpp
     CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
@@ -55,7 +57,7 @@ endif
 ifeq ($(TARGET),KAYLA)
     CC       = gcc
     FC       = gfortran
-    OPT      = -O3 -fopenmp -march=native -ftree-vectorize -ffp-contract=fast
+    OPT     += -O3 -fopenmp -march=native -ftree-vectorize -ffp-contract=fast
     CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
     FFLAGS   = $(OPT)
     CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
@@ -67,7 +69,7 @@ endif
 ifeq ($(TARGET),BGQ)
     CC       = bgxlc_r
     FC       = bgxlf_r
-    OPT      = -O3 -qhot -qtune=qp -qarch=qp -qsmp=omp -qsimd -qreport -qsource -qlist
+    OPT     += -O3 -qhot -qtune=qp -qarch=qp -qsmp=omp -qsimd -qreport -qsource -qlist
     CFLAGS   = $(OPT) -qlanglvl=stdc99 $(ACTIVE)
     FFLAGS   = $(OPT) -qextname
     CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
@@ -82,7 +84,7 @@ ifeq ($(TARGET),POWER7-AIX)
 # Savba i.e. POWER775 AIX
     CC       = /usr/vac/bin/xlc_r
     FC       = /usr/bin/xlf_r
-    OPT      = -O3 -qhot -qsmp=omp -qtune=pwr7 -qarch=pwr7 -qreport -qsource -qlist
+    OPT     += -O3 -qhot -qsmp=omp -qtune=pwr7 -qarch=pwr7 -qreport -qsource -qlist
     CFLAGS   = $(OPT) -qlanglvl=stdc99 $(ACTIVE)
     FFLAGS   = $(OPT) -qextname -WF,-DIBMXLF
     CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
@@ -95,7 +97,7 @@ ifeq ($(TARGET),POWER7)
 # Vesta login
     CC       = xlc_r
     FC       = xlf_r
-    OPT      = -O3 -qhot -qsmp=omp -qsimd -qreport -qsource -qlist
+    OPT     += -O3 -qhot -qsmp=omp -qsimd -qreport -qsource -qlist
     CFLAGS   = $(OPT) -qlanglvl=stdc99 $(ACTIVE)
     FFLAGS   = $(OPT) -qextname -WF,-DIBMXLF
     CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
@@ -110,7 +112,7 @@ ifeq ($(TARGET),POWER7-GCC)
     #GCC_PATH = /usr/bin/
     CC       = $(GCC_PATH)gcc
     FC       = $(GCC_PATH)gfortran
-    OPT      = -O3 -mtune=power7 -ftree-vectorize -fopenmp -mvsx -floop-interchange -ffp-contract=fast
+    OPT     += -O3 -mtune=power7 -ftree-vectorize -fopenmp -mvsx -floop-interchange -ffp-contract=fast
     CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
     FFLAGS   = $(OPT)
     CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
@@ -126,7 +128,7 @@ FAT_STACK = -Wl,-stack_size -Wl,100000000
 ifeq ($(TARGET),MAC-CLANG)
     CC       = clang
     FC       = gfortran
-    OPT      = -O3 -march=native -mno-avx
+    OPT     += -O3 -march=native -mno-avx
     CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
     FFLAGS   = $(OPT) -fopenmp
     CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
@@ -138,7 +140,7 @@ endif
 ifeq ($(TARGET),MAC)
     CC       = gcc
     FC       = gfortran
-    OPT      = -g -O0 -fopenmp #-ftree-vectorize -ffp-contract=fast -march=native -mno-avx
+    OPT     += -O3 -fopenmp -ftree-vectorize -ffp-contract=fast -march=native -mno-avx
     CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
     FFLAGS   = $(OPT)
     CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
@@ -150,8 +152,8 @@ endif
 ifeq ($(TARGET),INTEL)
     CC       = icc
     FC       = ifort
-    #OPT      = -O3 -openmp -fno-alias -multiple-processes=8 -msse4.2
-    OPT      = -O3 -openmp -fno-alias -multiple-processes=8 -mavx
+    #OPT     += -O3 -openmp -fno-alias -multiple-processes=8 -msse4.2
+    OPT     += -O3 -openmp -fno-alias -multiple-processes=8 -mavx
     ASM      = -S -fsource-asm -fcode-asm
     CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
     FFLAGS   = $(OPT)
@@ -164,7 +166,7 @@ endif
 ifeq ($(TARGET),MIC)
     CC       = icc
     FC       = ifort
-    OPT      = -O2 -openmp -mmic -multiple-processes=8
+    OPT     += -O2 -openmp -mmic -multiple-processes=8
     ASM      = -S -fsource-asm -fcode-asm
     CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
     FFLAGS   = $(OPT)
