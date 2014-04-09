@@ -13,12 +13,6 @@
 #####################################################################################
 
 env
-mpiexec /gpfs/home/jhammond/NWCHEM/kernels/src/test_tce_sort6.x 10
-mpiexec /gpfs/home/jhammond/NWCHEM/kernels/src/test_tce_sort6.x 11
-mpiexec /gpfs/home/jhammond/NWCHEM/kernels/src/test_tce_sort6.x 12
-mpiexec /gpfs/home/jhammond/NWCHEM/kernels/src/test_tce_sort6.x 13
-mpiexec /gpfs/home/jhammond/NWCHEM/kernels/src/test_tce_sort6.x 14
-mpiexec /gpfs/home/jhammond/NWCHEM/kernels/src/test_tce_sort6.x 15
-mpiexec /gpfs/home/jhammond/NWCHEM/kernels/src/test_tce_sort6.x 16
+mpiexec /gpfs/home/jhammond/NWCHEM/kernels/src/test_tce_sort6.x
 
 #####################################################################################

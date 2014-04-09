@@ -1,4 +1,4 @@
-#define T 12
+#define T 14
       program test_tce_sort6
       use omp_lib
       implicit none
