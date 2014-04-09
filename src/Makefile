@@ -35,7 +35,7 @@ ifeq ($(TARGET),TUKEY-INTEL)
     FC       = ifort
     OPT     += -O3 -openmp -msse4.2 -fno-alias -multiple-processes=8
     CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
-    FFLAGS   = $(OPT) -cpp
+    FFLAGS   = $(OPT) -cpp -DINTEL_FORTRAN
     CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
     LD       = $(FC)
     LDFLAGS  = $(FFLAGS) -nofor-main
@@ -157,7 +157,7 @@ ifeq ($(TARGET),INTEL)
     OPT     += -O3 -openmp -fno-alias -multiple-processes=8 -mavx
     ASM      = -S -fsource-asm -fcode-asm
     CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
-    FFLAGS   = $(OPT)
+    FFLAGS   = $(OPT) -cpp -DINTEL_FORTRAN
     CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
     LD       = $(FC)
     LDFLAGS  = $(FFLAGS) -nofor-main
@@ -170,7 +170,7 @@ ifeq ($(TARGET),MIC)
     OPT     += -O2 -openmp -mmic -multiple-processes=8
     ASM      = -S -fsource-asm -fcode-asm
     CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
-    FFLAGS   = $(OPT)
+    FFLAGS   = $(OPT) -cpp -DINTEL_FORTRAN
     CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
     LD       = $(FC)
     LDFLAGS  = $(FFLAGS) -nofor-main

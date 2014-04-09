@@ -22,10 +22,11 @@
       do l = 1,T
       do m = 1,T
       do n = 1,T
-#ifdef IBMXLF
+#if defined(IBMXLF) || defined(INTEL_FORTRAN)
         u(n,m,l,k,j,i) = 1.0*i+mod(j,k)+l*m/n
         s(n,m,l,k,j,i) = 0.0
 #else
+! GNU extension
         u(n,m,l,k,j,i) = rand(seed1)
         s(n,m,l,k,j,i) = rand(seed2)
 #endif
@@ -72,6 +73,6 @@
       tavg = tavg/num
       write(6,1) tmin,tmax,tavg
    1  format('min = ',f10.5,' max = ',f10.5,' avg = ',f10.5)
-   2  format(6i2,' time = ',f10.5,' (s) junk = ',e10.5)
+   2  format(6i2,' time = ',f10.5,' (s) junk = ',e14.7)
    3  format(6a2,10x,10x,10x,10x)
       end program
