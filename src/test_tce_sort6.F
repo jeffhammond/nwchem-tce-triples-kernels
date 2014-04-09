@@ -22,8 +22,13 @@
       do l = 1,T
       do m = 1,T
       do n = 1,T
+#ifdef IBMXLF
+        u(n,m,l,k,j,i) = 1.0*i+mod(j,k)+l*m/n
+        s(n,m,l,k,j,i) = 0.0
+#else
         u(n,m,l,k,j,i) = rand(seed1)
         s(n,m,l,k,j,i) = rand(seed2)
+#endif
       enddo
       enddo
       enddo
