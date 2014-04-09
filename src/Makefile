@@ -4,6 +4,7 @@ ACTIVE  += -DDO_C_KERNELS
 
 TARGET := MAC
 
+# Intel Fortran throws the "cannot simd" warning for 3 and 4...
 OPT = -DOMP_COLLAPSE_LEVEL=1
 
 ifeq ($(TARGET),CRAY-GCC)
