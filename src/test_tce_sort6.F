@@ -31,6 +31,8 @@
       enddo
       enddo
       num = 0
+      tmin = 999999999.9
+      tmax = -999999999.9
       write(6,*) '(i,j,k,l,m,n),time'
 ! This is not particularly efficient but other methods
 ! are harder to implement in Fortran 77.
