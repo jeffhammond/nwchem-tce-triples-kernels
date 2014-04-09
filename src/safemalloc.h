@@ -16,7 +16,7 @@ static void * safemalloc(size_t n)
     void * ptr = NULL;
     rc = posix_memalign( &ptr, ALIGNMENT, n);
     if ( ptr==NULL || rc!=0 ) {
-        fprintf( stderr , "%zu bytes could not be allocated \n" , n );
+        fprintf( stdout , "%zu bytes could not be allocated \n" , n );
 	return NULL;
     }
     return ptr;
