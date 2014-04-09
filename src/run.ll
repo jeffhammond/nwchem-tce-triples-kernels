@@ -6,7 +6,7 @@
 #@ network.MPI = sn_all,shared,US
 #@ node = 1
 #@ total_tasks = 1
-#@ environment = OMP_NUM_THREADS=32
+#@ environment = OMP_NUM_THREADS=32;OMP_STACKSIZE=4M
 #@ queue
 
 #####################################################################################
