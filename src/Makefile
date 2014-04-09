@@ -78,7 +78,21 @@ ifeq ($(TARGET),BGQ)
     #LIBS     = $(HOME)/BLIS/bgq/lib/libblis.a
 endif
 
+ifeq ($(TARGET),POWER7-AIX)
+# Savba i.e. POWER775 AIX
+    CC       = /usr/vac/bin/xlc_r
+    FC       = /usr/bin/xlf_r
+    OPT      = -O3 -qhot -qsmp=omp -qtune=pwr7 -qarch=pwr7 -qreport -qsource -qlist
+    CFLAGS   = $(OPT) -qlanglvl=stdc99 $(ACTIVE)
+    FFLAGS   = $(OPT) -qextname -WF,-DIBMXLF
+    CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
+    LD       = $(FC)
+    LDFLAGS  = $(FFLAGS)
+    LIBS     = /usr/lib/libesslsmp.a
+endif
+
 ifeq ($(TARGET),POWER7)
+# Vesta login
     CC       = xlc_r
     FC       = xlf_r
     OPT      = -O3 -qhot -qsmp=omp -qsimd -qreport -qsource -qlist
