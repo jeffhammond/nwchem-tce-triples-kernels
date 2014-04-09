@@ -103,7 +103,8 @@ ifeq ($(TARGET),POWER7-GCC)
     LD       = $(FC)
     LDFLAGS  = $(FFLAGS)
     # must build BLIS with 32b f77_int (not default)
-    LIBS     = $(HOME)/BLIS/dowd/install/lib/libblis.a
+    #LIBS     = $(HOME)/BLIS/dowd/install/lib/libblis.a
+    LIBS     = -L/usr/lib64/atlas -lptf77blas -latlas
 endif
 
 # test_tce_sort6.x requires enlarged stack because Fortran
