@@ -12,7 +12,7 @@ static inline void __c99_sd_t_s1_1(const int h3u, const int h2u, const int h1u,
                                    const double t1[h1u][p4u],
                                    const double v2[p5u][p6u][h2u][h3u])
 {
-    OMP_PARALLEL_FOR_COLLAPSE(4)
+    OMP_PARALLEL_FOR_COLLAPSE(OMP_COLLAPSE_LEVEL)
     for (int p4=0; p4<p4u; p4++)
     for (int p5=0; p5<p5u; p5++)
     for (int p6=0; p6<p6u; p6++)
@@ -53,7 +53,7 @@ void c99_sd_t_s1_2_(fint * h3d, fint * h2d, fint * h1d,
     const int p4u = (int)(*p4d);
     const int p5u = (int)(*p5d);
     const int p6u = (int)(*p6d);
-    OMP_PARALLEL_FOR_COLLAPSE(4)
+    OMP_PARALLEL_FOR_COLLAPSE(OMP_COLLAPSE_LEVEL)
     for (int p4=0; p4<p4u; p4++)
     for (int p5=0; p5<p5u; p5++)
     for (int p6=0; p6<p6u; p6++)
@@ -76,7 +76,7 @@ void c99_sd_t_s1_3_(fint * h3d, fint * h2d, fint * h1d,
     const int p4u = (int)(*p4d);
     const int p5u = (int)(*p5d);
     const int p6u = (int)(*p6d);
-    OMP_PARALLEL_FOR_COLLAPSE(4)
+    OMP_PARALLEL_FOR_COLLAPSE(OMP_COLLAPSE_LEVEL)
     for (int p4=0; p4<p4u; p4++)
     for (int p5=0; p5<p5u; p5++)
     for (int p6=0; p6<p6u; p6++)
@@ -99,7 +99,7 @@ void c99_sd_t_s1_4_(fint * h3d, fint * h2d, fint * h1d,
     const int p4u = (int)(*p4d);
     const int p5u = (int)(*p5d);
     const int p6u = (int)(*p6d);
-    OMP_PARALLEL_FOR_COLLAPSE(4)
+    OMP_PARALLEL_FOR_COLLAPSE(OMP_COLLAPSE_LEVEL)
     for (int p5=0; p5<p5u; p5++)
     for (int p4=0; p4<p4u; p4++)
     for (int p6=0; p6<p6u; p6++)
@@ -122,7 +122,7 @@ void c99_sd_t_s1_5_(fint * h3d, fint * h2d, fint * h1d,
     const int p4u = (int)(*p4d);
     const int p5u = (int)(*p5d);
     const int p6u = (int)(*p6d);
-    OMP_PARALLEL_FOR_COLLAPSE(4)
+    OMP_PARALLEL_FOR_COLLAPSE(OMP_COLLAPSE_LEVEL)
     for (int p5=0; p5<p5u; p5++)
     for (int p4=0; p4<p4u; p4++)
     for (int p6=0; p6<p6u; p6++)
@@ -145,7 +145,7 @@ void c99_sd_t_s1_6_(fint * h3d, fint * h2d, fint * h1d,
     const int p4u = (int)(*p4d);
     const int p5u = (int)(*p5d);
     const int p6u = (int)(*p6d);
-    OMP_PARALLEL_FOR_COLLAPSE(4)
+    OMP_PARALLEL_FOR_COLLAPSE(OMP_COLLAPSE_LEVEL)
     for (int p5=0; p5<p5u; p5++)
     for (int p4=0; p4<p4u; p4++)
     for (int p6=0; p6<p6u; p6++)
@@ -168,7 +168,7 @@ void c99_sd_t_s1_7_(fint * h3d, fint * h2d, fint * h1d,
     const int p4u = (int)(*p4d);
     const int p5u = (int)(*p5d);
     const int p6u = (int)(*p6d);
-    OMP_PARALLEL_FOR_COLLAPSE(4)
+    OMP_PARALLEL_FOR_COLLAPSE(OMP_COLLAPSE_LEVEL)
     for (int p5=0; p5<p5u; p5++)
     for (int p6=0; p6<p6u; p6++)
     for (int p4=0; p4<p4u; p4++)
@@ -191,7 +191,7 @@ void c99_sd_t_s1_8_(fint * h3d, fint * h2d, fint * h1d,
     const int p4u = (int)(*p4d);
     const int p5u = (int)(*p5d);
     const int p6u = (int)(*p6d);
-    OMP_PARALLEL_FOR_COLLAPSE(4)
+    OMP_PARALLEL_FOR_COLLAPSE(OMP_COLLAPSE_LEVEL)
     for (int p5=0; p5<p5u; p5++)
     for (int p6=0; p6<p6u; p6++)
     for (int p4=0; p4<p4u; p4++)
@@ -214,7 +214,7 @@ void c99_sd_t_s1_9_(fint * h3d, fint * h2d, fint * h1d,
     const int p4u = (int)(*p4d);
     const int p5u = (int)(*p5d);
     const int p6u = (int)(*p6d);
-    OMP_PARALLEL_FOR_COLLAPSE(4)
+    OMP_PARALLEL_FOR_COLLAPSE(OMP_COLLAPSE_LEVEL)
     for (int p5=0; p5<p5u; p5++)
     for (int p6=0; p6<p6u; p6++)
     for (int p4=0; p4<p4u; p4++)
@@ -234,7 +234,7 @@ static inline void __c99_sd_t_d1_1(const int h3u, const int h2u, const int h1u,
                                    const double t2[h1u][p5u][p4u][h7u],
                                    const double v2[h7u][p6u][h2u][h3u])
 {
-    OMP_PARALLEL_FOR_COLLAPSE(4)
+    OMP_PARALLEL_FOR_COLLAPSE(OMP_COLLAPSE_LEVEL)
     for (int p4=0; p4<p4u; p4++)
     for (int p5=0; p5<p5u; p5++)
     for (int p6=0; p6<p6u; p6++)
@@ -276,7 +276,7 @@ void c99_sd_t_d1_2_(fint * h3d, fint * h2d, fint * h1d,
     const int p5u = (int)(*p5d);
     const int p6u = (int)(*p6d);
     const int h7u = (int)(*h7d);
-    OMP_PARALLEL_FOR_COLLAPSE(4)
+    OMP_PARALLEL_FOR_COLLAPSE(OMP_COLLAPSE_LEVEL)
     for (int p4=0; p4<p4u; p4++)
     for (int p5=0; p5<p5u; p5++)
     for (int p6=0; p6<p6u; p6++)
@@ -302,7 +302,7 @@ void c99_sd_t_d1_3_(fint * h3d, fint * h2d, fint * h1d,
     const int p5u = (int)(*p5d);
     const int p6u = (int)(*p6d);
     const int h7u = (int)(*h7d);
-    OMP_PARALLEL_FOR_COLLAPSE(4)
+    OMP_PARALLEL_FOR_COLLAPSE(OMP_COLLAPSE_LEVEL)
     for (int p4=0; p4<p4u; p4++)
     for (int p5=0; p5<p5u; p5++)
     for (int p6=0; p6<p6u; p6++)
@@ -328,7 +328,7 @@ void c99_sd_t_d1_4_(fint * h3d, fint * h2d, fint * h1d,
     const int p5u = (int)(*p5d);
     const int p6u = (int)(*p6d);
     const int h7u = (int)(*h7d);
-    OMP_PARALLEL_FOR_COLLAPSE(4)
+    OMP_PARALLEL_FOR_COLLAPSE(OMP_COLLAPSE_LEVEL)
     for (int p6=0; p6<p6u; p6++)
     for (int p4=0; p4<p4u; p4++)
     for (int p5=0; p5<p5u; p5++)
@@ -354,7 +354,7 @@ void c99_sd_t_d1_5_(fint * h3d, fint * h2d, fint * h1d,
     const int p5u = (int)(*p5d);
     const int p6u = (int)(*p6d);
     const int h7u = (int)(*h7d);
-    OMP_PARALLEL_FOR_COLLAPSE(4)
+    OMP_PARALLEL_FOR_COLLAPSE(OMP_COLLAPSE_LEVEL)
     for (int p6=0; p6<p6u; p6++)
     for (int p4=0; p4<p4u; p4++)
     for (int p5=0; p5<p5u; p5++)
@@ -380,7 +380,7 @@ void c99_sd_t_d1_6_(fint * h3d, fint * h2d, fint * h1d,
     const int p5u = (int)(*p5d);
     const int p6u = (int)(*p6d);
     const int h7u = (int)(*h7d);
-    OMP_PARALLEL_FOR_COLLAPSE(4)
+    OMP_PARALLEL_FOR_COLLAPSE(OMP_COLLAPSE_LEVEL)
     for (int p6=0; p6<p6u; p6++)
     for (int p4=0; p4<p4u; p4++)
     for (int p5=0; p5<p5u; p5++)
@@ -406,7 +406,7 @@ void c99_sd_t_d1_7_(fint * h3d, fint * h2d, fint * h1d,
     const int p5u = (int)(*p5d);
     const int p6u = (int)(*p6d);
     const int h7u = (int)(*h7d);
-    OMP_PARALLEL_FOR_COLLAPSE(4)
+    OMP_PARALLEL_FOR_COLLAPSE(OMP_COLLAPSE_LEVEL)
     for (int p4=0; p4<p4u; p4++)
     for (int p6=0; p6<p6u; p6++)
     for (int p5=0; p5<p5u; p5++)
@@ -432,7 +432,7 @@ void c99_sd_t_d1_8_(fint * h3d, fint * h2d, fint * h1d,
     const int p5u = (int)(*p5d);
     const int p6u = (int)(*p6d);
     const int h7u = (int)(*h7d);
-    OMP_PARALLEL_FOR_COLLAPSE(4)
+    OMP_PARALLEL_FOR_COLLAPSE(OMP_COLLAPSE_LEVEL)
     for (int p4=0; p4<p4u; p4++)
     for (int p6=0; p6<p6u; p6++)
     for (int p5=0; p5<p5u; p5++)
@@ -458,7 +458,7 @@ void c99_sd_t_d1_9_(fint * h3d, fint * h2d, fint * h1d,
     const int p5u = (int)(*p5d);
     const int p6u = (int)(*p6d);
     const int h7u = (int)(*h7d);
-    OMP_PARALLEL_FOR_COLLAPSE(4)
+    OMP_PARALLEL_FOR_COLLAPSE(OMP_COLLAPSE_LEVEL)
     for (int p4=0; p4<p4u; p4++)
     for (int p6=0; p6<p6u; p6++)
     for (int p5=0; p5<p5u; p5++)
@@ -484,7 +484,7 @@ void c99_sd_t_d2_1_(fint * h3d, fint * h2d, fint * h1d,
     const int p5u = (int)(*p5d);
     const int p6u = (int)(*p6d);
     const int h7u = (int)(*h7d);
-    OMP_PARALLEL_FOR_COLLAPSE(4)
+    OMP_PARALLEL_FOR_COLLAPSE(OMP_COLLAPSE_LEVEL)
     for (int p4=0; p4<p4u; p4++)
     for (int p5=0; p5<p5u; p5++)
     for (int p6=0; p6<p6u; p6++)
@@ -510,7 +510,7 @@ void c99_sd_t_d2_2_(fint * h3d, fint * h2d, fint * h1d,
     const int p5u = (int)(*p5d);
     const int p6u = (int)(*p6d);
     const int h7u = (int)(*h7d);
-    OMP_PARALLEL_FOR_COLLAPSE(4)
+    OMP_PARALLEL_FOR_COLLAPSE(OMP_COLLAPSE_LEVEL)
     for (int p4=0; p4<p4u; p4++)
     for (int p5=0; p5<p5u; p5++)
     for (int p6=0; p6<p6u; p6++)
@@ -536,7 +536,7 @@ void c99_sd_t_d2_3_(fint * h3d, fint * h2d, fint * h1d,
     const int p5u = (int)(*p5d);
     const int p6u = (int)(*p6d);
     const int h7u = (int)(*h7d);
-    OMP_PARALLEL_FOR_COLLAPSE(4)
+    OMP_PARALLEL_FOR_COLLAPSE(OMP_COLLAPSE_LEVEL)
     for (int p4=0; p4<p4u; p4++)
     for (int p5=0; p5<p5u; p5++)
     for (int p6=0; p6<p6u; p6++)
@@ -562,7 +562,7 @@ void c99_sd_t_d2_4_(fint * h3d, fint * h2d, fint * h1d,
     const int p5u = (int)(*p5d);
     const int p6u = (int)(*p6d);
     const int h7u = (int)(*h7d);
-    OMP_PARALLEL_FOR_COLLAPSE(4)
+    OMP_PARALLEL_FOR_COLLAPSE(OMP_COLLAPSE_LEVEL)
     for (int p5=0; p5<p5u; p5++)
     for (int p4=0; p4<p4u; p4++)
     for (int p6=0; p6<p6u; p6++)
@@ -588,7 +588,7 @@ void c99_sd_t_d2_5_(fint * h3d, fint * h2d, fint * h1d,
     const int p5u = (int)(*p5d);
     const int p6u = (int)(*p6d);
     const int h7u = (int)(*h7d);
-    OMP_PARALLEL_FOR_COLLAPSE(4)
+    OMP_PARALLEL_FOR_COLLAPSE(OMP_COLLAPSE_LEVEL)
     for (int p5=0; p5<p5u; p5++)
     for (int p4=0; p4<p4u; p4++)
     for (int p6=0; p6<p6u; p6++)
@@ -614,7 +614,7 @@ void c99_sd_t_d2_6_(fint * h3d, fint * h2d, fint * h1d,
     const int p5u = (int)(*p5d);
     const int p6u = (int)(*p6d);
     const int h7u = (int)(*h7d);
-    OMP_PARALLEL_FOR_COLLAPSE(4)
+    OMP_PARALLEL_FOR_COLLAPSE(OMP_COLLAPSE_LEVEL)
     for (int p5=0; p5<p5u; p5++)
     for (int p4=0; p4<p4u; p4++)
     for (int p6=0; p6<p6u; p6++)
@@ -640,7 +640,7 @@ void c99_sd_t_d2_7_(fint * h3d, fint * h2d, fint * h1d,
     const int p5u = (int)(*p5d);
     const int p6u = (int)(*p6d);
     const int h7u = (int)(*h7d);
-    OMP_PARALLEL_FOR_COLLAPSE(4)
+    OMP_PARALLEL_FOR_COLLAPSE(OMP_COLLAPSE_LEVEL)
     for (int p5=0; p5<p5u; p5++)
     for (int p6=0; p6<p6u; p6++)
     for (int p4=0; p4<p4u; p4++)
@@ -666,7 +666,7 @@ void c99_sd_t_d2_8_(fint * h3d, fint * h2d, fint * h1d,
     const int p5u = (int)(*p5d);
     const int p6u = (int)(*p6d);
     const int h7u = (int)(*h7d);
-    OMP_PARALLEL_FOR_COLLAPSE(4)
+    OMP_PARALLEL_FOR_COLLAPSE(OMP_COLLAPSE_LEVEL)
     for (int p5=0; p5<p5u; p5++)
     for (int p6=0; p6<p6u; p6++)
     for (int p4=0; p4<p4u; p4++)
@@ -692,7 +692,7 @@ void c99_sd_t_d2_9_(fint * h3d, fint * h2d, fint * h1d,
     const int p5u = (int)(*p5d);
     const int p6u = (int)(*p6d);
     const int h7u = (int)(*h7d);
-    OMP_PARALLEL_FOR_COLLAPSE(4)
+    OMP_PARALLEL_FOR_COLLAPSE(OMP_COLLAPSE_LEVEL)
     for (int p5=0; p5<p5u; p5++)
     for (int p6=0; p6<p6u; p6++)
     for (int p4=0; p4<p4u; p4++)

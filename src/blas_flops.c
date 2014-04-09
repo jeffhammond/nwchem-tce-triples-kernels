@@ -37,6 +37,13 @@ double dgemm_gflops(int m, int n, int k)
     double * a = safemalloc( mk*sizeof(double) );
     double * b = safemalloc( kn*sizeof(double) );
     double * c = safemalloc( mn*sizeof(double) );
+    if (a==NULL || b==NULL || c==NULL) {
+	if (a!=NULL) free(a);
+	if (b!=NULL) free(b);
+	if (c!=NULL) free(c);
+	printf("dgemm_flops: skipping test because memory could not be allocated \n");
+        return 0.0;
+    }
 
     OMP_PARALLEL
     {
@@ -103,6 +110,13 @@ double dger_gflops(int m, int n)
     double * x = safemalloc( m*sizeof(double) );
     double * y = safemalloc( n*sizeof(double) );
     double * a = safemalloc( mn*sizeof(double) );
+    if (a==NULL || x==NULL || y==NULL) {
+	if (a!=NULL) free(a);
+	if (x!=NULL) free(x);
+	if (y!=NULL) free(y);
+	printf("dger_flops: skipping test because memory could not be allocated \n");
+        return 0.0;
+    }
 
     OMP_PARALLEL
     {
@@ -158,6 +172,12 @@ double daxpy_gflops(int n)
 
     double * x = safemalloc( n*sizeof(double) );
     double * y = safemalloc( n*sizeof(double) );
+    if (x==NULL || y==NULL) {
+	if (x!=NULL) free(x);
+	if (y!=NULL) free(y);
+	printf("daxpy_flops: skipping test because memory could not be allocated \n");
+        return 0.0;
+    }
 
     OMP_PARALLEL
     {
@@ -209,6 +229,12 @@ double memcpy_bandwidth(size_t n)
 
     double * x = safemalloc(b);
     double * y = safemalloc(b);
+    if (x==NULL || y==NULL) {
+	if (x!=NULL) free(x);
+	if (y!=NULL) free(y);
+	printf("memcpy_bandwidth: skipping test because memory could not be allocated \n");
+        return 0.0;
+    }
 
     PRAGMA_IVDEP
     for (size_t i=0; i<n; i++)

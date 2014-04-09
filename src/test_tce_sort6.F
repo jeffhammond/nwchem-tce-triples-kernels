@@ -22,8 +22,13 @@
       do l = 1,T
       do m = 1,T
       do n = 1,T
+#ifdef IBMXLF
+        u(n,m,l,k,j,i) = 1.0*i+mod(j,k)+l*m/n
+        s(n,m,l,k,j,i) = 0.0
+#else
         u(n,m,l,k,j,i) = rand(seed1)
         s(n,m,l,k,j,i) = rand(seed2)
+#endif
       enddo
       enddo
       enddo
@@ -31,6 +36,8 @@
       enddo
       enddo
       num = 0
+      tmin = 999999999.9
+      tmax = -999999999.9
       write(6,*) '(i,j,k,l,m,n),time'
 ! This is not particularly efficient but other methods
 ! are harder to implement in Fortran 77.

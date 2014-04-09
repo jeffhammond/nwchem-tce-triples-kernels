@@ -17,6 +17,8 @@ double memcpy_bandwidth(size_t n);
 
 void rand_array(long long n, double * a)
 {
+    if (a==NULL || n<=0) return;
+
     OMP_PARALLEL_FOR
     for (long long i=0; i<n; i++)
         a[i] = 1.0 - 2*(double)rand()/(double)RAND_MAX;
@@ -25,6 +27,8 @@ void rand_array(long long n, double * a)
 
 void zero_array(long long n, double * a)
 {
+    if (a==NULL || n<=0) return;
+
     OMP_PARALLEL_FOR
     for (long long i=0; i<n; i++)
         a[i] = 0.0;
@@ -33,6 +37,8 @@ void zero_array(long long n, double * a)
 
 void copy_array(long long n, double * a, double * b)
 {
+    if (a==NULL || b==NULL || n<=0) return;
+
     OMP_PARALLEL_FOR
     for (long long i=0; i<n; i++)
         b[i] = a[i];
@@ -41,6 +47,8 @@ void copy_array(long long n, double * a, double * b)
 
 double norm_array(long long n, const double * a)
 {
+    if (a==NULL || n<=0) return 0.0;
+
     double norm = 0.0;
     OMP_PARALLEL_FOR_REDUCE_ADD(norm)
     for (long long i=0; i<n; i++)
@@ -50,6 +58,8 @@ double norm_array(long long n, const double * a)
 
 double diff_array(long long n, const double * a, const double * b)
 {
+    if (a==NULL || b==NULL || n<=0) return 0.0;
+
     double diff = 0.0;
     OMP_PARALLEL_FOR_REDUCE_ADD(diff)
     for (long long i=0; i<n; i++)
@@ -106,7 +116,6 @@ int main(int argc, char * argv[])
     double * t1  = safemalloc( tile2*sizeof(double) );
     double * t2  = safemalloc( tile4*sizeof(double) );
     double * v2  = safemalloc( tile4*sizeof(double) );
-    double * t3o = safemalloc( tile6*sizeof(double) );
 
     tt0 = omp_get_wtime();
     rand_array(tile2, t1);
@@ -115,10 +124,14 @@ int main(int argc, char * argv[])
     tt1 = omp_get_wtime();
     printf("randomized initialization took %lf seconds \n", tt1-tt0);
 
-    printf("\nSTARTING FORTRAN OPENMP KERNELS \n");
-    fflush(stdout);
-    for (int i=0; i<2; i++)
-    {
+    double * t3o = safemalloc( tile6*sizeof(double) );
+    if (t3o==NULL) {
+      printf("skipping Fortran OpenMP kernels because memory could not be allocated. \n");
+    } else {
+      printf("\nSTARTING FORTRAN OPENMP KERNELS \n");
+      fflush(stdout);
+      for (int i=0; i<2; i++)
+      {
         long long totalflops = 0;
 
         zero_array(tile6, t3o);
@@ -305,14 +318,17 @@ int main(int argc, char * argv[])
         printf("%d: %s time = %lf seconds gigaflop/s = %lf \n", i, "total", dt, (1e-9*totalflops)/dt );
         fflush(stdout);
 #endif
+      }
     }
 
     double * t3r = safemalloc( tile6*sizeof(double) );
-
-    printf("\nSTARTING FORTRAN REFERENCE KERNELS \n");
-    fflush(stdout);
-    for (int i=0; i<2; i++)
-    {
+    if (t3r==NULL) {
+      printf("skipping Fortran reference kernels because memory could not be allocated. \n");
+    } else {
+      printf("\nSTARTING FORTRAN REFERENCE KERNELS \n");
+      fflush(stdout);
+      for (int i=0; i<2; i++)
+      {
         long long totalflops = 0;
 
         zero_array(tile6, t3r);
@@ -499,22 +515,25 @@ int main(int argc, char * argv[])
         printf("%d: %s time = %lf seconds gigaflop/s = %lf \n", i, "total", dt, (1e-9*totalflops)/dt );
         fflush(stdout);
 #endif
+      }
     }
 
 #if DO_C_KERNELS
     double * t3c = safemalloc( tile6*sizeof(double) );
-
-    printf("\nSTARTING F2C KERNELS \n");
-    fflush(stdout);
-    for (int i=0; i<2; i++)
-    {
+    if (t3c==NULL) {
+      printf("skipping F2C kernels because memory could not be allocated. \n");
+    } else {
+      printf("\nSTARTING F2C KERNELS \n");
+      fflush(stdout);
+      for (int i=0; i<2; i++)
+      {
         long long totalflops = 0;
 
         zero_array(tile6, t3c);
 
         ttt0 = omp_get_wtime();
 
-#ifdef DO_S1
+    #ifdef DO_S1
         tt0 = omp_get_wtime();
         f2c_sd_t_s1_1_(&tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, t3c, t1, v2);
         tt1 = omp_get_wtime();
@@ -570,9 +589,9 @@ int main(int argc, char * argv[])
         printf("%d: %s time = %lf seconds gigaflop/s = %lf \n", i, "sd_t_s1_9_", dt, (2e-9*tile6)/dt );
 
         totalflops = 2*9*tile6;
-#endif
+    #endif
 
-#ifdef DO_D1
+    #ifdef DO_D1
         tt0 = omp_get_wtime();
         f2c_sd_t_d1_1_(&tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, t3c, t2, v2);
         tt1 = omp_get_wtime();
@@ -628,9 +647,9 @@ int main(int argc, char * argv[])
         printf("%d: %s time = %lf seconds gigaflop/s = %lf \n", i, "sd_t_d1_9_", dt, (2e-9*tile7)/dt );
 
         totalflops = 2*9*tile7;
-#endif
+    #endif
 
-#ifdef DO_D2
+    #ifdef DO_D2
         tt0 = omp_get_wtime();
         f2c_sd_t_d2_1_(&tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, t3c, t2, v2);
         tt1 = omp_get_wtime();
@@ -694,14 +713,17 @@ int main(int argc, char * argv[])
         printf("%d: %s time = %lf seconds gigaflop/s = %lf \n", i, "total", dt, (1e-9*totalflops)/dt );
         fflush(stdout);
 #endif
+      }
     }
 
     double * t3d = safemalloc( tile6*sizeof(double) );
-
-    printf("\nSTARTING C99 KERNELS \n");
-    fflush(stdout);
-    for (int i=0; i<2; i++)
-    {
+    if (t3d==NULL) {
+      printf("skipping C99 kernels because memory could not be allocated. \n");
+    } else {
+      printf("\nSTARTING C99 KERNELS \n");
+      fflush(stdout);
+      for (int i=0; i<2; i++)
+      {
         long long totalflops = 0;
 
         zero_array(tile6, t3d);
@@ -888,6 +910,7 @@ int main(int argc, char * argv[])
         printf("%d: %s time = %lf seconds gigaflop/s = %lf \n", i, "total", dt, (1e-9*totalflops)/dt );
         fflush(stdout);
 #endif
+      }
     }
 #endif // DO_C_KERNELS
 
