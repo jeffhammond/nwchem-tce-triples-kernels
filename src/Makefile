@@ -7,6 +7,19 @@ TARGET := MAC
 # Intel Fortran throws the "cannot simd" warning for 3 and 4...
 OPT = -DOMP_COLLAPSE_LEVEL=1
 
+ifeq ($(TARGET),CRAY-INTEL)
+    CC       = cc
+    FC       = ftn
+    OPT     += -O3 -openmp -fno-alias -multiple-processes=8 -mavx
+    ASM      = -S -fsource-asm -fcode-asm
+    CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
+    FFLAGS   = $(OPT) -cpp -DINTEL_FORTRAN
+    CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
+    LD       = $(FC)
+    LDFLAGS  = $(FFLAGS) -nofor-main
+    LIBS     = -mkl=parallel
+endif
+
 ifeq ($(TARGET),CRAY-GCC)
     CC       = cc
     FC       = ftn
@@ -178,8 +191,8 @@ ifeq ($(TARGET),MIC)
     LIBS     = -mkl=parallel
 endif
 
-TESTS   := test_ccsd_t.x test_fortran_math.x test_dgemm_shapes.x test_tce_sort6.x
-OBJECTS :=                  ccsd_t_kernels_omp.o ccsd_t_kernels_ref.o ccsd_t_kernels_f2c.o ccsd_t_kernels_c99.o ccsd_t_kernels_blas.o blas_flops.o tce_sort6.o
+TESTS   := test_ccsd_t.x test_fortran_math.x test_dgemm_shapes.x test_tce_sort6.x test_new_sort6.x
+OBJECTS :=                  ccsd_t_kernels_omp.o ccsd_t_kernels_ref.o ccsd_t_kernels_f2c.o ccsd_t_kernels_c99.o ccsd_t_kernels_blas.o blas_flops.o tce_sort6.o new_sort6.o
 HEADERS := ccsd_t_kernels.h ccsd_t_kernels_omp.h ccsd_t_kernels_ref.h ccsd_t_kernels_f2c.h ccsd_t_kernels_c99.h ccsd_t_kernels_blas.h safemalloc.h pragma_vendor.h pragma_openmp.h fake_omp.h blas.h
 
 all: $(TESTS)
