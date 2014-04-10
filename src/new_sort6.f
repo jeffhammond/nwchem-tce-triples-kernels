@@ -9,7 +9,7 @@
       integer ia,ib
       integer j1,j2,j3,j4,j5,j6
       integer jdm,jdl,jdk,jdj
-      integer ia12345,ib12345
+      integer iax,ibx
       ia = 0
       jd(1) = a
       jd(2) = b
@@ -33,12 +33,12 @@
            id(4) = j4
            id(5) = j5
            !id(6) = j6 ! 123456 are only used once and we know n=6, hence ijklm must not be 6
-           ia12345 = f*(j5-1+e*(j4-1+d*(j3-1+c*(j2-1+b*(j1-1)))))
-           ib12345 = f*(id(m)-1+jdm*(id(l)-1+jdl*(id(k)-1+jdk
+           iax = f*(j5-1+e*(j4-1+d*(j3-1+c*(j2-1+b*(j1-1)))))
+           ibx = f*(id(m)-1+jdm*(id(l)-1+jdl*(id(k)-1+jdk
      &                *(id(j)-1+jdj*(id(i)-1)))))
            do j6 = 1,f
-            ia = j6+ia12345
-            ib = j6+ib12345
+            ia = j6+iax
+            ib = j6+ibx
             s(ib) = u(ia) * factor
            enddo
           enddo
@@ -58,10 +58,12 @@
            id(4) = j4
            !id(5) = j5
            id(6) = j6
+           iax = -1+e*(j4-1+d*(j3-1+c*(j2-1+b*(j1-1))))
+           ibx = e*(id(m)-1+jd(m)*(id(l)-1+jd(l)*(id(k)-1
+     &           +jd(k)*(id(j)-1+jd(j)*(id(i)-1)))))
            do j5 = 1,e
-            ia = j6+f*(j5-1+e*(j4-1+d*(j3-1+c*(j2-1+b*(j1-1)))))
-            ib = j5+e*(id(m)-1+jd(m)*(id(l)-1+jd(l)
-     1         *(id(k)-1+jd(k)*(id(j)-1+jd(j)*(id(i)-1)))))
+            ia = j6+f*(j5+iax)
+            ib = j5+ibx
             s(ib) = u(ia) * factor
            enddo
           enddo
@@ -81,10 +83,12 @@
            !id(4) = j4
            id(5) = j5
            id(6) = j6
+           iax = -1+d*(j3-1+c*(j2-1+b*(j1-1)))
+           ibx = d*(id(m)-1+jd(m)*(id(l)-1+jd(l)*(id(k)-1
+     &           +jd(k)*(id(j)-1+jd(j)*(id(i)-1)))))
            do j4 = 1,d
-            ia = j6+f*(j5-1+e*(j4-1+d*(j3-1+c*(j2-1+b*(j1-1)))))
-            ib = j4+d*(id(m)-1+jd(m)*(id(l)-1+jd(l)
-     1         *(id(k)-1+jd(k)*(id(j)-1+jd(j)*(id(i)-1)))))
+            ia = j6+f*(j5-1+e*(j4+iax))
+            ib = j4+ibx
             s(ib) = u(ia) * factor
            enddo
           enddo
@@ -104,10 +108,12 @@
            id(4) = j4
            id(5) = j5
            id(6) = j6
+           iax = -1+c*(j2-1+b*(j1-1))
+           ibx = c*(id(m)-1+jd(m)*(id(l)-1+jd(l)*(id(k)-1
+     &           +jd(k)*(id(j)-1+jd(j)*(id(i)-1)))))
            do j3 = 1,c
-            ia = j6+f*(j5-1+e*(j4-1+d*(j3-1+c*(j2-1+b*(j1-1)))))
-            ib = j3+c*(id(m)-1+jd(m)*(id(l)-1+jd(l)
-     1         *(id(k)-1+jd(k)*(id(j)-1+jd(j)*(id(i)-1)))))
+            ia = j6+f*(j5-1+e*(j4-1+d*(j3+iax)))
+            ib = j3+ibx
             s(ib) = u(ia) * factor
            enddo
           enddo
@@ -127,10 +133,12 @@
            id(4) = j4
            id(5) = j5
            id(6) = j6
+           iax = -1+b*(j1-1)
+           ibx = b*(id(m)-1+jd(m)*(id(l)-1+jd(l)*(id(k)-1
+     &           +jd(k)*(id(j)-1+jd(j)*(id(i)-1)))))
            do j2 = 1,b
-            ia = j6+f*(j5-1+e*(j4-1+d*(j3-1+c*(j2-1+b*(j1-1)))))
-            ib = j2+b*(id(m)-1+jd(m)*(id(l)-1+jd(l)
-     1         *(id(k)-1+jd(k)*(id(j)-1+jd(j)*(id(i)-1)))))
+            ia = j6+f*(j5-1+e*(j4-1+d*(j3-1+c*(j2+iax))))
+            ib = j2+ibx
             s(ib) = u(ia) * factor
            enddo
           enddo
@@ -150,10 +158,11 @@
            id(4) = j4
            id(5) = j5
            id(6) = j6
+           ibx = a*(id(m)-1+jd(m)*(id(l)-1+jd(l)*(id(k)-1
+     &           +jd(k)*(id(j)-1+jd(j)*(id(i)-1)))))
            do j1 = 1,a
             ia = j6+f*(j5-1+e*(j4-1+d*(j3-1+c*(j2-1+b*(j1-1)))))
-            ib = j1+a*(id(m)-1+jd(m)*(id(l)-1+jd(l)
-     1         *(id(k)-1+jd(k)*(id(j)-1+jd(j)*(id(i)-1)))))
+            ib = j1+ibx
             s(ib) = u(ia) * factor
            enddo
           enddo
