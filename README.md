@@ -7,19 +7,23 @@ NWChem TCE CCSD(T) loop-driven kernels for performance optimization experiments
 
 Set TARGET to one of the following:
 
-CRAY-INTEL
-CRAY-GCC
-CRAY (Cray compilers)
-TUKEY-INTEL
-TUKEY-GCC
-KAYLA (GCC on ARM)
-BGQ (BGXLC)
-POWER7-AIX
-POWER7 (XLC)
-POWER7-GCC
-MAC-CLANG
-MAC (GCC)
-INTEL
-MIC (Intel)
+* CRAY-INTEL
+* CRAY-GCC
+* CRAY (Cray compilers)
+* TUKEY-INTEL
+* TUKEY-GCC
+* KAYLA (GCC on ARM)
+* BGQ (BGXLC)
+* POWER7-AIX
+* POWER7 (XLC)
+* POWER7-GCC
+* MAC-CLANG
+* MAC (GCC)
+* INTEL
+* MIC (Intel)
 
-#
+Or just define your own new TARGET using the existing ones as a template.
+
+# Running
+
+
