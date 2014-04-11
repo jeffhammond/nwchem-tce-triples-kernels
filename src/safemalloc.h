@@ -14,11 +14,18 @@ static void * safemalloc(size_t n)
 {
     int rc = -1;
     void * ptr = NULL;
+#if 0
     rc = posix_memalign( &ptr, ALIGNMENT, n);
     if ( ptr==NULL || rc!=0 ) {
         fprintf( stdout , "%zu bytes could not be allocated \n" , n );
 	return NULL;
     }
+#else
+    ptr = malloc(n);
+    if ( ptr==NULL ) {
+        fprintf( stdout , "%zu bytes could not be allocated \n" , n );
+    }
+#endif
     return ptr;
 }
 
