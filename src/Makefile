@@ -5,7 +5,8 @@ ACTIVE  += -DDO_C_KERNELS
 TARGET := MAC
 
 # Intel Fortran throws the "cannot simd" warning for 3 and 4...
-OPT = -DOMP_COLLAPSE_LEVEL=1
+OMP_COLLAPSE_LEVEL=1
+OPT = -DOMP_COLLAPSE_LEVEL=$(OMP_COLLAPSE_LEVEL)
 
 ifeq ($(TARGET),CRAY-INTEL)
     CC       = cc
@@ -83,7 +84,7 @@ endif
 ifeq ($(TARGET),BGQ)
     CC       = bgxlc_r
     FC       = bgxlf_r
-    OPT     += -O3 -qhot -qtune=qp -qarch=qp -qsmp=omp -qsimd -qreport -qsource -qlist
+    OPT     += -O3 -qhot -qtune=qp -qarch=qp -qsmp=omp -qsimd #-qreport -qsource -qlist -qsuppress=cmpmsg
     CFLAGS   = $(OPT) -qlanglvl=stdc99 $(ACTIVE)
     FFLAGS   = $(OPT) -qextname
     CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
@@ -96,11 +97,12 @@ endif
 
 ifeq ($(TARGET),POWER7-AIX)
 # Savba i.e. POWER775 AIX
-    CC       = /usr/vac/bin/xlc_r
-    FC       = /usr/bin/xlf_r
-    OPT     += -O3 -qhot -qsmp=omp -qtune=pwr7 -qarch=pwr7 -qreport -qsource -qlist
-    CFLAGS   = $(OPT) -qlanglvl=stdc99 $(ACTIVE)
-    FFLAGS   = $(OPT) -qextname -WF,-DIBMXLF
+    CC       = mpcc_r
+    FC       = mpxlf_r
+    OPT      = 
+    OPT     += -q64 -O3 -qhot -qsmp=omp -qtune=pwr7 -qarch=pwr7 -qstrict #-qreport -qsource -qlist #-qsuppress=cmpmsg
+    CFLAGS   = $(OPT) -qlanglvl=stdc99 $(ACTIVE) -DOMP_COLLAPSE_LEVEL=$(OMP_COLLAPSE_LEVEL)
+    FFLAGS   = $(OPT) -qextname -WF,-DIBMXLF -WF,-DOMP_COLLAPSE_LEVEL=$(OMP_COLLAPSE_LEVEL)
     CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
     LD       = $(FC)
     LDFLAGS  = $(FFLAGS)
@@ -111,9 +113,10 @@ ifeq ($(TARGET),POWER7)
 # Vesta login
     CC       = xlc_r
     FC       = xlf_r
-    OPT     += -O3 -qhot -qsmp=omp -qsimd -qreport -qsource -qlist
-    CFLAGS   = $(OPT) -qlanglvl=stdc99 $(ACTIVE)
-    FFLAGS   = $(OPT) -qextname -WF,-DIBMXLF
+    OPT      = 
+    OPT     += -O3 -qhot -qsmp=omp -qsimd -qreport -qsource -qlist -qsuppress=cmpmsg
+    CFLAGS   = $(OPT) -qlanglvl=stdc99 $(ACTIVE) -DOMP_COLLAPSE_LEVEL=$(OMP_COLLAPSE_LEVEL)
+    FFLAGS   = $(OPT) -qextname -WF,-DIBMXLF -WF,-DOMP_COLLAPSE_LEVEL=$(OMP_COLLAPSE_LEVEL)
     CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
     LD       = $(FC)
     LDFLAGS  = $(FFLAGS)
@@ -191,7 +194,7 @@ ifeq ($(TARGET),MIC)
     LIBS     = -mkl=parallel
 endif
 
-TESTS   := test_ccsd_t.x test_fortran_math.x test_dgemm_shapes.x test_tce_sort6.x test_new_sort6.x
+TESTS   := test_ccsd_t.x test_fortran_math.x test_dgemm_shapes.x test_tce_sort6.x test_new_sort6.x test_malloc.x
 OBJECTS :=                  ccsd_t_kernels_omp.o ccsd_t_kernels_ref.o ccsd_t_kernels_f2c.o ccsd_t_kernels_c99.o ccsd_t_kernels_blas.o blas_flops.o tce_sort6.o new_sort6.o
 HEADERS := ccsd_t_kernels.h ccsd_t_kernels_omp.h ccsd_t_kernels_ref.h ccsd_t_kernels_f2c.h ccsd_t_kernels_c99.h ccsd_t_kernels_blas.h safemalloc.h pragma_vendor.h pragma_openmp.h fake_omp.h blas.h
 
