@@ -14,11 +14,11 @@
       do j1 = 1,a
        do j2 = 1,b
         do j3 = 1,c
+         id(1) = j1
+         id(2) = j2
+         id(3) = j3
+         !id(4) = j4 ! 1234 are only used once and we know l=4, hence ijk must not be 4
          do j4 = 1,d
-          id(1) = j1
-          id(2) = j2
-          id(3) = j3
-          !id(4) = j4 ! 1234 are only used once and we know l=4, hence ijk must not be 4
           ia = j4+d*(j3-1+c*(j2-1+b*(j1-1)))
           ib = j4+d*(id(k)-1+jd(k)*(id(j)-1+jd(j)*(id(i)-1)))
           s(ib) = u(ia) * factor
@@ -29,12 +29,12 @@
       else if (l.eq.3) then
       do j1 = 1,a
        do j2 = 1,b
-        do j3 = 1,c
-         do j4 = 1,d
-          id(1) = j1
-          id(2) = j2
-          !id(3) = j3
-          id(4) = j4
+        do j4 = 1,d
+         id(1) = j1
+         id(2) = j2
+         !id(3) = j3
+         id(4) = j4
+         do j3 = 1,c
           ia = j4+d*(j3-1+c*(j2-1+b*(j1-1)))
           ib = j3+c*(id(k)-1+jd(k)*(id(j)-1+jd(j)*(id(i)-1)))
           s(ib) = u(ia) * factor
@@ -45,12 +45,12 @@
       else if (l.eq.2) then
       do j1 = 1,a
        do j3 = 1,c
-        do j2 = 1,b
-         do j4 = 1,d
-          id(1) = j1
-          !id(2) = j2
-          id(3) = j3
-          id(4) = j4
+        do j4 = 1,d
+         id(1) = j1
+         !id(2) = j2
+         id(3) = j3
+         id(4) = j4
+         do j2 = 1,b
           ia = j4+d*(j3-1+c*(j2-1+b*(j1-1)))
           ib = j2+b*(id(k)-1+jd(k)*(id(j)-1+jd(j)*(id(i)-1)))
           s(ib) = u(ia) * factor
@@ -61,12 +61,12 @@
       else ! l.eq.1
       do j2 = 1,b
        do j3 = 1,c
-        do j1 = 1,a
-         do j4 = 1,d
-          !id(1) = j1
-          id(2) = j2
-          id(3) = j3
-          id(4) = j4
+        do j4 = 1,d
+         !id(1) = j1
+         id(2) = j2
+         id(3) = j3
+         id(4) = j4
+         do j1 = 1,a
           ia = j4+d*(j3-1+c*(j2-1+b*(j1-1)))
           ib = j1+a*(id(k)-1+jd(k)*(id(j)-1+jd(j)*(id(i)-1)))
           s(ib) = u(ia) * factor
