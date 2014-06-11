@@ -18,7 +18,7 @@
 
 #else
 
-#error No OpenMP, either because compiler does not understand OpenMP or C99 _Pragma.
+#warning No OpenMP, either because compiler does not understand OpenMP or C99 _Pragma.
 
 #define OMP_PARALLEL
 #define OMP_PARALLEL_FOR
