@@ -194,7 +194,7 @@ ifeq ($(TARGET),MIC)
     LIBS     = -mkl=parallel
 endif
 
-TESTS   := test_ccsd_t.x test_fortran_math.x test_dgemm_shapes.x test_tce_sort6.x test_new_sort6.x test_tce_sort4.x test_new_sort4.x test_malloc.x
+TESTS   := test_ccsd_t.x test_fortran_math.x test_dgemm_shapes.x test_new_sort6.x test_new_sort4.x test_malloc.x
 OBJECTS :=                  ccsd_t_kernels_omp.o ccsd_t_kernels_ref.o ccsd_t_kernels_f2c.o ccsd_t_kernels_c99.o ccsd_t_kernels_blas.o blas_flops.o tce_sort6.o new_sort6.o tce_sort4.o new_sort4.o
 HEADERS := ccsd_t_kernels.h ccsd_t_kernels_omp.h ccsd_t_kernels_ref.h ccsd_t_kernels_f2c.h ccsd_t_kernels_c99.h ccsd_t_kernels_blas.h safemalloc.h pragma_vendor.h pragma_openmp.h fake_omp.h blas.h
 

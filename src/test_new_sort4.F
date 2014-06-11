@@ -1,4 +1,4 @@
-#define T 24
+#define T 16
       program test_new_sort4
       use omp_lib
       implicit none
@@ -17,7 +17,7 @@
       double precision z
       double precision ddot
       external ddot
-      print*,'{tce,new}_sort_6 test with tilesize = ',T
+      print*,'{tce,new}_sort_4 test with tilesize = ',T
       seed1 = 1
       seed2 = 2
       do i = 1,T
