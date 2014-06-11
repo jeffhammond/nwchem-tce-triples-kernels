@@ -18,8 +18,8 @@
           id(1) = j1
           id(2) = j2
           id(3) = j3
-          id(4) = j4
-          ia = id(4)+jd(4)*(id(3)-1+jd(3)*(id(2)-1+jd(2)*(id(1)-1)))
+          !id(4) = j4 ! 1234 are only used once and we know l=4, hence ijk must not be 4
+          ia = id(4)+d*(id(3)-1+c*(id(2)-1+b*(id(1)-1)))
           ib = id(l)+jd(l)*(id(k)-1+jd(k)*(id(j)-1+jd(j)*(id(i)-1)))
           s(ib) = u(ia) * factor
          enddo
@@ -33,9 +33,9 @@
          do j4 = 1,d
           id(1) = j1
           id(2) = j2
-          id(3) = j3
+          !id(3) = j3
           id(4) = j4
-          ia = id(4)+jd(4)*(id(3)-1+jd(3)*(id(2)-1+jd(2)*(id(1)-1)))
+          ia = id(4)+d*(id(3)-1+c*(id(2)-1+b*(id(1)-1)))
           ib = id(l)+jd(l)*(id(k)-1+jd(k)*(id(j)-1+jd(j)*(id(i)-1)))
           s(ib) = u(ia) * factor
          enddo
@@ -48,26 +48,26 @@
         do j2 = 1,b
          do j4 = 1,d
           id(1) = j1
-          id(2) = j2
+          !id(2) = j2
           id(3) = j3
           id(4) = j4
-          ia = id(4)+jd(4)*(id(3)-1+jd(3)*(id(2)-1+jd(2)*(id(1)-1)))
+          ia = id(4)+d*(id(3)-1+c*(id(2)-1+b*(id(1)-1)))
           ib = id(l)+jd(l)*(id(k)-1+jd(k)*(id(j)-1+jd(j)*(id(i)-1)))
           s(ib) = u(ia) * factor
          enddo
         enddo
        enddo
       enddo
-      else
+      else ! l.eq.1
       do j2 = 1,b
        do j3 = 1,c
         do j1 = 1,a
          do j4 = 1,d
-          id(1) = j1
+          !id(1) = j1
           id(2) = j2
           id(3) = j3
           id(4) = j4
-          ia = id(4)+jd(4)*(id(3)-1+jd(3)*(id(2)-1+jd(2)*(id(1)-1)))
+          ia = id(4)+d*(id(3)-1+c*(id(2)-1+b*(id(1)-1)))
           ib = id(l)+jd(l)*(id(k)-1+jd(k)*(id(j)-1+jd(j)*(id(i)-1)))
           s(ib) = u(ia) * factor
          enddo
