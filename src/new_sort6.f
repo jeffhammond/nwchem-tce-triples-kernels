@@ -10,18 +10,18 @@
       integer j1,j2,j3,j4,j5,j6
       integer jdm,jdl,jdk,jdj
       integer iax,ibx
-      ia = 0
+      ia = 0 ! why?
       jd(1) = a
       jd(2) = b
       jd(3) = c
       jd(4) = d
       jd(5) = e
       jd(6) = f
+      if (n.eq.6) then
       jdm=jd(m)
       jdl=jd(l)
       jdk=jd(k)
       jdj=jd(j)
-      if (n.eq.6) then
       do j1 = 1,a
        do j2 = 1,b
         do j3 = 1,c
