@@ -50,17 +50,14 @@ double dgemm_gflops(int m, int n, int k)
         double denom = 2.0/(double)RAND_MAX;
 
         OMP_FOR
-        PRAGMA_IVDEP
         for (long i=0; i<mk; i++)
             a[i] =  1.0 - denom*(double)rand();
 
         OMP_FOR
-        PRAGMA_IVDEP
         for (long i=0; i<kn; i++)
             b[i] =  1.0 - denom*(double)rand();
 
         OMP_FOR
-        PRAGMA_IVDEP
         for (long i=0; i<mn; i++)
             c[i] =  1.0 - denom*(double)rand();
     }
@@ -123,17 +120,14 @@ double dger_gflops(int m, int n)
         double denom = 2.0/(double)RAND_MAX;
 
         OMP_FOR
-        PRAGMA_IVDEP
         for (long i=0; i<m; i++)
             x[i] =  1.0 - denom*(double)rand();
 
         OMP_FOR
-        PRAGMA_IVDEP
         for (long i=0; i<n; i++)
             y[i] =  1.0 - denom*(double)rand();
 
         OMP_FOR
-        PRAGMA_IVDEP
         for (long i=0; i<mn; i++)
             a[i] =  1.0 - denom*(double)rand();
     }
@@ -184,12 +178,10 @@ double daxpy_gflops(int n)
         double denom = 2.0/(double)RAND_MAX;
 
         OMP_FOR
-        PRAGMA_IVDEP
         for (int i=0; i<n; i++)
             x[i] =  1.0 - denom*(double)rand();
 
         OMP_FOR
-        PRAGMA_IVDEP
         for (int i=0; i<n; i++)
             y[i] =  1.0 - denom*(double)rand();
     }
