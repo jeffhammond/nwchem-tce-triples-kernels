@@ -19,8 +19,8 @@
           id(2) = j2
           id(3) = j3
           !id(4) = j4 ! 1234 are only used once and we know l=4, hence ijk must not be 4
-          ia = id(4)+d*(id(3)-1+c*(id(2)-1+b*(id(1)-1)))
-          ib = id(4)+d*(id(k)-1+jd(k)*(id(j)-1+jd(j)*(id(i)-1)))
+          ia = j4+d*(j3-1+c*(j2-1+b*(j1-1)))
+          ib = j4+d*(id(k)-1+jd(k)*(id(j)-1+jd(j)*(id(i)-1)))
           s(ib) = u(ia) * factor
          enddo
         enddo
@@ -35,8 +35,8 @@
           id(2) = j2
           !id(3) = j3
           id(4) = j4
-          ia = id(4)+d*(id(3)-1+c*(id(2)-1+b*(id(1)-1)))
-          ib = id(3)+c*(id(k)-1+jd(k)*(id(j)-1+jd(j)*(id(i)-1)))
+          ia = j4+d*(j3-1+c*(j2-1+b*(j1-1)))
+          ib = j3+c*(id(k)-1+jd(k)*(id(j)-1+jd(j)*(id(i)-1)))
           s(ib) = u(ia) * factor
          enddo
         enddo
@@ -51,8 +51,8 @@
           !id(2) = j2
           id(3) = j3
           id(4) = j4
-          ia = id(4)+d*(id(3)-1+c*(id(2)-1+b*(id(1)-1)))
-          ib = id(2)+b*(id(k)-1+jd(k)*(id(j)-1+jd(j)*(id(i)-1)))
+          ia = j4+d*(j3-1+c*(j2-1+b*(j1-1)))
+          ib = j2+b*(id(k)-1+jd(k)*(id(j)-1+jd(j)*(id(i)-1)))
           s(ib) = u(ia) * factor
          enddo
         enddo
@@ -67,8 +67,8 @@
           id(2) = j2
           id(3) = j3
           id(4) = j4
-          ia = id(4)+d*(id(3)-1+c*(id(2)-1+b*(id(1)-1)))
-          ib = id(1)+a*(id(k)-1+jd(k)*(id(j)-1+jd(j)*(id(i)-1)))
+          ia = j4+d*(j3-1+c*(j2-1+b*(j1-1)))
+          ib = j1+a*(id(k)-1+jd(k)*(id(j)-1+jd(j)*(id(i)-1)))
           s(ib) = u(ia) * factor
          enddo
         enddo
