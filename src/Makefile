@@ -170,8 +170,8 @@ endif
 ifeq ($(TARGET),INTEL)
     CC       = icc
     FC       = ifort
-    #OPT     += -O3 -openmp -fno-alias -multiple-processes=8 -msse4.2
-    OPT     += -O3 -openmp -fno-alias -multiple-processes=8 -mavx
+    #OPT     += -O3 -fopenmp -fno-alias -msse4.2
+    OPT     += -O3 -fopenmp -fno-alias -mavx
     ASM      = -S -fsource-asm -fcode-asm
     CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
     FFLAGS   = $(OPT) -cpp -DINTEL_FORTRAN
