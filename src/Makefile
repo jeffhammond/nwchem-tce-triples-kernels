@@ -156,28 +156,46 @@ ifeq ($(TARGET),MAC-CLANG)
 endif
 
 ifeq ($(TARGET),MAC)
-    CC       = gcc
-    FC       = gfortran
+    CC       = gcc-4.8
+    FC       = gfortran-4.8
     OPT     += -O2 -fopenmp #-ftree-vectorize -ffp-contract=fast -march=native -mno-avx
     CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
     FFLAGS   = $(OPT)
     CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
-    LD       = clang -L/usr/local/Cellar/gfortran/4.8.2/gfortran/lib
+    #LD       = clang -L/usr/local/Cellar/gfortran/4.8.2/gfortran/lib
+    #LDFLAGS  = $(CFLAGS) $(FAT_STACK)
+    LD       = $(CC)
     LDFLAGS  = $(CFLAGS) $(FAT_STACK)
     LIBS     = -framework Accelerate -lgfortran
+endif
+
+ifeq ($(TARGET),MAC-INTEL)
+    CC       = icl
+    FC       = ifort
+    #OPT     += -O3 -fopenmp -fno-alias -msse4.2
+    OPT     += -g -O2 -fopenmp -fno-alias #-mavx
+    ASM      = -S -fsource-asm -fcode-asm
+    CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
+    FFLAGS   = $(OPT) -cpp -DINTEL_FORTRAN -heap-arrays
+    CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
+    LD       = $(FC)
+    LDFLAGS  = $(FFLAGS) -nofor-main -static-intel
+    LDFLAGS += -Wl,-no_pie # debugging with IDB only
+    LIBS     = -mkl=parallel
 endif
 
 ifeq ($(TARGET),INTEL)
     CC       = icc
     FC       = ifort
     #OPT     += -O3 -fopenmp -fno-alias -msse4.2
-    OPT     += -O3 -fopenmp -fno-alias -mavx
+    OPT     += -g -O2 -fopenmp -fno-alias #-mavx
     ASM      = -S -fsource-asm -fcode-asm
     CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
-    FFLAGS   = $(OPT) -cpp -DINTEL_FORTRAN
+    FFLAGS   = $(OPT) -cpp -DINTEL_FORTRAN -heap-arrays
     CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
     LD       = $(FC)
-    LDFLAGS  = $(FFLAGS) -nofor-main
+    LDFLAGS  = $(FFLAGS) -nofor-main -static-intel
+    LDFLAGS += -Wl,-no_pie # debugging with IDB only
     LIBS     = -mkl=parallel
 endif
 
@@ -223,3 +241,4 @@ clean:
 
 realclean: clean
 	$(RM) $(RMFLAGS) $(TESTS)
+	-rm -rf *.dSYM

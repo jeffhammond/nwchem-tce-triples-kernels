@@ -1,6 +1,6 @@
 #define T 20
       program test_tce_sort6
-      use omp_lib
+!      use omp_lib
       implicit none
       double precision f
       double precision u(T,T,T,T,T,T)
@@ -12,8 +12,8 @@
       integer num
       integer seed1,seed2
       double precision tmin,tmax,tavg
-      double precision ddot
-      external ddot
+!      double precision ddot
+!      external ddot
       seed1 = 1
       seed2 = 2
       do i = 1,T
@@ -55,10 +55,10 @@
         num = num+1
         d = T
         f = 1.0
-        t0 = omp_get_wtime()
+!        t0 = omp_get_wtime()
         call tce_sort_6(u,s,d,d,d,d,d,d,i,j,k,l,m,n,f)
-        t1 = omp_get_wtime()
-        x  = ddot(d*d*d*d*d*d,u,1,s,1)
+!        t1 = omp_get_wtime()
+!        x  = ddot(d*d*d*d*d*d,u,1,s,1)
         write(6,2) i,j,k,l,m,n,t1-t0,x
         tavg = tavg + (t1-t0)
         tmin = min(tmin,(t1-t0))
