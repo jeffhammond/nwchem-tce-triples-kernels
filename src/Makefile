@@ -2,7 +2,7 @@ ACTIVE   = -DDO_S1 -DDO_D1 -DDO_D2
 ACTIVE  += -DDO_C_KERNELS
 #ACTIVE  += -DDEBUG
 
-TARGET := MAC
+TARGET := MAC-INTEL
 
 # Intel Fortran throws the "cannot simd" warning for 3 and 4...
 OMP_COLLAPSE_LEVEL=1
@@ -170,17 +170,17 @@ ifeq ($(TARGET),MAC)
 endif
 
 ifeq ($(TARGET),MAC-INTEL)
-    CC       = icl
+    CC       = icc
     FC       = ifort
-    #OPT     += -O3 -fopenmp -fno-alias -msse4.2
-    OPT     += -g -O2 -fopenmp -fno-alias #-mavx
+    OPT     += -O3 -fopenmp -fno-alias
+    #OPT     += -g -O2 -fopenmp -fno-alias #-mavx
     ASM      = -S -fsource-asm -fcode-asm
     CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
     FFLAGS   = $(OPT) -cpp -DINTEL_FORTRAN -heap-arrays
     CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
     LD       = $(FC)
     LDFLAGS  = $(FFLAGS) -nofor-main -static-intel
-    LDFLAGS += -Wl,-no_pie # debugging with IDB only
+    #LDFLAGS += -Wl,-no_pie # debugging with IDB only
     LIBS     = -mkl=parallel
 endif
 
