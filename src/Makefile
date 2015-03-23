@@ -238,7 +238,5 @@ all: $(TESTS)
 
 clean:
 	$(RM) $(RMFLAGS) *.o
-
-realclean: clean
 	$(RM) $(RMFLAGS) $(TESTS)
 	-rm -rf *.dSYM
