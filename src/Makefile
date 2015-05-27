@@ -146,7 +146,7 @@ FAT_STACK = -Wl,-stack_size -Wl,100000000
 ifeq ($(TARGET),MAC-CLANG)
     CC       = clang
     FC       = gfortran
-    OPT     += -O3 -march=native -mno-avx
+    OPT     += -O3 -march=native 
     CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
     FFLAGS   = $(OPT) -fopenmp
     CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
@@ -172,16 +172,18 @@ endif
 ifeq ($(TARGET),MAC-INTEL)
     CC       = icc
     FC       = ifort
-    OPT     += -O3 -fopenmp -fno-alias
+    OPT     += -O3 -qopenmp -fno-alias
     #OPT     += -g -O2 -fopenmp -fno-alias #-mavx
     ASM      = -S -fsource-asm -fcode-asm
     CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
     FFLAGS   = $(OPT) -cpp -DINTEL_FORTRAN -heap-arrays
     CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
-    LD       = $(FC)
-    LDFLAGS  = $(FFLAGS) -nofor-main -static-intel
+    LD       = clang
+    LDFLAGS  = -g -O2 -mavx $(FAT_STACK)
+    #LD       = $(FC)
+    #LDFLAGS  = $(FFLAGS) -nofor-main -static-intel
     #LDFLAGS += -Wl,-no_pie # debugging with IDB only
-    LIBS     = -mkl=parallel
+    #LIBS     = -mkl=parallel
 endif
 
 ifeq ($(TARGET),INTEL)
