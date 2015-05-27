@@ -1,7 +1,7 @@
 #ifndef PRAGMA_OPENMP_H
 #define PRAGMA_OPENMP_H
 
-#if defined(_OPENMP) && ( __STDC_VERSION__ >= 199901L )
+#if defined(_OPENMP) && (( __STDC_VERSION__ >= 199901L ) || (__cplusplus >= 201103L ))
 
 #define PRAGMA(x) _Pragma(#x)
 
@@ -18,7 +18,7 @@
 
 #else
 
-#warning No OpenMP, either because compiler does not understand OpenMP or C99 _Pragma.
+#warning No OpenMP, either because compiler does not understand OpenMP or C99/C++11 _Pragma.
 
 #define OMP_PARALLEL
 #define OMP_PARALLEL_FOR
