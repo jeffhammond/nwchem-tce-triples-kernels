@@ -17,11 +17,11 @@ c
       do p5=1,p5d
       do p6=1,p6d
       do h1=1,h1d
-!!!dir$ loop count min(8)
+!dir$ loop count min(8), max(40), avg(20)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
       do h2=1,h2d
-!!!dir$ loop count min(8)
+!dir$ loop count min(8), max(40), avg(20)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dec$ vector always nontemporal
@@ -57,11 +57,11 @@ c
       do p5=1,p5d
       do p6=1,p6d
       do h1=1,h1d
-!!!dir$ loop count min(8)
+!dir$ loop count min(8), max(40), avg(20)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
       do h2=1,h2d ! interchanging h1 and h2 was a huge win with Cray+OpenMP
-!!!dir$ loop count min(8)
+!dir$ loop count min(8), max(40), avg(20)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dec$ vector always nontemporal
@@ -101,11 +101,11 @@ c
       do h1=1,h1d
 #endif
       do h2=1,h2d
-!!!dir$ loop count min(8)
+!dir$ loop count min(8), max(40), avg(20)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
       do h3=1,h3d
-!!!dir$ loop count min(8)
+!dir$ loop count min(8), max(40), avg(20)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dec$ vector always nontemporal
@@ -143,11 +143,11 @@ c
       do p4=1,p4d
       do p6=1,p6d
       do h1=1,h1d
-!!!dir$ loop count min(8)
+!dir$ loop count min(8), max(40), avg(20)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
       do h2=1,h2d
-!!!dir$ loop count min(8)
+!dir$ loop count min(8), max(40), avg(20)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dec$ vector always nontemporal
@@ -185,11 +185,11 @@ c
       do p4=1,p4d
       do p6=1,p6d
       do h1=1,h1d
-!!!dir$ loop count min(8)
+!dir$ loop count min(8), max(40), avg(20)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
       do h2=1,h2d
-!!!dir$ loop count min(8)
+!dir$ loop count min(8), max(40), avg(20)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dec$ vector always nontemporal
@@ -226,11 +226,11 @@ c
       do p4=1,p4d
       do p6=1,p6d
       do h2=1,h2d
-!!!dir$ loop count min(8)
+!dir$ loop count min(8), max(40), avg(20)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
       do h3=1,h3d
-!!!dir$ loop count min(8)
+!dir$ loop count min(8), max(40), avg(20)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dec$ vector always nontemporal
@@ -266,11 +266,11 @@ c
 !!!dir$ prefetch t1sub
       do p4=1,p4d
       do h1=1,h1d
-!!!dir$ loop count min(8)
+!dir$ loop count min(8), max(40), avg(20)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
       do h2=1,h2d
-!!!dir$ loop count min(8)
+!dir$ loop count min(8), max(40), avg(20)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dec$ vector always nontemporal
@@ -307,9 +307,9 @@ c
 !!!dir$ prefetch t1sub
       do p4=1,p4d
       do h2=1,h2d
-!!!dir$ loop count min(8)
+!dir$ loop count min(8), max(40), avg(20)
       do h1=1,h1d
-!!!dir$ loop count min(8)
+!dir$ loop count min(8), max(40), avg(20)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dec$ vector always nontemporal
@@ -346,9 +346,9 @@ c
 !!!dir$ prefetch t1sub
       do p4=1,p4d
       do h2=1,h2d
-!!!dir$ loop count min(8)
+!dir$ loop count min(8), max(40), avg(20)
       do h3=1,h3d
-!!!dir$ loop count min(8)
+!dir$ loop count min(8), max(40), avg(20)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dec$ vector always nontemporal
@@ -399,15 +399,15 @@ c
       do p6=1,p6d
       do p4=1,p4d
       do h1=1,h1d
-!!!dir$ loop count min(8)
+!dir$ loop count min(8), max(40), avg(20)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
       do h2=1,h2d
-!!!dir$ loop count min(8)
+!dir$ loop count min(8), max(40), avg(20)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
       do h3=1,h3d
-!!!dir$ loop count min(8)
+!dir$ loop count min(8), max(40), avg(20)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd
@@ -459,11 +459,11 @@ c
       do p6=1,p6d
       do h2=1,h2d
       do h1=1,h1d
-!!!dir$ loop count min(8)
+!dir$ loop count min(8), max(40), avg(20)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
       do h3=1,h3d
-!!!dir$ loop count min(8)
+!dir$ loop count min(8), max(40), avg(20)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd
@@ -515,11 +515,11 @@ c
       do p6=1,p6d
       do h2=1,h2d
       do h3=1,h3d
-!!!dir$ loop count min(8)
+!dir$ loop count min(8), max(40), avg(20)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
       do h1=1,h1d
-!!!dir$ loop count min(8)
+!dir$ loop count min(8), max(40), avg(20)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd
@@ -577,11 +577,11 @@ c
 #ifndef __ppc64__
       do p4=1,p4d ! this loop used to be between p6 and p5
 #endif
-!!!dir$ loop count min(8)
+!dir$ loop count min(8), max(40), avg(20)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
       do h3=1,h3d
-!!!dir$ loop count min(8)
+!dir$ loop count min(8), max(40), avg(20)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd
@@ -633,11 +633,11 @@ c
       do p5=1,p5d
       do h2=1,h2d
       do h1=1,h1d
-!!!dir$ loop count min(8)
+!dir$ loop count min(8), max(40), avg(20)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
       do h3=1,h3d
-!!!dir$ loop count min(8)
+!dir$ loop count min(8), max(40), avg(20)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd
@@ -689,11 +689,11 @@ c
       do p5=1,p5d
       do h2=1,h2d
       do h3=1,h3d
-!dec$ loop count min(8)
+!dec$ loop count min(8), max(40), avg(20)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
       do h1=1,h1d
-!dec$ loop count min(8)
+!dec$ loop count min(8), max(40), avg(20)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd
@@ -752,11 +752,11 @@ c
       do h1=1,h1d
       do h2=1,h2d
 #endif
-!!!dir$ loop count min(8)
+!dir$ loop count min(8), max(40), avg(20)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
       do h3=1,h3d
-!!!dir$ loop count min(8)
+!dir$ loop count min(8), max(40), avg(20)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd
@@ -812,11 +812,11 @@ c
       do p5=1,p5d
       do h2=1,h2d
       do h1=1,h1d
-!!!dir$ loop count min(8)
+!dir$ loop count min(8), max(40), avg(20)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
       do h3=1,h3d
-!!!dir$ loop count min(8)
+!dir$ loop count min(8), max(40), avg(20)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd
@@ -867,12 +867,12 @@ c
       do p6=1,p6d
       do p5=1,p5d
       do h2=1,h2d
-!!!dir$ loop count min(8)
+!dir$ loop count min(8), max(40), avg(20)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
       do h1=1,h1d
       do h3=1,h3d
-!!!dir$ loop count min(8)
+!dir$ loop count min(8), max(40), avg(20)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd
@@ -908,11 +908,11 @@ c
       do p6=1,p6d
       do h1=1,h1d
       do h2=1,h2d
-!!!dir$ loop count min(8)
+!dir$ loop count min(8), max(40), avg(20)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
       do h3=1,h3d
-!!!dir$ loop count min(8)
+!dir$ loop count min(8), max(40), avg(20)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd
@@ -948,11 +948,11 @@ c
       do h1=1,h1d
       do p4=1,p4d
       do h3=1,h3d
-!!!dir$ loop count min(8)
+!dir$ loop count min(8), max(40), avg(20)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
       do h2=1,h2d
-!!!dir$ loop count min(8)
+!dir$ loop count min(8), max(40), avg(20)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd
@@ -988,11 +988,11 @@ c
       do h1=1,h1d
       do p4=1,p4d
       do h3=1,h3d
-!!!dir$ loop count min(8)
+!dir$ loop count min(8), max(40), avg(20)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
       do h2=1,h2d
-!!!dir$ loop count min(8)
+!dir$ loop count min(8), max(40), avg(20)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd
@@ -1028,11 +1028,11 @@ c
       do p6=1,p6d
       do h1=1,h1d
       do h2=1,h2d
-!!!dir$ loop count min(8)
+!dir$ loop count min(8), max(40), avg(20)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
       do h3=1,h3d
-!!!dir$ loop count min(8)
+!dir$ loop count min(8), max(40), avg(20)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd
@@ -1067,12 +1067,12 @@ c
       do p4=1,p4d
       do p6=1,p6d
       do h1=1,h1d
-!!!dir$ loop count min(8)
+!dir$ loop count min(8), max(40), avg(20)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
       do h2=1,h2d
       do h3=1,h3d
-!!!dir$ loop count min(8)
+!dir$ loop count min(8), max(40), avg(20)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd
@@ -1108,11 +1108,11 @@ c
       do p6=1,p6d
       do h1=1,h1d
       do h3=1,h3d
-!!!dir$ loop count min(8)
+!dir$ loop count min(8), max(40), avg(20)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
       do h2=1,h2d
-!!!dir$ loop count min(8)
+!dir$ loop count min(8), max(40), avg(20)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd
@@ -1148,11 +1148,11 @@ c
       do p4=1,p4d
       do h1=1,h1d
       do h2=1,h2d
-!!!dir$ loop count min(8)
+!dir$ loop count min(8), max(40), avg(20)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
       do h3=1,h3d
-!!!dir$ loop count min(8)
+!dir$ loop count min(8), max(40), avg(20)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd
@@ -1189,11 +1189,11 @@ c
 !      do h3=1,h3d ! this loop order drops Edison from 80 to 50
       do h1=1,h1d
       do h3=1,h3d
-!!!dir$ loop count min(8)
+!dir$ loop count min(8), max(40), avg(20)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
       do h2=1,h2d
-!!!dir$ loop count min(8)
+!dir$ loop count min(8), max(40), avg(20)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd
@@ -1229,11 +1229,11 @@ c
       do h1=1,h1d
       do h2=1,h2d
       do p4=1,p4d
-!!!dir$ loop count min(8)
+!dir$ loop count min(8), max(40), avg(20)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
       do h3=1,h3d
-!!!dir$ loop count min(8)
+!dir$ loop count min(8), max(40), avg(20)
 !IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd

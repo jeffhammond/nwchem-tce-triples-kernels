@@ -2,11 +2,85 @@ ACTIVE   = -DDO_S1 -DDO_D1 -DDO_D2
 ACTIVE  += -DDO_C_KERNELS
 #ACTIVE  += -DDEBUG
 
-TARGET := MAC-INTEL
+TARGET := INTEL
 
 # Intel Fortran throws the "cannot simd" warning for 3 and 4...
-OMP_COLLAPSE_LEVEL=1
+OMP_COLLAPSE_LEVEL=3
 OPT = -DOMP_COLLAPSE_LEVEL=$(OMP_COLLAPSE_LEVEL)
+
+# test_tce_sort6.x requires enlarged stack because Fortran
+FAT_STACK = -Wl,-stack_size -Wl,100000000
+
+ifeq ($(TARGET),INTEL)
+    CC       = icc
+    FC       = ifort
+    OPT     += -O3 -qopenmp -fno-alias -mavx
+    OPT	    += -qopt-report
+    ASM      = -S -fsource-asm -fcode-asm
+    CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
+    FFLAGS   = $(OPT) -cpp -DINTEL_FORTRAN -heap-arrays
+    CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
+    LD       = $(FC)
+    LDFLAGS  = $(FFLAGS) -nofor-main -static-intel
+    LDFLAGS += -Wl,-no_pie # debugging with IDB only
+    LIBS     = -mkl=parallel
+endif
+
+ifeq ($(TARGET),MAC-CLANG)
+    CC       = clang
+    FC       = gfortran
+    OPT     += -O3 -march=native 
+    CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
+    FFLAGS   = $(OPT) -fopenmp
+    CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
+    LD       = clang -L/usr/local/Cellar/gfortran/4.8.2/gfortran/lib
+    LDFLAGS  = $(CFLAGS) $(FAT_STACK)
+    LIBS     = -framework Accelerate -lgfortran
+endif
+
+ifeq ($(TARGET),MAC)
+    CC       = gcc-4.8
+    FC       = gfortran-4.8
+    OPT     += -O2 -fopenmp #-ftree-vectorize -ffp-contract=fast -march=native -mno-avx
+    CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
+    FFLAGS   = $(OPT)
+    CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
+    #LD       = clang -L/usr/local/Cellar/gfortran/4.8.2/gfortran/lib
+    #LDFLAGS  = $(CFLAGS) $(FAT_STACK)
+    LD       = $(CC)
+    LDFLAGS  = $(CFLAGS) $(FAT_STACK)
+    LIBS     = -framework Accelerate -lgfortran
+endif
+
+ifeq ($(TARGET),MAC-INTEL)
+    CC       = icc
+    FC       = ifort
+    OPT     += -O3 -qopenmp -fno-alias
+    #OPT     += -g -O2 -fopenmp -fno-alias #-mavx
+    ASM      = -S -fsource-asm -fcode-asm
+    CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
+    FFLAGS   = $(OPT) -cpp -DINTEL_FORTRAN -heap-arrays
+    CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
+    LD       = clang
+    LDFLAGS  = -g -O2 -mavx $(FAT_STACK)
+    #LD       = $(FC)
+    #LDFLAGS  = $(FFLAGS) -nofor-main -static-intel
+    #LDFLAGS += -Wl,-no_pie # debugging with IDB only
+    #LIBS     = -mkl=parallel
+endif
+
+ifeq ($(TARGET),MIC)
+    CC       = icc
+    FC       = ifort
+    OPT     += -O2 -openmp -mmic -multiple-processes=8
+    ASM      = -S -fsource-asm -fcode-asm
+    CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
+    FFLAGS   = $(OPT) -cpp -DINTEL_FORTRAN
+    CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
+    LD       = $(FC)
+    LDFLAGS  = $(FFLAGS) -nofor-main
+    LIBS     = -mkl=parallel
+endif
 
 ifeq ($(TARGET),CRAY-INTEL)
     CC       = cc
@@ -99,7 +173,7 @@ ifeq ($(TARGET),POWER7-AIX)
 # Savba i.e. POWER775 AIX
     CC       = mpcc_r
     FC       = mpxlf_r
-    OPT      = 
+    OPT      = -WF,-DOMP_COLLAPSE_LEVEL=$(OMP_COLLAPSE_LEVEL)
     OPT     += -q64 -O3 -qhot -qsmp=omp -qtune=pwr7 -qarch=pwr7 -qstrict #-qreport -qsource -qlist #-qsuppress=cmpmsg
     CFLAGS   = $(OPT) -qlanglvl=stdc99 $(ACTIVE) -DOMP_COLLAPSE_LEVEL=$(OMP_COLLAPSE_LEVEL)
     FFLAGS   = $(OPT) -qextname -WF,-DIBMXLF -WF,-DOMP_COLLAPSE_LEVEL=$(OMP_COLLAPSE_LEVEL)
@@ -113,7 +187,7 @@ ifeq ($(TARGET),POWER7)
 # Vesta login
     CC       = xlc_r
     FC       = xlf_r
-    OPT      = 
+    OPT      = -WF,-DOMP_COLLAPSE_LEVEL=$(OMP_COLLAPSE_LEVEL)
     OPT     += -O3 -qhot -qsmp=omp -qsimd -qreport -qsource -qlist -qsuppress=cmpmsg
     CFLAGS   = $(OPT) -qlanglvl=stdc99 $(ACTIVE) -DOMP_COLLAPSE_LEVEL=$(OMP_COLLAPSE_LEVEL)
     FFLAGS   = $(OPT) -qextname -WF,-DIBMXLF -WF,-DOMP_COLLAPSE_LEVEL=$(OMP_COLLAPSE_LEVEL)
@@ -138,80 +212,6 @@ ifeq ($(TARGET),POWER7-GCC)
     # must build BLIS with 32b f77_int (not default)
     #LIBS     = $(HOME)/BLIS/dowd/install/lib/libblis.a
     LIBS     = -L/usr/lib64/atlas -lptf77blas -latlas
-endif
-
-# test_tce_sort6.x requires enlarged stack because Fortran
-FAT_STACK = -Wl,-stack_size -Wl,100000000
-
-ifeq ($(TARGET),MAC-CLANG)
-    CC       = clang
-    FC       = gfortran
-    OPT     += -O3 -march=native 
-    CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
-    FFLAGS   = $(OPT) -fopenmp
-    CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
-    LD       = clang -L/usr/local/Cellar/gfortran/4.8.2/gfortran/lib
-    LDFLAGS  = $(CFLAGS) $(FAT_STACK)
-    LIBS     = -framework Accelerate -lgfortran
-endif
-
-ifeq ($(TARGET),MAC)
-    CC       = gcc-4.8
-    FC       = gfortran-4.8
-    OPT     += -O2 -fopenmp #-ftree-vectorize -ffp-contract=fast -march=native -mno-avx
-    CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
-    FFLAGS   = $(OPT)
-    CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
-    #LD       = clang -L/usr/local/Cellar/gfortran/4.8.2/gfortran/lib
-    #LDFLAGS  = $(CFLAGS) $(FAT_STACK)
-    LD       = $(CC)
-    LDFLAGS  = $(CFLAGS) $(FAT_STACK)
-    LIBS     = -framework Accelerate -lgfortran
-endif
-
-ifeq ($(TARGET),MAC-INTEL)
-    CC       = icc
-    FC       = ifort
-    OPT     += -O3 -qopenmp -fno-alias
-    #OPT     += -g -O2 -fopenmp -fno-alias #-mavx
-    ASM      = -S -fsource-asm -fcode-asm
-    CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
-    FFLAGS   = $(OPT) -cpp -DINTEL_FORTRAN -heap-arrays
-    CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
-    LD       = clang
-    LDFLAGS  = -g -O2 -mavx $(FAT_STACK)
-    #LD       = $(FC)
-    #LDFLAGS  = $(FFLAGS) -nofor-main -static-intel
-    #LDFLAGS += -Wl,-no_pie # debugging with IDB only
-    #LIBS     = -mkl=parallel
-endif
-
-ifeq ($(TARGET),INTEL)
-    CC       = icc
-    FC       = ifort
-    #OPT     += -O3 -fopenmp -fno-alias -msse4.2
-    OPT     += -g -O2 -fopenmp -fno-alias #-mavx
-    ASM      = -S -fsource-asm -fcode-asm
-    CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
-    FFLAGS   = $(OPT) -cpp -DINTEL_FORTRAN -heap-arrays
-    CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
-    LD       = $(FC)
-    LDFLAGS  = $(FFLAGS) -nofor-main -static-intel
-    LDFLAGS += -Wl,-no_pie # debugging with IDB only
-    LIBS     = -mkl=parallel
-endif
-
-ifeq ($(TARGET),MIC)
-    CC       = icc
-    FC       = ifort
-    OPT     += -O2 -openmp -mmic -multiple-processes=8
-    ASM      = -S -fsource-asm -fcode-asm
-    CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
-    FFLAGS   = $(OPT) -cpp -DINTEL_FORTRAN
-    CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
-    LD       = $(FC)
-    LDFLAGS  = $(FFLAGS) -nofor-main
-    LIBS     = -mkl=parallel
 endif
 
 TESTS   := test_ccsd_t.x test_fortran_math.x test_dgemm_shapes.x test_new_sort6.x test_new_sort4.x test_malloc.x
