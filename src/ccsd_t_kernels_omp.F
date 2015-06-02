@@ -9,7 +9,6 @@ c
       double precision triplesx(h3d,h2d,h1d,p6d,p5d,p4d)
       double precision t1sub(p4d,h1d)
       double precision v2sub(h3d,h2d,p6d,p5d)
-!IBM* ALIGN(64,triplesx,t1sub,v2sub)
 !$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6)
@@ -18,15 +17,12 @@ c
       do p6=1,p6d
       do h1=1,h1d
 !dir$ loop count min(8), max(40), avg(20)
-!IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
       do h2=1,h2d
 !dir$ loop count min(8), max(40), avg(20)
-!IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dec$ vector always nontemporal
 !dir$ simd
-!IBM* INDEPENDENT, NEW(h3)
 !DIR$ IVDEP
       do h3=1,h3d
        triplesx(h3,h2,h1,p6,p5,p4)=triplesx(h3,h2,h1,p6,p5,p4)
@@ -49,7 +45,6 @@ c
       double precision triplesx(h3d,h1d,h2d,p6d,p5d,p4d)
       double precision t1sub(p4d,h1d)
       double precision v2sub(h3d,h2d,p6d,p5d)
-!IBM* ALIGN(64,triplesx,t1sub,v2sub)
 !$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6)
@@ -58,15 +53,12 @@ c
       do p6=1,p6d
       do h1=1,h1d
 !dir$ loop count min(8), max(40), avg(20)
-!IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
       do h2=1,h2d ! interchanging h1 and h2 was a huge win with Cray+OpenMP
 !dir$ loop count min(8), max(40), avg(20)
-!IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dec$ vector always nontemporal
 !dir$ simd
-!IBM* INDEPENDENT, NEW(h3)
 !DIR$ IVDEP
       do h3=1,h3d
        triplesx(h3,h1,h2,p6,p5,p4)=triplesx(h3,h1,h2,p6,p5,p4)
@@ -89,7 +81,6 @@ c
       double precision triplesx(h1d,h3d,h2d,p6d,p5d,p4d)
       double precision t1sub(p4d,h1d)
       double precision v2sub(h3d,h2d,p6d,p5d)
-!IBM* ALIGN(64,triplesx,t1sub,v2sub)
 !$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6)
@@ -102,11 +93,9 @@ c
 #endif
       do h2=1,h2d
 !dir$ loop count min(8), max(40), avg(20)
-!IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
       do h3=1,h3d
 !dir$ loop count min(8), max(40), avg(20)
-!IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dec$ vector always nontemporal
 !dir$ simd
@@ -134,7 +123,6 @@ c
       double precision triplesx(h3d,h2d,h1d,p6d,p4d,p5d)
       double precision t1sub(p4d,h1d)
       double precision v2sub(h3d,h2d,p6d,p5d)
-!IBM* ALIGN(64,triplesx,t1sub,v2sub)
 !$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6)
@@ -144,16 +132,13 @@ c
       do p6=1,p6d
       do h1=1,h1d
 !dir$ loop count min(8), max(40), avg(20)
-!IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
       do h2=1,h2d
 !dir$ loop count min(8), max(40), avg(20)
-!IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dec$ vector always nontemporal
 !dir$ simd
 !DIR$ IVDEP
-!IBM* INDEPENDENT, NEW(h3)
 !DIR$ IVDEP
       do h3=1,h3d
        triplesx(h3,h2,h1,p6,p4,p5)=triplesx(h3,h2,h1,p6,p4,p5)
@@ -176,7 +161,6 @@ c
       double precision triplesx(h3d,h1d,h2d,p6d,p4d,p5d)
       double precision t1sub(p4d,h1d)
       double precision v2sub(h3d,h2d,p6d,p5d)
-!IBM* ALIGN(64,triplesx,t1sub,v2sub)
 !$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6)
@@ -186,15 +170,12 @@ c
       do p6=1,p6d
       do h1=1,h1d
 !dir$ loop count min(8), max(40), avg(20)
-!IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
       do h2=1,h2d
 !dir$ loop count min(8), max(40), avg(20)
-!IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dec$ vector always nontemporal
 !dir$ simd
-!IBM* INDEPENDENT, NEW(h3)
 !DIR$ IVDEP
       do h3=1,h3d
        triplesx(h3,h1,h2,p6,p4,p5)=triplesx(h3,h1,h2,p6,p4,p5)
@@ -217,7 +198,6 @@ c
       double precision triplesx(h1d,h3d,h2d,p6d,p4d,p5d)
       double precision t1sub(p4d,h1d)
       double precision v2sub(h3d,h2d,p6d,p5d)
-!IBM* ALIGN(64,triplesx,t1sub,v2sub)
 !$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6)
@@ -227,11 +207,9 @@ c
       do p6=1,p6d
       do h2=1,h2d
 !dir$ loop count min(8), max(40), avg(20)
-!IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
       do h3=1,h3d
 !dir$ loop count min(8), max(40), avg(20)
-!IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dec$ vector always nontemporal
 !dir$ simd
@@ -257,7 +235,6 @@ c
       double precision triplesx(h3d,h2d,h1d,p4d,p6d,p5d)
       double precision t1sub(p4d,h1d)
       double precision v2sub(h3d,h2d,p6d,p5d)
-!IBM* ALIGN(64,triplesx,t1sub,v2sub)
 !$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6)
@@ -267,15 +244,12 @@ c
       do p4=1,p4d
       do h1=1,h1d
 !dir$ loop count min(8), max(40), avg(20)
-!IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
       do h2=1,h2d
 !dir$ loop count min(8), max(40), avg(20)
-!IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dec$ vector always nontemporal
 !dir$ simd
-!IBM* INDEPENDENT, NEW(h3)
 !DIR$ IVDEP
       do h3=1,h3d
        triplesx(h3,h2,h1,p4,p6,p5)=triplesx(h3,h2,h1,p4,p6,p5)
@@ -298,7 +272,6 @@ c
       double precision triplesx(h3d,h1d,h2d,p4d,p6d,p5d)
       double precision t1sub(p4d,h1d)
       double precision v2sub(h3d,h2d,p6d,p5d)
-!IBM* ALIGN(64,triplesx,t1sub,v2sub)
 !$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6)
@@ -310,12 +283,10 @@ c
 !dir$ loop count min(8), max(40), avg(20)
       do h1=1,h1d
 !dir$ loop count min(8), max(40), avg(20)
-!IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dec$ vector always nontemporal
 !dir$ simd
 !DIR$ IVDEP
-!IBM* INDEPENDENT, NEW(h3)
       do h3=1,h3d
        triplesx(h3,h1,h2,p4,p6,p5)=triplesx(h3,h1,h2,p4,p6,p5)
      1   - t1sub(p4,h1)*v2sub(h3,h2,p6,p5)
@@ -337,7 +308,6 @@ c
       double precision triplesx(h1d,h3d,h2d,p4d,p6d,p5d)
       double precision t1sub(p4d,h1d)
       double precision v2sub(h3d,h2d,p6d,p5d)
-!IBM* ALIGN(64,triplesx,t1sub,v2sub)
 !$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6)
@@ -349,7 +319,6 @@ c
 !dir$ loop count min(8), max(40), avg(20)
       do h3=1,h3d
 !dir$ loop count min(8), max(40), avg(20)
-!IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dec$ vector always nontemporal
 !dir$ simd
@@ -376,7 +345,6 @@ c
       double precision t2sub(h7d,p4d,p5d,h1d)
       double precision v2sub(h3d,h2d,p6d,h7d)
       double precision v2tmp(h7d,h3d,h2d,p6d)
-!IBM* ALIGN(64,triplesx,t2sub,v2sub,v2tmp)
 !$omp  parallel do collapse(3)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
@@ -384,7 +352,6 @@ c
       do h7=1,h7d
       do h2=1,h2d
 !dec$ vector always nontemporal
-!IBM* INDEPENDENT, NEW(h3)
 !DIR$ IVDEP
       do h3=1,h3d
         v2tmp(h7,h3,h2,p6) = v2sub(h3,h2,p6,h7)
@@ -400,15 +367,12 @@ c
       do p4=1,p4d
       do h1=1,h1d
 !dir$ loop count min(8), max(40), avg(20)
-!IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
       do h2=1,h2d
 !dir$ loop count min(8), max(40), avg(20)
-!IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
       do h3=1,h3d
 !dir$ loop count min(8), max(40), avg(20)
-!IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd
 !DIR$ IVDEP
@@ -435,7 +399,6 @@ c
       double precision t2sub(h7d,p4d,p5d,h1d)
       double precision v2sub(h3d,h2d,p6d,h7d)
       double precision v2tmp(h7d,h3d,h2d,p6d)
-!IBM* ALIGN(64,triplesx,t2sub,v2sub,v2tmp)
 !$omp  parallel do collapse(3)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
@@ -443,7 +406,6 @@ c
       do h7=1,h7d
       do h2=1,h2d
 !dec$ vector always nontemporal
-!IBM* INDEPENDENT, NEW(h3)
 !DIR$ IVDEP
       do h3=1,h3d
         v2tmp(h7,h3,h2,p6) = v2sub(h3,h2,p6,h7)
@@ -460,11 +422,9 @@ c
       do h2=1,h2d
       do h1=1,h1d
 !dir$ loop count min(8), max(40), avg(20)
-!IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
       do h3=1,h3d
 !dir$ loop count min(8), max(40), avg(20)
-!IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd
 !DIR$ IVDEP
@@ -491,7 +451,6 @@ c
       double precision t2sub(h7d,p4d,p5d,h1d)
       double precision v2sub(h3d,h2d,p6d,h7d)
       double precision v2tmp(h7d,h3d,h2d,p6d)
-!IBM* ALIGN(64,triplesx,t2sub,v2sub,v2tmp)
 !$omp  parallel do collapse(3)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
@@ -499,7 +458,6 @@ c
       do h7=1,h7d
       do h2=1,h2d
 !dec$ vector always nontemporal
-!IBM* INDEPENDENT, NEW(h3)
 !DIR$ IVDEP
       do h3=1,h3d
         v2tmp(h7,h3,h2,p6) = v2sub(h3,h2,p6,h7)
@@ -516,11 +474,9 @@ c
       do h2=1,h2d
       do h3=1,h3d
 !dir$ loop count min(8), max(40), avg(20)
-!IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
       do h1=1,h1d
 !dir$ loop count min(8), max(40), avg(20)
-!IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd
 !DIR$ IVDEP
@@ -547,7 +503,6 @@ c
       double precision t2sub(h7d,p4d,p5d,h1d)
       double precision v2sub(h3d,h2d,p6d,h7d)
       double precision v2tmp(h7d,h3d,h2d,p6d)
-!IBM* ALIGN(64,triplesx,t2sub,v2sub,v2tmp)
 !$omp  parallel do collapse(3)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
@@ -555,8 +510,6 @@ c
       do h7=1,h7d
       do h2=1,h2d
 !dec$ vector always nontemporal
-!IBM* UNROLL(8)
-!IBM* INDEPENDENT, NEW(h3)
 !DIR$ IVDEP
       do h3=1,h3d
         v2tmp(h7,h3,h2,p6) = v2sub(h3,h2,p6,h7)
@@ -578,11 +531,9 @@ c
       do p4=1,p4d ! this loop used to be between p6 and p5
 #endif
 !dir$ loop count min(8), max(40), avg(20)
-!IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
       do h3=1,h3d
 !dir$ loop count min(8), max(40), avg(20)
-!IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd
 !DIR$ IVDEP
@@ -609,7 +560,6 @@ c
       double precision t2sub(h7d,p4d,p5d,h1d)
       double precision v2sub(h3d,h2d,p6d,h7d)
       double precision v2tmp(h7d,h3d,h2d,p6d)
-!IBM* ALIGN(64,triplesx,t2sub,v2sub,v2tmp)
 !$omp  parallel do collapse(3)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
@@ -617,7 +567,6 @@ c
       do h7=1,h7d
       do h2=1,h2d
 !dec$ vector always nontemporal
-!IBM* INDEPENDENT, NEW(h3)
 !DIR$ IVDEP
       do h3=1,h3d
         v2tmp(h7,h3,h2,p6) = v2sub(h3,h2,p6,h7)
@@ -634,11 +583,9 @@ c
       do h2=1,h2d
       do h1=1,h1d
 !dir$ loop count min(8), max(40), avg(20)
-!IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
       do h3=1,h3d
 !dir$ loop count min(8), max(40), avg(20)
-!IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd
 !DIR$ IVDEP
@@ -665,7 +612,6 @@ c
       double precision t2sub(h7d,p4d,p5d,h1d)
       double precision v2sub(h3d,h2d,p6d,h7d)
       double precision v2tmp(h7d,h3d,h2d,p6d)
-!IBM* ALIGN(64,triplesx,t2sub,v2sub,v2tmp)
 !$omp  parallel do collapse(3)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
@@ -673,7 +619,6 @@ c
       do h7=1,h7d
       do h2=1,h2d
 !dec$ vector always nontemporal
-!IBM* INDEPENDENT, NEW(h3)
 !DIR$ IVDEP
       do h3=1,h3d
         v2tmp(h7,h3,h2,p6) = v2sub(h3,h2,p6,h7)
@@ -690,11 +635,9 @@ c
       do h2=1,h2d
       do h3=1,h3d
 !dec$ loop count min(8), max(40), avg(20)
-!IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
       do h1=1,h1d
 !dec$ loop count min(8), max(40), avg(20)
-!IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd
 !DIR$ IVDEP
@@ -722,7 +665,6 @@ c
       double precision v2sub(h3d,h2d,p6d,h7d)
 #if !defined(CRAYFTN)
       double precision v2tmp(h7d,h3d,h2d,p6d)
-!IBM* ALIGN(64,triplesx,t2sub,v2sub,v2tmp)
 !$omp  parallel do collapse(3)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
@@ -730,7 +672,6 @@ c
       do h2=1,h2d
       do h7=1,h7d
 !dec$ vector always nontemporal
-!IBM* INDEPENDENT, NEW(h3)
 !DIR$ IVDEP
       do h3=1,h3d
         v2tmp(h7,h3,h2,p6) = v2sub(h3,h2,p6,h7)
@@ -753,11 +694,9 @@ c
       do h2=1,h2d
 #endif
 !dir$ loop count min(8), max(40), avg(20)
-!IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
       do h3=1,h3d
 !dir$ loop count min(8), max(40), avg(20)
-!IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd
 !DIR$ IVDEP
@@ -788,7 +727,6 @@ c
       double precision t2sub(h7d,p4d,p5d,h1d)
       double precision v2sub(h3d,h2d,p6d,h7d)
       double precision v2tmp(h7d,h3d,h2d,p6d)
-!IBM* ALIGN(64,triplesx,t2sub,v2sub,v2tmp)
 !$omp  parallel do collapse(3)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
@@ -796,7 +734,6 @@ c
       do h7=1,h7d
       do h2=1,h2d
 !dec$ vector always nontemporal
-!IBM* INDEPENDENT, NEW(h3)
 !DIR$ IVDEP
       do h3=1,h3d
         v2tmp(h7,h3,h2,p6) = v2sub(h3,h2,p6,h7)
@@ -813,11 +750,9 @@ c
       do h2=1,h2d
       do h1=1,h1d
 !dir$ loop count min(8), max(40), avg(20)
-!IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
       do h3=1,h3d
 !dir$ loop count min(8), max(40), avg(20)
-!IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd
 !DIR$ IVDEP
@@ -844,7 +779,6 @@ c
       double precision t2sub(h7d,p4d,p5d,h1d)
       double precision v2sub(h3d,h2d,p6d,h7d)
       double precision v2tmp(h7d,h3d,h2d,p6d)
-!IBM* ALIGN(64,triplesx,t2sub,v2sub,v2tmp)
 !$omp  parallel do collapse(3)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
@@ -852,7 +786,6 @@ c
       do h7=1,h7d
       do h2=1,h2d
 !dec$ vector always nontemporal
-!IBM* INDEPENDENT, NEW(h3)
 !DIR$ IVDEP
       do h3=1,h3d
         v2tmp(h7,h3,h2,p6) = v2sub(h3,h2,p6,h7)
@@ -868,12 +801,10 @@ c
       do p5=1,p5d
       do h2=1,h2d
 !dir$ loop count min(8), max(40), avg(20)
-!IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
       do h1=1,h1d
       do h3=1,h3d
 !dir$ loop count min(8), max(40), avg(20)
-!IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd
 !DIR$ IVDEP
@@ -899,7 +830,6 @@ c
       double precision triplesx(h3d,h2d,h1d,p6d,p5d,p4d)
       double precision t2sub(p7d,p4d,h1d,h2d)
       double precision v2sub(p7d,h3d,p6d,p5d)
-!IBM* ALIGN(64,triplesx,t2sub,v2sub)
 !$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,p7)
@@ -909,11 +839,9 @@ c
       do h1=1,h1d
       do h2=1,h2d
 !dir$ loop count min(8), max(40), avg(20)
-!IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
       do h3=1,h3d
 !dir$ loop count min(8), max(40), avg(20)
-!IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd
 !DIR$ IVDEP
@@ -939,7 +867,6 @@ c
       double precision triplesx(h2d,h1d,h3d,p6d,p5d,p4d)
       double precision t2sub(p7d,p4d,h1d,h2d)
       double precision v2sub(p7d,h3d,p6d,p5d)
-!IBM* ALIGN(64,triplesx,t2sub,v2sub)
 !$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,p7)
@@ -949,11 +876,9 @@ c
       do p4=1,p4d
       do h3=1,h3d
 !dir$ loop count min(8), max(40), avg(20)
-!IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
       do h2=1,h2d
 !dir$ loop count min(8), max(40), avg(20)
-!IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd
 !DIR$ IVDEP
@@ -979,7 +904,6 @@ c
       double precision triplesx(h2d,h3d,h1d,p6d,p5d,p4d)
       double precision t2sub(p7d,p4d,h1d,h2d)
       double precision v2sub(p7d,h3d,p6d,p5d)
-!IBM* ALIGN(64,triplesx,t2sub,v2sub)
 !$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,p7)
@@ -989,11 +913,9 @@ c
       do p4=1,p4d
       do h3=1,h3d
 !dir$ loop count min(8), max(40), avg(20)
-!IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
       do h2=1,h2d
 !dir$ loop count min(8), max(40), avg(20)
-!IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd
 !DIR$ IVDEP
@@ -1019,7 +941,6 @@ c
       double precision triplesx(h3d,h2d,h1d,p6d,p4d,p5d)
       double precision t2sub(p7d,p4d,h1d,h2d)
       double precision v2sub(p7d,h3d,p6d,p5d)
-!IBM* ALIGN(64,triplesx,t2sub,v2sub)
 !$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,p7)
@@ -1029,11 +950,9 @@ c
       do h1=1,h1d
       do h2=1,h2d
 !dir$ loop count min(8), max(40), avg(20)
-!IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
       do h3=1,h3d
 !dir$ loop count min(8), max(40), avg(20)
-!IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd
 !DIR$ IVDEP
@@ -1059,7 +978,6 @@ c
       double precision triplesx(h2d,h1d,h3d,p6d,p4d,p5d)
       double precision t2sub(p7d,p4d,h1d,h2d)
       double precision v2sub(p7d,h3d,p6d,p5d)
-!IBM* ALIGN(64,triplesx,t2sub,v2sub)
 !$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,p7)
@@ -1068,12 +986,10 @@ c
       do p6=1,p6d
       do h1=1,h1d
 !dir$ loop count min(8), max(40), avg(20)
-!IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
       do h2=1,h2d
       do h3=1,h3d
 !dir$ loop count min(8), max(40), avg(20)
-!IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd
 !DIR$ IVDEP
@@ -1099,7 +1015,6 @@ c
       double precision triplesx(h2d,h3d,h1d,p6d,p4d,p5d)
       double precision t2sub(p7d,p4d,h1d,h2d)
       double precision v2sub(p7d,h3d,p6d,p5d)
-!IBM* ALIGN(64,triplesx,t2sub,v2sub)
 !$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,p7)
@@ -1109,11 +1024,9 @@ c
       do h1=1,h1d
       do h3=1,h3d
 !dir$ loop count min(8), max(40), avg(20)
-!IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
       do h2=1,h2d
 !dir$ loop count min(8), max(40), avg(20)
-!IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd
 !DIR$ IVDEP
@@ -1139,7 +1052,6 @@ c
       double precision triplesx(h3d,h2d,h1d,p4d,p6d,p5d)
       double precision t2sub(p7d,p4d,h1d,h2d)
       double precision v2sub(p7d,h3d,p6d,p5d)
-!IBM* ALIGN(64,triplesx,t2sub,v2sub)
 !$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,p7)
@@ -1149,11 +1061,9 @@ c
       do h1=1,h1d
       do h2=1,h2d
 !dir$ loop count min(8), max(40), avg(20)
-!IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
       do h3=1,h3d
 !dir$ loop count min(8), max(40), avg(20)
-!IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd
 !DIR$ IVDEP
@@ -1179,7 +1089,6 @@ c
       double precision triplesx(h2d,h1d,h3d,p4d,p6d,p5d)
       double precision t2sub(p7d,p4d,h1d,h2d)
       double precision v2sub(p7d,h3d,p6d,p5d)
-!IBM* ALIGN(64,triplesx,t2sub,v2sub)
 !$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,p7)
@@ -1190,11 +1099,9 @@ c
       do h1=1,h1d
       do h3=1,h3d
 !dir$ loop count min(8), max(40), avg(20)
-!IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
       do h2=1,h2d
 !dir$ loop count min(8), max(40), avg(20)
-!IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd
 !DIR$ IVDEP
@@ -1220,7 +1127,6 @@ c
       double precision triplesx(h2d,h3d,h1d,p4d,p6d,p5d)
       double precision t2sub(p7d,p4d,h1d,h2d)
       double precision v2sub(p7d,h3d,p6d,p5d)
-!IBM* ALIGN(64,triplesx,t2sub,v2sub)
 !$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,p7)
@@ -1230,11 +1136,9 @@ c
       do h2=1,h2d
       do p4=1,p4d
 !dir$ loop count min(8), max(40), avg(20)
-!IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
       do h3=1,h3d
 !dir$ loop count min(8), max(40), avg(20)
-!IBM* UNROLL(8)
 !dec$ unroll_and_jam = 8
 !dir$ simd
 !DIR$ IVDEP
