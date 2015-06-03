@@ -21,7 +21,7 @@ ifeq ($(TARGET),INTEL)
     FFLAGS   = $(OPT) -cpp -DINTEL_FORTRAN -heap-arrays
     CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
     LD       = $(FC)
-    LDFLAGS  = $(FFLAGS) -nofor-main -static-intel
+    LDFLAGS  = $(FFLAGS) -nofor-main
     LDFLAGS += -Wl,-no_pie # debugging with IDB only
     LIBS     = -mkl=parallel
 endif
@@ -214,14 +214,33 @@ ifeq ($(TARGET),POWER7-GCC)
     LIBS     = -L/usr/lib64/atlas -lptf77blas -latlas
 endif
 
-TESTS   := test_ccsd_t.x test_fortran_math.x test_dgemm_shapes.x test_new_sort6.x test_new_sort4.x test_malloc.x
-OBJECTS :=                  ccsd_t_kernels_omp.o ccsd_t_kernels_ref.o ccsd_t_kernels_f2c.o ccsd_t_kernels_c99.o ccsd_t_kernels_blas.o blas_flops.o tce_sort6.o new_sort6.o tce_sort4.o new_sort4.o
+TESTS   := test_ccsd_t.x test_new_sort6.x test_new_sort4.x
+EXTRATESTS := test_malloc.x test_fortran_math.x test_dgemm_shapes.x
+CCOBJECTS := ccsd_t_kernels_omp.o ccsd_t_kernels_ref.o ccsd_t_kernels_f2c.o ccsd_t_kernels_c99.o ccsd_t_kernels_blas.o
 HEADERS := ccsd_t_kernels.h ccsd_t_kernels_omp.h ccsd_t_kernels_ref.h ccsd_t_kernels_f2c.h ccsd_t_kernels_c99.h ccsd_t_kernels_blas.h safemalloc.h pragma_vendor.h pragma_openmp.h fake_omp.h blas.h
 
 all: $(TESTS)
 
-%.x: %.o $(OBJECTS)
-	$(LD) $(LDFLAGS) $< $(OBJECTS) $(LIBS) -o $@
+test_ccsd_t.x: test_ccsd_t.o $(CCOBJECTS)
+	$(LD) $(LDFLAGS) $< $(CCOBJECTS) blas_flops.o $(LIBS) -o $@
+
+test_new_sort4.x: test_new_sort4.o tce_sort4.o new_sort4.o
+	$(LD) $(LDFLAGS) $< tce_sort4.o new_sort4.o $(LIBS) -o $@
+
+test_new_sort6.x: test_new_sort6.o tce_sort6.o new_sort6.o
+	$(LD) $(LDFLAGS) $< tce_sort6.o new_sort6.o $(LIBS) -o $@
+
+test_dgemm_shapes.x: test_dgemm_shapes.o blas_flops.o
+	$(LD) $(LDFLAGS) $< blas_flops.o $(LIBS) -o $@
+
+test_malloc.x: test_malloc.o
+	$(LD) $(LDFLAGS) $< $(LIBS) -o $@
+
+test_fortran_math.x: test_fortran_math.o
+	$(LD) $(LDFLAGS) $< $(LIBS) -o $@
+
+#%.x: %.o
+#	$(LD) $(LDFLAGS) $< $(OBJECTS) $(LIBS) -o $@
 
 %.o: %.c $(HEADERS)
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -240,5 +259,6 @@ all: $(TESTS)
 
 clean:
 	$(RM) $(RMFLAGS) *.o
+	$(RM) $(RMFLAGS) *.optrpt
 	$(RM) $(RMFLAGS) $(TESTS)
 	-rm -rf *.dSYM
