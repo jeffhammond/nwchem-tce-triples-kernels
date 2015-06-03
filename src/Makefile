@@ -18,7 +18,7 @@ ifeq ($(TARGET),INTEL)
     OPT	    += -qopt-report
     ASM      = -S -fsource-asm -fcode-asm
     CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
-    FFLAGS   = $(OPT) -cpp -DINTEL_FORTRAN -heap-arrays
+    FFLAGS   = $(OPT) -cpp -DINTEL_FORTRAN -heap-arrays 1000000
     CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
     LD       = $(FC)
     LDFLAGS  = $(FFLAGS) -nofor-main
@@ -29,7 +29,7 @@ endif
 ifeq ($(TARGET),MAC-CLANG)
     CC       = clang
     FC       = gfortran
-    OPT     += -O3 -march=native 
+    OPT     += -O3 -march=native
     CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
     FFLAGS   = $(OPT) -fopenmp
     CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
