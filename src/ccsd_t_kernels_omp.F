@@ -985,10 +985,10 @@ c
       do p4=1,p4d
       do p6=1,p6d
       do h1=1,h1d
+      do h3=1,h3d
 !dir$ loop count min(8), max(40), avg(20)
 !dec$ unroll_and_jam = 8
       do h2=1,h2d
-      do h3=1,h3d
 !dir$ loop count min(8), max(40), avg(20)
 !dec$ unroll_and_jam = 8
 !dir$ simd
