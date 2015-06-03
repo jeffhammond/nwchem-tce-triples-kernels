@@ -6,7 +6,7 @@
 /* The possible downcast from fint to int is safe because array dimensions
  * are on the order of 30, i.e. nowhere near INT_MAX. */
 
-static inline void __c99_sd_t_s1_1(const int h3u, const int h2u, const int h1u,
+static inline void __cNd_sd_t_s1_1(const int h3u, const int h2u, const int h1u,
                                    const int p6u, const int p5u, const int p4u,
                                    double t3[p4u][p5u][p6u][h1u][h2u][h3u],
                                    const double t1[h1u][p4u],
@@ -26,7 +26,7 @@ static inline void __c99_sd_t_s1_1(const int h3u, const int h2u, const int h1u,
     return;
 }
 
-void c99_sd_t_s1_1_(fint * h3d, fint * h2d, fint * h1d,
+void cNd_sd_t_s1_1_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
                     double * restrict t3, const double * restrict t1, const double * restrict v2)
 {
@@ -36,14 +36,14 @@ void c99_sd_t_s1_1_(fint * h3d, fint * h2d, fint * h1d,
     const int p4u = (int)(*p4d);
     const int p5u = (int)(*p5d);
     const int p6u = (int)(*p6d);
-    __c99_sd_t_s1_1(h3u, h2u, h1u, p6u, p5u, p4u,
+    __cNd_sd_t_s1_1(h3u, h2u, h1u, p6u, p5u, p4u,
                     (double (*)[p4u][p5u][p6u][h1u][h2u])t3,
                     (const double (*) [h1u])t1,
                     (const double (*) [p5u][p6u][h2u])v2);
     return;
 }
 
-void c99_sd_t_s1_2_(fint * h3d, fint * h2d, fint * h1d,
+void cNd_sd_t_s1_2_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
                     double * restrict t3, const double * restrict t1, const double * restrict v2)
 {
@@ -66,7 +66,7 @@ void c99_sd_t_s1_2_(fint * h3d, fint * h2d, fint * h1d,
     return;
 }
 
-void c99_sd_t_s1_3_(fint * h3d, fint * h2d, fint * h1d,
+void cNd_sd_t_s1_3_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
                     double * restrict t3, const double * restrict t1, const double * restrict v2)
 {
@@ -89,7 +89,7 @@ void c99_sd_t_s1_3_(fint * h3d, fint * h2d, fint * h1d,
     return;
 }
 
-void c99_sd_t_s1_4_(fint * h3d, fint * h2d, fint * h1d,
+void cNd_sd_t_s1_4_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
                     double * restrict t3, const double * restrict t1, const double * restrict v2)
 {
@@ -112,7 +112,7 @@ void c99_sd_t_s1_4_(fint * h3d, fint * h2d, fint * h1d,
     return;
 }
 
-void c99_sd_t_s1_5_(fint * h3d, fint * h2d, fint * h1d,
+void cNd_sd_t_s1_5_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
                     double * restrict t3, const double * restrict t1, const double * restrict v2)
 {
@@ -135,7 +135,7 @@ void c99_sd_t_s1_5_(fint * h3d, fint * h2d, fint * h1d,
     return;
 }
 
-void c99_sd_t_s1_6_(fint * h3d, fint * h2d, fint * h1d,
+void cNd_sd_t_s1_6_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
                     double * restrict t3, const double * restrict t1, const double * restrict v2)
 {
@@ -158,7 +158,7 @@ void c99_sd_t_s1_6_(fint * h3d, fint * h2d, fint * h1d,
     return;
 }
 
-void c99_sd_t_s1_7_(fint * h3d, fint * h2d, fint * h1d,
+void cNd_sd_t_s1_7_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
                     double * restrict t3, const double * restrict t1, const double * restrict v2)
 {
@@ -181,7 +181,7 @@ void c99_sd_t_s1_7_(fint * h3d, fint * h2d, fint * h1d,
     return;
 }
 
-void c99_sd_t_s1_8_(fint * h3d, fint * h2d, fint * h1d,
+void cNd_sd_t_s1_8_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
                     double * restrict t3, const double * restrict t1, const double * restrict v2)
 {
@@ -204,7 +204,7 @@ void c99_sd_t_s1_8_(fint * h3d, fint * h2d, fint * h1d,
     return;
 }
 
-void c99_sd_t_s1_9_(fint * h3d, fint * h2d, fint * h1d,
+void cNd_sd_t_s1_9_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
                     double * restrict t3, const double * restrict t1, const double * restrict v2)
 {
@@ -227,7 +227,7 @@ void c99_sd_t_s1_9_(fint * h3d, fint * h2d, fint * h1d,
     return;
 }
 
-static inline void __c99_sd_t_d1_1(const int h3u, const int h2u, const int h1u,
+static inline void __cNd_sd_t_d1_1(const int h3u, const int h2u, const int h1u,
                                    const int p6u, const int p5u, const int p4u,
                                    const int h7u,
                                    double t3[p4u][p5u][p6u][h1u][h2u][h3u],
@@ -248,7 +248,7 @@ static inline void __c99_sd_t_d1_1(const int h3u, const int h2u, const int h1u,
     return;
 }
 
-void c99_sd_t_d1_1_(fint * h3d, fint * h2d, fint * h1d,
+void cNd_sd_t_d1_1_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
                     fint * h7d,
                     double * restrict t3, const double * restrict t2, const double * restrict v2)
@@ -260,11 +260,11 @@ void c99_sd_t_d1_1_(fint * h3d, fint * h2d, fint * h1d,
     const int p5u = (int)(*p5d);
     const int p6u = (int)(*p6d);
     const int h7u = (int)(*h7d);
-    __c99_sd_t_d1_1(h3u, h2u, h1u, p6u, p5u, p4u, h7u, (void*)t3, (void*)t2, (void*)v2);
+    __cNd_sd_t_d1_1(h3u, h2u, h1u, p6u, p5u, p4u, h7u, (void*)t3, (void*)t2, (void*)v2);
     return;
 }
 
-void c99_sd_t_d1_2_(fint * h3d, fint * h2d, fint * h1d,
+void cNd_sd_t_d1_2_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
                     fint * h7d,
                     double * restrict t3, const double * restrict t2, const double * restrict v2)
@@ -290,7 +290,7 @@ void c99_sd_t_d1_2_(fint * h3d, fint * h2d, fint * h1d,
     return;
 }
 
-void c99_sd_t_d1_3_(fint * h3d, fint * h2d, fint * h1d,
+void cNd_sd_t_d1_3_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
                     fint * h7d,
                     double * restrict t3, const double * restrict t2, const double * restrict v2)
@@ -316,7 +316,7 @@ void c99_sd_t_d1_3_(fint * h3d, fint * h2d, fint * h1d,
     return;
 }
 
-void c99_sd_t_d1_4_(fint * h3d, fint * h2d, fint * h1d,
+void cNd_sd_t_d1_4_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
                     fint * h7d,
                     double * restrict t3, const double * restrict t2, const double * restrict v2)
@@ -342,7 +342,7 @@ void c99_sd_t_d1_4_(fint * h3d, fint * h2d, fint * h1d,
     return;
 }
 
-void c99_sd_t_d1_5_(fint * h3d, fint * h2d, fint * h1d,
+void cNd_sd_t_d1_5_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
                     fint * h7d,
                     double * restrict t3, const double * restrict t2, const double * restrict v2)
@@ -368,7 +368,7 @@ void c99_sd_t_d1_5_(fint * h3d, fint * h2d, fint * h1d,
     return;
 }
 
-void c99_sd_t_d1_6_(fint * h3d, fint * h2d, fint * h1d,
+void cNd_sd_t_d1_6_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
                     fint * h7d,
                     double * restrict t3, const double * restrict t2, const double * restrict v2)
@@ -394,7 +394,7 @@ void c99_sd_t_d1_6_(fint * h3d, fint * h2d, fint * h1d,
     return;
 }
 
-void c99_sd_t_d1_7_(fint * h3d, fint * h2d, fint * h1d,
+void cNd_sd_t_d1_7_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
                     fint * h7d,
                     double * restrict t3, const double * restrict t2, const double * restrict v2)
@@ -420,7 +420,7 @@ void c99_sd_t_d1_7_(fint * h3d, fint * h2d, fint * h1d,
     return;
 }
 
-void c99_sd_t_d1_8_(fint * h3d, fint * h2d, fint * h1d,
+void cNd_sd_t_d1_8_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
                     fint * h7d,
                     double * restrict t3, const double * restrict t2, const double * restrict v2)
@@ -446,7 +446,7 @@ void c99_sd_t_d1_8_(fint * h3d, fint * h2d, fint * h1d,
     return;
 }
 
-void c99_sd_t_d1_9_(fint * h3d, fint * h2d, fint * h1d,
+void cNd_sd_t_d1_9_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
                     fint * h7d,
                     double * restrict t3, const double * restrict t2, const double * restrict v2)
@@ -472,7 +472,7 @@ void c99_sd_t_d1_9_(fint * h3d, fint * h2d, fint * h1d,
     return;
 }
 
-void c99_sd_t_d2_1_(fint * h3d, fint * h2d, fint * h1d,
+void cNd_sd_t_d2_1_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
                     fint * h7d,
                     double * restrict t3, const double * restrict t2, const double * restrict v2)
@@ -498,7 +498,7 @@ void c99_sd_t_d2_1_(fint * h3d, fint * h2d, fint * h1d,
     return;
 }
 
-void c99_sd_t_d2_2_(fint * h3d, fint * h2d, fint * h1d,
+void cNd_sd_t_d2_2_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
                     fint * h7d,
                     double * restrict t3, const double * restrict t2, const double * restrict v2)
@@ -524,7 +524,7 @@ void c99_sd_t_d2_2_(fint * h3d, fint * h2d, fint * h1d,
     return;
 }
 
-void c99_sd_t_d2_3_(fint * h3d, fint * h2d, fint * h1d,
+void cNd_sd_t_d2_3_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
                     fint * h7d,
                     double * restrict t3, const double * restrict t2, const double * restrict v2)
@@ -550,7 +550,7 @@ void c99_sd_t_d2_3_(fint * h3d, fint * h2d, fint * h1d,
     return;
 }
 
-void c99_sd_t_d2_4_(fint * h3d, fint * h2d, fint * h1d,
+void cNd_sd_t_d2_4_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
                     fint * h7d,
                     double * restrict t3, const double * restrict t2, const double * restrict v2)
@@ -576,7 +576,7 @@ void c99_sd_t_d2_4_(fint * h3d, fint * h2d, fint * h1d,
     return;
 }
 
-void c99_sd_t_d2_5_(fint * h3d, fint * h2d, fint * h1d,
+void cNd_sd_t_d2_5_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
                     fint * h7d,
                     double * restrict t3, const double * restrict t2, const double * restrict v2)
@@ -602,7 +602,7 @@ void c99_sd_t_d2_5_(fint * h3d, fint * h2d, fint * h1d,
     return;
 }
 
-void c99_sd_t_d2_6_(fint * h3d, fint * h2d, fint * h1d,
+void cNd_sd_t_d2_6_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
                     fint * h7d,
                     double * restrict t3, const double * restrict t2, const double * restrict v2)
@@ -628,7 +628,7 @@ void c99_sd_t_d2_6_(fint * h3d, fint * h2d, fint * h1d,
     return;
 }
 
-void c99_sd_t_d2_7_(fint * h3d, fint * h2d, fint * h1d,
+void cNd_sd_t_d2_7_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
                     fint * h7d,
                     double * restrict t3, const double * restrict t2, const double * restrict v2)
@@ -654,7 +654,7 @@ void c99_sd_t_d2_7_(fint * h3d, fint * h2d, fint * h1d,
     return;
 }
 
-void c99_sd_t_d2_8_(fint * h3d, fint * h2d, fint * h1d,
+void cNd_sd_t_d2_8_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
                     fint * h7d,
                     double * restrict t3, const double * restrict t2, const double * restrict v2)
@@ -680,7 +680,7 @@ void c99_sd_t_d2_8_(fint * h3d, fint * h2d, fint * h1d,
     return;
 }
 
-void c99_sd_t_d2_9_(fint * h3d, fint * h2d, fint * h1d,
+void cNd_sd_t_d2_9_(fint * h3d, fint * h2d, fint * h1d,
                     fint * p6d, fint * p5d, fint * p4d,
                     fint * h7d,
                     double * restrict t3, const double * restrict t2, const double * restrict v2)

@@ -216,12 +216,12 @@ endif
 
 TESTS   := test_ccsd_t.x test_new_sort6.x test_new_sort4.x
 EXTRATESTS := test_malloc.x test_fortran_math.x test_dgemm_shapes.x
-CCOBJECTS := ccsd_t_kernels_omp.o ccsd_t_kernels_ref.o ccsd_t_kernels_f2c.o ccsd_t_kernels_c99.o ccsd_t_kernels_blas.o
-HEADERS := ccsd_t_kernels.h ccsd_t_kernels_omp.h ccsd_t_kernels_ref.h ccsd_t_kernels_f2c.h ccsd_t_kernels_c99.h ccsd_t_kernels_blas.h safemalloc.h pragma_vendor.h pragma_openmp.h fake_omp.h blas.h
+CCOBJECTS := ccsd_t_kernels_omp.o ccsd_t_kernels_ref.o ccsd_t_kernels_1d.o ccsd_t_kernels_nd.o ccsd_t_kernels_blas.o
+HEADERS := ccsd_t_kernels.h ccsd_t_kernels_omp.h ccsd_t_kernels_ref.h ccsd_t_kernels_1d.h ccsd_t_kernels_nd.h ccsd_t_kernels_blas.h safemalloc.h pragma_vendor.h pragma_openmp.h fake_omp.h blas.h
 
 all: $(TESTS)
 
-test_ccsd_t.x: test_ccsd_t.o $(CCOBJECTS)
+test_ccsd_t.x: test_ccsd_t.o $(CCOBJECTS) blas_flops.o
 	$(LD) $(LDFLAGS) $< $(CCOBJECTS) blas_flops.o $(LIBS) -o $@
 
 test_new_sort4.x: test_new_sort4.o tce_sort4.o new_sort4.o
