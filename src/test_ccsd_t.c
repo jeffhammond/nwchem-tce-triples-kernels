@@ -193,7 +193,7 @@ int main(int argc, char * argv[])
         dt = tt1-tt0;
         printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_s1_9", dt, (2e-9*tile6)/dt );
 
-        totalflops = 2*9*tile6;
+        totalflops += 2*9*tile6;
 #endif
 
 #ifdef DO_D1
@@ -251,7 +251,7 @@ int main(int argc, char * argv[])
         dt = tt1-tt0;
         printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d1_9", dt, (2e-9*tile7)/dt );
 
-        totalflops = 2*9*tile7;
+        totalflops += 2*9*tile7;
 #endif
 
 #ifdef DO_D2
@@ -309,7 +309,7 @@ int main(int argc, char * argv[])
         dt = tt1-tt0;
         printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d2_9", dt, (2e-9*tile7)/dt );
 
-        totalflops = 2*9*tile7;
+        totalflops += 2*9*tile7;
 #endif
 
 #if defined(DO_S1) || defined(DO_D1) || defined(DO_D2)
@@ -390,7 +390,7 @@ int main(int argc, char * argv[])
         dt = tt1-tt0;
         printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_s1_9", dt, (2e-9*tile6)/dt );
 
-        totalflops = 2*9*tile6;
+        totalflops += 2*9*tile6;
 #endif
 
 #ifdef DO_D1
@@ -448,7 +448,7 @@ int main(int argc, char * argv[])
         dt = tt1-tt0;
         printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d1_9", dt, (2e-9*tile7)/dt );
 
-        totalflops = 2*9*tile7;
+        totalflops += 2*9*tile7;
 #endif
 
 #ifdef DO_D2
@@ -506,7 +506,7 @@ int main(int argc, char * argv[])
         dt = tt1-tt0;
         printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d2_9", dt, (2e-9*tile7)/dt );
 
-        totalflops = 2*9*tile7;
+        totalflops += 2*9*tile7;
 #endif
 
 #if defined(DO_S1) || defined(DO_D1) || defined(DO_D2)
@@ -588,7 +588,7 @@ int main(int argc, char * argv[])
         dt = tt1-tt0;
         printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_s1_9", dt, (2e-9*tile6)/dt );
 
-        totalflops = 2*9*tile6;
+        totalflops += 2*9*tile6;
     #endif
 
     #ifdef DO_D1
@@ -646,7 +646,7 @@ int main(int argc, char * argv[])
         dt = tt1-tt0;
         printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d1_9", dt, (2e-9*tile7)/dt );
 
-        totalflops = 2*9*tile7;
+        totalflops += 2*9*tile7;
     #endif
 
     #ifdef DO_D2
@@ -704,7 +704,7 @@ int main(int argc, char * argv[])
         dt = tt1-tt0;
         printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d2_9", dt, (2e-9*tile7)/dt );
 
-        totalflops = 2*9*tile7;
+        totalflops += 2*9*tile7;
 #endif
 
 #if defined(DO_S1) || defined(DO_D1) || defined(DO_D2)
@@ -737,6 +737,8 @@ int main(int argc, char * argv[])
         dt = tt1-tt0;
         printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_s1_1", dt, (2e-9*tile6)/dt );
 
+        totalflops += 2*tile6;
+/*
         tt0 = omp_get_wtime();
         cNd_sd_t_s1_2_(&tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, t3d, t1, v2);
         tt1 = omp_get_wtime();
@@ -785,7 +787,8 @@ int main(int argc, char * argv[])
         dt = tt1-tt0;
         printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_s1_9", dt, (2e-9*tile6)/dt );
 
-        totalflops = 2*9*tile6;
+        totalflops += 2*9*tile6;
+*/
 #endif
 
 #ifdef DO_D1
@@ -795,6 +798,8 @@ int main(int argc, char * argv[])
         dt = tt1-tt0;
         printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d1_1", dt, (2e-9*tile7)/dt );
 
+        totalflops += 2*tile7;
+/*
         tt0 = omp_get_wtime();
         cNd_sd_t_d1_2_(&tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, t3d, t2, v2);
         tt1 = omp_get_wtime();
@@ -843,10 +848,13 @@ int main(int argc, char * argv[])
         dt = tt1-tt0;
         printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d1_9", dt, (2e-9*tile7)/dt );
 
-        totalflops = 2*9*tile7;
+        totalflops += 2*9*tile7;
+*/
 #endif
 
 #ifdef DO_D2
+        totalflops += 0;
+/*
         tt0 = omp_get_wtime();
         cNd_sd_t_d2_1_(&tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, t3d, t2, v2);
         tt1 = omp_get_wtime();
@@ -901,7 +909,8 @@ int main(int argc, char * argv[])
         dt = tt1-tt0;
         printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d2_9", dt, (2e-9*tile7)/dt );
 
-        totalflops = 2*9*tile7;
+        totalflops += 2*9*tile7;
+*/
 #endif
 
 #if defined(DO_S1) || defined(DO_D1) || defined(DO_D2)
