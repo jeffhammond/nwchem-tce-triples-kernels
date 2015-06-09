@@ -256,9 +256,9 @@ c
       enddo
       enddo
 !     TRANSPOSE V
+      do h7=1,h7d
       do h2=1,h2d
       do h3=1,h3d
-      do h7=1,h7d
         v(h3,h2,h7) = v2sub(h3,h2,p6,h7)
       enddo
       enddo
@@ -268,13 +268,18 @@ c
       do h2=1,h2d
       do h3=1,h3d
       do h7=1,h7d
-!       triplesx(h3,h2,h1,p6,p5,p4)=triplesx(h3,h2,h1,p6,p5,p4)
-!     1  -t2sub(h7,p4,p5,h1)*v2sub(h3,h2,p6,h7)
+!       triplesx(h3,h2,h1,p6,p5,p4)-=t2sub(h7,p4,p5,h1)*v2sub(h3,h2,p6,h7)
+!     LOOP VERSION (works)
         o(h3,h2,h1)=o(h3,h2,h1)-t(h7,h1)*v(h3,h2,h7)
-      enddo
-      enddo
-      enddo
-      enddo
+!        C : h2d*h3d rows x h1d cols
+!        call dgemm('T','T',h2d*h3d,h1d,h7d, ! m,n,k
+!     &             -1.0d0,t,h7d,            ! alpha,a,lda=k?
+!     &             v,h1d,1.0d0,             ! b,ldb=n?,beta
+!     &             o,h2d*h3d)               ! c,ldc=m
+      enddo ! h7
+      enddo ! h3
+      enddo ! h2
+      enddo ! h1
 !     END DGEMM
 !     OUTPUT
       do h1=1,h1d
