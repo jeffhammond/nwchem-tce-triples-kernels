@@ -18,6 +18,26 @@ double dger_gflops(int m, int n);
 double daxpy_gflops(int n);
 double memcpy_bandwidth(size_t n);
 
+void print_array(long long n, double * a)
+{
+    if (a==NULL || n<=0) return;
+
+    for (long long i=0; i<n; i++)
+        printf("%d %lf\n",i,a[i]);
+    fflush(stdout);
+    return;
+}
+
+void print_array2(long long n, double * a, double * b)
+{
+    if (a==NULL || b==NULL || n<=0) return;
+
+    for (long long i=0; i<n; i++)
+        printf("%d %lf %lf\n",i,a[i],b[i]);
+    fflush(stdout);
+    return;
+}
+
 void rand_array(long long n, double * a)
 {
     if (a==NULL || n<=0) return;
@@ -1343,6 +1363,9 @@ int main(int argc, char * argv[])
 #endif // DO_C_KERNELS
     double diff_t3b = diff_array(tile6, t3r, t3b);
     printf("||t3b-t3r||_1 = %30.15lf %s\n", diff_t3b, diff_t3b > thresh ? "(FAIL)" : "");
+    if (diff_t3b>0.0) {
+        print_array2(tile6, t3r, t3b);
+    }
 
     double n1  = norm_array(tile2, t1);
     double n2  = norm_array(tile4, t2);
