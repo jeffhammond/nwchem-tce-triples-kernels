@@ -849,7 +849,7 @@ int main(int argc, char * argv[])
       }
     }
 
-    double * t3d = safemalloc( tile6*sizeof(double) );
+    //double * t3d = safemalloc( tile6*sizeof(double) );
 #if 0
     if (t3d==NULL) {
       printf("skipping C N-D kernels because memory could not be allocated. \n");
@@ -1332,13 +1332,14 @@ int main(int argc, char * argv[])
       }
     }
 
+    printf("\n");
     double diff_t3o = diff_array(tile6, t3r, t3o);
     printf("||t3o-t3r||_1 = %30.15lf %s\n", diff_t3o, diff_t3o > thresh ? "(FAIL)" : "");
 #if DO_C_KERNELS
     double diff_t3c = diff_array(tile6, t3r, t3c);
     printf("||t3c-t3r||_1 = %30.15lf %s\n", diff_t3c, diff_t3c > thresh ? "(FAIL)" : "");
-    double diff_t3d = diff_array(tile6, t3r, t3d);
-    printf("||t3d-t3r||_1 = %30.15lf %s\n", diff_t3d, diff_t3d > thresh ? "(XFAIL)" : "");
+    //double diff_t3d = diff_array(tile6, t3r, t3d);
+    //printf("||t3d-t3r||_1 = %30.15lf %s\n", diff_t3d, diff_t3d > thresh ? "(XFAIL)" : "");
 #endif // DO_C_KERNELS
     double diff_t3b = diff_array(tile6, t3r, t3b);
     printf("||t3b-t3r||_1 = %30.15lf %s\n", diff_t3b, diff_t3b > thresh ? "(FAIL)" : "");
@@ -1354,15 +1355,15 @@ int main(int argc, char * argv[])
 #if DO_C_KERNELS
     double n4c = norm_array(tile6, t3c);
     printf("norm: t3c = %lf\n", n4c);
-    double n4d = norm_array(tile6, t3d);
-    printf("norm: t3d = %lf <<< This will not agree.\n", n4d);
+    //double n4d = norm_array(tile6, t3d);
+    //printf("norm: t3d = %lf <<< This will not agree.\n", n4d);
 #endif
     double n4b = norm_array(tile6, t3b);
     printf("norm: t3b = %lf\n", n4b);
 
     free(t3b);
 #if DO_C_KERNELS
-    free(t3d);
+    //free(t3d);
     free(t3c);
 #endif
     free(t3o);
