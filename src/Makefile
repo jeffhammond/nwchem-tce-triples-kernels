@@ -220,7 +220,8 @@ endif
 TESTS   := test_ccsd_t.x test_new_sort6.x test_new_sort4.x
 EXTRATESTS := test_malloc.x test_fortran_math.x test_dgemm_shapes.x
 CCOBJECTS := ccsd_t_kernels_omp.o ccsd_t_kernels_ref.o ccsd_t_kernels_1d.o ccsd_t_kernels_nd.o ccsd_t_kernels_blas.o
-HEADERS := ccsd_t_kernels.h ccsd_t_kernels_omp.h ccsd_t_kernels_ref.h ccsd_t_kernels_1d.h ccsd_t_kernels_nd.h ccsd_t_kernels_blas.h safemalloc.h pragma_vendor.h pragma_openmp.h fake_omp.h blas.h
+HEADERS := safemalloc.h pragma_vendor.h pragma_openmp.h fake_omp.h blas.h
+CCHEADERS := ccsd_t_kernels.h ccsd_t_kernels_omp.h ccsd_t_kernels_ref.h ccsd_t_kernels_1d.h ccsd_t_kernels_nd.h ccsd_t_kernels_blas.h
 
 all: $(TESTS)
 
@@ -244,6 +245,9 @@ test_fortran_math.x: test_fortran_math.o
 
 #%.x: %.o
 #	$(LD) $(LDFLAGS) $< $(OBJECTS) $(LIBS) -o $@
+
+test_ccsd_t.o: test_ccsd_t.c $(HEADERS) $(CCHEADERS)
+	$(CC) $(CFLAGS) -c $< -o $@
 
 %.o: %.c $(HEADERS)
 	$(CC) $(CFLAGS) -c $< -o $@
