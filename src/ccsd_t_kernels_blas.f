@@ -232,9 +232,9 @@ c
       double precision t2sub(h7d,p4d,p5d,h1d)
       double precision v2sub(h3d,h2d,p6d,h7d)
 !     TEMP
-      double precision o(h3d*h2d,h1d)
+      double precision o(h3d,h2d,h1d)
       double precision t(h7d,h1d)
-      double precision v(h3d*h2d,h7d)
+      double precision v(h3d,h2d,h7d)
 !     GOAL
 !     for all 654:
 !       32,1 += 7,1 * 32,7 (TT-DGEMM)
@@ -245,7 +245,7 @@ c
       do h1=1,h1d
       do h2=1,h2d
       do h3=1,h3d
-        o(h3+h2*h3d,h1d) = triplesx(h3,h2,h1,p6,p5,p4)
+        o(h3,h2,h1) = triplesx(h3,h2,h1,p6,p5,p4)
       enddo
       enddo
       enddo
@@ -259,7 +259,7 @@ c
       do h2=1,h2d
       do h3=1,h3d
       do h7=1,h7d
-        v(h3+h2*h3d,h7) = v2sub(h3,h2,p6,h7)
+        v(h3,h2,h7) = v2sub(h3,h2,p6,h7)
       enddo
       enddo
       enddo
@@ -270,12 +270,21 @@ c
       do h7=1,h7d
 !       triplesx(h3,h2,h1,p6,p5,p4)=triplesx(h3,h2,h1,p6,p5,p4)
 !     1  -t2sub(h7,p4,p5,h1)*v2sub(h3,h2,p6,h7)
-        o(h3+h2*h3d,h1d)=o(h3+h2*h3d,h1d)-t(h7,h1)*v(h3+h2*h3d,h7)
+        o(h3,h2,h1)=o(h3,h2,h1)-t(h7,h1)*v(h3,h2,h7)
       enddo
       enddo
       enddo
       enddo
 !     END DGEMM
+!     OUTPUT
+      do h1=1,h1d
+      do h2=1,h2d
+      do h3=1,h3d
+        triplesx(h3,h2,h1,p6,p5,p4) = o(h3,h2,h1)
+      enddo
+      enddo
+      enddo
+!     END OUTPUT
       enddo
       enddo
       enddo
