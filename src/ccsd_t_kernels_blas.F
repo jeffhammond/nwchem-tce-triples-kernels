@@ -236,6 +236,9 @@ c
       double precision o(h3d,h2d,h1d)
       double precision t(h7d,h1d)
       double precision v(h3d,h2d,h7d)
+!$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
+!$omp& default(shared) schedule(static)
+!$omp& private(h1,h2,h3,p4,p5,p6,o,t,v)
       do p4=1,p4d
       do p5=1,p5d
       do p6=1,p6d
@@ -276,7 +279,6 @@ c
 !      enddo ! h2
 !      enddo ! h1
 !     DGEMM (works)
-!        C : h2d*h3d rows x h1d cols
         call dgemm('N','N',h3d*h2d,h1d,h7d, ! m,n,k
      &             -1.0d0,v,h3d*h2d,        ! alpha,a,lda=m
      &             t,h1d,1.0d0,             ! b,ldb=n,beta

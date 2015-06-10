@@ -1,7 +1,7 @@
 ACTIVE   =
-ACTIVE  += -DDO_S1
+#ACTIVE  += -DDO_S1
 ACTIVE  += -DDO_D1
-ACTIVE  += -DDO_D2
+#ACTIVE  += -DDO_D2
 ACTIVE  += -DDO_C_KERNELS
 #ACTIVE  += -DDEBUG
 
@@ -17,7 +17,7 @@ FAT_STACK = -Wl,-stack_size -Wl,100000000
 ifeq ($(TARGET),INTEL)
     CC       = icc
     FC       = ifort
-    OPT     += -O3 -qopenmp -fno-alias -mavx
+    OPT     += -O2 -qopenmp -fno-alias -mavx
     OPT	    += -qopt-report
     ASM      = -S -fsource-asm -fcode-asm
     CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
@@ -26,7 +26,7 @@ ifeq ($(TARGET),INTEL)
     LD       = $(FC)
     LDFLAGS  = $(FFLAGS) -nofor-main
     LDFLAGS += -Wl,-no_pie # debugging with IDB only
-    LIBS     = -mkl=parallel
+    LIBS     = -mkl=sequential
 endif
 
 ifeq ($(TARGET),MAC-CLANG)
