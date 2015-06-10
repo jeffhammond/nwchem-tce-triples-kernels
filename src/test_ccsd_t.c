@@ -10,6 +10,9 @@
 #include "safemalloc.h"
 #include "ccsd_t_kernels.h"
 
+/* how many times to iterate */
+const int reps = 5;
+
 /* threshold to print an error message */
 const double thresh = 1.0e-6;
 
@@ -103,6 +106,7 @@ int main(int argc, char * argv[])
 
     printf("testing NWChem CCSD(T) kernels on %d threads with tilesize %d \n", omp_get_max_threads(), tilesize);
 
+#if 0
     double eff_peak = -9999.9;
 
     /* approximate memory bandwidth (memcpy) */
@@ -133,6 +137,7 @@ int main(int argc, char * argv[])
     eff_peak = dgemm_gflops(tile3, tile3, tile2);
     printf("DGEMM (k=t^2) GF/s of your processor is %lf \n", eff_peak);
     fflush(stdout);
+#endif
 
     double tt0 = 0.0, tt1 = 0.0, ttt0 = 0.0, ttt1 = 0.0, dt = 0.0;
 
@@ -154,7 +159,7 @@ int main(int argc, char * argv[])
     } else {
       printf("\nSTARTING FORTRAN OPENMP KERNELS \n");
       fflush(stdout);
-      for (int i=0; i<2; i++)
+      for (int i=0; i<reps; i++)
       {
         long long totalflops = 0;
         zero_array(tile6, t3o);
@@ -394,7 +399,7 @@ int main(int argc, char * argv[])
     } else {
       printf("\nSTARTING FORTRAN REFERENCE KERNELS \n");
       fflush(stdout);
-      for (int i=0; i<2; i++)
+      for (int i=0; i<reps; i++)
       {
         long long totalflops = 0;
         zero_array(tile6, t3r);
@@ -635,7 +640,7 @@ int main(int argc, char * argv[])
     } else {
       printf("\nSTARTING C 1-D KERNELS \n");
       fflush(stdout);
-      for (int i=0; i<2; i++)
+      for (int i=0; i<reps; i++)
       {
         long long totalflops = 0;
         zero_array(tile6, t3c);
@@ -876,7 +881,7 @@ int main(int argc, char * argv[])
     } else {
       printf("\nSTARTING C N-D KERNELS \n");
       fflush(stdout);
-      for (int i=0; i<2; i++)
+      for (int i=0; i<reps; i++)
       {
         long long totalflops = 0;
         zero_array(tile6, t3d);
@@ -1118,7 +1123,7 @@ int main(int argc, char * argv[])
     } else {
       printf("\nSTARTING FORTRAN-BLAS KERNELS \n");
       fflush(stdout);
-      for (int i=0; i<2; i++)
+      for (int i=0; i<reps; i++)
       {
         long long totalflops = 0;
         zero_array(tile6, t3b);
@@ -1384,16 +1389,16 @@ int main(int argc, char * argv[])
     double n4b = norm_array(tile6, t3b);
     printf("norm: t3b = %lf\n", n4b);
 
-    free(t3b);
+    safefree(t3b);
 #if DO_C_KERNELS
-    //free(t3d);
-    free(t3c);
+    //safefree(t3d);
+    safefree(t3c);
 #endif
-    free(t3o);
-    free(t3r);
-    free(v2);
-    free(t2);
-    free(t1);
+    safefree(t3o);
+    safefree(t3r);
+    safefree(v2);
+    safefree(t2);
+    safefree(t1);
 
     printf("ALL DONE \n");
     fflush(stdout);
