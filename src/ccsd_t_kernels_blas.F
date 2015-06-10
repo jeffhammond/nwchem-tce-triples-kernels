@@ -318,23 +318,29 @@ c
 !     GOAL
 !     for all 654:
 !       2,1 += 2,7 * 7,1 (NN-DGEMM)
+!$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
+!$omp& default(shared) schedule(static)
+!$omp& private(h1,h2,h3,p4,p5,p6,o,t,v)
       do p4=1,p4d
       do p5=1,p5d
       do p6=1,p6d
       do h3=1,h3d
 !     CREATE TEMP
+!dir$ simd
       do h1=1,h1d
       do h2=1,h2d
         o(h2,h1) = triplesx(h3,h2,h1,p6,p5,p4)
       enddo
       enddo
 !     TRANSPOSE T
+!dir$ simd
       do h1=1,h1d
       do h7=1,h7d
         t(h7,h1) = t2sub(h7,p4,p5,h1)
       enddo
       enddo
 !     TRANSPOSE V
+!dir$ simd
       do h7=1,h7d
       do h2=1,h2d
         v(h2,h7) = v2sub(h3,h2,p6,h7)
@@ -347,6 +353,7 @@ c
      &             o,h2d)                   ! c,ldc=m
 !     END DGEMM
 !     OUTPUT
+!dir$ simd
       do h1=1,h1d
       do h2=1,h2d
         triplesx(h3,h2,h1,p6,p5,p4) = o(h2,h1)
