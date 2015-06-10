@@ -318,7 +318,7 @@ c
       do p5=1,p5d
       do p6=1,p6d
       do h3=1,h3d
-!     CREATE TEMP (should be eliminated)
+!     CREATE TEMP
       do h1=1,h1d
       do h2=1,h2d
         o(h2,h1) = triplesx(h3,h2,h1,p6,p5,p4)
