@@ -14,7 +14,12 @@ static void * safemalloc(size_t n)
 {
     int rc = -1;
     void * ptr = NULL;
-#if 0
+#if defined(__INTEL_COMPILER)
+    ptr = _mm_malloc(n,64); /* breaks if free used */
+    if ( ptr==NULL ) {
+        fprintf( stdout , "%zu bytes could not be allocated \n" , n );
+    }
+#elif 1
     rc = posix_memalign( &ptr, ALIGNMENT, n);
     if ( ptr==NULL || rc!=0 ) {
         fprintf( stdout , "%zu bytes could not be allocated \n" , n );
@@ -27,6 +32,16 @@ static void * safemalloc(size_t n)
     }
 #endif
     return ptr;
+}
+
+static void safefree(void * ptr)
+{
+#if defined(__INTEL_COMPILER)
+    _mm_free(ptr);
+#else
+    free(ptr)
+#endif
+    return;
 }
 
 #endif // SAFEMALLOC_H
