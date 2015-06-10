@@ -26,7 +26,20 @@ ifeq ($(TARGET),INTEL)
     LD       = $(FC)
     LDFLAGS  = $(FFLAGS) -nofor-main
     LDFLAGS += #-Wl,-no_pie # debugging with IDB only
-    LIBS     = -mkl=sequential #parallel
+    LIBS     = -mkl=parallel
+    #LIBS     = -mkl=sequential
+endif
+
+ifeq ($(TARGET),GCC)
+    CC       = gcc
+    FC       = gfortran
+    OPT     += -O3 -fopenmp -march=native -ftree-vectorize -ffp-contract=fast
+    CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
+    FFLAGS   = $(OPT) -cpp
+    CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
+    LD       = $(FC)
+    LDFLAGS  = $(FFLAGS)
+    LIBS     = -L/usr/lib64/atlas/ -lptf77blas -latlas
 endif
 
 ifeq ($(TARGET),MAC-CLANG)
