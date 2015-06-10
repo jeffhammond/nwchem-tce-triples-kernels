@@ -1,3 +1,6 @@
+!
+! Copyright 2015 Intel Corporation.  All rights reserved.  No derivative works permitted.
+!
       subroutine blas_sd_t_s1_1(h3d,h2d,h1d,p6d,p5d,p4d,
      2               triplesx,t1sub,v2sub)
       IMPLICIT NONE
