@@ -223,7 +223,7 @@ c
       return
       end
 c
-#if BROKEN
+#if 1
       subroutine blas_sd_t_d1_1(h3d,h2d,h1d,p6d,p5d,p4d,h7d,
      2               triplesx,t2sub,v2sub)
       IMPLICIT NONE
@@ -236,13 +236,11 @@ c
       double precision o(h3d,h2d,h1d)
       double precision t(h7d,h1d)
       double precision v(h3d,h2d,h7d)
-!     GOAL
-!     for all 654:
-!       32,1 += 7,1 * 32,7 (TT-DGEMM)
       do p4=1,p4d
       do p5=1,p5d
       do p6=1,p6d
 !     CREATE TEMP (should be eliminated)
+!dir$ simd
       do h1=1,h1d
       do h2=1,h2d
       do h3=1,h3d
@@ -251,12 +249,14 @@ c
       enddo
       enddo
 !     TRANSPOSE T
+!dir$ simd
       do h1=1,h1d
       do h7=1,h7d
         t(h7,h1) = t2sub(h7,p4,p5,h1)
       enddo
       enddo
 !     TRANSPOSE V
+!dir$ simd
       do h7=1,h7d
       do h2=1,h2d
       do h3=1,h3d
@@ -269,24 +269,25 @@ c
 !      do h2=1,h2d
 !      do h3=1,h3d
 !      do h7=1,h7d
-!!       triplesx(h3,h2,h1,p6,p5,p4)-=t2sub(h7,p4,p5,h1)*v2sub(h3,h2,p6,h7)
-!        o(h3,h2,h1)=o(h3,h2,h1)-t(h7,h1)*v(h3,h2,h7)
+!!       triplesx(h3,h2,h1,p6,p5,p4)-=v2sub(h3,h2,p6,h7)*t2sub(h7,p4,p5,h1)
+!        o(h3,h2,h1)=o(h3,h2,h1)-v(h3,h2,h7)*t(h7,h1)
 !      enddo ! h7
 !      enddo ! h3
 !      enddo ! h2
 !      enddo ! h1
-!     DGEMM
+!     DGEMM (works)
 !        C : h2d*h3d rows x h1d cols
-        call dgemm('T','T',h2d*h3d,h1d,h7d, ! m,n,k
-     &             -1.0d0,t,h7d,            ! alpha,a,lda=k
-     &             v,h1d,1.0d0,             ! b,ldb=n,beta
-     &             o,h2d*h3d)               ! c,ldc=m
+        call dgemm('N','N',h3d*h2d,h1d,h7d, ! m,n,k
+     &             -1.0d0,v,h3d*h2d,        ! alpha,a,lda=m
+     &             t,h1d,1.0d0,             ! b,ldb=n,beta
+     &             o,h3d*h2d)               ! c,ldc=m
 !     END DGEMM
 !     OUTPUT
+!dir$ simd
       do h1=1,h1d
       do h2=1,h2d
       do h3=1,h3d
-        triplesx(h3,h2,h1,p6,p5,p4) = o(h1,h3,h2)
+        triplesx(h3,h2,h1,p6,p5,p4) = o(h3,h2,h1)
       enddo
       enddo
       enddo
@@ -312,7 +313,7 @@ c
       double precision v(h2d,h7d)
 !     GOAL
 !     for all 654:
-!       2,1 += 7,1 * 2,7 (TT-DGEMM)
+!       2,1 += 2,7 * 7,1 (NN-DGEMM)
       do p4=1,p4d
       do p5=1,p5d
       do p6=1,p6d
@@ -326,26 +327,25 @@ c
 !     TRANSPOSE T
       do h1=1,h1d
       do h7=1,h7d
-        t(h1,h7) = t2sub(h7,p4,p5,h1)
+        t(h7,h1) = t2sub(h7,p4,p5,h1)
       enddo
       enddo
 !     TRANSPOSE V
       do h7=1,h7d
       do h2=1,h2d
-        v(h7,h2) = v2sub(h3,h2,p6,h7)
+        v(h2,h7) = v2sub(h3,h2,p6,h7)
       enddo
       enddo
-!     DGEMM
-!        C : h2d rows x h1d cols
+!     DGEMM (works)
         call dgemm('N','N',h2d,h1d,h7d,     ! m,n,k
-     &             -1.0d0,t,h2d,            ! alpha,a,lda=m
-     &             v,h7d,1.0d0,             ! b,ldb=k,beta
+     &             -1.0d0,v,h2d,            ! alpha,a,lda=m
+     &             t,h7d,1.0d0,             ! b,ldb=k,beta
      &             o,h2d)                   ! c,ldc=m
 !     END DGEMM
 !     OUTPUT
       do h1=1,h1d
       do h2=1,h2d
-        triplesx(h3,h2,h1,p6,p5,p4) = o(h1,h2)
+        triplesx(h3,h2,h1,p6,p5,p4) = o(h2,h1)
       enddo
       enddo
 !     END OUTPUT
