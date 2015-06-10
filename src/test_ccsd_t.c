@@ -1363,7 +1363,7 @@ int main(int argc, char * argv[])
 #endif // DO_C_KERNELS
     double diff_t3b = diff_array(tile6, t3r, t3b);
     printf("||t3b-t3r||_1 = %30.15lf %s\n", diff_t3b, diff_t3b > thresh ? "(FAIL)" : "");
-    if (diff_t3b>0.0) {
+    if (diff_t3b>thresh) {
         print_array2(tile6, t3r, t3b);
     }
 
