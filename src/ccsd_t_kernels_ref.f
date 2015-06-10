@@ -14,7 +14,7 @@ c
       do p6=1,p6d
       do h1=1,h1d
       do h2=1,h2d
-!dir$ ivdep
+!dir$ simd
       do h3=1,h3d
        triplesx(h3,h2,h1,p6,p5,p4)=triplesx(h3,h2,h1,p6,p5,p4)
      1   + t1sub(p4,h1)*v2sub(h3,h2,p6,p5)
@@ -40,7 +40,7 @@ c
       do p6=1,p6d
       do h2=1,h2d
       do h1=1,h1d
-!dir$ ivdep
+!dir$ simd
       do h3=1,h3d
        triplesx(h3,h1,h2,p6,p5,p4)=triplesx(h3,h1,h2,p6,p5,p4)
      1   - t1sub(p4,h1)*v2sub(h3,h2,p6,p5)
@@ -66,7 +66,7 @@ c
       do p6=1,p6d
       do h2=1,h2d
       do h3=1,h3d
-!dir$ ivdep
+!dir$ simd
       do h1=1,h1d
        triplesx(h1,h3,h2,p6,p5,p4)=triplesx(h1,h3,h2,p6,p5,p4)
      1   + t1sub(p4,h1)*v2sub(h3,h2,p6,p5)
@@ -92,7 +92,7 @@ c
       do p6=1,p6d
       do h1=1,h1d
       do h2=1,h2d
-!dir$ ivdep
+!dir$ simd
       do h3=1,h3d
        triplesx(h3,h2,h1,p6,p4,p5)=triplesx(h3,h2,h1,p6,p4,p5)
      1   - t1sub(p4,h1)*v2sub(h3,h2,p6,p5)
@@ -118,7 +118,7 @@ c
       do p6=1,p6d
       do h2=1,h2d
       do h1=1,h1d
-!dir$ ivdep
+!dir$ simd
       do h3=1,h3d
        triplesx(h3,h1,h2,p6,p4,p5)=triplesx(h3,h1,h2,p6,p4,p5)
      1   + t1sub(p4,h1)*v2sub(h3,h2,p6,p5)
@@ -144,7 +144,7 @@ c
       do p6=1,p6d
       do h2=1,h2d
       do h3=1,h3d
-!dir$ ivdep
+!dir$ simd
       do h1=1,h1d
        triplesx(h1,h3,h2,p6,p4,p5)=triplesx(h1,h3,h2,p6,p4,p5)
      1   - t1sub(p4,h1)*v2sub(h3,h2,p6,p5)
@@ -170,7 +170,7 @@ c
       do p4=1,p4d
       do h1=1,h1d
       do h2=1,h2d
-!dir$ ivdep
+!dir$ simd
       do h3=1,h3d
        triplesx(h3,h2,h1,p4,p6,p5)=triplesx(h3,h2,h1,p4,p6,p5)
      1   + t1sub(p4,h1)*v2sub(h3,h2,p6,p5)
@@ -196,7 +196,7 @@ c
       do p4=1,p4d
       do h2=1,h2d
       do h1=1,h1d
-!dir$ ivdep
+!dir$ simd
       do h3=1,h3d
        triplesx(h3,h1,h2,p4,p6,p5)=triplesx(h3,h1,h2,p4,p6,p5)
      1   - t1sub(p4,h1)*v2sub(h3,h2,p6,p5)
@@ -222,7 +222,7 @@ c
       do p4=1,p4d
       do h2=1,h2d
       do h3=1,h3d
-!dir$ ivdep
+!dir$ simd
       do h1=1,h1d
        triplesx(h1,h3,h2,p4,p6,p5)=triplesx(h1,h3,h2,p4,p6,p5)
      1   + t1sub(p4,h1)*v2sub(h3,h2,p6,p5)
@@ -249,7 +249,7 @@ c
       do h1=1,h1d
       do h2=1,h2d
       do h3=1,h3d
-!dir$ ivdep
+!dir$ simd
       do h7=1,h7d
        triplesx(h3,h2,h1,p6,p5,p4)=triplesx(h3,h2,h1,p6,p5,p4)
      1  -t2sub(h7,p4,p5,h1)*v2sub(h3,h2,p6,h7)
@@ -277,7 +277,7 @@ c
       do h2=1,h2d
       do h1=1,h1d
       do h3=1,h3d
-!dir$ ivdep
+!dir$ simd
       do h7=1,h7d
        triplesx(h3,h1,h2,p6,p5,p4)=triplesx(h3,h1,h2,p6,p5,p4)
      1   + t2sub(h7,p4,p5,h1)*v2sub(h3,h2,p6,h7)
@@ -305,7 +305,7 @@ c
       do h2=1,h2d
       do h3=1,h3d
       do h1=1,h1d
-!dir$ ivdep
+!dir$ simd
       do h7=1,h7d
        triplesx(h1,h3,h2,p6,p5,p4)=triplesx(h1,h3,h2,p6,p5,p4)
      1  -t2sub(h7,p4,p5,h1)*v2sub(h3,h2,p6,h7)
@@ -333,7 +333,7 @@ c
       do h1=1,h1d
       do h2=1,h2d
       do h3=1,h3d
-!dir$ ivdep
+!dir$ simd
       do h7=1,h7d
        triplesx(h3,h2,h1,p5,p4,p6)=triplesx(h3,h2,h1,p5,p4,p6)
      1  -t2sub(h7,p4,p5,h1)*v2sub(h3,h2,p6,h7)
@@ -361,7 +361,7 @@ c
       do h2=1,h2d
       do h1=1,h1d
       do h3=1,h3d
-!dir$ ivdep
+!dir$ simd
       do h7=1,h7d
        triplesx(h3,h1,h2,p5,p4,p6)=triplesx(h3,h1,h2,p5,p4,p6)
      1   + t2sub(h7,p4,p5,h1)*v2sub(h3,h2,p6,h7)
@@ -389,7 +389,7 @@ c
       do h2=1,h2d
       do h3=1,h3d
       do h1=1,h1d
-!dir$ ivdep
+!dir$ simd
       do h7=1,h7d
        triplesx(h1,h3,h2,p5,p4,p6)=triplesx(h1,h3,h2,p5,p4,p6)
      1  -t2sub(h7,p4,p5,h1)*v2sub(h3,h2,p6,h7)
@@ -417,7 +417,7 @@ c
       do h1=1,h1d
       do h2=1,h2d
       do h3=1,h3d
-!dir$ ivdep
+!dir$ simd
       do h7=1,h7d
        triplesx(h3,h2,h1,p5,p6,p4)=triplesx(h3,h2,h1,p5,p6,p4)
      1   + t2sub(h7,p4,p5,h1)*v2sub(h3,h2,p6,h7)
@@ -445,7 +445,7 @@ c
       do h2=1,h2d
       do h1=1,h1d
       do h3=1,h3d
-!dir$ ivdep
+!dir$ simd
       do h7=1,h7d
        triplesx(h3,h1,h2,p5,p6,p4)=triplesx(h3,h1,h2,p5,p6,p4)
      1  -t2sub(h7,p4,p5,h1)*v2sub(h3,h2,p6,h7)
@@ -473,7 +473,7 @@ c
       do h2=1,h2d
       do h3=1,h3d
       do h1=1,h1d
-!dir$ ivdep
+!dir$ simd
       do h7=1,h7d
        triplesx(h1,h3,h2,p5,p6,p4)=triplesx(h1,h3,h2,p5,p6,p4)
      1   + t2sub(h7,p4,p5,h1)*v2sub(h3,h2,p6,h7)
@@ -501,7 +501,7 @@ c
       do h1=1,h1d
       do h2=1,h2d
       do h3=1,h3d
-!dir$ ivdep
+!dir$ simd
       do p7=1,p7d
        triplesx(h3,h2,h1,p6,p5,p4)=triplesx(h3,h2,h1,p6,p5,p4)
      1  -t2sub(p7,p4,h1,h2)*v2sub(p7,h3,p6,p5)
@@ -529,7 +529,7 @@ c
       do h3=1,h3d
       do h1=1,h1d
       do h2=1,h2d
-!dir$ ivdep
+!dir$ simd
       do p7=1,p7d
        triplesx(h2,h1,h3,p6,p5,p4)=triplesx(h2,h1,h3,p6,p5,p4)
      1  -t2sub(p7,p4,h1,h2)*v2sub(p7,h3,p6,p5)
@@ -557,7 +557,7 @@ c
       do h1=1,h1d
       do h3=1,h3d
       do h2=1,h2d
-!dir$ ivdep
+!dir$ simd
       do p7=1,p7d
        triplesx(h2,h3,h1,p6,p5,p4)=triplesx(h2,h3,h1,p6,p5,p4)
      1   + t2sub(p7,p4,h1,h2)*v2sub(p7,h3,p6,p5)
@@ -585,7 +585,7 @@ c
       do h1=1,h1d
       do h2=1,h2d
       do h3=1,h3d
-!dir$ ivdep
+!dir$ simd
       do p7=1,p7d
        triplesx(h3,h2,h1,p6,p4,p5)=triplesx(h3,h2,h1,p6,p4,p5)
      1   + t2sub(p7,p4,h1,h2)*v2sub(p7,h3,p6,p5)
@@ -613,7 +613,7 @@ c
       do h3=1,h3d
       do h1=1,h1d
       do h2=1,h2d
-!dir$ ivdep
+!dir$ simd
       do p7=1,p7d
        triplesx(h2,h1,h3,p6,p4,p5)=triplesx(h2,h1,h3,p6,p4,p5)
      1   + t2sub(p7,p4,h1,h2)*v2sub(p7,h3,p6,p5)
@@ -641,7 +641,7 @@ c
       do h1=1,h1d
       do h3=1,h3d
       do h2=1,h2d
-!dir$ ivdep
+!dir$ simd
       do p7=1,p7d
        triplesx(h2,h3,h1,p6,p4,p5)=triplesx(h2,h3,h1,p6,p4,p5)
      1  -t2sub(p7,p4,h1,h2)*v2sub(p7,h3,p6,p5)
@@ -669,7 +669,7 @@ c
       do h1=1,h1d
       do h2=1,h2d
       do h3=1,h3d
-!dir$ ivdep
+!dir$ simd
       do p7=1,p7d
        triplesx(h3,h2,h1,p4,p6,p5)=triplesx(h3,h2,h1,p4,p6,p5)
      1  -t2sub(p7,p4,h1,h2)*v2sub(p7,h3,p6,p5)
@@ -697,7 +697,7 @@ c
       do h3=1,h3d
       do h1=1,h1d
       do h2=1,h2d
-!dir$ ivdep
+!dir$ simd
       do p7=1,p7d
        triplesx(h2,h1,h3,p4,p6,p5)=triplesx(h2,h1,h3,p4,p6,p5)
      1  -t2sub(p7,p4,h1,h2)*v2sub(p7,h3,p6,p5)
@@ -725,7 +725,7 @@ c
       do h1=1,h1d
       do h3=1,h3d
       do h2=1,h2d
-!dir$ ivdep
+!dir$ simd
       do p7=1,p7d
        triplesx(h2,h3,h1,p4,p6,p5)=triplesx(h2,h3,h1,p4,p6,p5)
      1   + t2sub(p7,p4,h1,h2)*v2sub(p7,h3,p6,p5)
