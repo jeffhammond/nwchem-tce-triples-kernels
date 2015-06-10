@@ -236,12 +236,15 @@ c
       double precision t2sub(h7d,p4d,p5d,h1d)
       double precision v2sub(h3d,h2d,p6d,h7d)
 !     TEMP
+!dir$ attributes align: 64:: o
       double precision o(h3d,h2d,h1d)
+!dir$ attributes align: 64:: t
       double precision t(h7d,h1d)
+!dir$ attributes align: 64:: v
       double precision v(h3d,h2d,h7d)
 !$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
-!$omp& private(h1,h2,h3,p4,p5,p6,o,t,v)
+!$omp& private(h1,h2,h3,p4,p5,p6,h7,o,t,v)
       do p4=1,p4d
       do p5=1,p5d
       do p6=1,p6d
@@ -272,6 +275,7 @@ c
       enddo
 #if 0
 !     LOOP VERSION (works)
+!dir$ simd
       do h1=1,h1d
       do h2=1,h2d
       do h3=1,h3d
@@ -290,6 +294,7 @@ c
      &             o,h3d*h2d)               ! c,ldc=m
 #endif
 !     OUTPUT
+!dec$ vector always nontemporal
 !dir$ simd
       do h1=1,h1d
       do h2=1,h2d
