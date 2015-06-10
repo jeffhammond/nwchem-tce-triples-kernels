@@ -1,4 +1,4 @@
-#define T 20
+#define T 40
       program test_new_sort4
       use omp_lib
       implicit none
@@ -74,7 +74,7 @@
         rmax = max(rmax,dt2)
         call diff4d(d,s,r,z)
         if (z.gt.0.0) then
-            print*,'WRONG'
+            print*,'WRONG ',z
             exit
         endif
       endif
