@@ -239,7 +239,7 @@ c
       do p4=1,p4d
       do p5=1,p5d
       do p6=1,p6d
-!     CREATE TEMP (should be eliminated)
+!     CREATE TEMP
 !dir$ simd
       do h1=1,h1d
       do h2=1,h2d
