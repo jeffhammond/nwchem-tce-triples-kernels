@@ -315,9 +315,6 @@ c
       double precision o(h2d,h1d)
       double precision t(h7d,h1d)
       double precision v(h2d,h7d)
-!     GOAL
-!     for all 654:
-!       2,1 += 2,7 * 7,1 (NN-DGEMM)
 !$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,o,t,v)
