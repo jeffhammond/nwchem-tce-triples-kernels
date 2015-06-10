@@ -267,23 +267,25 @@ c
       enddo
       enddo
       enddo
-!!     LOOP VERSION (works)
-!      do h1=1,h1d
-!      do h2=1,h2d
-!      do h3=1,h3d
-!      do h7=1,h7d
-!!       triplesx(h3,h2,h1,p6,p5,p4)-=v2sub(h3,h2,p6,h7)*t2sub(h7,p4,p5,h1)
-!        o(h3,h2,h1)=o(h3,h2,h1)-v(h3,h2,h7)*t(h7,h1)
-!      enddo ! h7
-!      enddo ! h3
-!      enddo ! h2
-!      enddo ! h1
+#if 0
+!     LOOP VERSION (works)
+      do h1=1,h1d
+      do h2=1,h2d
+      do h3=1,h3d
+      do h7=1,h7d
+!       triplesx(h3,h2,h1,p6,p5,p4)-=v2sub(h3,h2,p6,h7)*t2sub(h7,p4,p5,h1)
+        o(h3,h2,h1)=o(h3,h2,h1)-v(h3,h2,h7)*t(h7,h1)
+      enddo ! h7
+      enddo ! h3
+      enddo ! h2
+      enddo ! h1
+#else
 !     DGEMM (works)
         call dgemm('N','N',h3d*h2d,h1d,h7d, ! m,n,k
      &             -1.0d0,v,h3d*h2d,        ! alpha,a,lda=m
      &             t,h1d,1.0d0,             ! b,ldb=n,beta
      &             o,h3d*h2d)               ! c,ldc=m
-!     END DGEMM
+#endif
 !     OUTPUT
 !dir$ simd
       do h1=1,h1d
