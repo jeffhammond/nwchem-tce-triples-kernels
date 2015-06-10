@@ -39,7 +39,7 @@ static void safefree(void * ptr)
 #if defined(__INTEL_COMPILER)
     _mm_free(ptr);
 #else
-    free(ptr)
+    free(ptr);
 #endif
     return;
 }
