@@ -1,7 +1,7 @@
 !
 ! These are just matrix transposes.  The code should be much simpler.
 !
-      subroutine tce_sort_2(u,s,a,b,i,j,f)
+      subroutine new_sort_2(u,s,a,b,i,j,f)
       implicit none
       integer a,b
       integer i,j
@@ -26,7 +26,7 @@
       return
       end
 
-      subroutine tce_sortacc_2(u,s,a,b,i,j,f)
+      subroutine new_sortacc_2(u,s,a,b,i,j,f)
       implicit none
       integer a,b
       integer i,j
