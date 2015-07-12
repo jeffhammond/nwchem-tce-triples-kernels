@@ -1,4 +1,4 @@
-#define T 40
+#define T 100
       program test_new_sort2
       use omp_lib
       implicit none
@@ -8,7 +8,7 @@
       double precision r(T,T)
       double precision t0, t1, dt1, dt2
       double precision x
-      integer d
+      integer d,d1,d2
       integer i,j
       integer num
       integer seed1,seed2
@@ -41,14 +41,16 @@
       write(6,*) '(i,j),time,time,speedup'
 ! This is not particularly efficient but other methods
 ! are harder to implement in Fortran 77.
-      do i = 1,4
-      do j = 1,4
+      do i = 1,2
+      do j = 1,2
       if (i.ne.j) then
         num = num+1
-        d = T
+        d  = T
+        d1 = T
+        d2 = T
         f = 1.0
         t0 = omp_get_wtime()
-        call new_sort_2(u,s,d,d,i,j,f)
+        call new_sort_2(u,s,d1,d2,i,j,f)
         t1 = omp_get_wtime()
         dt1 = t1-t0
         x  = x+ddot(d*d,u,1,s,1)
@@ -57,7 +59,7 @@
         tmax = max(tmax,(dt1))
 ! reference
         t0 = omp_get_wtime()
-        call tce_sort_2(u,r,d,d,i,j,f)
+        call tce_sort_2(u,r,d1,d2,i,j,f)
         t1 = omp_get_wtime()
         dt2 = t1-t0
         x  = ddot(d*d,u,1,s,1)
@@ -76,9 +78,9 @@
       tavg = tavg/num
       write(6,1) tmin,tmax,tavg
       print*,'junk = ',x
-   1  format('min = ',f10.5,' max = ',f10.5,' avg = ',f10.5)
-   3  format(4a2,10x,10x,10x,10x)
-   9  format('NEW,TCE ',4i2,' times = ',2f10.5,' (s) ',f10.5)
+   1  format('min = ',e10.3,' max = ',e10.3,' avg = ',e10.3)
+   3  format(2a2,10x,10x)
+   9  format('NEW,TCE ',2i2,' times = ',2e10.3,' (s) ',f10.5)
       end program
       subroutine diff2d(n,x,y,z)
       implicit none

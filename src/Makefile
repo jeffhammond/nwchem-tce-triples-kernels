@@ -18,15 +18,16 @@ FAT_STACK = -Wl,-stack_size -Wl,100000000
 ifeq ($(TARGET),INTEL)
     CC       = icc
     FC       = ifort
-    OPT     += -O3 -qopenmp -fno-alias -xHOST #-mavx
+    OPT     += -O1 -qopenmp -xHOST #-mavx
     OPT	    += -qopt-report
+    OPT     += -g3
     ASM      = -S -fsource-asm -fcode-asm
     CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
     FFLAGS   = $(OPT) -cpp -DINTEL_FORTRAN -heap-arrays 1000000
     CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
     LD       = $(FC)
     LDFLAGS  = $(FFLAGS) -nofor-main
-    LDFLAGS += #-Wl,-no_pie # debugging with IDB only
+    LDFLAGS += -Wl,-no_pie # debugging with IDB only
     LIBS     = -mkl=parallel
     #LIBS     = -mkl=sequential
 endif
