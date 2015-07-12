@@ -1,4 +1,8 @@
-#define T 24
+!
+! On Mac, if T is any larger, one will observe segfaults and then SIGBUS
+! (illegal instruction), the latter of which is confusing.
+!
+#define T 8
       program test_new_sort6
       use omp_lib
       implicit none
