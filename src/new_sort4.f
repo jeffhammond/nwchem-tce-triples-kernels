@@ -8,7 +8,7 @@
 ! code because Fortran does not have anything like C99/C++11 _Pragma.
 !
 #ifdef USE_OPENMP
-      subroutine tce_sort_4(u,s,a,b,c,d,i,j,k,l,f)
+      subroutine new_sort_4(u,s,a,b,c,d,i,j,k,l,f)
       implicit none
       integer a,b,c,d
       integer i,j,k,l
@@ -116,7 +116,7 @@
       return
       end
 
-      subroutine tce_sortacc_4(u,s,a,b,c,d,i,j,k,l,f)
+      subroutine new_sortacc_4(u,s,a,b,c,d,i,j,k,l,f)
       implicit none
       integer a,b,c,d
       integer i,j,k,l
@@ -224,7 +224,7 @@
       return
       end
 #else
-      subroutine tce_sort_4(u,s,a,b,c,d,i,j,k,l,f)
+      subroutine new_sort_4(u,s,a,b,c,d,i,j,k,l,f)
       implicit none
       integer a,b,c,d
       integer i,j,k,l
@@ -312,7 +312,7 @@
       return
       end
 
-      subroutine tce_sortacc_4(u,s,a,b,c,d,i,j,k,l,f)
+      subroutine new_sortacc_4(u,s,a,b,c,d,i,j,k,l,f)
       implicit none
       integer a,b,c,d
       integer i,j,k,l
