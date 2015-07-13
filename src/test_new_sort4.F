@@ -16,8 +16,7 @@
       double precision z
       double precision ddot
       external ddot
-      integer :: err
-      integer :: argnum, arglen
+      integer :: argnum, arglen, err
       character(len=32) :: argtmp
       if (command_argument_count().ge.1) then
         call get_command_argument(1,argtmp,arglen,err)
