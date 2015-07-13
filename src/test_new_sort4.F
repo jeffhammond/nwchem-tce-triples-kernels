@@ -1,14 +1,13 @@
-#define T 40
       program test_new_sort4
       use omp_lib
       implicit none
       double precision f
-      double precision u(T,T,T,T)
-      double precision s(T,T,T,T)
-      double precision r(T,T,T,T)
+      double precision, allocatable :: u(:,:,:,:)
+      double precision, allocatable :: s(:,:,:,:)
+      double precision, allocatable :: r(:,:,:,:)
       double precision t0, t1, dt1, dt2
       double precision x
-      integer d
+      integer d,T
       integer i,j,k,l
       integer num
       integer seed1,seed2
@@ -17,7 +16,19 @@
       double precision z
       double precision ddot
       external ddot
+      integer :: err
+      integer :: argnum, arglen
+      character(len=32) :: argtmp
+      if (command_argument_count().ge.1) then
+        call get_command_argument(1,argtmp,arglen,err)
+        if (err.eq.0) read(argtmp,'(i)') T
+      else
+        T = 20
+      endif
       print*,'{tce,new}_sort_4 test with tilesize = ',T
+      allocate( u(1:T,1:T,1:T,1:T), stat=err)
+      allocate( s(1:T,1:T,1:T,1:T), stat=err)
+      allocate( r(1:T,1:T,1:T,1:T), stat=err)
       seed1 = 1
       seed2 = 2
       do i = 1,T
