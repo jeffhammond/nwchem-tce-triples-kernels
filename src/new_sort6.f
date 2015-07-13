@@ -2,13 +2,13 @@
 ! written by Jeff Hammond, Intel Labs, April 2014
 ! see https://github.com/jeffhammond/nwchem-tce-triples-kernels/blob/master/src/new_sort6.f for history
 !
-      subroutine new_sort_6(u,s,a,b,c,d,e,f,i,j,k,l,m,n,factor)
+      subroutine new_sort_6(u,s,a,b,c,d,e,f,i,j,k,l,m,n,z)
       implicit none
       integer a,b,c,d,e,f
       integer i,j,k,l,m,n
       double precision s(a*b*c*d*e*f)
       double precision u(a*b*c*d*e*f)
-      double precision factor
+      double precision z ! factor
       integer id(6),jd(6)
       integer ia,ib
       integer j1,j2,j3,j4,j5,j6
@@ -25,6 +25,9 @@
       jdl=jd(l)
       jdk=jd(k)
       jdj=jd(j)
+!$omp  parallel do shared(s,u) collapse(3)
+!$omp& private(j1,j2,j3,j4,j5,j6,iax,ibx,ia,ib,id)
+!$omp& firstprivate(a,b,c,d,e,f,i,j,k,l,m,n,z,jd)
       do j1 = 1,a
        do j2 = 1,b
         do j3 = 1,c
@@ -39,16 +42,19 @@
            iax = f*(j5-1+e*(j4-1+d*(j3-1+c*(j2-1+b*(j1-1)))))
            ibx = f*(id(m)-1+jdm*(id(l)-1+jdl*(id(k)-1+jdk
      &                *(id(j)-1+jdj*(id(i)-1)))))
+!dec$ vector always nontemporal
+!dir$ simd
            do j6 = 1,f
             ia = j6+iax
             ib = j6+ibx
-            s(ib) = u(ia) * factor
+            s(ib) = u(ia) * z
            enddo
           enddo
          enddo
         enddo
        enddo
       enddo
+!$omp end parallel do
       else if (n.eq.5) then
       do j1 = 1,a
        do j2 = 1,b
@@ -67,7 +73,7 @@
            do j5 = 1,e
             ia = j6+f*(j5+iax)
             ib = j5+ibx
-            s(ib) = u(ia) * factor
+            s(ib) = u(ia) * z
            enddo
           enddo
          enddo
@@ -92,7 +98,7 @@
            do j4 = 1,d
             ia = j6+f*(j5-1+e*(j4+iax))
             ib = j4+ibx
-            s(ib) = u(ia) * factor
+            s(ib) = u(ia) * z
            enddo
           enddo
          enddo
@@ -117,7 +123,7 @@
            do j3 = 1,c
             ia = j6+f*(j5-1+e*(j4-1+d*(j3+iax)))
             ib = j3+ibx
-            s(ib) = u(ia) * factor
+            s(ib) = u(ia) * z
            enddo
           enddo
          enddo
@@ -142,7 +148,7 @@
            do j2 = 1,b
             ia = j6+f*(j5-1+e*(j4-1+d*(j3-1+c*(j2+iax))))
             ib = j2+ibx
-            s(ib) = u(ia) * factor
+            s(ib) = u(ia) * z
            enddo
           enddo
          enddo
@@ -166,7 +172,7 @@
            do j1 = 1,a
             ia = j6+f*(j5-1+e*(j4-1+d*(j3-1+c*(j2-1+b*(j1-1)))))
             ib = j1+ibx
-            s(ib) = u(ia) * factor
+            s(ib) = u(ia) * z
            enddo
           enddo
          enddo
@@ -177,13 +183,13 @@
       return
       end
 
-      subroutine new_sortacc_6(u,s,a,b,c,d,e,f,i,j,k,l,m,n,factor)
+      subroutine new_sortacc_6(u,s,a,b,c,d,e,f,i,j,k,l,m,n,z)
       implicit none
       integer a,b,c,d,e,f
       integer i,j,k,l,m,n
       double precision s(a*b*c*d*e*f)
       double precision u(a*b*c*d*e*f)
-      double precision factor
+      double precision z
       integer id(6),jd(6)
       integer ia,ib
       integer j1,j2,j3,j4,j5,j6
@@ -217,7 +223,7 @@
            do j6 = 1,f
             ia = j6+iax
             ib = j6+ibx
-            s(ib) = s(ib) + u(ia) * factor
+            s(ib) = s(ib) + u(ia) * z
            enddo
           enddo
          enddo
@@ -242,7 +248,7 @@
            do j5 = 1,e
             ia = j6+f*(j5+iax)
             ib = j5+ibx
-            s(ib) = s(ib) + u(ia) * factor
+            s(ib) = s(ib) + u(ia) * z
            enddo
           enddo
          enddo
@@ -267,7 +273,7 @@
            do j4 = 1,d
             ia = j6+f*(j5-1+e*(j4+iax))
             ib = j4+ibx
-            s(ib) = s(ib) + u(ia) * factor
+            s(ib) = s(ib) + u(ia) * z
            enddo
           enddo
          enddo
@@ -292,7 +298,7 @@
            do j3 = 1,c
             ia = j6+f*(j5-1+e*(j4-1+d*(j3+iax)))
             ib = j3+ibx
-            s(ib) = s(ib) + u(ia) * factor
+            s(ib) = s(ib) + u(ia) * z
            enddo
           enddo
          enddo
@@ -317,7 +323,7 @@
            do j2 = 1,b
             ia = j6+f*(j5-1+e*(j4-1+d*(j3-1+c*(j2+iax))))
             ib = j2+ibx
-            s(ib) = s(ib) + u(ia) * factor
+            s(ib) = s(ib) + u(ia) * z
            enddo
           enddo
          enddo
@@ -341,7 +347,7 @@
            do j1 = 1,a
             ia = j6+f*(j5-1+e*(j4-1+d*(j3-1+c*(j2-1+b*(j1-1)))))
             ib = j1+ibx
-            s(ib) = s(ib) + u(ia) * factor
+            s(ib) = s(ib) + u(ia) * z
            enddo
           enddo
          enddo
