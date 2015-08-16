@@ -284,6 +284,7 @@ test_ccsd_t.o: test_ccsd_t.c $(HEADERS) $(CCHEADERS)
 
 clean:
 	$(RM) $(RMFLAGS) *.o
+	$(RM) $(RMFLAGS) *.i
 	$(RM) $(RMFLAGS) *.optrpt
 	$(RM) $(RMFLAGS) $(TESTS)
 	$(RM) $(RMFLAGS) $(EXTRATESTS)
