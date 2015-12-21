@@ -7,7 +7,9 @@
 
 #define OMP_PARALLEL PRAGMA(omp parallel)
 #define OMP_PARALLEL_FOR PRAGMA(omp parallel for schedule(static))
+#define OMP_PARALLEL_FOR_SIMD PRAGMA(omp parallel for simd schedule(static))
 #define OMP_FOR PRAGMA(omp for schedule(static))
+#define OMP_FOR_SIMD PRAGMA(omp for simd schedule(static))
 
 #define OMP_PARALLEL_FOR_COLLAPSE(n) PRAGMA(omp parallel for collapse(n) schedule(static))
 #define OMP_PARALLEL_FOR_COLLAPSE2 OMP_PARALLEL_FOR_COLLAPSE(2)
@@ -15,6 +17,7 @@
 #define OMP_PARALLEL_FOR_COLLAPSE4 OMP_PARALLEL_FOR_COLLAPSE(4)
 
 #define OMP_PARALLEL_FOR_REDUCE_ADD(r) PRAGMA(omp parallel for reduction (+ : r) schedule(static))
+#define OMP_PARALLEL_FOR_SIMD_REDUCE_ADD(r) PRAGMA(omp parallel for simd reduction (+ : r) schedule(static))
 
 #else
 
