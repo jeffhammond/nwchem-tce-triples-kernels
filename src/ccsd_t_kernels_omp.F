@@ -9,6 +9,15 @@ c
       double precision triplesx(h3d,h2d,h1d,p6d,p5d,p4d)
       double precision t1sub(p4d,h1d)
       double precision v2sub(h3d,h2d,p6d,p5d)
+!dir$ assume_aligned triplesx: 64
+!dir$ assume_aligned t1sub: 64
+!dir$ assume_aligned v2sub: 64
+!dir$ assume (mod(h3d,8) .eq. 0)
+!dir$ assume (mod(h2d,8) .eq. 0)
+!dir$ assume (mod(h1d,8) .eq. 0)
+!dir$ assume (mod(p6d,8) .eq. 0)
+!dir$ assume (mod(p5d,8) .eq. 0)
+!dir$ assume (mod(p4d,8) .eq. 0)
 !$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6)
@@ -45,6 +54,15 @@ c
       double precision triplesx(h3d,h1d,h2d,p6d,p5d,p4d)
       double precision t1sub(p4d,h1d)
       double precision v2sub(h3d,h2d,p6d,p5d)
+!dir$ assume_aligned triplesx: 64
+!dir$ assume_aligned t1sub: 64
+!dir$ assume_aligned v2sub: 64
+!dir$ assume (mod(h3d,8) .eq. 0)
+!dir$ assume (mod(h2d,8) .eq. 0)
+!dir$ assume (mod(h1d,8) .eq. 0)
+!dir$ assume (mod(p6d,8) .eq. 0)
+!dir$ assume (mod(p5d,8) .eq. 0)
+!dir$ assume (mod(p4d,8) .eq. 0)
 !$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6)
@@ -81,6 +99,15 @@ c
       double precision triplesx(h1d,h3d,h2d,p6d,p5d,p4d)
       double precision t1sub(p4d,h1d)
       double precision v2sub(h3d,h2d,p6d,p5d)
+!dir$ assume_aligned triplesx: 64
+!dir$ assume_aligned t1sub: 64
+!dir$ assume_aligned v2sub: 64
+!dir$ assume (mod(h3d,8) .eq. 0)
+!dir$ assume (mod(h2d,8) .eq. 0)
+!dir$ assume (mod(h1d,8) .eq. 0)
+!dir$ assume (mod(p6d,8) .eq. 0)
+!dir$ assume (mod(p5d,8) .eq. 0)
+!dir$ assume (mod(p4d,8) .eq. 0)
 !$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6)
@@ -123,6 +150,15 @@ c
       double precision triplesx(h3d,h2d,h1d,p6d,p4d,p5d)
       double precision t1sub(p4d,h1d)
       double precision v2sub(h3d,h2d,p6d,p5d)
+!dir$ assume_aligned triplesx: 64
+!dir$ assume_aligned t1sub: 64
+!dir$ assume_aligned v2sub: 64
+!dir$ assume (mod(h3d,8) .eq. 0)
+!dir$ assume (mod(h2d,8) .eq. 0)
+!dir$ assume (mod(h1d,8) .eq. 0)
+!dir$ assume (mod(p6d,8) .eq. 0)
+!dir$ assume (mod(p5d,8) .eq. 0)
+!dir$ assume (mod(p4d,8) .eq. 0)
 !$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6)
@@ -161,6 +197,15 @@ c
       double precision triplesx(h3d,h1d,h2d,p6d,p4d,p5d)
       double precision t1sub(p4d,h1d)
       double precision v2sub(h3d,h2d,p6d,p5d)
+!dir$ assume_aligned triplesx: 64
+!dir$ assume_aligned t1sub: 64
+!dir$ assume_aligned v2sub: 64
+!dir$ assume (mod(h3d,8) .eq. 0)
+!dir$ assume (mod(h2d,8) .eq. 0)
+!dir$ assume (mod(h1d,8) .eq. 0)
+!dir$ assume (mod(p6d,8) .eq. 0)
+!dir$ assume (mod(p5d,8) .eq. 0)
+!dir$ assume (mod(p4d,8) .eq. 0)
 !$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6)
@@ -198,6 +243,15 @@ c
       double precision triplesx(h1d,h3d,h2d,p6d,p4d,p5d)
       double precision t1sub(p4d,h1d)
       double precision v2sub(h3d,h2d,p6d,p5d)
+!dir$ assume_aligned triplesx: 64
+!dir$ assume_aligned t1sub: 64
+!dir$ assume_aligned v2sub: 64
+!dir$ assume (mod(h3d,8) .eq. 0)
+!dir$ assume (mod(h2d,8) .eq. 0)
+!dir$ assume (mod(h1d,8) .eq. 0)
+!dir$ assume (mod(p6d,8) .eq. 0)
+!dir$ assume (mod(p5d,8) .eq. 0)
+!dir$ assume (mod(p4d,8) .eq. 0)
 !$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6)
@@ -235,6 +289,15 @@ c
       double precision triplesx(h3d,h2d,h1d,p4d,p6d,p5d)
       double precision t1sub(p4d,h1d)
       double precision v2sub(h3d,h2d,p6d,p5d)
+!dir$ assume_aligned triplesx: 64
+!dir$ assume_aligned t1sub: 64
+!dir$ assume_aligned v2sub: 64
+!dir$ assume (mod(h3d,8) .eq. 0)
+!dir$ assume (mod(h2d,8) .eq. 0)
+!dir$ assume (mod(h1d,8) .eq. 0)
+!dir$ assume (mod(p6d,8) .eq. 0)
+!dir$ assume (mod(p5d,8) .eq. 0)
+!dir$ assume (mod(p4d,8) .eq. 0)
 !$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6)
@@ -272,6 +335,15 @@ c
       double precision triplesx(h3d,h1d,h2d,p4d,p6d,p5d)
       double precision t1sub(p4d,h1d)
       double precision v2sub(h3d,h2d,p6d,p5d)
+!dir$ assume_aligned triplesx: 64
+!dir$ assume_aligned t1sub: 64
+!dir$ assume_aligned v2sub: 64
+!dir$ assume (mod(h3d,8) .eq. 0)
+!dir$ assume (mod(h2d,8) .eq. 0)
+!dir$ assume (mod(h1d,8) .eq. 0)
+!dir$ assume (mod(p6d,8) .eq. 0)
+!dir$ assume (mod(p5d,8) .eq. 0)
+!dir$ assume (mod(p4d,8) .eq. 0)
 !$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6)
@@ -308,6 +380,15 @@ c
       double precision triplesx(h1d,h3d,h2d,p4d,p6d,p5d)
       double precision t1sub(p4d,h1d)
       double precision v2sub(h3d,h2d,p6d,p5d)
+!dir$ assume_aligned triplesx: 64
+!dir$ assume_aligned t1sub: 64
+!dir$ assume_aligned v2sub: 64
+!dir$ assume (mod(h3d,8) .eq. 0)
+!dir$ assume (mod(h2d,8) .eq. 0)
+!dir$ assume (mod(h1d,8) .eq. 0)
+!dir$ assume (mod(p6d,8) .eq. 0)
+!dir$ assume (mod(p5d,8) .eq. 0)
+!dir$ assume (mod(p4d,8) .eq. 0)
 !$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6)
@@ -344,7 +425,19 @@ c
       double precision triplesx(h3d,h2d,h1d,p6d,p5d,p4d)
       double precision t2sub(h7d,p4d,p5d,h1d)
       double precision v2sub(h3d,h2d,p6d,h7d)
+!dir$ attributes align:64 :: v2tmp
       double precision v2tmp(h7d,h3d,h2d,p6d)
+!dir$ assume_aligned triplesx: 64
+!dir$ assume_aligned t2sub: 64
+!dir$ assume_aligned v2sub: 64
+!dir$ assume_aligned v2tmp: 64
+!dir$ assume (mod(h3d,8) .eq. 0)
+!dir$ assume (mod(h2d,8) .eq. 0)
+!dir$ assume (mod(h1d,8) .eq. 0)
+!dir$ assume (mod(p6d,8) .eq. 0)
+!dir$ assume (mod(p5d,8) .eq. 0)
+!dir$ assume (mod(p4d,8) .eq. 0)
+!dir$ assume (mod(h7d,8) .eq. 0)
 !$omp  parallel do collapse(3)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
@@ -398,7 +491,19 @@ c
       double precision triplesx(h3d,h1d,h2d,p6d,p5d,p4d)
       double precision t2sub(h7d,p4d,p5d,h1d)
       double precision v2sub(h3d,h2d,p6d,h7d)
+!dir$ attributes align:64 :: v2tmp
       double precision v2tmp(h7d,h3d,h2d,p6d)
+!dir$ assume_aligned triplesx: 64
+!dir$ assume_aligned t2sub: 64
+!dir$ assume_aligned v2sub: 64
+!dir$ assume_aligned v2tmp: 64
+!dir$ assume (mod(h3d,8) .eq. 0)
+!dir$ assume (mod(h2d,8) .eq. 0)
+!dir$ assume (mod(h1d,8) .eq. 0)
+!dir$ assume (mod(p6d,8) .eq. 0)
+!dir$ assume (mod(p5d,8) .eq. 0)
+!dir$ assume (mod(p4d,8) .eq. 0)
+!dir$ assume (mod(h7d,8) .eq. 0)
 !$omp  parallel do collapse(3)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
@@ -450,7 +555,19 @@ c
       double precision triplesx(h1d,h3d,h2d,p6d,p5d,p4d)
       double precision t2sub(h7d,p4d,p5d,h1d)
       double precision v2sub(h3d,h2d,p6d,h7d)
+!dir$ attributes align:64 :: v2tmp
       double precision v2tmp(h7d,h3d,h2d,p6d)
+!dir$ assume_aligned triplesx: 64
+!dir$ assume_aligned t2sub: 64
+!dir$ assume_aligned v2sub: 64
+!dir$ assume_aligned v2tmp: 64
+!dir$ assume (mod(h3d,8) .eq. 0)
+!dir$ assume (mod(h2d,8) .eq. 0)
+!dir$ assume (mod(h1d,8) .eq. 0)
+!dir$ assume (mod(p6d,8) .eq. 0)
+!dir$ assume (mod(p5d,8) .eq. 0)
+!dir$ assume (mod(p4d,8) .eq. 0)
+!dir$ assume (mod(h7d,8) .eq. 0)
 !$omp  parallel do collapse(3)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
@@ -502,7 +619,19 @@ c
       double precision triplesx(h3d,h2d,h1d,p5d,p4d,p6d)
       double precision t2sub(h7d,p4d,p5d,h1d)
       double precision v2sub(h3d,h2d,p6d,h7d)
+!dir$ attributes align:64 :: v2tmp
       double precision v2tmp(h7d,h3d,h2d,p6d)
+!dir$ assume_aligned triplesx: 64
+!dir$ assume_aligned t2sub: 64
+!dir$ assume_aligned v2sub: 64
+!dir$ assume_aligned v2tmp: 64
+!dir$ assume (mod(h3d,8) .eq. 0)
+!dir$ assume (mod(h2d,8) .eq. 0)
+!dir$ assume (mod(h1d,8) .eq. 0)
+!dir$ assume (mod(p6d,8) .eq. 0)
+!dir$ assume (mod(p5d,8) .eq. 0)
+!dir$ assume (mod(p4d,8) .eq. 0)
+!dir$ assume (mod(h7d,8) .eq. 0)
 !$omp  parallel do collapse(3)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
@@ -559,7 +688,19 @@ c
       double precision triplesx(h3d,h1d,h2d,p5d,p4d,p6d)
       double precision t2sub(h7d,p4d,p5d,h1d)
       double precision v2sub(h3d,h2d,p6d,h7d)
+!dir$ attributes align:64 :: v2tmp
       double precision v2tmp(h7d,h3d,h2d,p6d)
+!dir$ assume_aligned triplesx: 64
+!dir$ assume_aligned t2sub: 64
+!dir$ assume_aligned v2sub: 64
+!dir$ assume_aligned v2tmp: 64
+!dir$ assume (mod(h3d,8) .eq. 0)
+!dir$ assume (mod(h2d,8) .eq. 0)
+!dir$ assume (mod(h1d,8) .eq. 0)
+!dir$ assume (mod(p6d,8) .eq. 0)
+!dir$ assume (mod(p5d,8) .eq. 0)
+!dir$ assume (mod(p4d,8) .eq. 0)
+!dir$ assume (mod(h7d,8) .eq. 0)
 !$omp  parallel do collapse(3)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
@@ -611,7 +752,19 @@ c
       double precision triplesx(h1d,h3d,h2d,p5d,p4d,p6d)
       double precision t2sub(h7d,p4d,p5d,h1d)
       double precision v2sub(h3d,h2d,p6d,h7d)
+!dir$ attributes align:64 :: v2tmp
       double precision v2tmp(h7d,h3d,h2d,p6d)
+!dir$ assume_aligned triplesx: 64
+!dir$ assume_aligned t2sub: 64
+!dir$ assume_aligned v2sub: 64
+!dir$ assume_aligned v2tmp: 64
+!dir$ assume (mod(h3d,8) .eq. 0)
+!dir$ assume (mod(h2d,8) .eq. 0)
+!dir$ assume (mod(h1d,8) .eq. 0)
+!dir$ assume (mod(p6d,8) .eq. 0)
+!dir$ assume (mod(p5d,8) .eq. 0)
+!dir$ assume (mod(p4d,8) .eq. 0)
+!dir$ assume (mod(h7d,8) .eq. 0)
 !$omp  parallel do collapse(3)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
@@ -664,7 +817,19 @@ c
       double precision t2sub(h7d,p4d,p5d,h1d)
       double precision v2sub(h3d,h2d,p6d,h7d)
 #if !defined(CRAYFTN)
+!dir$ attributes align:64 :: v2tmp
       double precision v2tmp(h7d,h3d,h2d,p6d)
+!dir$ assume_aligned triplesx: 64
+!dir$ assume_aligned t2sub: 64
+!dir$ assume_aligned v2sub: 64
+!dir$ assume_aligned v2tmp: 64
+!dir$ assume (mod(h3d,8) .eq. 0)
+!dir$ assume (mod(h2d,8) .eq. 0)
+!dir$ assume (mod(h1d,8) .eq. 0)
+!dir$ assume (mod(p6d,8) .eq. 0)
+!dir$ assume (mod(p5d,8) .eq. 0)
+!dir$ assume (mod(p4d,8) .eq. 0)
+!dir$ assume (mod(h7d,8) .eq. 0)
 !$omp  parallel do collapse(3)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
@@ -726,7 +891,19 @@ c
       double precision triplesx(h3d,h1d,h2d,p5d,p6d,p4d)
       double precision t2sub(h7d,p4d,p5d,h1d)
       double precision v2sub(h3d,h2d,p6d,h7d)
+!dir$ attributes align:64 :: v2tmp
       double precision v2tmp(h7d,h3d,h2d,p6d)
+!dir$ assume_aligned triplesx: 64
+!dir$ assume_aligned t2sub: 64
+!dir$ assume_aligned v2sub: 64
+!dir$ assume_aligned v2tmp: 64
+!dir$ assume (mod(h3d,8) .eq. 0)
+!dir$ assume (mod(h2d,8) .eq. 0)
+!dir$ assume (mod(h1d,8) .eq. 0)
+!dir$ assume (mod(p6d,8) .eq. 0)
+!dir$ assume (mod(p5d,8) .eq. 0)
+!dir$ assume (mod(p4d,8) .eq. 0)
+!dir$ assume (mod(h7d,8) .eq. 0)
 !$omp  parallel do collapse(3)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
@@ -778,7 +955,19 @@ c
       double precision triplesx(h1d,h3d,h2d,p5d,p6d,p4d)
       double precision t2sub(h7d,p4d,p5d,h1d)
       double precision v2sub(h3d,h2d,p6d,h7d)
+!dir$ attributes align:64 :: v2tmp
       double precision v2tmp(h7d,h3d,h2d,p6d)
+!dir$ assume_aligned triplesx: 64
+!dir$ assume_aligned t2sub: 64
+!dir$ assume_aligned v2sub: 64
+!dir$ assume_aligned v2tmp: 64
+!dir$ assume (mod(h3d,8) .eq. 0)
+!dir$ assume (mod(h2d,8) .eq. 0)
+!dir$ assume (mod(h1d,8) .eq. 0)
+!dir$ assume (mod(p6d,8) .eq. 0)
+!dir$ assume (mod(p5d,8) .eq. 0)
+!dir$ assume (mod(p4d,8) .eq. 0)
+!dir$ assume (mod(h7d,8) .eq. 0)
 !$omp  parallel do collapse(3)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
@@ -830,6 +1019,16 @@ c
       double precision triplesx(h3d,h2d,h1d,p6d,p5d,p4d)
       double precision t2sub(p7d,p4d,h1d,h2d)
       double precision v2sub(p7d,h3d,p6d,p5d)
+!dir$ assume_aligned triplesx: 64
+!dir$ assume_aligned t2sub: 64
+!dir$ assume_aligned v2sub: 64
+!dir$ assume (mod(h3d,8) .eq. 0)
+!dir$ assume (mod(h2d,8) .eq. 0)
+!dir$ assume (mod(h1d,8) .eq. 0)
+!dir$ assume (mod(p6d,8) .eq. 0)
+!dir$ assume (mod(p5d,8) .eq. 0)
+!dir$ assume (mod(p4d,8) .eq. 0)
+!dir$ assume (mod(p7d,8) .eq. 0)
 !$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,p7)
@@ -867,6 +1066,16 @@ c
       double precision triplesx(h2d,h1d,h3d,p6d,p5d,p4d)
       double precision t2sub(p7d,p4d,h1d,h2d)
       double precision v2sub(p7d,h3d,p6d,p5d)
+!dir$ assume_aligned triplesx: 64
+!dir$ assume_aligned t2sub: 64
+!dir$ assume_aligned v2sub: 64
+!dir$ assume (mod(h3d,8) .eq. 0)
+!dir$ assume (mod(h2d,8) .eq. 0)
+!dir$ assume (mod(h1d,8) .eq. 0)
+!dir$ assume (mod(p6d,8) .eq. 0)
+!dir$ assume (mod(p5d,8) .eq. 0)
+!dir$ assume (mod(p4d,8) .eq. 0)
+!dir$ assume (mod(p7d,8) .eq. 0)
 !$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,p7)
@@ -904,6 +1113,16 @@ c
       double precision triplesx(h2d,h3d,h1d,p6d,p5d,p4d)
       double precision t2sub(p7d,p4d,h1d,h2d)
       double precision v2sub(p7d,h3d,p6d,p5d)
+!dir$ assume_aligned triplesx: 64
+!dir$ assume_aligned t2sub: 64
+!dir$ assume_aligned v2sub: 64
+!dir$ assume (mod(h3d,8) .eq. 0)
+!dir$ assume (mod(h2d,8) .eq. 0)
+!dir$ assume (mod(h1d,8) .eq. 0)
+!dir$ assume (mod(p6d,8) .eq. 0)
+!dir$ assume (mod(p5d,8) .eq. 0)
+!dir$ assume (mod(p4d,8) .eq. 0)
+!dir$ assume (mod(p7d,8) .eq. 0)
 !$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,p7)
@@ -941,6 +1160,16 @@ c
       double precision triplesx(h3d,h2d,h1d,p6d,p4d,p5d)
       double precision t2sub(p7d,p4d,h1d,h2d)
       double precision v2sub(p7d,h3d,p6d,p5d)
+!dir$ assume_aligned triplesx: 64
+!dir$ assume_aligned t2sub: 64
+!dir$ assume_aligned v2sub: 64
+!dir$ assume (mod(h3d,8) .eq. 0)
+!dir$ assume (mod(h2d,8) .eq. 0)
+!dir$ assume (mod(h1d,8) .eq. 0)
+!dir$ assume (mod(p6d,8) .eq. 0)
+!dir$ assume (mod(p5d,8) .eq. 0)
+!dir$ assume (mod(p4d,8) .eq. 0)
+!dir$ assume (mod(p7d,8) .eq. 0)
 !$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,p7)
@@ -978,6 +1207,16 @@ c
       double precision triplesx(h2d,h1d,h3d,p6d,p4d,p5d)
       double precision t2sub(p7d,p4d,h1d,h2d)
       double precision v2sub(p7d,h3d,p6d,p5d)
+!dir$ assume_aligned triplesx: 64
+!dir$ assume_aligned t2sub: 64
+!dir$ assume_aligned v2sub: 64
+!dir$ assume (mod(h3d,8) .eq. 0)
+!dir$ assume (mod(h2d,8) .eq. 0)
+!dir$ assume (mod(h1d,8) .eq. 0)
+!dir$ assume (mod(p6d,8) .eq. 0)
+!dir$ assume (mod(p5d,8) .eq. 0)
+!dir$ assume (mod(p4d,8) .eq. 0)
+!dir$ assume (mod(p7d,8) .eq. 0)
 !$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,p7)
@@ -1015,6 +1254,16 @@ c
       double precision triplesx(h2d,h3d,h1d,p6d,p4d,p5d)
       double precision t2sub(p7d,p4d,h1d,h2d)
       double precision v2sub(p7d,h3d,p6d,p5d)
+!dir$ assume_aligned triplesx: 64
+!dir$ assume_aligned t2sub: 64
+!dir$ assume_aligned v2sub: 64
+!dir$ assume (mod(h3d,8) .eq. 0)
+!dir$ assume (mod(h2d,8) .eq. 0)
+!dir$ assume (mod(h1d,8) .eq. 0)
+!dir$ assume (mod(p6d,8) .eq. 0)
+!dir$ assume (mod(p5d,8) .eq. 0)
+!dir$ assume (mod(p4d,8) .eq. 0)
+!dir$ assume (mod(p7d,8) .eq. 0)
 !$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,p7)
@@ -1052,6 +1301,16 @@ c
       double precision triplesx(h3d,h2d,h1d,p4d,p6d,p5d)
       double precision t2sub(p7d,p4d,h1d,h2d)
       double precision v2sub(p7d,h3d,p6d,p5d)
+!dir$ assume_aligned triplesx: 64
+!dir$ assume_aligned t2sub: 64
+!dir$ assume_aligned v2sub: 64
+!dir$ assume (mod(h3d,8) .eq. 0)
+!dir$ assume (mod(h2d,8) .eq. 0)
+!dir$ assume (mod(h1d,8) .eq. 0)
+!dir$ assume (mod(p6d,8) .eq. 0)
+!dir$ assume (mod(p5d,8) .eq. 0)
+!dir$ assume (mod(p4d,8) .eq. 0)
+!dir$ assume (mod(p7d,8) .eq. 0)
 !$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,p7)
@@ -1089,6 +1348,16 @@ c
       double precision triplesx(h2d,h1d,h3d,p4d,p6d,p5d)
       double precision t2sub(p7d,p4d,h1d,h2d)
       double precision v2sub(p7d,h3d,p6d,p5d)
+!dir$ assume_aligned triplesx: 64
+!dir$ assume_aligned t2sub: 64
+!dir$ assume_aligned v2sub: 64
+!dir$ assume (mod(h3d,8) .eq. 0)
+!dir$ assume (mod(h2d,8) .eq. 0)
+!dir$ assume (mod(h1d,8) .eq. 0)
+!dir$ assume (mod(p6d,8) .eq. 0)
+!dir$ assume (mod(p5d,8) .eq. 0)
+!dir$ assume (mod(p4d,8) .eq. 0)
+!dir$ assume (mod(p7d,8) .eq. 0)
 !$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,p7)
@@ -1127,6 +1396,16 @@ c
       double precision triplesx(h2d,h3d,h1d,p4d,p6d,p5d)
       double precision t2sub(p7d,p4d,h1d,h2d)
       double precision v2sub(p7d,h3d,p6d,p5d)
+!dir$ assume_aligned triplesx: 64
+!dir$ assume_aligned t2sub: 64
+!dir$ assume_aligned v2sub: 64
+!dir$ assume (mod(h3d,8) .eq. 0)
+!dir$ assume (mod(h2d,8) .eq. 0)
+!dir$ assume (mod(h1d,8) .eq. 0)
+!dir$ assume (mod(p6d,8) .eq. 0)
+!dir$ assume (mod(p5d,8) .eq. 0)
+!dir$ assume (mod(p4d,8) .eq. 0)
+!dir$ assume (mod(p7d,8) .eq. 0)
 !$omp  parallel do collapse(OMP_COLLAPSE_LEVEL)
 !$omp& default(shared) schedule(static)
 !$omp& private(h1,h2,h3,p4,p5,p6,p7)

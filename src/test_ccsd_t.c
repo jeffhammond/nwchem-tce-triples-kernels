@@ -98,6 +98,11 @@ int main(int argc, char * argv[])
     int tilesize = ((argc>1) ? atoi(argv[1]) : 16);
     int kernel   = ((argc>2) ? atoi(argv[2]) : -1);
 
+    if (tilesize%8 != 0) {
+        printf("tilesize must be a multiple of 8\n");
+        exit(1);
+    }
+
     long long tile2    = tilesize*tilesize;
     long long tile3    = tile2*tilesize;
     long long tile4    = tile2*tile2;
