@@ -1,3 +1,4 @@
+#include <sys/mman.h>
 #include <math.h>
 
 #ifdef _OPENMP
@@ -1358,6 +1359,15 @@ int main(int argc, char * argv[])
         fflush(stdout);
       }
     }
+
+
+    double tttt0 = omp_get_wtime();
+    mlockall(MCL_CURRENT);
+    double tttt1 = omp_get_wtime();
+    munlockall();
+    double tttt2 = omp_get_wtime();
+    printf("lockall = %lf\n",tttt1-tttt0);
+    printf("unlockall = %lf\n",tttt2-tttt1);
 
     printf("\n");
     double diff_t3o = diff_array(tile6, t3r, t3o);
