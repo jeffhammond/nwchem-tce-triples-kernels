@@ -15,7 +15,7 @@
 # define PRAGMA(x) _Pragma(#x)
 /* INTEL */
 # if defined(__INTEL_COMPILER)
-#  define PRAGMA_SIMD PRAGMA(simd)
+#  define PRAGMA_SIMD OMP_SIMD
 #  define PRAGMA_IVDEP PRAGMA(ivdep)
 #  define PRAGMA_UNROLL PRAGMA(unroll)
 #  define PRAGMA_UNROLLN(n) PRAGMA(unroll(n))
