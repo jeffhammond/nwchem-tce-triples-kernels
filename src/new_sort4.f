@@ -32,8 +32,7 @@
           !id(4) = j4 ! 1234 are only used once and we know l=4, hence ijk must not be 4
           iax = d*(j3-1+c*(j2-1+b*(j1-1)))
           ibx = d*(id(k)-1+jd(k)*(id(j)-1+jd(j)*(id(i)-1)))
-!dec$ vector always nontemporal
-!dir$ simd
+!$omp simd
           do j4 = 1,d
            ia = j4+iax
            ib = j4+ibx
@@ -56,8 +55,7 @@
           id(4) = j4
           iax = -1+c*(j2-1+b*(j1-1))
           ibx = c*(id(k)-1+jd(k)*(id(j)-1+jd(j)*(id(i)-1)))
-!dec$ vector always nontemporal
-!dir$ simd
+!$omp simd
           do j3 = 1,c
            ia = j4+d*(j3+iax)
            ib = j3+ibx
@@ -80,8 +78,7 @@
           id(4) = j4
           iax = -1+b*(j1-1)
           ibx = b*(id(k)-1+jd(k)*(id(j)-1+jd(j)*(id(i)-1)))
-!dec$ vector always nontemporal
-!dir$ simd
+!$omp simd
           do j2 = 1,b
            ia = j4+d*(j3-1+c*(j2+iax))
            ib = j2+ibx
@@ -103,8 +100,7 @@
           id(3) = j3
           id(4) = j4
           ibx = a*(id(k)-1+jd(k)*(id(j)-1+jd(j)*(id(i)-1)))
-!dec$ vector always nontemporal
-!dir$ simd
+!$omp simd
           do j1 = 1,a
            ia = j4+d*(j3-1+c*(j2-1+b*(j1-1)))
            ib = j1+ibx
@@ -144,8 +140,7 @@
           !id(4) = j4 ! 1234 are only used once and we know l=4, hence ijk must not be 4
           iax = d*(j3-1+c*(j2-1+b*(j1-1)))
           ibx = d*(id(k)-1+jd(k)*(id(j)-1+jd(j)*(id(i)-1)))
-!dec$ vector always nontemporal
-!dir$ simd
+!$omp simd
           do j4 = 1,d
            ia = j4+iax
            ib = j4+ibx
@@ -168,8 +163,7 @@
           id(4) = j4
           iax = -1+c*(j2-1+b*(j1-1))
           ibx = c*(id(k)-1+jd(k)*(id(j)-1+jd(j)*(id(i)-1)))
-!dec$ vector always nontemporal
-!dir$ simd
+!$omp simd
           do j3 = 1,c
            ia = j4+d*(j3+iax)
            ib = j3+ibx
@@ -192,8 +186,7 @@
           id(4) = j4
           iax = -1+b*(j1-1)
           ibx = b*(id(k)-1+jd(k)*(id(j)-1+jd(j)*(id(i)-1)))
-!dec$ vector always nontemporal
-!dir$ simd
+!$omp simd
           do j2 = 1,b
            ia = j4+d*(j3-1+c*(j2+iax))
            ib = j2+ibx
@@ -215,8 +208,7 @@
           id(3) = j3
           id(4) = j4
           ibx = a*(id(k)-1+jd(k)*(id(j)-1+jd(j)*(id(i)-1)))
-!dec$ vector always nontemporal
-!dir$ simd
+!$omp simd
           do j1 = 1,a
            ia = j4+d*(j3-1+c*(j2-1+b*(j1-1)))
            ib = j1+ibx

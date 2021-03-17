@@ -42,8 +42,6 @@
            iax = f*(j5-1+e*(j4-1+d*(j3-1+c*(j2-1+b*(j1-1)))))
            ibx = f*(id(m)-1+jdm*(id(l)-1+jdl*(id(k)-1+jdk
      &                *(id(j)-1+jdj*(id(i)-1)))))
-!dec$ vector always nontemporal
-!dir$ simd
            do j6 = 1,f
             ia = j6+iax
             ib = j6+ibx

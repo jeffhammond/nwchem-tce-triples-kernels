@@ -249,7 +249,7 @@ c
       do p5=1,p5d
       do p6=1,p6d
 !     CREATE TEMP
-!dir$ simd
+!$omp simd
       do h1=1,h1d
       do h2=1,h2d
       do h3=1,h3d
@@ -258,14 +258,14 @@ c
       enddo
       enddo
 !     TRANSPOSE T
-!dir$ simd
+!$omp simd
       do h1=1,h1d
       do h7=1,h7d
         t(h7,h1) = t2sub(h7,p4,p5,h1)
       enddo
       enddo
 !     TRANSPOSE V
-!dir$ simd
+!$omp simd
       do h7=1,h7d
       do h2=1,h2d
       do h3=1,h3d
@@ -275,7 +275,7 @@ c
       enddo
 #if 0
 !     LOOP VERSION (works)
-!dir$ simd
+!$omp simd
       do h1=1,h1d
       do h2=1,h2d
       do h3=1,h3d
@@ -294,8 +294,6 @@ c
      &             o,h3d*h2d)               ! c,ldc=m
 #endif
 !     OUTPUT
-!dec$ vector always nontemporal
-!dir$ simd
       do h1=1,h1d
       do h2=1,h2d
       do h3=1,h3d
@@ -331,21 +329,21 @@ c
       do p6=1,p6d
       do h3=1,h3d
 !     CREATE TEMP
-!dir$ simd
+!$omp simd
       do h1=1,h1d
       do h2=1,h2d
         o(h2,h1) = triplesx(h3,h2,h1,p6,p5,p4)
       enddo
       enddo
 !     TRANSPOSE T
-!dir$ simd
+!$omp simd
       do h1=1,h1d
       do h7=1,h7d
         t(h7,h1) = t2sub(h7,p4,p5,h1)
       enddo
       enddo
 !     TRANSPOSE V
-!dir$ simd
+!$omp simd
       do h7=1,h7d
       do h2=1,h2d
         v(h2,h7) = v2sub(h3,h2,p6,h7)
@@ -358,7 +356,7 @@ c
      &             o,h2d)                   ! c,ldc=m
 !     END DGEMM
 !     OUTPUT
-!dir$ simd
+!$omp simd
       do h1=1,h1d
       do h2=1,h2d
         triplesx(h3,h2,h1,p6,p5,p4) = o(h2,h1)
