@@ -6,7 +6,7 @@ ACTIVE  += -DDO_C_KERNELS
 #ACTIVE  += -DDO_BLAS_KERNELS
 #ACTIVE  += -DDEBUG
 
-TARGET := INTEL
+TARGET := NVHPC
 
 # Intel Fortran throws the "cannot simd" warning for 3 and 4...
 OMP_COLLAPSE_LEVEL=3
@@ -14,6 +14,27 @@ OPT = -DOMP_COLLAPSE_LEVEL=$(OMP_COLLAPSE_LEVEL)
 
 # test_tce_sort6.x requires enlarged stack because Fortran
 FAT_STACK = -Wl,-stack_size -Wl,100000000
+
+ifeq ($(TARGET),NVHPC)
+    CC       = nvc
+    FC       = nvfortran
+    OPT     += -O3
+    OPT     += -acc		# OpenACC
+    OPT     += -mp		# OpenMP
+    OPT     += -target=gpu	# Offload to GPU
+    OPT     += -gpu=managed	# Heap allocations uses CUDA memory
+    OPT     += -cuda -cudalib	# CUDA+CUBLAS support
+    OPT	    += -Minfo=accel
+    OPT     += -g
+    ASM      = -S -fsource-asm -fcode-asm
+    CFLAGS   = $(OPT) -c99 $(ACTIVE)
+    FFLAGS   = $(OPT) -cpp
+    FFLAGS  += -stdpar          # Fortran DO CONCURRENT
+    CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
+    LD       = $(CC)
+    LDFLAGS  = $(CFLAGS)
+    LIBS     = -fortranlibs
+endif
 
 ifeq ($(TARGET),INTEL)
     CC       = icc
@@ -249,13 +270,13 @@ test_dts_ccsd_t.x: test_dts_ccsd_t.o $(CCOBJECTS) blas_flops.o
 	$(LD) $(LDFLAGS) $< $(CCOBJECTS) blas_flops.o $(LIBS) -o $@
 
 test_new_sort2.x: test_new_sort2.o tce_sort2.o new_sort2.o
-	$(LD) $(LDFLAGS) $< tce_sort2.o new_sort2.o $(LIBS) -o $@
+	$(FC) $(FFLAGS) $< tce_sort2.o new_sort2.o $(LIBS) -o $@
 
 test_new_sort4.x: test_new_sort4.o tce_sort4.o new_sort4.o
-	$(LD) $(LDFLAGS) $< tce_sort4.o new_sort4.o $(LIBS) -o $@
+	$(FC) $(FFLAGS) $< tce_sort4.o new_sort4.o $(LIBS) -o $@
 
 test_new_sort6.x: test_new_sort6.o tce_sort6.o new_sort6.o
-	$(LD) $(LDFLAGS) $< tce_sort6.o new_sort6.o $(LIBS) -o $@
+	$(FC) $(FFLAGS) $< tce_sort6.o new_sort6.o $(LIBS) -o $@
 
 test_dgemm_shapes.x: test_dgemm_shapes.o blas_flops.o
 	$(LD) $(LDFLAGS) $< blas_flops.o $(LIBS) -o $@
