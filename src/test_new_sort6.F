@@ -36,13 +36,13 @@
       do l = 1,T
       do m = 1,T
       do n = 1,T
-#if defined(IBMXLF) || defined(INTEL_FORTRAN)
-        u(n,m,l,k,j,i) = 1.0*i+mod(j,k)+l*m/n
+#if defined(GCC)
+! GNU extension
+        u(n,m,l,k,j,i) = rand(seed1)
         s(n,m,l,k,j,i) = 0.0
         r(n,m,l,k,j,i) = 0.0
 #else
-! GNU extension
-        u(n,m,l,k,j,i) = rand(seed1)
+        u(n,m,l,k,j,i) = 1.0*i+mod(j,k)+l*m/n
         s(n,m,l,k,j,i) = 0.0
         r(n,m,l,k,j,i) = 0.0
 #endif

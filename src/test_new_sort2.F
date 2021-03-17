@@ -22,13 +22,13 @@
       seed2 = 2
       do i = 1,T
       do j = 1,T
-#if defined(IBMXLF) || defined(INTEL_FORTRAN)
-        u(j,i) = 1.0*i+mod(j,i)+j
+#if defined(GCC)
+! GNU extension
+        u(j,i) = rand(seed1)
         s(j,i) = 0.0
         r(j,i) = 0.0
 #else
-! GNU extension
-        u(j,i) = rand(seed1)
+        u(j,i) = 1.0*i+mod(j,i)+j
         s(j,i) = 0.0
         r(j,i) = 0.0
 #endif

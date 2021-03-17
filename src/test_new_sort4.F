@@ -34,13 +34,13 @@
       do j = 1,T
       do k = 1,T
       do l = 1,T
-#if defined(IBMXLF) || defined(INTEL_FORTRAN)
-        u(l,k,j,i) = 1.0*i+mod(j,k)+l
+#if defined(GCC)
+! GNU extension
+        u(l,k,j,i) = rand(seed1)
         s(l,k,j,i) = 0.0
         r(l,k,j,i) = 0.0
 #else
-! GNU extension
-        u(l,k,j,i) = rand(seed1)
+        u(l,k,j,i) = 1.0*i+mod(j,k)+l
         s(l,k,j,i) = 0.0
         r(l,k,j,i) = 0.0
 #endif
