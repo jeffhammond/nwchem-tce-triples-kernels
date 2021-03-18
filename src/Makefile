@@ -20,21 +20,28 @@ ifeq ($(TARGET),NVHPC)
     CC       = nvc
     FC       = nvfortran
     OPT     += -O3
-    OPT     += -acc		# OpenACC
+    #OPT     += -acc		# OpenACC
     OPT     += -mp		# OpenMP
+    #OPT     += -target=multicore
     OPT     += -target=gpu	# Offload to GPU
     OPT     += -gpu=managed	# Heap allocations uses CUDA memory
-    OPT     += -cuda -cudalib	# CUDA+CUBLAS support
-    OPT	    += -Minfo=accel
+    #OPT     += -cuda
+    #OPT     += -cudalib
+    #OPT     += -cudaver=11.2
+    OPT     += -Minfo=accel
     OPT     += -g
     ASM      = -S -fsource-asm -fcode-asm
     CFLAGS   = $(OPT) -c99 $(ACTIVE)
     FFLAGS   = $(OPT) -cpp
-    FFLAGS  += -stdpar          # Fortran DO CONCURRENT
+    #FFLAGS  += -stdpar          # Fortran DO CONCURRENT
+    FFLAGS  += -stdpar=gpu
+    #FFLAGS  += -stdpar=multicore
+    #FFLAGS  += -Minfo=mp,vect
     CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
     LD       = $(CC)
     LDFLAGS  = $(CFLAGS)
     LIBS     = -fortranlibs
+    LIBS    += ${HOME}/NVIDIA/hpc_sdk/Linux_x86_64/21.2/compilers/lib/libblas.a
 endif
 
 ifeq ($(TARGET),INTEL)
@@ -257,12 +264,12 @@ endif
 TESTS   := test_ccsd_t.x test_dts_ccsd_t.x test_new_sort6.x test_new_sort4.x test_new_sort2.x
 EXTRATESTS := test_malloc.x test_fortran_math.x test_dgemm_shapes.x
 CCOBJECTS := ccsd_t_kernels_omp.o ccsd_t_kernels_ref.o \
-             ccsd_t_kernels_1d.o ccsd_t_kernels_nd.o ccsd_t_kernels_blas.o \
+             ccsd_t_kernels_1d.o ccsd_t_kernels_nd.o \
              ccsd_t_dts_kernels_ref.o ccsd_t_dts_kernels_omp.o \
-	     ccsd_t_kernels_stdpar.o
+	     ccsd_t_kernels_stdpar.o #ccsd_t_kernels_blas.o
 HEADERS := safemalloc.h pragma_vendor.h pragma_openmp.h fake_omp.h blas.h
 CCHEADERS := ccsd_t_kernels.h ccsd_t_kernels_omp.h ccsd_t_kernels_ref.h ccsd_t_kernels_1d.h \
-	     ccsd_t_kernels_nd.h ccsd_t_kernels_blas.h ccsd_t_kernels_stdpar.h
+	     ccsd_t_kernels_nd.h ccsd_t_kernels_stdpar.h # ccsd_t_kernels_blas.h
 
 all: $(TESTS)
 
