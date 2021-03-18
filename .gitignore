@@ -1,0 +1,20 @@
+*.i                             # Preprocessed source
+*.s                             # Assembly output
+*.ll                            # LLVM intermediate
+*.x                             # Binary files
+*/*.x
+*/*/*.x
+*.o                             # Object files
+*/*.o
+*/*/*.o
+core.*                          # core files
+*.swp                           # Vim
+*/*.swp
+*/*/*.swp
+*/*/*/*.swp
+*.swo                           # Vim
+*.dSYM                          # Mac
+*.optrpt                        # Intel compiler
+*__genmod.*                     # Intel Fortran compiler
+*.patch                         # patch files
+*.dbg                           # Flang
