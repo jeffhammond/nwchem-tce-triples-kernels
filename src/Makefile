@@ -261,7 +261,8 @@ CCOBJECTS := ccsd_t_kernels_omp.o ccsd_t_kernels_ref.o \
              ccsd_t_dts_kernels_ref.o ccsd_t_dts_kernels_omp.o \
 	     ccsd_t_kernels_stdpar.o
 HEADERS := safemalloc.h pragma_vendor.h pragma_openmp.h fake_omp.h blas.h
-CCHEADERS := ccsd_t_kernels.h ccsd_t_kernels_omp.h ccsd_t_kernels_ref.h ccsd_t_kernels_1d.h ccsd_t_kernels_nd.h ccsd_t_kernels_blas.h
+CCHEADERS := ccsd_t_kernels.h ccsd_t_kernels_omp.h ccsd_t_kernels_ref.h ccsd_t_kernels_1d.h \
+	     ccsd_t_kernels_nd.h ccsd_t_kernels_blas.h ccsd_t_kernels_stdpar.h
 
 all: $(TESTS)
 

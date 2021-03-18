@@ -108,7 +108,7 @@ int main(int argc, char * argv[])
 
     double eff_peak = -9999.9;
 
-#if 1
+#if 0
     /* approximate memory bandwidth (memcpy) */
     eff_peak = memcpy_bandwidth(tile6);
     printf("MEMCPY gigabytes/s of your processor is %lf \n", eff_peak);

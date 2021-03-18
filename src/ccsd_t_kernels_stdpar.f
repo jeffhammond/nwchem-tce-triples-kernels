@@ -240,7 +240,7 @@ c
       do concurrent (h1=1:h1d)
       do concurrent (h2=1:h2d)
       do concurrent (h3=1:h3d)
-      do concurrent (h7=1:h7d)
+      do h7=1,h7d
        triplesx(h3,h2,h1,p6,p5,p4)=triplesx(h3,h2,h1,p6,p5,p4)
      1  -t2sub(h7,p4,p5,h1)*v2sub(h3,h2,p6,h7)
       enddo
@@ -267,7 +267,7 @@ c
       do concurrent (h2=1:h2d)
       do concurrent (h1=1:h1d)
       do concurrent (h3=1:h3d)
-      do concurrent (h7=1:h7d)
+      do h7=1,h7d
        triplesx(h3,h1,h2,p6,p5,p4)=triplesx(h3,h1,h2,p6,p5,p4)
      1   + t2sub(h7,p4,p5,h1)*v2sub(h3,h2,p6,h7)
       enddo
@@ -294,7 +294,7 @@ c
       do concurrent (h2=1:h2d)
       do concurrent (h3=1:h3d)
       do concurrent (h1=1:h1d)
-      do concurrent (h7=1:h7d)
+      do h7=1,h7d
        triplesx(h1,h3,h2,p6,p5,p4)=triplesx(h1,h3,h2,p6,p5,p4)
      1  -t2sub(h7,p4,p5,h1)*v2sub(h3,h2,p6,h7)
       enddo
@@ -321,7 +321,7 @@ c
       do concurrent (h1=1:h1d)
       do concurrent (h2=1:h2d)
       do concurrent (h3=1:h3d)
-      do concurrent (h7=1:h7d)
+      do h7=1,h7d
        triplesx(h3,h2,h1,p5,p4,p6)=triplesx(h3,h2,h1,p5,p4,p6)
      1  -t2sub(h7,p4,p5,h1)*v2sub(h3,h2,p6,h7)
       enddo
@@ -348,7 +348,7 @@ c
       do concurrent (h2=1:h2d)
       do concurrent (h1=1:h1d)
       do concurrent (h3=1:h3d)
-      do concurrent (h7=1:h7d)
+      do h7=1,h7d
        triplesx(h3,h1,h2,p5,p4,p6)=triplesx(h3,h1,h2,p5,p4,p6)
      1   + t2sub(h7,p4,p5,h1)*v2sub(h3,h2,p6,h7)
       enddo
@@ -375,7 +375,7 @@ c
       do concurrent (h2=1:h2d)
       do concurrent (h3=1:h3d)
       do concurrent (h1=1:h1d)
-      do concurrent (h7=1:h7d)
+      do h7=1,h7d
        triplesx(h1,h3,h2,p5,p4,p6)=triplesx(h1,h3,h2,p5,p4,p6)
      1  -t2sub(h7,p4,p5,h1)*v2sub(h3,h2,p6,h7)
       enddo
@@ -402,7 +402,7 @@ c
       do concurrent (h1=1:h1d)
       do concurrent (h2=1:h2d)
       do concurrent (h3=1:h3d)
-      do concurrent (h7=1:h7d)
+      do h7=1,h7d
        triplesx(h3,h2,h1,p5,p6,p4)=triplesx(h3,h2,h1,p5,p6,p4)
      1   + t2sub(h7,p4,p5,h1)*v2sub(h3,h2,p6,h7)
       enddo
@@ -429,7 +429,7 @@ c
       do concurrent (h2=1:h2d)
       do concurrent (h1=1:h1d)
       do concurrent (h3=1:h3d)
-      do concurrent (h7=1:h7d)
+      do h7=1,h7d
        triplesx(h3,h1,h2,p5,p6,p4)=triplesx(h3,h1,h2,p5,p6,p4)
      1  -t2sub(h7,p4,p5,h1)*v2sub(h3,h2,p6,h7)
       enddo
@@ -456,7 +456,7 @@ c
       do concurrent (h2=1:h2d)
       do concurrent (h3=1:h3d)
       do concurrent (h1=1:h1d)
-      do concurrent (h7=1:h7d)
+      do h7=1,h7d
        triplesx(h1,h3,h2,p5,p6,p4)=triplesx(h1,h3,h2,p5,p6,p4)
      1   + t2sub(h7,p4,p5,h1)*v2sub(h3,h2,p6,h7)
       enddo
@@ -483,7 +483,7 @@ c
       do concurrent (h1=1:h1d)
       do concurrent (h2=1:h2d)
       do concurrent (h3=1:h3d)
-      do concurrent (p7=1:p7d)
+      do p7=1,p7d
        triplesx(h3,h2,h1,p6,p5,p4)=triplesx(h3,h2,h1,p6,p5,p4)
      1  -t2sub(p7,p4,h1,h2)*v2sub(p7,h3,p6,p5)
       enddo
@@ -510,7 +510,7 @@ c
       do concurrent (h3=1:h3d)
       do concurrent (h1=1:h1d)
       do concurrent (h2=1:h2d)
-      do concurrent (p7=1:p7d)
+      do p7=1,p7d
        triplesx(h2,h1,h3,p6,p5,p4)=triplesx(h2,h1,h3,p6,p5,p4)
      1  -t2sub(p7,p4,h1,h2)*v2sub(p7,h3,p6,p5)
       enddo
@@ -537,7 +537,7 @@ c
       do concurrent (h1=1:h1d)
       do concurrent (h3=1:h3d)
       do concurrent (h2=1:h2d)
-      do concurrent (p7=1:p7d)
+      do p7=1,p7d
        triplesx(h2,h3,h1,p6,p5,p4)=triplesx(h2,h3,h1,p6,p5,p4)
      1   + t2sub(p7,p4,h1,h2)*v2sub(p7,h3,p6,p5)
       enddo
@@ -564,7 +564,7 @@ c
       do concurrent (h1=1:h1d)
       do concurrent (h2=1:h2d)
       do concurrent (h3=1:h3d)
-      do concurrent (p7=1:p7d)
+      do p7=1,p7d
        triplesx(h3,h2,h1,p6,p4,p5)=triplesx(h3,h2,h1,p6,p4,p5)
      1   + t2sub(p7,p4,h1,h2)*v2sub(p7,h3,p6,p5)
       enddo
@@ -591,7 +591,7 @@ c
       do concurrent (h3=1:h3d)
       do concurrent (h1=1:h1d)
       do concurrent (h2=1:h2d)
-      do concurrent (p7=1:p7d)
+      do p7=1,p7d
        triplesx(h2,h1,h3,p6,p4,p5)=triplesx(h2,h1,h3,p6,p4,p5)
      1   + t2sub(p7,p4,h1,h2)*v2sub(p7,h3,p6,p5)
       enddo
@@ -618,7 +618,7 @@ c
       do concurrent (h1=1:h1d)
       do concurrent (h3=1:h3d)
       do concurrent (h2=1:h2d)
-      do concurrent (p7=1:p7d)
+      do p7=1,p7d
        triplesx(h2,h3,h1,p6,p4,p5)=triplesx(h2,h3,h1,p6,p4,p5)
      1  -t2sub(p7,p4,h1,h2)*v2sub(p7,h3,p6,p5)
       enddo
@@ -645,7 +645,7 @@ c
       do concurrent (h1=1:h1d)
       do concurrent (h2=1:h2d)
       do concurrent (h3=1:h3d)
-      do concurrent (p7=1:p7d)
+      do p7=1,p7d
        triplesx(h3,h2,h1,p4,p6,p5)=triplesx(h3,h2,h1,p4,p6,p5)
      1  -t2sub(p7,p4,h1,h2)*v2sub(p7,h3,p6,p5)
       enddo
@@ -672,7 +672,7 @@ c
       do concurrent (h3=1:h3d)
       do concurrent (h1=1:h1d)
       do concurrent (h2=1:h2d)
-      do concurrent (p7=1:p7d)
+      do p7=1,p7d
        triplesx(h2,h1,h3,p4,p6,p5)=triplesx(h2,h1,h3,p4,p6,p5)
      1  -t2sub(p7,p4,h1,h2)*v2sub(p7,h3,p6,p5)
       enddo
@@ -699,7 +699,7 @@ c
       do concurrent (h1=1:h1d)
       do concurrent (h3=1:h3d)
       do concurrent (h2=1:h2d)
-      do concurrent (p7=1:p7d)
+      do p7=1,p7d
        triplesx(h2,h3,h1,p4,p6,p5)=triplesx(h2,h3,h1,p4,p6,p5)
      1   + t2sub(p7,p4,h1,h2)*v2sub(p7,h3,p6,p5)
       enddo
