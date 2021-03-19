@@ -5,14 +5,16 @@
       double precision, allocatable :: u(:,:,:,:)
       double precision, allocatable :: s(:,:,:,:)
       double precision, allocatable :: r(:,:,:,:)
-      double precision t0, t1, dt1, dt2
-      double precision x
+      double precision, allocatable :: x(:,:,:,:)
+      double precision t0, t1, dt1, dt2, dt3
+      double precision junk
       integer d,T
       integer i,j,k,l
       integer num
       integer seed1,seed2
       double precision tmin,tmax,tavg
       double precision rmin,rmax,ravg
+      double precision xmin,xmax,xavg
       double precision z
       double precision ddot
       external ddot
@@ -20,7 +22,7 @@
       character(len=32) :: argtmp
       if (command_argument_count().ge.1) then
         call get_command_argument(1,argtmp,arglen,err)
-        if (err.eq.0) read(argtmp,'(i)') T
+        if (err.eq.0) read(argtmp,'(i4)') T
       else
         T = 20
       endif
@@ -28,6 +30,7 @@
       allocate( u(1:T,1:T,1:T,1:T), stat=err)
       allocate( s(1:T,1:T,1:T,1:T), stat=err)
       allocate( r(1:T,1:T,1:T,1:T), stat=err)
+      allocate( x(1:T,1:T,1:T,1:T), stat=err)
       seed1 = 1
       seed2 = 2
       do i = 1,T
@@ -40,7 +43,7 @@
         s(l,k,j,i) = 0.0
         r(l,k,j,i) = 0.0
 #else
-        u(l,k,j,i) = 1.0*i+mod(j,k)+l
+        u(l,k,j,i) = 1.0*(l+k*T+j*T*T+i*T*T*T)
         s(l,k,j,i) = 0.0
         r(l,k,j,i) = 0.0
 #endif
@@ -51,7 +54,7 @@
       num = 0
       tmin = 999999999.9
       tmax = -999999999.9
-      x = 0.0
+      junk = 0.0
       write(6,*) '(i,j,k,l),time,time,speedup'
 ! This is not particularly efficient but other methods
 ! are harder to implement in Fortran 77.
@@ -63,12 +66,13 @@
      &    (((j.ne.k).and.(j.ne.l)).and.(k.ne.l))) then
         num = num+1
         d = T
-        f = 1.0
+        f = 1.0 ! scaling factor
+! new
         t0 = omp_get_wtime()
         call new_sort_4(u,s,d,d,d,d,i,j,k,l,f)
         t1 = omp_get_wtime()
         dt1 = t1-t0
-        x  = x+ddot(d*d*d*d,u,1,s,1)
+        junk  = junk + ddot(d*d*d*d,u,1,s,1)
         tavg = tavg + (dt1)
         tmin = min(tmin,(dt1))
         tmax = max(tmax,(dt1))
@@ -77,11 +81,28 @@
         call tce_sort_4(u,r,d,d,d,d,i,j,k,l,f)
         t1 = omp_get_wtime()
         dt2 = t1-t0
-        x  = ddot(d*d*d*d,u,1,s,1)
+        junk = junk + ddot(d*d*d*d,u,1,s,1)
         write(6,9) i,j,k,l,dt1,dt2,dt2/dt1
         ravg = tavg + dt2
         rmin = min(rmin,dt2)
         rmax = max(rmax,dt2)
+! validate
+        call diff4d(d,s,r,z)
+        if (z.gt.0.0) then
+            print*,'WRONG ',z
+            exit
+        endif
+! reshape
+        t0 = omp_get_wtime()
+        x = reshape(u,(/d,d,d,d/),order=(/i,j,k,l/))
+        t1 = omp_get_wtime()
+        dt3 = t1-t0
+        junk = junk + ddot(d*d*d*d,u,1,x,1)
+        xavg = xavg + dt3
+        xmin = min(xmin,dt3)
+        xmax = max(xmax,dt3)
+        write(6,8) i,j,k,l,dt1,dt3,dt3/dt1
+! validate
         call diff4d(d,s,r,z)
         if (z.gt.0.0) then
             print*,'WRONG ',z
@@ -93,11 +114,16 @@
       enddo
       enddo
       tavg = tavg/num
+      ravg = ravg/num
+      xavg = xavg/num
+      write(6,1) rmin,rmax,ravg
       write(6,1) tmin,tmax,tavg
-      print*,'junk = ',x
+      write(6,1) xmin,xmax,xavg
+      print*,'junk = ',junk
    1  format('min = ',f10.5,' max = ',f10.5,' avg = ',f10.5)
    3  format(4a2,10x,10x,10x,10x)
-   9  format('NEW,TCE ',4i2,' times = ',2f10.5,' (s) ',f10.5)
+   8  format('NEW,RESHAPE ',4i2,' times = ',2f10.5,' (s) ',f10.5)
+   9  format('NEW,TCE     ',4i2,' times = ',2f10.5,' (s) ',f10.5)
       end program
       subroutine diff4d(n,x,y,z)
       implicit none
