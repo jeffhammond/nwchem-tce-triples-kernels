@@ -28,7 +28,7 @@ double dgemm_gflops(int m, int n, int k)
     int cola = k;
     int rowb = k;
     int colb = n;
-    int colc = n;
+    //int colc = n;
 
     long mn = m*n;
     long mk = m*k;

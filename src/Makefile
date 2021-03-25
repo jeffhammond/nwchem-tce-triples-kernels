@@ -19,6 +19,7 @@ FAT_STACK = -Wl,-stack_size -Wl,100000000
 ifeq ($(TARGET),NVHPC)
     CC       = nvc
     FC       = nvfortran
+    OPT     += -DUSE_CUDA_UM -cuda
     OPT     += -O3
     #OPT     += -acc		# OpenACC
     OPT     += -mp		# OpenMP

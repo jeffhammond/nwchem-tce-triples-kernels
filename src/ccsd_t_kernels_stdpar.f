@@ -1,3 +1,23 @@
+      subroutine par_zero(h3d,h2d,h1d,p6d,p5d,p4d,triplesx)
+      IMPLICIT NONE
+      integer h3d,h2d,h1d,p6d,p5d,p4d
+      integer h3,h2,h1,p6,p5,p4
+      double precision triplesx(h3d,h2d,h1d,p6d,p5d,p4d)
+      do concurrent (p4=1:p4d)
+      do concurrent (p5=1:p5d)
+      do concurrent (p6=1:p6d)
+      do concurrent (h1=1:h1d)
+      do concurrent (h2=1:h2d)
+      do concurrent (h3=1:h3d)
+       triplesx(h3,h2,h1,p6,p5,p4)=0.0d0
+      enddo
+      enddo
+      enddo
+      enddo
+      enddo
+      enddo
+      return
+      end
 c
 c These have been separated out from ccsd_t_singles_l.F and ccsd_t_doubles_l.F
 c
@@ -711,4 +731,3 @@ c
       enddo
       return
       end
-
