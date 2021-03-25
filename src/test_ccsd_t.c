@@ -1380,9 +1380,6 @@ int main(int argc, char * argv[])
       for (int i=0; i<reps; i++)
       {
         long long totalflops = 0;
-        //zero_array(tile6, t3t);
-        //cudaMemPrefetchAsync(t3t, tile6*sizeof(double), 0, 0);
-	//cudaDeviceSynchronize();
         tgt_zero_(&tilesize, &tilesize, &tilesize, &tilesize, &tilesize, &tilesize, t3t);
         ttt0 = omp_get_wtime();
 #ifdef DO_S1
