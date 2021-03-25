@@ -31,7 +31,7 @@ ifeq ($(TARGET),NVHPC)
     #OPT     += -cuda
     #OPT     += -cudalib
     #OPT     += -cudaver=11.2
-    OPT     += -Minfo=accel
+    OPT     += -Minfo=accel,mp,vect
     OPT     += -g
     ASM      = -S -fsource-asm -fcode-asm
     CFLAGS   = $(OPT) -c99 $(ACTIVE)
