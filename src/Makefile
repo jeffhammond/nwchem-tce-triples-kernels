@@ -21,15 +21,16 @@ FAT_STACK = -Wl,-stack_size -Wl,100000000
 ifeq ($(TARGET),NVHPC)
     CC       = nvc
     FC       = nvfortran
-    OPT     += -DUSE_CUDA_UM -cuda
+    #OPT     += -DUSE_CUDA_UM -cuda
     OPT     += -O3
     OPT     += -acc		# OpenACC
+    OPT     += -Mlarge_arrays   # OpenACC overflows 32b offsets
     OPT     += -mp		# OpenMP
     #OPT     += -target=multicore
     OPT     += -target=gpu	# Offload to GPU
     OPT     += -gpu=managed	# Heap allocations uses CUDA memory
-    #OPT     += -cuda
-    #OPT     += -cudalib
+    OPT     += -cuda
+    OPT     += -cudalib
     #OPT     += -cudaver=11.2
     OPT     += -Minfo=accel,mp,vect
     OPT     += -g
@@ -39,7 +40,6 @@ ifeq ($(TARGET),NVHPC)
     #FFLAGS  += -stdpar          # Fortran DO CONCURRENT
     FFLAGS  += -stdpar=gpu
     #FFLAGS  += -stdpar=multicore
-    #FFLAGS  += -Minfo=mp,vect
     CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
     LD       = $(CC)
     LDFLAGS  = $(CFLAGS)
@@ -50,16 +50,19 @@ endif
 ifeq ($(TARGET),INTEL)
     CC       = icc
     FC       = ifort
-    OPT     += -O1 -qopenmp -xHOST #-mavx
+    OPT     += -O3 -qopenmp
+    OPT     += -xCORE-AVX512 -qopt-zmm-usage=low
+    OPT     += -qopenmp-offload=host
+    OPT     += -mfma
     OPT	    += -qopt-report
-    OPT     += -g3
+    OPT     += -g
     ASM      = -S -fsource-asm -fcode-asm
     CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
     FFLAGS   = $(OPT) -cpp -DINTEL_FORTRAN -heap-arrays 1000000
     CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
     LD       = $(FC)
     LDFLAGS  = $(FFLAGS) -nofor-main
-    LDFLAGS += -Wl,-no_pie # debugging with IDB only
+    #LDFLAGS += -Wl,-no_pie # debugging with IDB only
     LIBS     = -mkl=parallel
     #LIBS     = -mkl=sequential
 endif

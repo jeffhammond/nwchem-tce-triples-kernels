@@ -112,9 +112,9 @@ int main(int argc, char * argv[])
 
     printf("testing NWChem CCSD(T) kernels on %d threads with tilesize %d \n", omp_get_max_threads(), tilesize);
 
+#if 0
     double eff_peak = -9999.9;
 
-#if 0
     /* approximate memory bandwidth (memcpy) */
     eff_peak = memcpy_bandwidth(tile6);
     printf("MEMCPY gigabytes/s of your processor is %lf \n", eff_peak);
