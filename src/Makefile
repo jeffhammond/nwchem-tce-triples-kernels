@@ -6,6 +6,7 @@ ACTIVE  += -DDO_D2
 #ACTIVE  += -DDO_BLAS_KERNELS
 ACTIVE  += -DDO_STDPAR_KERNELS
 ACTIVE  += -DDO_TARGET_KERNELS
+ACTIVE  += -DDO_ACC_KERNELS
 #ACTIVE  += -DDEBUG
 
 TARGET := NVHPC
@@ -22,7 +23,7 @@ ifeq ($(TARGET),NVHPC)
     FC       = nvfortran
     OPT     += -DUSE_CUDA_UM -cuda
     OPT     += -O3
-    #OPT     += -acc		# OpenACC
+    OPT     += -acc		# OpenACC
     OPT     += -mp		# OpenMP
     #OPT     += -target=multicore
     OPT     += -target=gpu	# Offload to GPU
@@ -269,10 +270,12 @@ EXTRATESTS := test_malloc.x test_fortran_math.x test_dgemm_shapes.x
 CCOBJECTS := ccsd_t_kernels_omp.o ccsd_t_kernels_ref.o \
              ccsd_t_kernels_1d.o ccsd_t_kernels_nd.o \
              ccsd_t_dts_kernels_ref.o ccsd_t_dts_kernels_omp.o \
-	     ccsd_t_kernels_stdpar.o ccsd_t_kernels_target.o #ccsd_t_kernels_blas.o
+	     ccsd_t_kernels_stdpar.o ccsd_t_kernels_target.o \
+	     ccsd_t_kernels_acc.o #ccsd_t_kernels_blas.o
 HEADERS := safemalloc.h pragma_vendor.h pragma_openmp.h fake_omp.h blas.h
 CCHEADERS := ccsd_t_kernels.h ccsd_t_kernels_omp.h ccsd_t_kernels_ref.h ccsd_t_kernels_1d.h \
-	     ccsd_t_kernels_nd.h ccsd_t_kernels_stdpar.h ccsd_t_kernels_target.h # ccsd_t_kernels_blas.h
+	     ccsd_t_kernels_nd.h ccsd_t_kernels_stdpar.h ccsd_t_kernels_target.h \
+	    ccsd_t_kernels_acc.h # ccsd_t_kernels_blas.h
 
 all: $(TESTS)
 
