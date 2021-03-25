@@ -1,19 +1,21 @@
-#define T 100
+#define T 1200
       program test_new_sort2
       use omp_lib
       implicit none
       double precision f
-      double precision u(T,T)
-      double precision s(T,T)
-      double precision r(T,T)
-      double precision t0, t1, dt1, dt2
-      double precision x
-      integer d,d1,d2
+      double precision u(T,T) ! unsorted
+      double precision s(T,T) ! sorted - new
+      double precision r(T,T) ! sorted - reference
+      double precision x(T,T) ! sorted - reshape
+      double precision t0, t1, dt1, dt2, dt3
+      double precision junk
+      integer d,d1,d2,d3
       integer i,j
       integer num
       integer seed1,seed2
       double precision tmin,tmax,tavg
       double precision rmin,rmax,ravg
+      double precision xmin,xmax,xavg
       double precision z
       double precision ddot
       external ddot
@@ -28,7 +30,7 @@
         s(j,i) = 0.0
         r(j,i) = 0.0
 #else
-        u(j,i) = 1.0*i+mod(j,i)+j
+        u(j,i) = 1.0d0*(j+i*T)
         s(j,i) = 0.0
         r(j,i) = 0.0
 #endif
@@ -37,7 +39,7 @@
       num = 0
       tmin = 999999999.9
       tmax = -999999999.9
-      x = 0.0
+      junk = 0.0
       write(6,*) '(i,j),time,time,speedup'
 ! This is not particularly efficient but other methods
 ! are harder to implement in Fortran 77.
@@ -48,13 +50,14 @@
         d  = T
         d1 = T
         d2 = T
-        f = 1.0
+        f = 1.0 ! scaling factor
+! new
         t0 = omp_get_wtime()
         call new_sort_2(u,s,d1,d2,i,j,f)
         t1 = omp_get_wtime()
         dt1 = t1-t0
-        x  = x+ddot(d*d,u,1,s,1)
-        tavg = tavg + (dt1)
+        junk  = junk + ddot(d*d,u,1,s,1)
+        tavg = tavg + dt1
         tmin = min(tmin,(dt1))
         tmax = max(tmax,(dt1))
 ! reference
@@ -62,12 +65,29 @@
         call tce_sort_2(u,r,d1,d2,i,j,f)
         t1 = omp_get_wtime()
         dt2 = t1-t0
-        x  = ddot(d*d,u,1,s,1)
-        write(6,9) i,j,dt1,dt2,dt2/dt1
-        ravg = tavg + dt2
+        junk = junk + ddot(d*d,u,1,s,1)
+        ravg = ravg + dt2
         rmin = min(rmin,dt2)
         rmax = max(rmax,dt2)
+        write(6,9) i,j,dt1,dt2,dt2/dt1
+! validate
         call diff2d(d,s,r,z)
+        if (z.gt.0.0) then
+            print*,'WRONG ',z
+            exit
+        endif
+! reshape
+        t0 = omp_get_wtime()
+        x = reshape(u,(/d1,d2/),order=(/i,j/))
+        t1 = omp_get_wtime()
+        dt3 = t1-t0
+        junk = junk + ddot(d*d,u,1,x,1)
+        xavg = xavg + dt2
+        xmin = min(xmin,dt3)
+        xmax = max(xmax,dt3)
+        write(6,8) i,j,dt1,dt3,dt3/dt1
+! validate
+        call diff2d(d,x,r,z)
         if (z.gt.0.0) then
             print*,'WRONG ',z
             exit
@@ -76,11 +96,16 @@
       enddo
       enddo
       tavg = tavg/num
+      ravg = ravg/num
+      xavg = xavg/num
+      write(6,1) rmin,rmax,ravg
       write(6,1) tmin,tmax,tavg
-      print*,'junk = ',x
+      write(6,1) xmin,xmax,xavg
+      print*,'junk = ',junk
    1  format('min = ',e10.3,' max = ',e10.3,' avg = ',e10.3)
    3  format(2a2,10x,10x)
-   9  format('NEW,TCE ',2i2,' times = ',2e10.3,' (s) ',f10.5)
+   8  format('NEW,RESHAPE ',2i2,' times = ',2e10.3,' (s) ',f10.5)
+   9  format('NEW,TCE     ',2i2,' times = ',2e10.3,' (s) ',f10.5)
       end program
       subroutine diff2d(n,x,y,z)
       implicit none

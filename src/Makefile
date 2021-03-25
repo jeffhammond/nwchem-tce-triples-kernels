@@ -7,7 +7,7 @@ ACTIVE  += -DDO_D2
 ACTIVE  += -DDO_STDPAR_KERNELS
 #ACTIVE  += -DDEBUG
 
-TARGET := NVHPC
+TARGET := GCC
 
 # Intel Fortran throws the "cannot simd" warning for 3 and 4...
 OMP_COLLAPSE_LEVEL=3
@@ -63,15 +63,16 @@ ifeq ($(TARGET),INTEL)
 endif
 
 ifeq ($(TARGET),GCC)
-    CC       = gcc
-    FC       = gfortran
-    OPT     += -O3 -fopenmp -march=native -ftree-vectorize -ffp-contract=fast
+    CC       = gcc-10
+    FC       = gfortran-10
+    OPT     += -O3 -fopenmp
     CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
     FFLAGS   = $(OPT) -cpp
     CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
     LD       = $(FC)
     LDFLAGS  = $(FFLAGS)
-    LIBS     = -L/usr/lib64/atlas/ -lptf77blas -latlas
+    #LIBS     = -L/usr/lib64/atlas/ -lptf77blas -latlas
+    LIBS     = -framework Accelerate -lgfortran
 endif
 
 ifeq ($(TARGET),MAC-CLANG)
