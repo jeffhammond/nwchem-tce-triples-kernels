@@ -21,6 +21,12 @@ double dger_gflops(int m, int n);
 double daxpy_gflops(int n);
 double memcpy_bandwidth(size_t n);
 
+void init(void);
+void final(void);
+double cudgemm_gflops(int m, int n, int k);
+double cudger_gflops(int m, int n);
+double cudaxpy_gflops(int n);
+
 void print_array(long long n, double * a)
 {
     if (a==NULL || n<=0) return;
