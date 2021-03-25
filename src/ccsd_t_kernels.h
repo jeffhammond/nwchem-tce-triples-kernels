@@ -6,4 +6,5 @@
 #include "ccsd_t_kernels_1d.h"
 #include "ccsd_t_kernels_nd.h"
 #include "ccsd_t_kernels_stdpar.h"
+#include "ccsd_t_kernels_target.h"
 //#include "ccsd_t_kernels_blas.h"

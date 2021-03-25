@@ -1,7 +1,7 @@
 #ifndef CCSD_T_KERNELS_STDPAR_H
 #define CCSD_T_KERNELS_STDPAR_H
 
-void par_zero(int * restrict h3, int * restrict h2, int * restrict h1, int * restrict p6, int * restrict p5, int * restrict p4, double * restrict t3);
+void par_zero_(int * restrict h3, int * restrict h2, int * restrict h1, int * restrict p6, int * restrict p5, int * restrict p4, double * restrict t3);
 
 /* declared with Fortran semantics, hence no use of const but all pointers are restrict */
 

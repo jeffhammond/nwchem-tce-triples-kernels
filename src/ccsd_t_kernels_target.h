@@ -1,6 +1,8 @@
 #ifndef CCSD_T_KERNELS_TARGET_H
 #define CCSD_T_KERNELS_TARGET_H
 
+void tgt_zero_(int * restrict h3, int * restrict h2, int * restrict h1, int * restrict p6, int * restrict p5, int * restrict p4, double * restrict t3);
+
 /* declared with Fortran semantics, hence no use of const but all pointers are restrict */
 
 void tgt_sd_t_s1_1_(int * restrict h3, int * restrict h2, int * restrict h1, int * restrict p6, int * restrict p5, int * restrict p4, double * restrict t3, double * restrict t1, double * restrict v2);
