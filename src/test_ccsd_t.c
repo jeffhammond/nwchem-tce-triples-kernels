@@ -144,6 +144,31 @@ int main(int argc, char * argv[])
     printf("DGEMM (k=t^2) GF/s of your processor is %lf \n", eff_peak);
     fflush(stdout);
 #endif
+#if 1
+    double eff_peak = -9999.9;
+
+    if (tilesize <= 30) /* test for overflow */ {
+        /* approximate achievable peak for a rather large DAXPY */
+        eff_peak = cudaxpy_gflops(tile6);
+        printf("CUBLAS DAXPY GF/s of your processor is %lf \n", eff_peak);
+        fflush(stdout);
+    }
+
+    /* approximate achievable peak by T3(ijk,abc) = T1(i,j)*V(k,abc) */
+    eff_peak = cudger_gflops(tile2, tile4);
+    printf("CUBLASD DGER  GF/s of your processor is %lf \n", eff_peak);
+    fflush(stdout);
+
+    /* approximate achievable peak by T3(ijk,abc) = T2(ijk,l)*V(l,abc) */
+    eff_peak = cudgemm_gflops(tile3, tile3, tilesize);
+    printf("CUBLAS DGEMM (k=t) GF/s of your processor is %lf \n", eff_peak);
+    fflush(stdout);
+
+    /* approximate achievable peak for a DGEMM with large enough k */
+    eff_peak = cudgemm_gflops(tile3, tile3, tile2);
+    printf("CUBLAS DGEMM (k=t^2) GF/s of your processor is %lf \n", eff_peak);
+    fflush(stdout);
+#endif
 
     double tt0 = 0.0, tt1 = 0.0, ttt0 = 0.0, ttt1 = 0.0, dt = 0.0;
 

@@ -41,10 +41,12 @@ ifeq ($(TARGET),NVHPC)
     FFLAGS  += -stdpar=gpu
     #FFLAGS  += -stdpar=multicore
     CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
+    CFLAGS  += -DUSE_GETTIMEOFDAY=1
     LD       = $(CC)
     LDFLAGS  = $(CFLAGS)
     LIBS     = -fortranlibs
     LIBS    += ${HOME}/NVIDIA/hpc_sdk/Linux_x86_64/21.2/compilers/lib/libblas.a
+    LIBS    += -lcublas
 endif
 
 ifeq ($(TARGET),INTEL)
@@ -282,8 +284,8 @@ CCHEADERS := ccsd_t_kernels.h ccsd_t_kernels_omp.h ccsd_t_kernels_ref.h ccsd_t_k
 
 all: $(TESTS)
 
-test_ccsd_t.x: test_ccsd_t.o $(CCOBJECTS) blas_flops.o
-	$(LD) $(LDFLAGS) $< $(CCOBJECTS) blas_flops.o $(LIBS) -o $@
+test_ccsd_t.x: test_ccsd_t.o $(CCOBJECTS) blas_flops.o cublas_flops.o gettime.o
+	$(LD) $(LDFLAGS) $< $(CCOBJECTS) blas_flops.o cublas_flops.o gettime.o $(LIBS) -o $@
 
 test_dts_ccsd_t.x: test_dts_ccsd_t.o $(CCOBJECTS) blas_flops.o
 	$(LD) $(LDFLAGS) $< $(CCOBJECTS) blas_flops.o $(LIBS) -o $@

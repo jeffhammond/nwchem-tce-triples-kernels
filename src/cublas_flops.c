@@ -1,3 +1,5 @@
+#define DEBUG 1
+
 #include <string.h>
 #include <math.h>
 
@@ -15,7 +17,7 @@ double gettime(void);
 #include "safemalloc.h"
 
 /* number of test repititions */
-const int nr = 1;
+static const int nr = 1;
 
 curandGenerator_t gen;
 cublasHandle_t h;
@@ -38,11 +40,13 @@ void init(void)
     if (rc != cudaSuccess)  {
         printf("cublasCreate returned %d\n", rc);
     }
+    cudaDeviceSynchronize();
 }
 
 void final(void)
 {
     int rc;
+    cudaDeviceSynchronize();
 
     rc = curandDestroyGenerator(gen);
     if (rc != cudaSuccess)  {
@@ -104,19 +108,24 @@ double cudgemm_gflops(int m, int n, int k)
     double beta  = 1.0;
 
     /* warmup */
+    cudaDeviceSynchronize();
     cublasDgemm(h, notrans, notrans, rowa, colb, cola,
 		&alpha, a, rowa, b, rowb,
 		&beta, c, rowc);
+    cudaDeviceSynchronize();
     double tt0 = gettime();
-    for (int r = 0; r<nr; r++)
+    for (int r = 0; r<nr; r++) {
         cublasDgemm(h, notrans, notrans, rowa, colb, cola,
 		    &alpha, a, rowa, b, rowb,
 		    &beta, c, rowc);
+        cudaDeviceSynchronize();
+    }
     double tt1 = gettime();
 
-    unsigned long long mnk = m;
+    double mnk = m;
     mnk *= n;
     mnk *= k;
+    printf("mnk=%lf\n",mnk);
     double dt = (tt1-tt0)/nr;
     double result = (2.e-9*mnk/dt);
 #ifdef DEBUG
@@ -172,13 +181,15 @@ double cudger_gflops(int m, int n)
 
     /* warmup */
     cublasDger(h ,m, n, &alpha, x, inc, y, inc, a, m);
+    cudaDeviceSynchronize();
     double tt0 = gettime();
     for (int r = 0; r<nr; r++)
         cublasDger(h ,m, n, &alpha, x, inc, y, inc, a, m);
+    cudaDeviceSynchronize();
     double tt1 = gettime();
 
     double dt = (tt1-tt0)/nr;
-    double result = (2.e-9*mn/dt);
+    double result = (2.e-9*m*n/dt);
 #ifdef DEBUG
     printf("CUBLAS DGER(m=%d,n=%d,alpha=%lf) took %lf seconds, GF/s = %lf \n",
            m, n, alpha, dt, result);
@@ -224,9 +235,11 @@ double cudaxpy_gflops(int n)
 
     /* warmup */
     cublasDaxpy(h ,n, &alpha, x, inc, y, inc);
+    cudaDeviceSynchronize();
     double tt0 = gettime();
     for (int r = 0; r<nr; r++)
         cublasDaxpy(h, n, &alpha, x, inc, y, inc);
+    cudaDeviceSynchronize();
     double tt1 = gettime();
 
     double dt = (tt1-tt0)/nr;

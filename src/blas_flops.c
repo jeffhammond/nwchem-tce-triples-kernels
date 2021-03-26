@@ -14,7 +14,7 @@
 #include "blas.h"
 
 /* number of test repititions */
-const int nr = 1;
+static const int nr = 1;
 
 double dgemm_gflops(int m, int n, int k)
 {

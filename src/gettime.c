@@ -2,7 +2,7 @@
 #include <assert.h>
 #include <errno.h>
 
-#if defined(_OPENMP)
+#if defined(_OPENMP) && 0
 
 #include <omp.h>
 
@@ -14,7 +14,7 @@ double gettime(void)
 }
 
 // Apple does not have C11 support in the C standard library...
-#elif defined(__APPLE__)
+#elif defined(__APPLE__) && 0
 
 #include <mach/mach.h>
 #include <mach/mach_time.h>
