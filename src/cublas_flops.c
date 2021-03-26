@@ -1,7 +1,13 @@
-#define DEBUG 1
-
 #include <string.h>
 #include <math.h>
+
+#ifdef _OPENMP
+#include <omp.h>
+#else
+#include "fake_omp.h"
+#endif
+#include "pragma_openmp.h"
+#include "pragma_vendor.h"
 
 #include <cuda.h>
 #include <cuda_runtime.h>
@@ -9,23 +15,23 @@
 #include <curand.h>
 #include <cublas_v2.h>
 
-// gettime.c
-double gettime(void);
-
 // safemalloc uses cudaMallocManaged
 #define USE_CUDA_UM 1
 #include "safemalloc.h"
 
 /* number of test repititions */
-static const int nr = 1;
+static const int nr = 1000;
 
-curandGenerator_t gen;
-cublasHandle_t h;
+//static curandGenerator_t gen;
 
 void init(void)
 {
-    int rc;
+    int rc = cudaDeviceSynchronize();
+    if (rc != cudaSuccess)  {
+        printf("cudaDeviceSynchronize returned %d\n", rc);
+    }
    
+#if 0
     rc = curandCreateGenerator(&gen, CURAND_RNG_PSEUDO_DEFAULT);
     if (rc != cudaSuccess)  {
         printf("curandCreateGenerator returned %d\n", rc);
@@ -35,28 +41,27 @@ void init(void)
     if (rc != cudaSuccess)  {
         printf("curandSetPseudoRandomGeneratorSeed returned %d\n", rc);
     }
+#endif
 
-    rc = cublasCreate(&h);
+    rc = cudaDeviceSynchronize();
     if (rc != cudaSuccess)  {
-        printf("cublasCreate returned %d\n", rc);
+        printf("cudaDeviceSynchronize returned %d\n", rc);
     }
-    cudaDeviceSynchronize();
 }
 
 void final(void)
 {
-    int rc;
-    cudaDeviceSynchronize();
+    int rc = cudaDeviceSynchronize();
+    if (rc != cudaSuccess)  {
+        printf("cudaDeviceSynchronize returned %d\n", rc);
+    }
 
+#if 0
     rc = curandDestroyGenerator(gen);
     if (rc != cudaSuccess)  {
         printf("curandDestroyGenerator returned %d\n", rc);
     }
-   
-    rc = cublasDestroy(h);
-    if (rc != cudaSuccess)  {
-        printf("cublasDestroy returned %d\n", rc);
-    }
+#endif
 }
 
 double cudgemm_gflops(int m, int n, int k)
@@ -81,13 +86,14 @@ double cudgemm_gflops(int m, int n, int k)
     double * b = safemalloc( kn*sizeof(double) );
     double * c = safemalloc( mn*sizeof(double) );
     if (a==NULL || b==NULL || c==NULL) {
-    if (a!=NULL) safefree(a);
-    if (b!=NULL) safefree(b);
-    if (c!=NULL) safefree(c);
-    printf("dgemm_flops: skipping test because memory could not be allocated \n");
+        if (a!=NULL) safefree(a);
+        if (b!=NULL) safefree(b);
+        if (c!=NULL) safefree(c);
+        printf("dgemm_flops: skipping test because memory could not be allocated \n");
         return 0.0;
     }
 
+#if 0
     int rc;
     
     rc = curandGenerateUniformDouble(gen, a, mk);
@@ -102,25 +108,53 @@ double cudgemm_gflops(int m, int n, int k)
     if (rc != cudaSuccess)  {
         printf("curandGenerateUniformDouble returned %d\n", rc);
     }
+#else
+    {
+        double denom = 2.0/(double)RAND_MAX;
+
+        for (long i=0; i<mk; i++)
+            a[i] =  1.0 - denom*(double)rand();
+
+        for (long i=0; i<kn; i++)
+            b[i] =  1.0 - denom*(double)rand();
+
+        for (long i=0; i<mn; i++)
+            c[i] =  1.0 - denom*(double)rand();
+    }
+#endif
 
     cublasOperation_t notrans = CUBLAS_OP_N;
     double alpha = 1.0;
     double beta  = 1.0;
 
+    cublasHandle_t h;
+    int rc = cublasCreate(&h);
+    if (rc != cudaSuccess)  {
+        printf("cublasCreate returned %d\n", rc);
+    }
+
     /* warmup */
     cudaDeviceSynchronize();
-    cublasDgemm(h, notrans, notrans, rowa, colb, cola,
-		&alpha, a, rowa, b, rowb,
-		&beta, c, rowc);
+    rc = cublasDgemm(h, notrans, notrans, rowa, colb, cola,
+                         &alpha, a, rowa, b, rowb,
+                         &beta, c, rowc);
+    if (rc != cudaSuccess)  {
+        printf("cublasDgemm returned %d\n", rc);
+    }
     cudaDeviceSynchronize();
-    double tt0 = gettime();
+    double tt0 = omp_get_wtime();
     for (int r = 0; r<nr; r++) {
         cublasDgemm(h, notrans, notrans, rowa, colb, cola,
-		    &alpha, a, rowa, b, rowb,
-		    &beta, c, rowc);
-        cudaDeviceSynchronize();
+                    &alpha, a, rowa, b, rowb,
+                    &beta, c, rowc);
     }
-    double tt1 = gettime();
+    cudaDeviceSynchronize();
+    double tt1 = omp_get_wtime();
+   
+    rc = cublasDestroy(h);
+    if (rc != cudaSuccess)  {
+        printf("cublasDestroy returned %d\n", rc);
+    }
 
     double mnk = m;
     mnk *= n;
@@ -161,6 +195,7 @@ double cudger_gflops(int m, int n)
         return 0.0;
     }
 
+#if 0
     int rc;
     
     rc = curandGenerateUniformDouble(gen, a, mn);
@@ -175,18 +210,47 @@ double cudger_gflops(int m, int n)
     if (rc != cudaSuccess)  {
         printf("curandGenerateUniformDouble returned %d\n", rc);
     }
+#else
+    {
+        double denom = 2.0/(double)RAND_MAX;
+
+        for (long i=0; i<m; i++)
+            x[i] =  1.0 - denom*(double)rand();
+
+        for (long i=0; i<n; i++)
+            y[i] =  1.0 - denom*(double)rand();
+
+        for (long i=0; i<mn; i++)
+            a[i] =  1.0 - denom*(double)rand();
+    }
+#endif
 
     int inc = 1;
     double alpha = 1.0;
 
+    cublasHandle_t h;
+    int rc = cublasCreate(&h);
+    if (rc != cudaSuccess)  {
+        printf("cublasCreate returned %d\n", rc);
+    }
+
     /* warmup */
-    cublasDger(h ,m, n, &alpha, x, inc, y, inc, a, m);
+    rc = cublasDger(h ,m, n, &alpha, x, inc, y, inc, a, m);
+    if (rc != cudaSuccess)  {
+        printf("cublasDger returned %d\n", rc);
+    }
     cudaDeviceSynchronize();
-    double tt0 = gettime();
-    for (int r = 0; r<nr; r++)
+    double tt0 = omp_get_wtime();
+    for (int r = 0; r<nr; r++) {
         cublasDger(h ,m, n, &alpha, x, inc, y, inc, a, m);
+    }
     cudaDeviceSynchronize();
-    double tt1 = gettime();
+    double tt1 = omp_get_wtime();
+   
+    rc = cublasDestroy(h);
+    if (rc != cudaSuccess)  {
+        printf("cublasDestroy returned %d\n", rc);
+    }
 
     double dt = (tt1-tt0)/nr;
     double result = (2.e-9*m*n/dt);
@@ -219,6 +283,7 @@ double cudaxpy_gflops(int n)
         return 0.0;
     }
 
+#if 0
     int rc;
     
     rc = curandGenerateUniformDouble(gen, x, n);
@@ -229,18 +294,44 @@ double cudaxpy_gflops(int n)
     if (rc != cudaSuccess)  {
         printf("curandGenerateUniformDouble returned %d\n", rc);
     }
+#else
+    {
+        double denom = 2.0/(double)RAND_MAX;
+
+        for (int i=0; i<n; i++)
+            x[i] =  1.0 - denom*(double)rand();
+
+        for (int i=0; i<n; i++)
+            y[i] =  1.0 - denom*(double)rand();
+    }
+#endif
 
     int inc = 1;
     double alpha = 1.0;
 
+    cublasHandle_t h;
+    int rc = cublasCreate(&h);
+    if (rc != cudaSuccess)  {
+        printf("cublasCreate returned %d\n", rc);
+    }
+
     /* warmup */
-    cublasDaxpy(h ,n, &alpha, x, inc, y, inc);
+    rc = cublasDaxpy(h ,n, &alpha, x, inc, y, inc);
+    if (rc != cudaSuccess)  {
+        printf("cublasDaxpy returned %d\n", rc);
+    }
     cudaDeviceSynchronize();
-    double tt0 = gettime();
-    for (int r = 0; r<nr; r++)
+    double tt0 = omp_get_wtime();
+    for (int r = 0; r<nr; r++) {
         cublasDaxpy(h, n, &alpha, x, inc, y, inc);
+    }
     cudaDeviceSynchronize();
-    double tt1 = gettime();
+    double tt1 = omp_get_wtime();
+   
+    rc = cublasDestroy(h);
+    if (rc != cudaSuccess)  {
+        printf("cublasDestroy returned %d\n", rc);
+    }
 
     double dt = (tt1-tt0)/nr;
     double result = (2.e-9*n/dt);

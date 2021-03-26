@@ -22,7 +22,7 @@ ifeq ($(TARGET),NVHPC)
     CC       = nvc
     FC       = nvfortran
     #OPT     += -DUSE_CUDA_UM -cuda
-    OPT     += -O3
+    OPT     += -O0
     OPT     += -acc		# OpenACC
     OPT     += -Mlarge_arrays   # OpenACC overflows 32b offsets
     OPT     += -mp		# OpenMP
@@ -284,8 +284,8 @@ CCHEADERS := ccsd_t_kernels.h ccsd_t_kernels_omp.h ccsd_t_kernels_ref.h ccsd_t_k
 
 all: $(TESTS)
 
-test_ccsd_t.x: test_ccsd_t.o $(CCOBJECTS) blas_flops.o cublas_flops.o gettime.o
-	$(LD) $(LDFLAGS) $< $(CCOBJECTS) blas_flops.o cublas_flops.o gettime.o $(LIBS) -o $@
+test_ccsd_t.x: test_ccsd_t.o $(CCOBJECTS) blas_flops.o cublas_flops.o
+	$(LD) $(LDFLAGS) $< $(CCOBJECTS) blas_flops.o cublas_flops.o $(LIBS) -o $@
 
 test_dts_ccsd_t.x: test_dts_ccsd_t.o $(CCOBJECTS) blas_flops.o
 	$(LD) $(LDFLAGS) $< $(CCOBJECTS) blas_flops.o $(LIBS) -o $@
