@@ -22,9 +22,9 @@ ifeq ($(TARGET),NVHPC)
     CC       = nvc
     FC       = nvfortran
     #OPT     += -DUSE_CUDA_UM -cuda
-    OPT     += -O0
+    OPT     += -O3
     OPT     += -acc		# OpenACC
-    OPT     += -Mlarge_arrays   # OpenACC overflows 32b offsets
+    #OPT     += -Mlarge_arrays   # OpenACC overflows 32b offsets
     OPT     += -mp		# OpenMP
     #OPT     += -target=multicore
     OPT     += -target=gpu	# Offload to GPU
