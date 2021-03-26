@@ -12,8 +12,13 @@
 #include <cuda.h>
 #include <cuda_runtime.h>
 #include <cuda_runtime_api.h>
-#include <curand.h>
 #include <cublas_v2.h>
+
+#define USE_CURAND 1
+#ifdef USE_CURAND
+#include <curand.h>
+static curandGenerator_t gen;
+#endif
 
 // safemalloc uses cudaMallocManaged
 #define USE_CUDA_UM 1
@@ -22,8 +27,6 @@
 /* number of test repititions */
 static const int nr = 1000;
 
-//static curandGenerator_t gen;
-
 void init(void)
 {
     int rc = cudaDeviceSynchronize();
@@ -31,7 +34,7 @@ void init(void)
         printf("cudaDeviceSynchronize returned %d\n", rc);
     }
    
-#if 0
+#if USE_CURAND
     rc = curandCreateGenerator(&gen, CURAND_RNG_PSEUDO_DEFAULT);
     if (rc != cudaSuccess)  {
         printf("curandCreateGenerator returned %d\n", rc);
@@ -56,7 +59,7 @@ void final(void)
         printf("cudaDeviceSynchronize returned %d\n", rc);
     }
 
-#if 0
+#if USE_CURAND
     rc = curandDestroyGenerator(gen);
     if (rc != cudaSuccess)  {
         printf("curandDestroyGenerator returned %d\n", rc);
@@ -93,20 +96,22 @@ double cudgemm_gflops(int m, int n, int k)
         return 0.0;
     }
 
-#if 0
-    int rc;
-    
-    rc = curandGenerateUniformDouble(gen, a, mk);
-    if (rc != cudaSuccess)  {
-        printf("curandGenerateUniformDouble returned %d\n", rc);
-    }
-    rc = curandGenerateUniformDouble(gen, b, kn);
-    if (rc != cudaSuccess)  {
-        printf("curandGenerateUniformDouble returned %d\n", rc);
-    }
-    rc = curandGenerateUniformDouble(gen, c, mn);
-    if (rc != cudaSuccess)  {
-        printf("curandGenerateUniformDouble returned %d\n", rc);
+#if USE_CURAND
+    {
+        int rc;
+        
+        rc = curandGenerateUniformDouble(gen, a, mk);
+        if (rc != cudaSuccess)  {
+            printf("curandGenerateUniformDouble returned %d\n", rc);
+        }
+        rc = curandGenerateUniformDouble(gen, b, kn);
+        if (rc != cudaSuccess)  {
+            printf("curandGenerateUniformDouble returned %d\n", rc);
+        }
+        rc = curandGenerateUniformDouble(gen, c, mn);
+        if (rc != cudaSuccess)  {
+            printf("curandGenerateUniformDouble returned %d\n", rc);
+	}
     }
 #else
     {
@@ -195,20 +200,22 @@ double cudger_gflops(int m, int n)
         return 0.0;
     }
 
-#if 0
-    int rc;
-    
-    rc = curandGenerateUniformDouble(gen, a, mn);
-    if (rc != cudaSuccess)  {
-        printf("curandGenerateUniformDouble returned %d\n", rc);
-    }
-    rc = curandGenerateUniformDouble(gen, x, m);
-    if (rc != cudaSuccess)  {
-        printf("curandGenerateUniformDouble returned %d\n", rc);
-    }
-    rc = curandGenerateUniformDouble(gen, y, n);
-    if (rc != cudaSuccess)  {
-        printf("curandGenerateUniformDouble returned %d\n", rc);
+#if USE_CURAND
+    {
+        int rc;
+        
+        rc = curandGenerateUniformDouble(gen, a, mn);
+        if (rc != cudaSuccess)  {
+            printf("curandGenerateUniformDouble returned %d\n", rc);
+        }
+        rc = curandGenerateUniformDouble(gen, x, m);
+        if (rc != cudaSuccess)  {
+            printf("curandGenerateUniformDouble returned %d\n", rc);
+        }
+        rc = curandGenerateUniformDouble(gen, y, n);
+        if (rc != cudaSuccess)  {
+            printf("curandGenerateUniformDouble returned %d\n", rc);
+        }
     }
 #else
     {
@@ -283,16 +290,18 @@ double cudaxpy_gflops(int n)
         return 0.0;
     }
 
-#if 0
-    int rc;
-    
-    rc = curandGenerateUniformDouble(gen, x, n);
-    if (rc != cudaSuccess)  {
-        printf("curandGenerateUniformDouble returned %d\n", rc);
-    }
-    rc = curandGenerateUniformDouble(gen, y, n);
-    if (rc != cudaSuccess)  {
-        printf("curandGenerateUniformDouble returned %d\n", rc);
+#if USE_CURAND
+    {
+        int rc;
+        
+        rc = curandGenerateUniformDouble(gen, x, n);
+        if (rc != cudaSuccess)  {
+            printf("curandGenerateUniformDouble returned %d\n", rc);
+        }
+        rc = curandGenerateUniformDouble(gen, y, n);
+        if (rc != cudaSuccess)  {
+            printf("curandGenerateUniformDouble returned %d\n", rc);
+        }
     }
 #else
     {
