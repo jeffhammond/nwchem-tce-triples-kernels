@@ -2,14 +2,14 @@ ACTIVE   =
 ACTIVE  += -DDO_S1
 ACTIVE  += -DDO_D1
 ACTIVE  += -DDO_D2
-#ACTIVE  += -DDO_C_KERNELS
+ACTIVE  += -DDO_C_KERNELS
 #ACTIVE  += -DDO_BLAS_KERNELS
-ACTIVE  += -DDO_STDPAR_KERNELS
+#ACTIVE  += -DDO_STDPAR_KERNELS
 ACTIVE  += -DDO_TARGET_KERNELS
-ACTIVE  += -DDO_ACC_KERNELS
-#ACTIVE  += -DDEBUG
+#ACTIVE  += -DDO_ACC_KERNELS
+ACTIVE  += -DDEBUG
 
-TARGET := ROCM
+TARGET := NVHPC
 
 # Intel Fortran throws the "cannot simd" warning for 3 and 4...
 OMP_COLLAPSE_LEVEL=3
@@ -54,19 +54,18 @@ ifeq ($(TARGET),ROCM)
     ROCM_BIN=${ROCM_PATH}/llvm/bin
     CC       = ${ROCM_BIN}/clang
     FC       = ${ROCM_BIN}/flang
-    OPT     += -O3
+    OPT     += -O2
     OPT     += -fopenmp
     OPT     += -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx908
     OPT     += -g
-    ASM      = -S -fsource-asm -fcode-asm
     CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
     FFLAGS   = $(OPT) -cpp
     CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
     CFLAGS  += -DUSE_GETTIMEOFDAY=1
     LD       = $(FC)
-    LDFLAGS  = $(CFLAGS)
+    LDFLAGS  = $(OPT)
     LIBS     = 
-    LIBS    +=  ~/BLIS/zen2-gcc/lib/libblis.a -lm
+    LIBS    += -DUSE_BLAS ~/BLIS/zen2-gcc/lib/libblis.a -lm
     LIBS    +=
 endif
 
@@ -303,7 +302,8 @@ CCHEADERS := ccsd_t_kernels.h ccsd_t_kernels_omp.h ccsd_t_kernels_ref.h ccsd_t_k
 	     ccsd_t_kernels_nd.h ccsd_t_kernels_stdpar.h ccsd_t_kernels_target.h \
 	    ccsd_t_kernels_acc.h # ccsd_t_kernels_blas.h
 
-all: $(TESTS)
+all: test_ccsd_t.x
+#all: $(TESTS)
 
 test_ccsd_t.x: test_ccsd_t.o $(CCOBJECTS) blas_flops.o cublas_flops.o
 	$(LD) $(LDFLAGS) $< $(CCOBJECTS) blas_flops.o cublas_flops.o $(LIBS) -o $@
