@@ -3,6 +3,7 @@
 #ifdef _OPENMP
 #include <omp.h>
 #else
+#warning Fake OpenMP
 #include "fake_omp.h"
 #endif
 #include "pragma_openmp.h"
@@ -32,7 +33,7 @@ void print_array(long long n, double * a)
     if (a==NULL || n<=0) return;
 
     for (long long i=0; i<n; i++)
-        printf("%d %lf\n",i,a[i]);
+        printf("%lld %lf\n",i,a[i]);
     fflush(stdout);
     return;
 }
@@ -42,7 +43,7 @@ void print_array2(long long n, double * a, double * b)
     if (a==NULL || b==NULL || n<=0) return;
 
     for (long long i=0; i<n; i++)
-        printf("%d %lf %lf\n",i,a[i],b[i]);
+        printf("%lld %lf %lf\n",i,a[i],b[i]);
     fflush(stdout);
     return;
 }
