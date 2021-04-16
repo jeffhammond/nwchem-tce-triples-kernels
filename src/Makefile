@@ -9,7 +9,7 @@ ACTIVE  += -DDO_TARGET_KERNELS
 ACTIVE  += -DDO_ACC_KERNELS
 #ACTIVE  += -DDEBUG
 
-TARGET := NVHPC
+TARGET := ROCM
 
 # Intel Fortran throws the "cannot simd" warning for 3 and 4...
 OMP_COLLAPSE_LEVEL=3
@@ -30,7 +30,7 @@ ifeq ($(TARGET),NVHPC)
     OPT     += -target=gpu	# Offload to GPU
     OPT     += -gpu=managed	# Heap allocations uses CUDA memory
     OPT     += -cuda
-    OPT     += -cudalib
+    OPT     += -cudalib -DUSE_CUBLAS
     #OPT     += -cudaver=11.2
     OPT     += -Minfo=accel,mp,vect
     OPT     += -g
@@ -47,6 +47,27 @@ ifeq ($(TARGET),NVHPC)
     LIBS     = -fortranlibs
     LIBS    += ${HOME}/NVIDIA/hpc_sdk/Linux_x86_64/21.2/compilers/lib/libblas.a
     LIBS    += -lcublas
+endif
+
+ifeq ($(TARGET),ROCM)
+    ROCM_PATH=/opt/rocm
+    ROCM_BIN=${ROCM_PATH}/llvm/bin
+    CC       = ${ROCM_BIN}/clang
+    FC       = ${ROCM_BIN}/flang
+    OPT     += -O3
+    OPT     += -fopenmp
+    OPT     += -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx908
+    OPT     += -g
+    ASM      = -S -fsource-asm -fcode-asm
+    CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
+    FFLAGS   = $(OPT) -cpp
+    CFLAGS  += -DFORTRAN_INTEGER_SIZE=4
+    CFLAGS  += -DUSE_GETTIMEOFDAY=1
+    LD       = $(FC)
+    LDFLAGS  = $(CFLAGS)
+    LIBS     = 
+    LIBS    +=  ~/BLIS/zen2-gcc/lib/libblis.a -lm
+    LIBS    +=
 endif
 
 ifeq ($(TARGET),INTEL)
