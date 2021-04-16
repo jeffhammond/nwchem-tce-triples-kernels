@@ -1,3 +1,5 @@
+#ifdef USE_BLAS
+
 #include <string.h>
 #include <math.h>
 
@@ -256,3 +258,5 @@ double memcpy_bandwidth(size_t n)
 
     return result;
 }
+
+#endif
