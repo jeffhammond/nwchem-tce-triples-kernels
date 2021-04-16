@@ -143,8 +143,7 @@ int main(int argc, char * argv[])
     eff_peak = dgemm_gflops(tile3, tile3, tile2);
     printf("DGEMM (k=t^2) GF/s of your processor is %lf \n", eff_peak);
     fflush(stdout);
-#endif
-#if 1
+#elif 0
     double eff_peak = -9999.9;
 
     init();
