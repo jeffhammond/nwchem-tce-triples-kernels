@@ -1,3 +1,5 @@
+#if USE_CUBLAS
+
 #include <string.h>
 #include <math.h>
 
@@ -355,3 +357,4 @@ double cudaxpy_gflops(int n)
 
     return result;
 }
+#endif
