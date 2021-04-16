@@ -21,7 +21,7 @@ static double omp_get_wtime(void)
 #else
     struct timeval tp;
     int rc = gettimeofday(&tp, NULL);
-    if (rc==0) abort();
+    if (rc!=0) abort();
     assert(rc==0);
     double t = tp.tv_sec + tp.tv_usec * 1.e-6;
 #endif
