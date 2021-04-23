@@ -2,14 +2,14 @@ ACTIVE   =
 ACTIVE  += -DDO_S1
 ACTIVE  += -DDO_D1
 ACTIVE  += -DDO_D2
-ACTIVE  += -DDO_C_KERNELS
+#ACTIVE  += -DDO_C_KERNELS
 #ACTIVE  += -DDO_BLAS_KERNELS
 #ACTIVE  += -DDO_STDPAR_KERNELS
 ACTIVE  += -DDO_TARGET_KERNELS
 #ACTIVE  += -DDO_ACC_KERNELS
 ACTIVE  += -DDEBUG
 
-TARGET := NVHPC
+TARGET := ROCM
 
 # Intel Fortran throws the "cannot simd" warning for 3 and 4...
 OMP_COLLAPSE_LEVEL=3
@@ -50,7 +50,7 @@ ifeq ($(TARGET),NVHPC)
 endif
 
 ifeq ($(TARGET),ROCM)
-    ROCM_PATH=/opt/rocm
+    ROCM_PATH=/opt/rocm-4.0.0
     ROCM_BIN=${ROCM_PATH}/llvm/bin
     CC       = ${ROCM_BIN}/clang
     FC       = ${ROCM_BIN}/flang

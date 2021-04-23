@@ -188,6 +188,7 @@ int main(int argc, char * argv[])
     tt1 = omp_get_wtime();
     printf("randomized initialization took %lf s \n", tt1-tt0);
 
+#ifdef DO_FOMP_KERNELS
     double * t3o = safemalloc( tile6*sizeof(double) );
     if (t3o==NULL) {
       printf("skipping Fortran OpenMP kernels because memory could not be allocated. \n");
@@ -427,6 +428,7 @@ int main(int argc, char * argv[])
         fflush(stdout);
       }
     }
+#endif // DO_FOMP_KERNELS
 
 #ifdef DO_BLAS_KERNELS
     double * t3b = safemalloc( tile6*sizeof(double) );
@@ -1642,7 +1644,9 @@ int main(int argc, char * argv[])
 #endif // DO_ACC_KERNELS
 
 #if DO_TARGET_KERNELS
-    double * t3t = safemalloc( tile6*sizeof(double) );
+    printf("omp_get_num_devices = %d\n", omp_get_num_devices() );
+    //double * t3t = safemalloc( tile6*sizeof(double) );
+    double * t3t = omp_target_alloc( tile6*sizeof(double), omp_get_default_device() );
     if (t3t==NULL) {
       printf("skipping OpenMP target kernels because memory could not be allocated. \n");
     } else {
@@ -2124,8 +2128,10 @@ int main(int argc, char * argv[])
     }
 
     printf("\n");
+#ifdef DO_FOMP_KERNELS
     double diff_t3o = diff_array(tile6, t3r, t3o);
     printf("||t3o-t3r||_1 = %30.15lf %s\n", diff_t3o, diff_t3o > thresh ? "(FAIL)" : "");
+#endif
 #if DO_C_KERNELS
     double diff_t3c = diff_array(tile6, t3r, t3c);
     printf("||t3c-t3r||_1 = %30.15lf %s\n", diff_t3c, diff_t3c > thresh ? "(FAIL)" : "");
@@ -2146,8 +2152,10 @@ int main(int argc, char * argv[])
     printf("norm: t1 = %lf, t2 = %lf, v2 = %lf\n", n1, n2, n3);
     double n4r = norm_array(tile6, t3r);
     printf("norm: t3r = %lf\n", n4r);
+#ifdef DO_FOMP_KERNELS
     double n4o = norm_array(tile6, t3o);
     printf("norm: t3o = %lf\n", n4o);
+#endif
 #if DO_C_KERNELS
     double n4c = norm_array(tile6, t3c);
     printf("norm: t3c = %lf\n", n4c);
@@ -2169,7 +2177,8 @@ int main(int argc, char * argv[])
 #ifdef DO_TARGET_KERNELS
     double n4t = norm_array(tile6, t3t);
     printf("norm: t3t = %lf\n", n4t);
-    safefree(t3t);
+    //safefree(t3t);
+    omp_target_free( t3t, omp_get_default_device() );
 #endif
 #ifdef DO_ACC_KERNELS
     double n4a = norm_array(tile6, t3a);
@@ -2177,7 +2186,9 @@ int main(int argc, char * argv[])
     safefree(t3a);
 #endif
 
+#ifdef DO_FOMP_KERNELS
     safefree(t3o);
+#endif
     safefree(t3r);
     safefree(v2);
     safefree(t2);

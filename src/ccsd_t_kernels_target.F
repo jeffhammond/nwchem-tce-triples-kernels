@@ -6,7 +6,7 @@
 !$omp target teams distribute
 !$omp& parallel do collapse(6)
 !$omp& private(h1,h2,h3,p4,p5,p6)
-!$omp& is_device_ptr(triplesx)
+!$omp& map(tofrom:triplesx)
       do p4=1,p4d
       do p5=1,p5d
       do p6=1,p6d
@@ -37,7 +37,7 @@ c
 !$omp target teams distribute
 !$omp& parallel do collapse(6)
 !$omp& private(h1,h2,h3,p4,p5,p6)
-!$omp& is_device_ptr(triplesx,v2sub,t1sub)
+!$omp& map(tofrom:triplesx) map(to:v2sub,t1sub)
       do p4=1,p4d
       do p5=1,p5d
       do p6=1,p6d
@@ -67,7 +67,7 @@ c
 !$omp target teams distribute
 !$omp& parallel do collapse(6)
 !$omp& private(h1,h2,h3,p4,p5,p6)
-!$omp& is_device_ptr(triplesx,v2sub,t1sub)
+!$omp& map(tofrom:triplesx) map(to:v2sub,t1sub)
       do p4=1,p4d
       do p5=1,p5d
       do p6=1,p6d
@@ -97,7 +97,7 @@ c
 !$omp target teams distribute
 !$omp& parallel do collapse(6)
 !$omp& private(h1,h2,h3,p4,p5,p6)
-!$omp& is_device_ptr(triplesx,v2sub,t1sub)
+!$omp& map(tofrom:triplesx) map(to:v2sub,t1sub)
       do p4=1,p4d
       do p5=1,p5d
       do p6=1,p6d
@@ -127,7 +127,7 @@ c
 !$omp target teams distribute
 !$omp& parallel do collapse(6)
 !$omp& private(h1,h2,h3,p4,p5,p6)
-!$omp& is_device_ptr(triplesx,v2sub,t1sub)
+!$omp& map(tofrom:triplesx) map(to:v2sub,t1sub)
       do p5=1,p5d
       do p4=1,p4d
       do p6=1,p6d
@@ -157,7 +157,7 @@ c
 !$omp target teams distribute
 !$omp& parallel do collapse(6)
 !$omp& private(h1,h2,h3,p4,p5,p6)
-!$omp& is_device_ptr(triplesx,v2sub,t1sub)
+!$omp& map(tofrom:triplesx) map(to:v2sub,t1sub)
       do p5=1,p5d
       do p4=1,p4d
       do p6=1,p6d
@@ -187,7 +187,7 @@ c
 !$omp target teams distribute
 !$omp& parallel do collapse(6)
 !$omp& private(h1,h2,h3,p4,p5,p6)
-!$omp& is_device_ptr(triplesx,v2sub,t1sub)
+!$omp& map(tofrom:triplesx) map(to:v2sub,t1sub)
       do p5=1,p5d
       do p4=1,p4d
       do p6=1,p6d
@@ -217,7 +217,7 @@ c
 !$omp target teams distribute
 !$omp& parallel do collapse(6)
 !$omp& private(h1,h2,h3,p4,p5,p6)
-!$omp& is_device_ptr(triplesx,v2sub,t1sub)
+!$omp& map(tofrom:triplesx) map(to:v2sub,t1sub)
       do p5=1,p5d
       do p6=1,p6d
       do p4=1,p4d
@@ -247,7 +247,7 @@ c
 !$omp target teams distribute
 !$omp& parallel do collapse(6)
 !$omp& private(h1,h2,h3,p4,p5,p6)
-!$omp& is_device_ptr(triplesx,v2sub,t1sub)
+!$omp& map(tofrom:triplesx) map(to:v2sub,t1sub)
       do p5=1,p5d
       do p6=1,p6d
       do p4=1,p4d
@@ -277,7 +277,7 @@ c
 !$omp target teams distribute
 !$omp& parallel do collapse(6)
 !$omp& private(h1,h2,h3,p4,p5,p6)
-!$omp& is_device_ptr(triplesx,v2sub,t1sub)
+!$omp& map(tofrom:triplesx) map(to:v2sub,t1sub)
       do p5=1,p5d
       do p6=1,p6d
       do p4=1,p4d
@@ -307,7 +307,7 @@ c
 !$omp target teams distribute
 !$omp& parallel do collapse(6)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
-!$omp& is_device_ptr(triplesx,v2sub,t2sub)
+!$omp& map(tofrom:triplesx) map(to:v2sub,t2sub)
       do p4=1,p4d
       do p5=1,p5d
       do p6=1,p6d
@@ -339,7 +339,7 @@ c
 !$omp target teams distribute
 !$omp& parallel do collapse(6)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
-!$omp& is_device_ptr(triplesx,v2sub,t2sub)
+!$omp& map(tofrom:triplesx) map(to:v2sub,t2sub)
       do p4=1,p4d
       do p5=1,p5d
       do p6=1,p6d
@@ -371,7 +371,7 @@ c
 !$omp target teams distribute
 !$omp& parallel do collapse(6)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
-!$omp& is_device_ptr(triplesx,v2sub,t2sub)
+!$omp& map(tofrom:triplesx) map(to:v2sub,t2sub)
       do p4=1,p4d
       do p5=1,p5d
       do p6=1,p6d
@@ -403,7 +403,7 @@ c
 !$omp target teams distribute
 !$omp& parallel do collapse(6)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
-!$omp& is_device_ptr(triplesx,v2sub,t2sub)
+!$omp& map(tofrom:triplesx) map(to:v2sub,t2sub)
       do p6=1,p6d
       do p4=1,p4d
       do p5=1,p5d
@@ -435,7 +435,7 @@ c
 !$omp target teams distribute
 !$omp& parallel do collapse(6)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
-!$omp& is_device_ptr(triplesx,v2sub,t2sub)
+!$omp& map(tofrom:triplesx) map(to:v2sub,t2sub)
       do p6=1,p6d
       do p4=1,p4d
       do p5=1,p5d
@@ -467,7 +467,7 @@ c
 !$omp target teams distribute
 !$omp& parallel do collapse(6)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
-!$omp& is_device_ptr(triplesx,v2sub,t2sub)
+!$omp& map(tofrom:triplesx) map(to:v2sub,t2sub)
       do p6=1,p6d
       do p4=1,p4d
       do p5=1,p5d
@@ -499,7 +499,7 @@ c
 !$omp target teams distribute
 !$omp& parallel do collapse(6)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
-!$omp& is_device_ptr(triplesx,v2sub,t2sub)
+!$omp& map(tofrom:triplesx) map(to:v2sub,t2sub)
       do p4=1,p4d
       do p6=1,p6d
       do p5=1,p5d
@@ -531,7 +531,7 @@ c
 !$omp target teams distribute
 !$omp& parallel do collapse(6)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
-!$omp& is_device_ptr(triplesx,v2sub,t2sub)
+!$omp& map(tofrom:triplesx) map(to:v2sub,t2sub)
       do p4=1,p4d
       do p6=1,p6d
       do p5=1,p5d
@@ -563,7 +563,7 @@ c
 !$omp target teams distribute
 !$omp& parallel do collapse(6)
 !$omp& private(h1,h2,h3,p4,p5,p6,h7)
-!$omp& is_device_ptr(triplesx,v2sub,t2sub)
+!$omp& map(tofrom:triplesx) map(to:v2sub,t2sub)
       do p4=1,p4d
       do p6=1,p6d
       do p5=1,p5d
@@ -594,7 +594,7 @@ c
       double precision v2sub(p7d,h3d,p6d,p5d)
 !$omp target teams distribute
 !$omp& parallel do collapse(6)
-!$omp& is_device_ptr(triplesx,v2sub,t2sub)
+!$omp& map(tofrom:triplesx) map(to:v2sub,t2sub)
       do p4=1,p4d
       do p5=1,p5d
       do p6=1,p6d
@@ -625,7 +625,7 @@ c
       double precision v2sub(p7d,h3d,p6d,p5d)
 !$omp target teams distribute
 !$omp& parallel do collapse(6)
-!$omp& is_device_ptr(triplesx,v2sub,t2sub)
+!$omp& map(tofrom:triplesx) map(to:v2sub,t2sub)
       do p5=1,p5d
       do p6=1,p6d
       do h1=1,h1d
@@ -656,7 +656,7 @@ c
       double precision v2sub(p7d,h3d,p6d,p5d)
 !$omp target teams distribute
 !$omp& parallel do collapse(6)
-!$omp& is_device_ptr(triplesx,v2sub,t2sub)
+!$omp& map(tofrom:triplesx) map(to:v2sub,t2sub)
       do p5=1,p5d
       do p6=1,p6d
       do h1=1,h1d
@@ -687,7 +687,7 @@ c
       double precision v2sub(p7d,h3d,p6d,p5d)
 !$omp target teams distribute
 !$omp& parallel do collapse(6)
-!$omp& is_device_ptr(triplesx,v2sub,t2sub)
+!$omp& map(tofrom:triplesx) map(to:v2sub,t2sub)
       do p5=1,p5d
       do p4=1,p4d
       do p6=1,p6d
@@ -718,7 +718,7 @@ c
       double precision v2sub(p7d,h3d,p6d,p5d)
 !$omp target teams distribute
 !$omp& parallel do collapse(6)
-!$omp& is_device_ptr(triplesx,v2sub,t2sub)
+!$omp& map(tofrom:triplesx) map(to:v2sub,t2sub)
       do p5=1,p5d
       do p4=1,p4d
       do p6=1,p6d
@@ -749,7 +749,7 @@ c
       double precision v2sub(p7d,h3d,p6d,p5d)
 !$omp target teams distribute
 !$omp& parallel do collapse(6)
-!$omp& is_device_ptr(triplesx,v2sub,t2sub)
+!$omp& map(tofrom:triplesx) map(to:v2sub,t2sub)
       do p5=1,p5d
       do p4=1,p4d
       do p6=1,p6d
@@ -780,7 +780,7 @@ c
       double precision v2sub(p7d,h3d,p6d,p5d)
 !$omp target teams distribute
 !$omp& parallel do collapse(6)
-!$omp& is_device_ptr(triplesx,v2sub,t2sub)
+!$omp& map(tofrom:triplesx) map(to:v2sub,t2sub)
       do p5=1,p5d
       do p6=1,p6d
       do p4=1,p4d
@@ -811,7 +811,7 @@ c
       double precision v2sub(p7d,h3d,p6d,p5d)
 !$omp target teams distribute
 !$omp& parallel do collapse(6)
-!$omp& is_device_ptr(triplesx,v2sub,t2sub)
+!$omp& map(tofrom:triplesx) map(to:v2sub,t2sub)
       do p5=1,p5d
       do p6=1,p6d
       do p4=1,p4d
@@ -843,7 +843,7 @@ c
       double precision v2sub(p7d,h3d,p6d,p5d)
 !$omp target teams distribute
 !$omp& parallel do collapse(6)
-!$omp& is_device_ptr(triplesx,v2sub,t2sub)
+!$omp& map(tofrom:triplesx) map(to:v2sub,t2sub)
       do p5=1,p5d
       do p6=1,p6d
       do h1=1,h1d
