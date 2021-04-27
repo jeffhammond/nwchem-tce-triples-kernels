@@ -2,7 +2,8 @@ ACTIVE   =
 ACTIVE  += -DDO_S1
 ACTIVE  += -DDO_D1
 ACTIVE  += -DDO_D2
-#ACTIVE  += -DDO_C_KERNELS
+ACTIVE  += -DDO_C_KERNELS
+#ACTIVE  += -DDO_FOMP_KERNELS
 #ACTIVE  += -DDO_BLAS_KERNELS
 #ACTIVE  += -DDO_STDPAR_KERNELS
 ACTIVE  += -DDO_TARGET_KERNELS
@@ -356,4 +357,5 @@ clean:
 	$(RM) $(RMFLAGS) *.optrpt
 	$(RM) $(RMFLAGS) $(TESTS)
 	$(RM) $(RMFLAGS) $(EXTRATESTS)
-	-rm -rf *.dSYM
+	-rm -rf *.dSYM # Mac
+	-rm -rf *.cmod *.cmdx *.ilm *.stb #  AMD compiler intermediates

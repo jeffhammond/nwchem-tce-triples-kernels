@@ -18,3 +18,8 @@ core.*                          # core files
 *__genmod.*                     # Intel Fortran compiler
 *.patch                         # patch files
 *.dbg                           # Flang
+
+*.cmod
+*.cmdx
+*.ilm
+*.stb
