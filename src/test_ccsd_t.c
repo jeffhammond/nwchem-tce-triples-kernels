@@ -1645,7 +1645,9 @@ int main(int argc, char * argv[])
 
 #if DO_TARGET_KERNELS
     printf("omp_get_num_devices = %d\n", omp_get_num_devices() );
-    double * t3t = omp_target_alloc( tile6*sizeof(double), omp_get_default_device() );
+    //double * t3t = omp_target_alloc( tile6*sizeof(double), omp_get_default_device() );
+    double * t3t = malloc( tile6*sizeof(double) );
+    #pragma omp target enter data map(to:t3t) map(to:t1,t2,v2)
     if (t3t==NULL) {
       printf("skipping OpenMP target kernels because memory could not be allocated. \n");
     } else {
@@ -2174,12 +2176,14 @@ int main(int argc, char * argv[])
     safefree(t3p);
 #endif
 #ifdef DO_TARGET_KERNELS
-    double * t3h = safemalloc( tile6*sizeof(double) );
-    omp_target_memcpy( t3h, t3t, tile6 * sizeof(double), 0, 0, omp_get_initial_device(), omp_get_default_device() );
+    #pragma omp target exit data map(from:t3t)
+    //double * t3h = safemalloc( tile6*sizeof(double) );
+    //omp_target_memcpy( t3h, t3t, tile6 * sizeof(double), 0, 0, omp_get_initial_device(), omp_get_default_device() );
     double n4t = norm_array(tile6, t3t);
     printf("norm: t3t = %lf\n", n4t);
-    omp_target_free( t3t, omp_get_default_device() );
-    safefree(t3h);
+    free(t3t);
+    //omp_target_free( t3t, omp_get_default_device() );
+    //safefree(t3h);
 #endif
 #ifdef DO_ACC_KERNELS
     double n4a = norm_array(tile6, t3a);
