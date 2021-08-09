@@ -1,15 +1,14 @@
-OMP_COLLAPSE_LEVEL=3
-
 FC      = nvfortran
 FFLAGS  = -cpp
 FFLAGS += -g
-FFLAGS += -O3
+FFLAGS += -fast
 FFLAGS += -acc
 FFLAGS += -mp
 FFLAGS += -stdpar=multicore
 FFLAGS += -target=multicore
 FFLAGS += -Minfo=accel,mp,vect
-FFLAGS += -DOMP_COLLAPSE_LEVEL=$(OMP_COLLAPSE_LEVEL)
+FFLAGS += -DOMP_COLLAPSE_LEVEL=3
+FFLAGS += -DACC_COLLAPSE_LEVEL=6
 
 all: test_stdpar_vs_openmp.x
 
