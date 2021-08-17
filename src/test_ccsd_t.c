@@ -113,7 +113,8 @@ int main(int argc, char * argv[])
 
     printf("testing NWChem CCSD(T) kernels on %d threads with tilesize %d \n", omp_get_max_threads(), tilesize);
 
-#if 0
+#if USE_BLAS
+{
     double eff_peak = -9999.9;
 
     /* approximate memory bandwidth (memcpy) */
@@ -144,7 +145,10 @@ int main(int argc, char * argv[])
     eff_peak = dgemm_gflops(tile3, tile3, tile2);
     printf("DGEMM (k=t^2) GF/s of your processor is %lf \n", eff_peak);
     fflush(stdout);
-#elif 0
+}
+#endif
+#if USE_CUBLAS
+{
     double eff_peak = -9999.9;
 
     init();
@@ -172,6 +176,7 @@ int main(int argc, char * argv[])
     fflush(stdout);
 
     final();
+}
 #endif
 
     double tt0 = 0.0, tt1 = 0.0, ttt0 = 0.0, ttt1 = 0.0, dt = 0.0;
