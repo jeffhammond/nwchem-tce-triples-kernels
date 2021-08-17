@@ -695,8 +695,8 @@ c
       do concurrent (p5=1:p5d)
       do concurrent (p4=1:p4d)
       do concurrent (p6=1:p6d)
-      do concurrent (h3=1:h3d)
       do concurrent (h1=1:h1d)
+      do concurrent (h3=1:h3d)
       do concurrent (h2=1:h2d)
       do p7=1,p7d
        triplesx(h2,h1,h3,p6,p4,p5)=triplesx(h2,h1,h3,p6,p4,p5)
