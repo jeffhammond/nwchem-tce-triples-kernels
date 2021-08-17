@@ -63,7 +63,7 @@ c
       do p5=1,p5d
       do p6=1,p6d
       do h1=1,h1d
-      do h2=1,h2d ! interchanging h1 and h2 was a huge win with Cray+OpenMP
+      do h2=1,h2d
       do h3=1,h3d
        triplesx(h3,h1,h2,p6,p5,p4)=triplesx(h3,h1,h2,p6,p5,p4)
      1   - t1sub(p4,h1)*v2sub(h3,h2,p6,p5)
