@@ -410,8 +410,8 @@ c
       integer h3,h2,h1,p6,p5,p4,h7
       double precision triplesx(h1d,h3d,h2d,p5d,p4d,p6d)
       double precision t2sub(h7d,p4d,p5d,h1d)
-      double precision v2sub(h3d,h2d,p6d,h7d)
       double precision t2tmp(h7d,h1d,p4d,p5d)
+      double precision v2sub(h3d,h2d,p6d,h7d)
 !      double precision v2tmp(h7d,h3d,h2d,p6d)
       do concurrent (h1=1:h1d)
       do concurrent (p5=1:p5d)
@@ -513,7 +513,17 @@ c
       integer h3,h2,h1,p6,p5,p4,h7
       double precision triplesx(h1d,h3d,h2d,p5d,p6d,p4d)
       double precision t2sub(h7d,p4d,p5d,h1d)
+      double precision t2tmp(h7d,h1d,p4d,p5d)
       double precision v2sub(h3d,h2d,p6d,h7d)
+      do concurrent (h1=1:h1d)
+      do concurrent (p5=1:p5d)
+      do concurrent (p4=1:p4d)
+      do concurrent (h7=1:h7d)
+        t2tmp(h7,h1,p4,p5) = t2sub(h7,p4,p5,h1)
+      enddo
+      enddo
+      enddo
+      enddo
       do concurrent (p4=1:p4d)
       do concurrent (p6=1:p6d)
       do concurrent (p5=1:p5d)
@@ -522,7 +532,8 @@ c
       do concurrent (h1=1:h1d)
       do h7=1,h7d
        triplesx(h1,h3,h2,p5,p6,p4)=triplesx(h1,h3,h2,p5,p6,p4)
-     1   + t2sub(h7,p4,p5,h1)*v2sub(h3,h2,p6,h7)
+     1   + t2tmp(h7,h1,p4,p5)*v2sub(h3,h2,p6,h7)
+!     1   + t2sub(h7,p4,p5,h1)*v2sub(h3,h2,p6,h7)
       enddo
       enddo
       enddo
