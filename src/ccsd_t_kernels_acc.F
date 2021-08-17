@@ -331,8 +331,8 @@ c
       integer h3,h2,h1,p6,p5,p4,h7
       double precision triplesx(h1d,h3d,h2d,p6d,p5d,p4d)
       double precision t2sub(h7d,p4d,p5d,h1d)
-      double precision v2sub(h3d,h2d,p6d,h7d)
       double precision t2tmp(h7d,h1d,p4d,p5d)
+      double precision v2sub(h3d,h2d,p6d,h7d)
 !$acc kernels
       do h1=1,h1d
       do p5=1,p5d
