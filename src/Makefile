@@ -1,13 +1,13 @@
 ACTIVE   =
 #ACTIVE  += -DDO_S1
 ACTIVE  += -DDO_D1
-#ACTIVE  += -DDO_D2
+ACTIVE  += -DDO_D2
 #ACTIVE  += -DDO_C_KERNELS
 #ACTIVE  += -DDO_BLAS_KERNELS
 ACTIVE  += -DDO_STDPAR_KERNELS
 #ACTIVE  += -DDO_TARGET_KERNELS
 #ACTIVE  += -DDO_ACC_KERNELS
-ACTIVE  += -DDO_CUTLASS_KERNELS
+ACTIVE  += -DDO_CUTENSOR_KERNELS
 ACTIVE  += -DDEBUG
 
 TARGET := NVHPC
@@ -23,7 +23,7 @@ ifeq ($(TARGET),NVHPC)
     CC       = nvc
     FC       = nvfortran
     OPT     += -DUSE_CUDA_UM -cuda
-    OPT     += -O1 -g
+    OPT     += -O3 -g
     OPT     += -acc		# OpenACC
     #OPT     += -Mlarge_arrays   # OpenACC overflows 32b offsets
     OPT     += -mp		# OpenMP

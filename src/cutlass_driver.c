@@ -174,13 +174,114 @@ void cutlass_driver(int reps, int kernel, int tilesize,
             if (s) fprintf(stderr,"cutensorInitContractionDescriptor\n");
         }
 
+        // d2_1 = [2][0]
+        {
+            int k = 0;
+            int32_t mT3[6]={h3,h2,h1,p6,p5,p4};
+            int32_t mT2[4]={p7,p4,h1,h2};
+            int32_t mV2[4]={p7,h3,p6,p5};
+            alpha[2][k] = -1;
+            active[2][k] = true;
+            s = cutensorInitContractionDescriptor(&h, &dX[2][k], &dT2, mT2, aT2, &dV2, mV2, aV2, &dT3, mT3, aT3, &dT3, mT3, aT3, CUTENSOR_R_MIN_64F);
+            if (s) fprintf(stderr,"cutensorInitContractionDescriptor\n");
+        }
+        // d2_2 = [2][1]
+        {
+            int k = 1;
+            int32_t mT3[6]={h2,h1,h3,p6,p5,p4};
+            int32_t mT2[4]={p7,p4,h1,h2};
+            int32_t mV2[4]={p7,h3,p6,p5};
+            alpha[2][k] = -1;
+            active[2][k] = true;
+            s = cutensorInitContractionDescriptor(&h, &dX[2][k], &dT2, mT2, aT2, &dV2, mV2, aV2, &dT3, mT3, aT3, &dT3, mT3, aT3, CUTENSOR_R_MIN_64F);
+            if (s) fprintf(stderr,"cutensorInitContractionDescriptor\n");
+        }
+        // d2_3 = [2][2]
+        {
+            int k = 2;
+            int32_t mT3[6]={h2,h3,h1,p6,p5,p4};
+            int32_t mT2[4]={p7,p4,h1,h2};
+            int32_t mV2[4]={p7,h3,p6,p5};
+            alpha[2][k] = 1;
+            active[2][k] = true;
+            s = cutensorInitContractionDescriptor(&h, &dX[2][k], &dT2, mT2, aT2, &dV2, mV2, aV2, &dT3, mT3, aT3, &dT3, mT3, aT3, CUTENSOR_R_MIN_64F);
+            if (s) fprintf(stderr,"cutensorInitContractionDescriptor\n");
+        }
+        // d2_4 = [2][3]
+        {
+            int k = 3;
+            int32_t mT3[6]={h3,h2,h1,p6,p4,p5};
+            int32_t mT2[4]={p7,p4,h1,h2};
+            int32_t mV2[4]={p7,h3,p6,p5};
+            alpha[2][k] = 1;
+            active[2][k] = true;
+            s = cutensorInitContractionDescriptor(&h, &dX[2][k], &dT2, mT2, aT2, &dV2, mV2, aV2, &dT3, mT3, aT3, &dT3, mT3, aT3, CUTENSOR_R_MIN_64F);
+            if (s) fprintf(stderr,"cutensorInitContractionDescriptor\n");
+        }
+        // d2_5 = [2][4]
+        {
+            int k = 4;
+            int32_t mT3[6]={h2,h1,h3,p6,p4,p5};
+            int32_t mT2[4]={p7,p4,h1,h2};
+            int32_t mV2[4]={p7,h3,p6,p5};
+            alpha[2][k] = 1;
+            active[2][k] = true;
+            s = cutensorInitContractionDescriptor(&h, &dX[2][k], &dT2, mT2, aT2, &dV2, mV2, aV2, &dT3, mT3, aT3, &dT3, mT3, aT3, CUTENSOR_R_MIN_64F);
+            if (s) fprintf(stderr,"cutensorInitContractionDescriptor\n");
+        }
+        // d2_6 = [2][5]
+        {
+            int k = 5;
+            int32_t mT3[6]={h2,h3,h1,p6,p4,p5};
+            int32_t mT2[4]={p7,p4,h1,h2};
+            int32_t mV2[4]={p7,h3,p6,p5};
+            alpha[2][k] = -1;
+            active[2][k] = true;
+            s = cutensorInitContractionDescriptor(&h, &dX[2][k], &dT2, mT2, aT2, &dV2, mV2, aV2, &dT3, mT3, aT3, &dT3, mT3, aT3, CUTENSOR_R_MIN_64F);
+            if (s) fprintf(stderr,"cutensorInitContractionDescriptor\n");
+        }
+        // d2_7 = [2][6]
+        {
+            int k = 6;
+            int32_t mT3[6]={h3,h2,h1,p4,p6,p5};
+            int32_t mT2[4]={p7,p4,h1,h2};
+            int32_t mV2[4]={p7,h3,p6,p5};
+            alpha[2][k] = -1;
+            active[2][k] = true;
+            s = cutensorInitContractionDescriptor(&h, &dX[2][k], &dT2, mT2, aT2, &dV2, mV2, aV2, &dT3, mT3, aT3, &dT3, mT3, aT3, CUTENSOR_R_MIN_64F);
+            if (s) fprintf(stderr,"cutensorInitContractionDescriptor\n");
+        }
+        // d2_8 = [2][7]
+        {
+            int k = 7;
+            int32_t mT3[6]={h2,h1,h3,p4,p6,p5};
+            int32_t mT2[4]={p7,p4,h1,h2};
+            int32_t mV2[4]={p7,h3,p6,p5};
+            alpha[2][k] = -1;
+            active[2][k] = true;
+            s = cutensorInitContractionDescriptor(&h, &dX[2][k], &dT2, mT2, aT2, &dV2, mV2, aV2, &dT3, mT3, aT3, &dT3, mT3, aT3, CUTENSOR_R_MIN_64F);
+            if (s) fprintf(stderr,"cutensorInitContractionDescriptor\n");
+        }
+        // d2_9 = [2][8]
+        {
+            int k = 8;
+            int32_t mT3[6]={h2,h3,h1,p4,p6,p5};
+            int32_t mT2[4]={p7,p4,h1,h2};
+            int32_t mV2[4]={p7,h3,p6,p5};
+            alpha[2][k] = 1;
+            active[2][k] = true;
+            s = cutensorInitContractionDescriptor(&h, &dX[2][k], &dT2, mT2, aT2, &dV2, mV2, aV2, &dT3, mT3, aT3, &dT3, mT3, aT3, CUTENSOR_R_MIN_64F);
+            if (s) fprintf(stderr,"cutensorInitContractionDescriptor\n");
+        }
+
         for (int i=0; i<3; i++) {
           for (int k=0; k<9; k++) {
             if (!active[i][k]) break;
 
             size_t worksize;
 
-            s = cutensorContractionGetWorkspace(&h, &dX[i][k], &f, CUTENSOR_WORKSPACE_RECOMMENDED, &worksize);
+            s = cutensorContractionGetWorkspace(&h, &dX[i][k], &f, CUTENSOR_WORKSPACE_MAX, &worksize);
+            //s = cutensorContractionGetWorkspace(&h, &dX[i][k], &f, CUTENSOR_WORKSPACE_RECOMMENDED, &worksize);
             if (s) fprintf(stderr,"cutensorContractionGetWorkspace\n");
 
             s = cutensorInitContractionPlan(&h, &pX[i][k], &dX[i][k], &f, worksize);
@@ -198,9 +299,9 @@ void cutlass_driver(int reps, int kernel, int tilesize,
     double beta = 1;
 
     if (pT3==NULL) {
-      printf("skipping CUTLASS kernels because memory was not allocated. \n");
+      printf("skipping CUTENSOR kernels because memory was not allocated. \n");
     } else {
-      printf("\nSTARTING CUTLASS KERNELS \n");
+      printf("\nSTARTING CUTENSOR KERNELS \n");
       fflush(stdout);
       for (int i=0; i<reps; i++)
       {
@@ -323,63 +424,108 @@ void cutlass_driver(int reps, int kernel, int tilesize,
 #endif
 #ifdef DO_D2
         if (kernel<0 || kernel==1) {
+            int k = 0;
             tt0 = omp_get_wtime();
+            s = cutensorContraction(&h, &pX[2][k], (void*) &alpha[2][k], pT2, pV2, (void*) &beta, pT3, pT3, pW, max_worksize, stream);
+            if (s) fprintf(stderr, "cutensorContraction\n");
+            s2 = cudaStreamSynchronize(stream);
+            if (s2) fprintf(stderr, "cudaStreamSynchronize\n");
             tt1 = omp_get_wtime();
             dt = tt1-tt0;
             printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d2_1", dt, (2e-9*tile7)/dt );
             totalflops += 2*tile7;
         }
         if (kernel<0 || kernel==2) {
+            int k = 1;
             tt0 = omp_get_wtime();
+            s = cutensorContraction(&h, &pX[2][k], (void*) &alpha[2][k], pT2, pV2, (void*) &beta, pT3, pT3, pW, max_worksize, stream);
+            if (s) fprintf(stderr, "cutensorContraction\n");
+            s2 = cudaStreamSynchronize(stream);
+            if (s2) fprintf(stderr, "cudaStreamSynchronize\n");
             tt1 = omp_get_wtime();
             dt = tt1-tt0;
             printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d2_2", dt, (2e-9*tile7)/dt );
             totalflops += 2*tile7;
         }
         if (kernel<0 || kernel==3) {
+            int k = 2;
             tt0 = omp_get_wtime();
+            s = cutensorContraction(&h, &pX[2][k], (void*) &alpha[2][k], pT2, pV2, (void*) &beta, pT3, pT3, pW, max_worksize, stream);
+            if (s) fprintf(stderr, "cutensorContraction\n");
+            s2 = cudaStreamSynchronize(stream);
+            if (s2) fprintf(stderr, "cudaStreamSynchronize\n");
             tt1 = omp_get_wtime();
             dt = tt1-tt0;
             printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d2_3", dt, (2e-9*tile7)/dt );
             totalflops += 2*tile7;
         }
         if (kernel<0 || kernel==4) {
+            int k = 3;
             tt0 = omp_get_wtime();
+            s = cutensorContraction(&h, &pX[2][k], (void*) &alpha[2][k], pT2, pV2, (void*) &beta, pT3, pT3, pW, max_worksize, stream);
+            if (s) fprintf(stderr, "cutensorContraction\n");
+            s2 = cudaStreamSynchronize(stream);
+            if (s2) fprintf(stderr, "cudaStreamSynchronize\n");
             tt1 = omp_get_wtime();
             dt = tt1-tt0;
             printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d2_4", dt, (2e-9*tile7)/dt );
             totalflops += 2*tile7;
         }
         if (kernel<0 || kernel==5) {
+            int k = 4;
             tt0 = omp_get_wtime();
+            s = cutensorContraction(&h, &pX[2][k], (void*) &alpha[2][k], pT2, pV2, (void*) &beta, pT3, pT3, pW, max_worksize, stream);
+            if (s) fprintf(stderr, "cutensorContraction\n");
+            s2 = cudaStreamSynchronize(stream);
+            if (s2) fprintf(stderr, "cudaStreamSynchronize\n");
             tt1 = omp_get_wtime();
             dt = tt1-tt0;
             printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d2_5", dt, (2e-9*tile7)/dt );
             totalflops += 2*tile7;
         }
         if (kernel<0 || kernel==6) {
+            int k = 5;
             tt0 = omp_get_wtime();
+            s = cutensorContraction(&h, &pX[2][k], (void*) &alpha[2][k], pT2, pV2, (void*) &beta, pT3, pT3, pW, max_worksize, stream);
+            if (s) fprintf(stderr, "cutensorContraction\n");
+            s2 = cudaStreamSynchronize(stream);
+            if (s2) fprintf(stderr, "cudaStreamSynchronize\n");
             tt1 = omp_get_wtime();
             dt = tt1-tt0;
             printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d2_6", dt, (2e-9*tile7)/dt );
             totalflops += 2*tile7;
         }
         if (kernel<0 || kernel==7) {
+            int k = 6;
             tt0 = omp_get_wtime();
+            s = cutensorContraction(&h, &pX[2][k], (void*) &alpha[2][k], pT2, pV2, (void*) &beta, pT3, pT3, pW, max_worksize, stream);
+            if (s) fprintf(stderr, "cutensorContraction\n");
+            s2 = cudaStreamSynchronize(stream);
+            if (s2) fprintf(stderr, "cudaStreamSynchronize\n");
             tt1 = omp_get_wtime();
             dt = tt1-tt0;
             printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d2_7", dt, (2e-9*tile7)/dt );
             totalflops += 2*tile7;
         }
         if (kernel<0 || kernel==8) {
+            int k = 7;
             tt0 = omp_get_wtime();
+            s = cutensorContraction(&h, &pX[2][k], (void*) &alpha[2][k], pT2, pV2, (void*) &beta, pT3, pT3, pW, max_worksize, stream);
+            if (s) fprintf(stderr, "cutensorContraction\n");
+            s2 = cudaStreamSynchronize(stream);
+            if (s2) fprintf(stderr, "cudaStreamSynchronize\n");
             tt1 = omp_get_wtime();
             dt = tt1-tt0;
             printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d2_8", dt, (2e-9*tile7)/dt );
             totalflops += 2*tile7;
         }
         if (kernel<0 || kernel==9) {
+            int k = 8;
             tt0 = omp_get_wtime();
+            s = cutensorContraction(&h, &pX[2][k], (void*) &alpha[2][k], pT2, pV2, (void*) &beta, pT3, pT3, pW, max_worksize, stream);
+            if (s) fprintf(stderr, "cutensorContraction\n");
+            s2 = cudaStreamSynchronize(stream);
+            if (s2) fprintf(stderr, "cudaStreamSynchronize\n");
             tt1 = omp_get_wtime();
             dt = tt1-tt0;
             printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d2_9", dt, (2e-9*tile7)/dt );
