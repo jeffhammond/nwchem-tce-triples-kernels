@@ -1,12 +1,13 @@
 ACTIVE   =
-ACTIVE  += -DDO_S1
+#ACTIVE  += -DDO_S1
 ACTIVE  += -DDO_D1
-ACTIVE  += -DDO_D2
+#ACTIVE  += -DDO_D2
 #ACTIVE  += -DDO_C_KERNELS
 #ACTIVE  += -DDO_BLAS_KERNELS
 ACTIVE  += -DDO_STDPAR_KERNELS
-ACTIVE  += -DDO_TARGET_KERNELS
-ACTIVE  += -DDO_ACC_KERNELS
+#ACTIVE  += -DDO_TARGET_KERNELS
+#ACTIVE  += -DDO_ACC_KERNELS
+ACTIVE  += -DDO_CUTLASS_KERNELS
 ACTIVE  += -DDEBUG
 
 TARGET := NVHPC
@@ -22,7 +23,7 @@ ifeq ($(TARGET),NVHPC)
     CC       = nvc
     FC       = nvfortran
     OPT     += -DUSE_CUDA_UM -cuda
-    OPT     += -O3
+    OPT     += -O1 -g
     OPT     += -acc		# OpenACC
     #OPT     += -Mlarge_arrays   # OpenACC overflows 32b offsets
     OPT     += -mp		# OpenMP
@@ -30,7 +31,7 @@ ifeq ($(TARGET),NVHPC)
     OPT     += -target=gpu	# Offload to GPU
     OPT     += -gpu=managed	# Heap allocations uses CUDA memory
     OPT     += -cuda
-    OPT     += -cudalib=cublas,curand -DUSE_CUBLAS
+    OPT     += -cudalib=cublas,curand,cutensor -DUSE_CUBLAS
     #OPT     += -cudaver=11.4
     OPT     += -Minfo=accel,mp,vect
     OPT     += -g
@@ -296,7 +297,7 @@ CCOBJECTS := ccsd_t_kernels_omp.o ccsd_t_kernels_ref.o \
              ccsd_t_kernels_1d.o ccsd_t_kernels_nd.o \
              ccsd_t_dts_kernels_ref.o ccsd_t_dts_kernels_omp.o \
 	     ccsd_t_kernels_stdpar.o ccsd_t_kernels_target.o \
-	     ccsd_t_kernels_acc.o #ccsd_t_kernels_blas.o
+	     ccsd_t_kernels_acc.o cutlass_driver.o #ccsd_t_kernels_blas.o
 HEADERS := safemalloc.h pragma_vendor.h pragma_openmp.h fake_omp.h blas.h
 CCHEADERS := ccsd_t_kernels.h ccsd_t_kernels_omp.h ccsd_t_kernels_ref.h ccsd_t_kernels_1d.h \
 	     ccsd_t_kernels_nd.h ccsd_t_kernels_stdpar.h ccsd_t_kernels_target.h \

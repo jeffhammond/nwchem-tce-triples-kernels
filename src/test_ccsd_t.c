@@ -11,6 +11,10 @@
 #include "safemalloc.h"
 #include "ccsd_t_kernels.h"
 
+void cutlass_driver(int reps, int kernel, int tilesize,
+                    long long tile6, long long tile7,
+                    const double * pT1, const double * pT2, const double * pV2, double * pT3);
+
 /* how many times to iterate */
 const int reps = 5;
 
@@ -1159,6 +1163,11 @@ int main(int argc, char * argv[])
 #endif // C1D disabled
 #endif // DO_C_KERNELS
 
+#if DO_CUTLASS_KERNELS
+    double * t3s = safemalloc( tile6*sizeof(double) );
+    cutlass_driver(reps, kernel, tilesize, tile6, tile7, t1, t2, v2, t3s);
+#endif
+
 #if DO_STDPAR_KERNELS
     double * t3p = safemalloc( tile6*sizeof(double) );
     if (t3p==NULL) {
@@ -2180,6 +2189,11 @@ int main(int argc, char * argv[])
     double n4a = norm_array(tile6, t3a);
     printf("norm: t3a = %lf\n", n4a);
     safefree(t3a);
+#endif
+#if DO_CUTLASS_KERNELS
+    double n4s = norm_array(tile6, t3s);
+    printf("norm: t3s = %lf\n", n4s);
+    safefree(t3s);
 #endif
 
     safefree(t3o);
