@@ -110,7 +110,7 @@ void cutlass_driver(int reps, int kernel, int tilesize,
         // d1_4 = [1][3]
         {
             int k = 3;
-            int32_t mT3[6]={h1,h3,h2,p6,p5,p4};
+            int32_t mT3[6]={h3,h2,h1,p5,p4,p6};
             int32_t mT2[4]={h7,p4,p5,h1};
             int32_t mV2[4]={h3,h2,p6,h7};
             alpha[1][k] = -1;
@@ -121,10 +121,10 @@ void cutlass_driver(int reps, int kernel, int tilesize,
         // d1_5 = [1][4]
         {
             int k = 4;
-            int32_t mT3[6]={};
-            int32_t mT2[4]={};
-            int32_t mV2[4]={};
-            alpha[1][k] = -1;
+            int32_t mT3[6]={h3,h1,h2,p5,p4,p6};
+            int32_t mT2[4]={h7,p4,p5,h1};
+            int32_t mV2[4]={h3,h2,p6,h7};
+            alpha[1][k] = 1;
             active[1][k] = true;
             s = cutensorInitContractionDescriptor(&h, &dX[1][k], &dT2, mT2, aT2, &dV2, mV2, aV2, &dT3, mT3, aT3, &dT3, mT3, aT3, CUTENSOR_R_MIN_64F);
             if (s) fprintf(stderr,"cutensorInitContractionDescriptor\n");
@@ -132,9 +132,9 @@ void cutlass_driver(int reps, int kernel, int tilesize,
         // d1_6 = [1][5]
         {
             int k = 5;
-            int32_t mT3[6]={};
-            int32_t mT2[4]={};
-            int32_t mV2[4]={};
+            int32_t mT3[6]={h1,h3,h2,p5,p4,p6};
+            int32_t mT2[4]={h7,p4,p5,h1};
+            int32_t mV2[4]={h3,h2,p6,h7};
             alpha[1][k] = -1;
             active[1][k] = true;
             s = cutensorInitContractionDescriptor(&h, &dX[1][k], &dT2, mT2, aT2, &dV2, mV2, aV2, &dT3, mT3, aT3, &dT3, mT3, aT3, CUTENSOR_R_MIN_64F);
@@ -143,10 +143,10 @@ void cutlass_driver(int reps, int kernel, int tilesize,
         // d1_7 = [1][6]
         {
             int k = 6;
-            int32_t mT3[6]={};
-            int32_t mT2[4]={};
-            int32_t mV2[4]={};
-            alpha[1][k] = -1;
+            int32_t mT3[6]={h3,h2,h1,p5,p6,p4};
+            int32_t mT2[4]={h7,p4,p5,h1};
+            int32_t mV2[4]={h3,h2,p6,h7};
+            alpha[1][k] = 1;
             active[1][k] = true;
             s = cutensorInitContractionDescriptor(&h, &dX[1][k], &dT2, mT2, aT2, &dV2, mV2, aV2, &dT3, mT3, aT3, &dT3, mT3, aT3, CUTENSOR_R_MIN_64F);
             if (s) fprintf(stderr,"cutensorInitContractionDescriptor\n");
@@ -154,9 +154,9 @@ void cutlass_driver(int reps, int kernel, int tilesize,
         // d1_8 = [1][7]
         {
             int k = 7;
-            int32_t mT3[6]={};
-            int32_t mT2[4]={};
-            int32_t mV2[4]={};
+            int32_t mT3[6]={h3,h1,h2,p5,p6,p4};
+            int32_t mT2[4]={h7,p4,p5,h1};
+            int32_t mV2[4]={h3,h2,p6,h7};
             alpha[1][k] = -1;
             active[1][k] = true;
             s = cutensorInitContractionDescriptor(&h, &dX[1][k], &dT2, mT2, aT2, &dV2, mV2, aV2, &dT3, mT3, aT3, &dT3, mT3, aT3, CUTENSOR_R_MIN_64F);
@@ -165,10 +165,10 @@ void cutlass_driver(int reps, int kernel, int tilesize,
         // d1_9 = [1][8]
         {
             int k = 8;
-            int32_t mT3[6]={};
-            int32_t mT2[4]={};
-            int32_t mV2[4]={};
-            alpha[1][k] = -1;
+            int32_t mT3[6]={h1,h3,h2,p5,p6,p4};
+            int32_t mT2[4]={h7,p4,p5,h1};
+            int32_t mV2[4]={h3,h2,p6,h7};
+            alpha[1][k] = 1;
             active[1][k] = true;
             s = cutensorInitContractionDescriptor(&h, &dX[1][k], &dT2, mT2, aT2, &dV2, mV2, aV2, &dT3, mT3, aT3, &dT3, mT3, aT3, CUTENSOR_R_MIN_64F);
             if (s) fprintf(stderr,"cutensorInitContractionDescriptor\n");
@@ -213,8 +213,9 @@ void cutlass_driver(int reps, int kernel, int tilesize,
 #endif
 #ifdef DO_D1
         if (kernel<0 || kernel==1) {
+            int k = 0;
             tt0 = omp_get_wtime();
-            s = cutensorContraction(&h, &pX[1][kernel-1], (void*) &alpha[1][kernel-1], pT2, pV2, (void*) &beta, pT3, pT3, pW, max_worksize, stream);
+            s = cutensorContraction(&h, &pX[1][k], (void*) &alpha[1][k], pT2, pV2, (void*) &beta, pT3, pT3, pW, max_worksize, stream);
             if (s) fprintf(stderr, "cutensorContraction\n");
             s2 = cudaStreamSynchronize(stream);
             if (s2) fprintf(stderr, "cudaStreamSynchronize\n");
@@ -224,8 +225,9 @@ void cutlass_driver(int reps, int kernel, int tilesize,
             totalflops += 2*tile7;
         }
         if (kernel<0 || kernel==2) {
+            int k = 1;
             tt0 = omp_get_wtime();
-            s = cutensorContraction(&h, &pX[1][kernel-1], (void*) &alpha[1][kernel-1], pT2, pV2, (void*) &beta, pT3, pT3, pW, max_worksize, stream);
+            s = cutensorContraction(&h, &pX[1][k], (void*) &alpha[1][k], pT2, pV2, (void*) &beta, pT3, pT3, pW, max_worksize, stream);
             if (s) fprintf(stderr, "cutensorContraction\n");
             s2 = cudaStreamSynchronize(stream);
             if (s2) fprintf(stderr, "cudaStreamSynchronize\n");
@@ -235,8 +237,9 @@ void cutlass_driver(int reps, int kernel, int tilesize,
             totalflops += 2*tile7;
         }
         if (kernel<0 || kernel==3) {
+            int k = 2;
             tt0 = omp_get_wtime();
-            s = cutensorContraction(&h, &pX[1][kernel-1], (void*) &alpha[1][kernel-1], pT2, pV2, (void*) &beta, pT3, pT3, pW, max_worksize, stream);
+            s = cutensorContraction(&h, &pX[1][k], (void*) &alpha[1][k], pT2, pV2, (void*) &beta, pT3, pT3, pW, max_worksize, stream);
             if (s) fprintf(stderr, "cutensorContraction\n");
             s2 = cudaStreamSynchronize(stream);
             if (s2) fprintf(stderr, "cudaStreamSynchronize\n");
@@ -246,8 +249,9 @@ void cutlass_driver(int reps, int kernel, int tilesize,
             totalflops += 2*tile7;
         }
         if (kernel<0 || kernel==4) {
+            int k = 3;
             tt0 = omp_get_wtime();
-            s = cutensorContraction(&h, &pX[1][kernel-1], (void*) &alpha[1][kernel-1], pT2, pV2, (void*) &beta, pT3, pT3, pW, max_worksize, stream);
+            s = cutensorContraction(&h, &pX[1][k], (void*) &alpha[1][k], pT2, pV2, (void*) &beta, pT3, pT3, pW, max_worksize, stream);
             if (s) fprintf(stderr, "cutensorContraction\n");
             s2 = cudaStreamSynchronize(stream);
             if (s2) fprintf(stderr, "cudaStreamSynchronize\n");
@@ -257,8 +261,9 @@ void cutlass_driver(int reps, int kernel, int tilesize,
             totalflops += 2*tile7;
         }
         if (kernel<0 || kernel==5) {
+            int k = 4;
             tt0 = omp_get_wtime();
-            s = cutensorContraction(&h, &pX[1][kernel-1], (void*) &alpha[1][kernel-1], pT2, pV2, (void*) &beta, pT3, pT3, pW, max_worksize, stream);
+            s = cutensorContraction(&h, &pX[1][k], (void*) &alpha[1][k], pT2, pV2, (void*) &beta, pT3, pT3, pW, max_worksize, stream);
             if (s) fprintf(stderr, "cutensorContraction\n");
             s2 = cudaStreamSynchronize(stream);
             if (s2) fprintf(stderr, "cudaStreamSynchronize\n");
@@ -268,8 +273,9 @@ void cutlass_driver(int reps, int kernel, int tilesize,
             totalflops += 2*tile7;
         }
         if (kernel<0 || kernel==6) {
+            int k = 5;
             tt0 = omp_get_wtime();
-            s = cutensorContraction(&h, &pX[1][kernel-1], (void*) &alpha[1][kernel-1], pT2, pV2, (void*) &beta, pT3, pT3, pW, max_worksize, stream);
+            s = cutensorContraction(&h, &pX[1][k], (void*) &alpha[1][k], pT2, pV2, (void*) &beta, pT3, pT3, pW, max_worksize, stream);
             if (s) fprintf(stderr, "cutensorContraction\n");
             s2 = cudaStreamSynchronize(stream);
             if (s2) fprintf(stderr, "cudaStreamSynchronize\n");
@@ -279,8 +285,9 @@ void cutlass_driver(int reps, int kernel, int tilesize,
             totalflops += 2*tile7;
         }
         if (kernel<0 || kernel==7) {
+            int k = 6;
             tt0 = omp_get_wtime();
-            s = cutensorContraction(&h, &pX[1][kernel-1], (void*) &alpha[1][kernel-1], pT2, pV2, (void*) &beta, pT3, pT3, pW, max_worksize, stream);
+            s = cutensorContraction(&h, &pX[1][k], (void*) &alpha[1][k], pT2, pV2, (void*) &beta, pT3, pT3, pW, max_worksize, stream);
             if (s) fprintf(stderr, "cutensorContraction\n");
             s2 = cudaStreamSynchronize(stream);
             if (s2) fprintf(stderr, "cudaStreamSynchronize\n");
@@ -290,8 +297,9 @@ void cutlass_driver(int reps, int kernel, int tilesize,
             totalflops += 2*tile7;
         }
         if (kernel<0 || kernel==8) {
+            int k = 7;
             tt0 = omp_get_wtime();
-            s = cutensorContraction(&h, &pX[1][kernel-1], (void*) &alpha[1][kernel-1], pT2, pV2, (void*) &beta, pT3, pT3, pW, max_worksize, stream);
+            s = cutensorContraction(&h, &pX[1][k], (void*) &alpha[1][k], pT2, pV2, (void*) &beta, pT3, pT3, pW, max_worksize, stream);
             if (s) fprintf(stderr, "cutensorContraction\n");
             s2 = cudaStreamSynchronize(stream);
             if (s2) fprintf(stderr, "cudaStreamSynchronize\n");
@@ -301,8 +309,9 @@ void cutlass_driver(int reps, int kernel, int tilesize,
             totalflops += 2*tile7;
         }
         if (kernel<0 || kernel==9) {
+            int k = 8;
             tt0 = omp_get_wtime();
-            s = cutensorContraction(&h, &pX[1][kernel-1], (void*) &alpha[1][kernel-1], pT2, pV2, (void*) &beta, pT3, pT3, pW, max_worksize, stream);
+            s = cutensorContraction(&h, &pX[1][k], (void*) &alpha[1][k], pT2, pV2, (void*) &beta, pT3, pT3, pW, max_worksize, stream);
             if (s) fprintf(stderr, "cutensorContraction\n");
             s2 = cudaStreamSynchronize(stream);
             if (s2) fprintf(stderr, "cudaStreamSynchronize\n");
