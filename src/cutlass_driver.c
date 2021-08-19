@@ -1,3 +1,5 @@
+#ifdef DO_CUTENSOR_KERNELS
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -752,3 +754,5 @@ void cutlass_driver(int reps, int kernel, int tilesize,
     s2 = cudaStreamDestroy(stream);
     if (s2) fprintf(stderr, "cudaStreamDestroy\n");
 }
+
+#endif
