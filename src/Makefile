@@ -7,10 +7,10 @@ ACTIVE  += -DDO_D2
 ACTIVE  += -DDO_STDPAR_KERNELS
 #ACTIVE  += -DDO_TARGET_KERNELS
 #ACTIVE  += -DDO_ACC_KERNELS
-ACTIVE  += -DDO_CUTENSOR_KERNELS
+#ACTIVE  += -DDO_CUTENSOR_KERNELS
 ACTIVE  += -DDEBUG
 
-TARGET := NVHPC
+TARGET := INTEL
 
 # Intel Fortran throws the "cannot simd" warning for 3 and 4...
 OMP_COLLAPSE_LEVEL=3
@@ -73,7 +73,7 @@ endif
 ifeq ($(TARGET),INTEL)
     CC       = icc
     FC       = ifort
-    OPT     += -O3 -qopenmp
+    OPT     += -Ofast -qopenmp #-parallel
     OPT     += -xCORE-AVX512 -qopt-zmm-usage=low
     OPT     += -qopenmp-offload=host
     OPT     += -mfma
