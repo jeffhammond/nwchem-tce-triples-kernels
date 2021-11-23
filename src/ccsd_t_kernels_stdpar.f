@@ -580,15 +580,16 @@ c
       double precision t2sub(p7d,p4d,h1d,h2d)
       double precision t2tmp(p7d,h2d,h1d,p4d)
       double precision v2sub(p7d,h3d,p6d,p5d)
-      do concurrent (h2=1:h2d)
-      do concurrent (h1=1:h1d)
-      do concurrent (p4=1:p4d)
-      do concurrent (p7=1:p7d)
-        t2tmp(p7,h2,h1,p4) = t2sub(p7,p4,h1,h2)
-      enddo
-      enddo
-      enddo
-      enddo
+!      do concurrent (h2=1:h2d)
+!      do concurrent (h1=1:h1d)
+!      do concurrent (p4=1:p4d)
+!      do concurrent (p7=1:p7d)
+!        t2tmp(p7,h2,h1,p4) = t2sub(p7,p4,h1,h2)
+!      enddo
+!      enddo
+!      enddo
+!      enddo
+      t2tmp = reshape(t2sub, [p7d,h2d,h1d,p4d], order=[1,4,3,2])
       do concurrent (p5=1:p5d)
       do concurrent (p6=1:p6d)
       do concurrent (h1=1:h1d)
@@ -618,15 +619,16 @@ c
       double precision t2sub(p7d,p4d,h1d,h2d)
       double precision t2tmp(p7d,h2d,h1d,p4d)
       double precision v2sub(p7d,h3d,p6d,p5d)
-      do concurrent (h2=1:h2d)
-      do concurrent (h1=1:h1d)
-      do concurrent (p4=1:p4d)
-      do concurrent (p7=1:p7d)
-        t2tmp(p7,h2,h1,p4) = t2sub(p7,p4,h1,h2)
-      enddo
-      enddo
-      enddo
-      enddo
+!      do concurrent (h2=1:h2d)
+!      do concurrent (h1=1:h1d)
+!      do concurrent (p4=1:p4d)
+!      do concurrent (p7=1:p7d)
+!        t2tmp(p7,h2,h1,p4) = t2sub(p7,p4,h1,h2)
+!      enddo
+!      enddo
+!      enddo
+!      enddo
+      t2tmp = reshape(t2sub, [p7d,h2d,h1d,p4d], order=[1,4,3,2])
       do concurrent (p4=1:p4d)
       do concurrent (p5=1:p5d)
       do concurrent (p6=1:p6d)
@@ -683,15 +685,16 @@ c
       double precision t2sub(p7d,p4d,h1d,h2d)
       double precision t2tmp(p7d,h2d,h1d,p4d)
       double precision v2sub(p7d,h3d,p6d,p5d)
-      do concurrent (h2=1:h2d)
-      do concurrent (h1=1:h1d)
-      do concurrent (p4=1:p4d)
-      do concurrent (p7=1:p7d)
-        t2tmp(p7,h2,h1,p4) = t2sub(p7,p4,h1,h2)
-      enddo
-      enddo
-      enddo
-      enddo
+!      do concurrent (h2=1:h2d)
+!      do concurrent (h1=1:h1d)
+!      do concurrent (p4=1:p4d)
+!      do concurrent (p7=1:p7d)
+!        t2tmp(p7,h2,h1,p4) = t2sub(p7,p4,h1,h2)
+!      enddo
+!      enddo
+!      enddo
+!      enddo
+      t2tmp = reshape(t2sub, [p7d,h2d,h1d,p4d], order=[1,4,3,2])
       do concurrent (p5=1:p5d)
       do concurrent (p4=1:p4d)
       do concurrent (p6=1:p6d)
@@ -721,15 +724,17 @@ c
       double precision t2sub(p7d,p4d,h1d,h2d)
       double precision t2tmp(p7d,h2d,h1d,p4d)
       double precision v2sub(p7d,h3d,p6d,p5d)
-      do concurrent (h2=1:h2d)
-      do concurrent (h1=1:h1d)
-      do concurrent (p4=1:p4d)
-      do concurrent (p7=1:p7d)
-        t2tmp(p7,h2,h1,p4) = t2sub(p7,p4,h1,h2)
-      enddo
-      enddo
-      enddo
-      enddo
+!      do concurrent (h2=1:h2d)
+!      do concurrent (h1=1:h1d)
+!      do concurrent (p4=1:p4d)
+!      do concurrent (p7=1:p7d)
+!        !      1  4  3  2           1  2  3  4
+!        t2tmp(p7,h2,h1,p4) = t2sub(p7,p4,h1,h2)
+!      enddo
+!      enddo
+!      enddo
+!      enddo
+      t2tmp = reshape(t2sub, [p7d,h2d,h1d,p4d], order=[1,4,3,2])
       do concurrent (p5=1:p5d)
       do concurrent (p4=1:p4d)
       do concurrent (p6=1:p6d)
@@ -786,15 +791,17 @@ c
       double precision t2sub(p7d,p4d,h1d,h2d)
       double precision t2tmp(p7d,h2d,h1d,p4d)
       double precision v2sub(p7d,h3d,p6d,p5d)
-      do concurrent (h2=1:h2d)
-      do concurrent (h1=1:h1d)
-      do concurrent (p4=1:p4d)
-      do concurrent (p7=1:p7d)
-        t2tmp(p7,h2,h1,p4) = t2sub(p7,p4,h1,h2)
-      enddo
-      enddo
-      enddo
-      enddo
+!      do concurrent (h2=1:h2d)
+!      do concurrent (h1=1:h1d)
+!      do concurrent (p4=1:p4d)
+!      do concurrent (p7=1:p7d)
+!        !      1  4  3  2           1  2  3  4
+!        t2tmp(p7,h2,h1,p4) = t2sub(p7,p4,h1,h2)
+!      enddo
+!      enddo
+!      enddo
+!      enddo
+      t2tmp = reshape(t2sub, [p7d,h2d,h1d,p4d], order=[1,4,3,2])
       do concurrent (p5=1:p5d)
       do concurrent (p6=1:p6d)
       do concurrent (p4=1:p4d)
@@ -824,15 +831,17 @@ c
       double precision t2sub(p7d,p4d,h1d,h2d)
       double precision t2tmp(p7d,h2d,h1d,p4d)
       double precision v2sub(p7d,h3d,p6d,p5d)
-      do concurrent (h2=1:h2d)
-      do concurrent (h1=1:h1d)
-      do concurrent (p4=1:p4d)
-      do concurrent (p7=1:p7d)
-        t2tmp(p7,h2,h1,p4) = t2sub(p7,p4,h1,h2)
-      enddo
-      enddo
-      enddo
-      enddo
+!      do concurrent (h2=1:h2d)
+!      do concurrent (h1=1:h1d)
+!      do concurrent (p4=1:p4d)
+!      do concurrent (p7=1:p7d)
+!        !      1  4  3  2           1  2  3  4
+!        t2tmp(p7,h2,h1,p4) = t2sub(p7,p4,h1,h2)
+!      enddo
+!      enddo
+!      enddo
+!      enddo
+      t2tmp = reshape(t2sub, [p7d,h2d,h1d,p4d], order=[1,4,3,2])
       do concurrent (p5=1:p5d)
       do concurrent (p6=1:p6d)
       do concurrent (p4=1:p4d)
