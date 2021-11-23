@@ -11,7 +11,7 @@
 #include "safemalloc.h"
 #include "ccsd_t_kernels.h"
 
-void cutlass_driver(int reps, int kernel, int tilesize,
+void cutensor_driver(int reps, int kernel, int tilesize,
                     long long tile6, long long tile7,
                     const double * pT1, const double * pT2, const double * pV2, double * pT3);
 
@@ -926,7 +926,7 @@ int main(int argc, char * argv[])
 
 #if DO_CUTENSOR_KERNELS
     double * t3s = safemalloc( tile6*sizeof(double) );
-    cutlass_driver(reps, kernel, tilesize, tile6, tile7, t1, t2, v2, t3s);
+    cutensor_driver(reps, kernel, tilesize, tile6, tile7, t1, t2, v2, t3s);
 #endif
 
 #if DO_STDPAR_KERNELS

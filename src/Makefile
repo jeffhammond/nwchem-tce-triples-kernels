@@ -7,7 +7,6 @@ ACTIVE  += -DDO_D2
 ACTIVE  += -DDO_STDPAR_KERNELS
 #ACTIVE  += -DDO_TARGET_KERNELS
 #ACTIVE  += -DDO_ACC_KERNELS
-ACTIVE  += -DDO_CUTENSOR_KERNELS
 ACTIVE  += -DDEBUG
 
 TARGET := NVHPC
@@ -20,6 +19,7 @@ OPT = -DOMP_COLLAPSE_LEVEL=$(OMP_COLLAPSE_LEVEL)
 FAT_STACK = -Wl,-stack_size -Wl,100000000
 
 ifeq ($(TARGET),NVHPC)
+    ACTIVE  += -DDO_CUTENSOR_KERNELS
     CC       = nvc
     FC       = nvfortran
     OPT     += -DUSE_CUDA_UM -cuda
@@ -86,13 +86,13 @@ ifeq ($(TARGET),INTEL)
     LD       = $(FC)
     LDFLAGS  = $(FFLAGS) -nofor-main
     #LDFLAGS += -Wl,-no_pie # debugging with IDB only
-    LIBS     = -mkl=parallel
-    #LIBS     = -mkl=sequential
+    #LIBS     = -mkl=parallel
+    LIBS     = -qmkl=sequential
 endif
 
 ifeq ($(TARGET),GCC)
-    CC       = gcc-10
-    FC       = gfortran-10
+    CC       = gcc-11
+    FC       = gfortran-11
     OPT     += -O3 -fopenmp
     CFLAGS   = $(OPT) -std=c99 $(ACTIVE)
     FFLAGS   = $(OPT) -cpp
@@ -100,7 +100,8 @@ ifeq ($(TARGET),GCC)
     LD       = $(FC)
     LDFLAGS  = $(FFLAGS)
     #LIBS     = -L/usr/lib64/atlas/ -lptf77blas -latlas
-    LIBS     = -framework Accelerate -lgfortran
+    LIBS      = -lblas
+    #LIBS     = -framework Accelerate -lgfortran
 endif
 
 ifeq ($(TARGET),MAC-CLANG)
@@ -297,7 +298,7 @@ CCOBJECTS := ccsd_t_kernels_omp.o ccsd_t_kernels_ref.o \
              ccsd_t_kernels_1d.o ccsd_t_kernels_nd.o \
              ccsd_t_dts_kernels_ref.o ccsd_t_dts_kernels_omp.o \
 	     ccsd_t_kernels_stdpar.o ccsd_t_kernels_target.o \
-	     ccsd_t_kernels_acc.o cutlass_driver.o #ccsd_t_kernels_blas.o
+	     ccsd_t_kernels_acc.o cutensor_driver.o #ccsd_t_kernels_blas.o
 HEADERS := safemalloc.h pragma_vendor.h pragma_openmp.h fake_omp.h blas.h
 CCHEADERS := ccsd_t_kernels.h ccsd_t_kernels_omp.h ccsd_t_kernels_ref.h ccsd_t_kernels_1d.h \
 	     ccsd_t_kernels_nd.h ccsd_t_kernels_stdpar.h ccsd_t_kernels_target.h \

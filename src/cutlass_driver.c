@@ -18,7 +18,7 @@ void acc_zero_(int * restrict h3, int * restrict h2, int * restrict h1, int * re
 #include <cuda_runtime.h>
 #include <cutensor.h>
 
-void cutlass_driver(int reps, int kernel, int tilesize,
+void cutensor_driver(int reps, int kernel, int tilesize,
                     long long tile6, long long tile7,
                     const double * pT1, const double * pT2, const double * pV2, double * pT3)
 {
