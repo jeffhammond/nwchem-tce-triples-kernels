@@ -471,6 +471,7 @@ function nttk_sd_t_d2_9(h3d,h2d,h1d,p6d,p5d,p4d,p7d,triplesx,t2sub,v2sub)
 end
 
 using Random
+using Printf
 
 function main()
     println("NTTK Julia")
@@ -540,7 +541,7 @@ function main()
             nttk_sd_t_s1_1(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3j, t1, v2)
             tt1 = time_ns()
             dt = tt1-tt0
-            println("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_s1_1", dt, (2e-9*tile6)/dt )
+            @printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_s1_1", dt*1e-9, (2*tile6)/dt )
             totalflops += 2*tile6
         end
         if (kernel<0 || kernel==2) 
@@ -548,7 +549,7 @@ function main()
             nttk_sd_t_s1_2(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3j, t1, v2)
             tt1 = time_ns()
             dt = tt1-tt0
-            println("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_s1_2", dt, (2e-9*tile6)/dt )
+            @printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_s1_2", dt*1e-9, (2*tile6)/dt )
             totalflops += 2*tile6
         end
         if (kernel<0 || kernel==3) 
@@ -556,7 +557,7 @@ function main()
             nttk_sd_t_s1_3(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3j, t1, v2)
             tt1 = time_ns()
             dt = tt1-tt0
-            println("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_s1_3", dt, (2e-9*tile6)/dt )
+            @printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_s1_3", dt*1e-9, (2*tile6)/dt )
             totalflops += 2*tile6
         end
         if (kernel<0 || kernel==4) 
@@ -564,7 +565,7 @@ function main()
             nttk_sd_t_s1_4(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3j, t1, v2)
             tt1 = time_ns()
             dt = tt1-tt0
-            println("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_s1_4", dt, (2e-9*tile6)/dt )
+            @printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_s1_4", dt*1e-9, (2*tile6)/dt )
             totalflops += 2*tile6
         end
         if (kernel<0 || kernel==5) 
@@ -572,7 +573,7 @@ function main()
             nttk_sd_t_s1_5(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3j, t1, v2)
             tt1 = time_ns()
             dt = tt1-tt0
-            println("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_s1_5", dt, (2e-9*tile6)/dt )
+            @printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_s1_5", dt*1e-9, (2*tile6)/dt )
             totalflops += 2*tile6
         end
         if (kernel<0 || kernel==6) 
@@ -580,7 +581,7 @@ function main()
             nttk_sd_t_s1_6(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3j, t1, v2)
             tt1 = time_ns()
             dt = tt1-tt0
-            println("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_s1_6", dt, (2e-9*tile6)/dt )
+            @printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_s1_6", dt*1e-9, (2*tile6)/dt )
             totalflops += 2*tile6
         end
         if (kernel<0 || kernel==7) 
@@ -588,7 +589,7 @@ function main()
             nttk_sd_t_s1_7(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3j, t1, v2)
             tt1 = time_ns()
             dt = tt1-tt0
-            println("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_s1_7", dt, (2e-9*tile6)/dt )
+            @printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_s1_7", dt*1e-9, (2*tile6)/dt )
             totalflops += 2*tile6
         end
         if (kernel<0 || kernel==8) 
@@ -596,7 +597,7 @@ function main()
             nttk_sd_t_s1_8(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3j, t1, v2)
             tt1 = time_ns()
             dt = tt1-tt0
-            println("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_s1_8", dt, (2e-9*tile6)/dt )
+            @printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_s1_8", dt*1e-9, (2*tile6)/dt )
             totalflops += 2*tile6
         end
         if (kernel<0 || kernel==9) 
@@ -604,7 +605,7 @@ function main()
             nttk_sd_t_s1_9(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3j, t1, v2)
             tt1 = time_ns()
             dt = tt1-tt0
-            println("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_s1_9", dt, (2e-9*tile6)/dt )
+            @printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_s1_9", dt*1e-9, (2*tile6)/dt )
             totalflops += 2*tile6
         end
         if (kernel<0 || kernel==1) 
@@ -612,7 +613,7 @@ function main()
             nttk_sd_t_d1_1(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3j, t2, v2)
             tt1 = time_ns()
             dt = tt1-tt0
-            println("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d1_1", dt, (2e-9*tile7)/dt )
+            @printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d1_1", dt*1e-9, (2*tile7)/dt )
             totalflops += 2*tile7
         end
         if (kernel<0 || kernel==2) 
@@ -620,7 +621,7 @@ function main()
             nttk_sd_t_d1_2(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3j, t2, v2)
             tt1 = time_ns()
             dt = tt1-tt0
-            println("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d1_2", dt, (2e-9*tile7)/dt )
+            @printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d1_2", dt*1e-9, (2*tile7)/dt )
             totalflops += 2*tile7
         end
         if (kernel<0 || kernel==3) 
@@ -628,7 +629,7 @@ function main()
             nttk_sd_t_d1_3(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3j, t2, v2)
             tt1 = time_ns()
             dt = tt1-tt0
-            println("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d1_3", dt, (2e-9*tile7)/dt )
+            @printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d1_3", dt*1e-9, (2*tile7)/dt )
             totalflops += 2*tile7
         end
         if (kernel<0 || kernel==4) 
@@ -636,7 +637,7 @@ function main()
             nttk_sd_t_d1_4(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3j, t2, v2)
             tt1 = time_ns()
             dt = tt1-tt0
-            println("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d1_4", dt, (2e-9*tile7)/dt )
+            @printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d1_4", dt*1e-9, (2*tile7)/dt )
             totalflops += 2*tile7
         end
         if (kernel<0 || kernel==5) 
@@ -644,7 +645,7 @@ function main()
             nttk_sd_t_d1_5(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3j, t2, v2)
             tt1 = time_ns()
             dt = tt1-tt0
-            println("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d1_5", dt, (2e-9*tile7)/dt )
+            @printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d1_5", dt*1e-9, (2*tile7)/dt )
             totalflops += 2*tile7
         end
         if (kernel<0 || kernel==6) 
@@ -652,7 +653,7 @@ function main()
             nttk_sd_t_d1_6(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3j, t2, v2)
             tt1 = time_ns()
             dt = tt1-tt0
-            println("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d1_6", dt, (2e-9*tile7)/dt )
+            @printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d1_6", dt*1e-9, (2*tile7)/dt )
             totalflops += 2*tile7
         end
         if (kernel<0 || kernel==7) 
@@ -660,7 +661,7 @@ function main()
             nttk_sd_t_d1_7(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3j, t2, v2)
             tt1 = time_ns()
             dt = tt1-tt0
-            println("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d1_7", dt, (2e-9*tile7)/dt )
+            @printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d1_7", dt*1e-9, (2*tile7)/dt )
             totalflops += 2*tile7
         end
         if (kernel<0 || kernel==8) 
@@ -668,7 +669,7 @@ function main()
             nttk_sd_t_d1_8(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3j, t2, v2)
             tt1 = time_ns()
             dt = tt1-tt0
-            println("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d1_8", dt, (2e-9*tile7)/dt )
+            @printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d1_8", dt*1e-9, (2*tile7)/dt )
             totalflops += 2*tile7
         end
         if (kernel<0 || kernel==9) 
@@ -676,7 +677,7 @@ function main()
             nttk_sd_t_d1_9(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3j, t2, v2)
             tt1 = time_ns()
             dt = tt1-tt0
-            println("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d1_9", dt, (2e-9*tile7)/dt )
+            @printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d1_9", dt*1e-9, (2*tile7)/dt )
             totalflops += 2*tile7
         end
         if (kernel<0 || kernel==1) 
@@ -684,7 +685,7 @@ function main()
             nttk_sd_t_d2_1(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3j, t2, v2)
             tt1 = time_ns()
             dt = tt1-tt0
-            println("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d2_1", dt, (2e-9*tile7)/dt )
+            @printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d2_1", dt*1e-9, (2*tile7)/dt )
             totalflops += 2*tile7
         end
         if (kernel<0 || kernel==2) 
@@ -692,7 +693,7 @@ function main()
             nttk_sd_t_d2_2(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3j, t2, v2)
             tt1 = time_ns()
             dt = tt1-tt0
-            println("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d2_2", dt, (2e-9*tile7)/dt )
+            @printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d2_2", dt*1e-9, (2*tile7)/dt )
             totalflops += 2*tile7
         end
         if (kernel<0 || kernel==3) 
@@ -700,7 +701,7 @@ function main()
             nttk_sd_t_d2_3(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3j, t2, v2)
             tt1 = time_ns()
             dt = tt1-tt0
-            println("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d2_3", dt, (2e-9*tile7)/dt )
+            @printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d2_3", dt*1e-9, (2*tile7)/dt )
             totalflops += 2*tile7
         end
         if (kernel<0 || kernel==4) 
@@ -708,7 +709,7 @@ function main()
             nttk_sd_t_d2_4(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3j, t2, v2)
             tt1 = time_ns()
             dt = tt1-tt0
-            println("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d2_4", dt, (2e-9*tile7)/dt )
+            @printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d2_4", dt*1e-9, (2*tile7)/dt )
             totalflops += 2*tile7
         end
         if (kernel<0 || kernel==5) 
@@ -716,7 +717,7 @@ function main()
             nttk_sd_t_d2_5(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3j, t2, v2)
             tt1 = time_ns()
             dt = tt1-tt0
-            println("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d2_5", dt, (2e-9*tile7)/dt )
+            @printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d2_5", dt*1e-9, (2*tile7)/dt )
             totalflops += 2*tile7
         end
         if (kernel<0 || kernel==6) 
@@ -724,7 +725,7 @@ function main()
             nttk_sd_t_d2_6(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3j, t2, v2)
             tt1 = time_ns()
             dt = tt1-tt0
-            println("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d2_6", dt, (2e-9*tile7)/dt )
+            @printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d2_6", dt*1e-9, (2*tile7)/dt )
             totalflops += 2*tile7
         end
         if (kernel<0 || kernel==7) 
@@ -732,7 +733,7 @@ function main()
             nttk_sd_t_d2_7(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3j, t2, v2)
             tt1 = time_ns()
             dt = tt1-tt0
-            println("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d2_7", dt, (2e-9*tile7)/dt )
+            @printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d2_7", dt*1e-9, (2*tile7)/dt )
             totalflops += 2*tile7
         end
         if (kernel<0 || kernel==8) 
@@ -740,7 +741,7 @@ function main()
             nttk_sd_t_d2_8(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3j, t2, v2)
             tt1 = time_ns()
             dt = tt1-tt0
-            println("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d2_8", dt, (2e-9*tile7)/dt )
+            @printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d2_8", dt*1e-9, (2*tile7)/dt )
             totalflops += 2*tile7
         end
         if (kernel<0 || kernel==9) 
@@ -748,12 +749,12 @@ function main()
             nttk_sd_t_d2_9(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3j, t2, v2)
             tt1 = time_ns()
             dt = tt1-tt0
-            println("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d2_9", dt, (2e-9*tile7)/dt )
+            @printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d2_9", dt*1e-9, (2*tile7)/dt )
             totalflops += 2*tile7
         end
         ttt1 = time_ns()
         dt = ttt1-ttt0
-        println("%d: %s time = %lf s GF/s = %lf \n", i, "total", dt, (1e-9*totalflops)/dt )
+        @printf("%d: total time = %lf s GF/s = %lf\n",i,dt*1e-9,(2*tile7)/dt)
     end
 
     println("END")
