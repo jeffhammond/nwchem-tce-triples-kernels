@@ -1,3 +1,4 @@
+#!/usr/bin/env julia
 #
 # Copyright (c) 2022, NVIDIA
 #
