@@ -11,15 +11,8 @@ else:
 
 import numpy as np
 
-def diff6d(d1,d2,d3,d4,d5,d6,x,y):
-    r = 0.0
-    for i1,i2,i3,i4,i5,i6 in np.ndindex((d1,d2,d3,d4,d5,d6)):
-        r += abs( x[i1,i2,i3,i4,i5,i6] - y[i1,i2,i3,i4,i5,i6] )
-    return r
-
 def nttk_sd_t_s1_1(d3,d2,d1,d6,d5,d4,triplesx,t1sub,v2sub):
     for h1,h2,h3,p4,p5,p6 in np.ndindex((d1,d2,d3,d4,d5,d6)):
-        print([h1,h2,h3,p4,p5,p6])
         triplesx[h3,h2,h1,p6,p5,p4] += t1sub[p4,h1] * v2sub[h3,h2,p6,p5]
 
 def nttk_sd_t_s1_2(d3,d2,d1,d6,d5,d4,triplesx,t1sub,v2sub):
@@ -715,16 +708,7 @@ def main():
         print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"total", dt, 1e-9*totalflops/dt))
 
 
-    #error = diff6d(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t3t)
     error = np.linalg.norm(np.reshape(t3l-t3t,tile6),ord=1)
-    #print("diff = ",t3l-t3t)
-    if False and (error > 0):
-        for i1,i2,i3,i4,i5,i6 in np.ndindex((tilesize, tilesize, tilesize, tilesize, tilesize, tilesize)):
-            l = t3l[i1,i2,i3,i4,i5,i6]
-            t = t3t[i1,i2,i3,i4,i5,i6]
-            if ( abs(l-t) > 1e-14):
-                print( [i1,i2,i3,i4,i5,i6], l, t)
-
     print("diff = ",error)
     print("END")
 
