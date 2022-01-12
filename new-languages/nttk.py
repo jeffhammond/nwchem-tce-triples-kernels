@@ -229,7 +229,7 @@ def tensor_sd_t_d2_9(d3,d2,d1,d6,d5,d4,d7,triplesx,t2sub,v2sub):
     triplesx += np.einsum(t2sub,[7,4,1,2],v2sub,[7,3,6,5],[2,3,1,4,6,5])
 
 def main():
-    print("NTTK Julia")
+    print("NTTK Python")
 
     reps     =  3
     tilesize = 16
@@ -252,234 +252,6 @@ def main():
     v2  = np.random.rand(tilesize,tilesize,tilesize,tilesize)
     tt1 = timer()
     print("allocation and initialization time =",(tt1-tt0)*1e-9," seconds")
-
-
-    # LOOPS
-    print("STARTING LOOPS KERNELS");
-    t3l = np.zeros((tilesize,tilesize,tilesize,tilesize,tilesize,tilesize),dtype=np.float64)
-    for i in range(reps):
-        totalflops = 0
-        ttt0 = timer()
-        if kernel<0 or kernel==1 :
-            tt0 = timer()
-            nttk_sd_t_s1_1(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t1, v2)
-            tt1 = timer()
-            dt = tt1-tt0
-            print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"sd_t_s1_1", dt, 2e-9*tile6/dt))
-            totalflops += 2*tile6
-
-        if kernel<0 or kernel==2 :
-            tt0 = timer()
-            nttk_sd_t_s1_2(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t1, v2)
-            tt1 = timer()
-            dt = tt1-tt0
-            print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"sd_t_s1_2", dt, 2e-9*tile6/dt))
-            totalflops += 2*tile6
-
-        if kernel<0 or kernel==3 :
-            tt0 = timer()
-            nttk_sd_t_s1_3(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t1, v2)
-            tt1 = timer()
-            dt = tt1-tt0
-            print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"sd_t_s1_3", dt, 2e-9*tile6/dt))
-            totalflops += 2*tile6
-
-        if kernel<0 or kernel==4 :
-            tt0 = timer()
-            nttk_sd_t_s1_4(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t1, v2)
-            tt1 = timer()
-            dt = tt1-tt0
-            print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"sd_t_s1_4", dt, 2e-9*tile6/dt))
-            totalflops += 2*tile6
-
-        if kernel<0 or kernel==5 :
-            tt0 = timer()
-            nttk_sd_t_s1_5(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t1, v2)
-            tt1 = timer()
-            dt = tt1-tt0
-            print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"sd_t_s1_5", dt, 2e-9*tile6/dt))
-            totalflops += 2*tile6
-
-        if kernel<0 or kernel==6 :
-            tt0 = timer()
-            nttk_sd_t_s1_6(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t1, v2)
-            tt1 = timer()
-            dt = tt1-tt0
-            print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"sd_t_s1_6", dt, 2e-9*tile6/dt))
-            totalflops += 2*tile6
-
-        if kernel<0 or kernel==7 :
-            tt0 = timer()
-            nttk_sd_t_s1_7(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t1, v2)
-            tt1 = timer()
-            dt = tt1-tt0
-            print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"sd_t_s1_7", dt, 2e-9*tile6/dt))
-            totalflops += 2*tile6
-
-        if kernel<0 or kernel==8 :
-            tt0 = timer()
-            nttk_sd_t_s1_8(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t1, v2)
-            tt1 = timer()
-            dt = tt1-tt0
-            print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"sd_t_s1_8", dt, 2e-9*tile6/dt))
-            totalflops += 2*tile6
-
-        if kernel<0 or kernel==9 :
-            tt0 = timer()
-            nttk_sd_t_s1_9(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t1, v2)
-            tt1 = timer()
-            dt = tt1-tt0
-            print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"sd_t_s1_9", dt, 2e-9*tile6/dt))
-            totalflops += 2*tile6
-
-        if kernel<0 or kernel==1 :
-            tt0 = timer()
-            nttk_sd_t_d1_1(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t2, v2)
-            tt1 = timer()
-            dt = tt1-tt0
-            print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"sd_t_d1_1", dt, 2e-9*tile7/dt))
-            totalflops += 2*tile7
-
-        if kernel<0 or kernel==2 :
-            tt0 = timer()
-            nttk_sd_t_d1_2(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t2, v2)
-            tt1 = timer()
-            dt = tt1-tt0
-            print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"sd_t_d1_2", dt, 2e-9*tile7/dt))
-            totalflops += 2*tile7
-
-        if kernel<0 or kernel==3 :
-            tt0 = timer()
-            nttk_sd_t_d1_3(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t2, v2)
-            tt1 = timer()
-            dt = tt1-tt0
-            print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"sd_t_d1_3", dt, 2e-9*tile7/dt))
-            totalflops += 2*tile7
-
-        if kernel<0 or kernel==4 :
-            tt0 = timer()
-            nttk_sd_t_d1_4(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t2, v2)
-            tt1 = timer()
-            dt = tt1-tt0
-            print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"sd_t_d1_4", dt, 2e-9*tile7/dt))
-            totalflops += 2*tile7
-
-        if kernel<0 or kernel==5 :
-            tt0 = timer()
-            nttk_sd_t_d1_5(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t2, v2)
-            tt1 = timer()
-            dt = tt1-tt0
-            print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"sd_t_d1_5", dt, 2e-9*tile7/dt))
-            totalflops += 2*tile7
-
-        if kernel<0 or kernel==6 :
-            tt0 = timer()
-            nttk_sd_t_d1_6(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t2, v2)
-            tt1 = timer()
-            dt = tt1-tt0
-            print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"sd_t_d1_6", dt, 2e-9*tile7/dt))
-            totalflops += 2*tile7
-
-        if kernel<0 or kernel==7 :
-            tt0 = timer()
-            nttk_sd_t_d1_7(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t2, v2)
-            tt1 = timer()
-            dt = tt1-tt0
-            print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"sd_t_d1_7", dt, 2e-9*tile7/dt))
-            totalflops += 2*tile7
-
-        if kernel<0 or kernel==8 :
-            tt0 = timer()
-            nttk_sd_t_d1_8(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t2, v2)
-            tt1 = timer()
-            dt = tt1-tt0
-            print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"sd_t_d1_8", dt, 2e-9*tile7/dt))
-            totalflops += 2*tile7
-
-        if kernel<0 or kernel==9 :
-            tt0 = timer()
-            nttk_sd_t_d1_9(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t2, v2)
-            tt1 = timer()
-            dt = tt1-tt0
-            print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"sd_t_d1_9", dt, 2e-9*tile7/dt))
-            totalflops += 2*tile7
-
-        if kernel<0 or kernel==1 :
-            tt0 = timer()
-            nttk_sd_t_d2_1(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t2, v2)
-            tt1 = timer()
-            dt = tt1-tt0
-            print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"sd_t_d2_1", dt, 2e-9*tile7/dt))
-            totalflops += 2*tile7
-
-        if kernel<0 or kernel==2 :
-            tt0 = timer()
-            nttk_sd_t_d2_2(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t2, v2)
-            tt1 = timer()
-            dt = tt1-tt0
-            print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"sd_t_d2_2", dt, 2e-9*tile7/dt))
-            totalflops += 2*tile7
-
-        if kernel<0 or kernel==3 :
-            tt0 = timer()
-            nttk_sd_t_d2_3(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t2, v2)
-            tt1 = timer()
-            dt = tt1-tt0
-            print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"sd_t_d2_3", dt, 2e-9*tile7/dt))
-            totalflops += 2*tile7
-
-        if kernel<0 or kernel==4 :
-            tt0 = timer()
-            nttk_sd_t_d2_4(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t2, v2)
-            tt1 = timer()
-            dt = tt1-tt0
-            print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"sd_t_d2_4", dt, 2e-9*tile7/dt))
-            totalflops += 2*tile7
-
-        if kernel<0 or kernel==5 :
-            tt0 = timer()
-            nttk_sd_t_d2_5(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t2, v2)
-            tt1 = timer()
-            dt = tt1-tt0
-            print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"sd_t_d2_5", dt, 2e-9*tile7/dt))
-            totalflops += 2*tile7
-
-        if kernel<0 or kernel==6 :
-            tt0 = timer()
-            nttk_sd_t_d2_6(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t2, v2)
-            tt1 = timer()
-            dt = tt1-tt0
-            print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"sd_t_d2_6", dt, 2e-9*tile7/dt))
-            totalflops += 2*tile7
-
-        if kernel<0 or kernel==7 :
-            tt0 = timer()
-            nttk_sd_t_d2_7(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t2, v2)
-            tt1 = timer()
-            dt = tt1-tt0
-            print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"sd_t_d2_7", dt, 2e-9*tile7/dt))
-            totalflops += 2*tile7
-
-        if kernel<0 or kernel==8 :
-            tt0 = timer()
-            nttk_sd_t_d2_8(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t2, v2)
-            tt1 = timer()
-            dt = tt1-tt0
-            print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"sd_t_d2_8", dt, 2e-9*tile7/dt))
-            totalflops += 2*tile7
-
-        if kernel<0 or kernel==9 :
-            tt0 = timer()
-            nttk_sd_t_d2_9(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t2, v2)
-            tt1 = timer()
-            dt = tt1-tt0
-            print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"sd_t_d2_9", dt, 2e-9*tile7/dt))
-            totalflops += 2*tile7
-
-        ttt1 = timer()
-        dt = ttt1-ttt0
-        print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"total", dt, 1e-9*totalflops/dt))
-
 
     # TENSOR
     print("STARTING TENSOR KERNELS");
@@ -707,8 +479,234 @@ def main():
         dt = ttt1-ttt0
         print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"total", dt, 1e-9*totalflops/dt))
 
+    # LOOPS
+    print("STARTING LOOPS KERNELS");
+    t3l = np.zeros((tilesize,tilesize,tilesize,tilesize,tilesize,tilesize),dtype=np.float64)
+    for i in range(reps):
+        totalflops = 0
+        ttt0 = timer()
+        if kernel<0 or kernel==1 :
+            tt0 = timer()
+            nttk_sd_t_s1_1(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t1, v2)
+            tt1 = timer()
+            dt = tt1-tt0
+            print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"sd_t_s1_1", dt, 2e-9*tile6/dt))
+            totalflops += 2*tile6
+
+        if kernel<0 or kernel==2 :
+            tt0 = timer()
+            nttk_sd_t_s1_2(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t1, v2)
+            tt1 = timer()
+            dt = tt1-tt0
+            print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"sd_t_s1_2", dt, 2e-9*tile6/dt))
+            totalflops += 2*tile6
+
+        if kernel<0 or kernel==3 :
+            tt0 = timer()
+            nttk_sd_t_s1_3(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t1, v2)
+            tt1 = timer()
+            dt = tt1-tt0
+            print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"sd_t_s1_3", dt, 2e-9*tile6/dt))
+            totalflops += 2*tile6
+
+        if kernel<0 or kernel==4 :
+            tt0 = timer()
+            nttk_sd_t_s1_4(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t1, v2)
+            tt1 = timer()
+            dt = tt1-tt0
+            print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"sd_t_s1_4", dt, 2e-9*tile6/dt))
+            totalflops += 2*tile6
+
+        if kernel<0 or kernel==5 :
+            tt0 = timer()
+            nttk_sd_t_s1_5(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t1, v2)
+            tt1 = timer()
+            dt = tt1-tt0
+            print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"sd_t_s1_5", dt, 2e-9*tile6/dt))
+            totalflops += 2*tile6
+
+        if kernel<0 or kernel==6 :
+            tt0 = timer()
+            nttk_sd_t_s1_6(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t1, v2)
+            tt1 = timer()
+            dt = tt1-tt0
+            print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"sd_t_s1_6", dt, 2e-9*tile6/dt))
+            totalflops += 2*tile6
+
+        if kernel<0 or kernel==7 :
+            tt0 = timer()
+            nttk_sd_t_s1_7(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t1, v2)
+            tt1 = timer()
+            dt = tt1-tt0
+            print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"sd_t_s1_7", dt, 2e-9*tile6/dt))
+            totalflops += 2*tile6
+
+        if kernel<0 or kernel==8 :
+            tt0 = timer()
+            nttk_sd_t_s1_8(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t1, v2)
+            tt1 = timer()
+            dt = tt1-tt0
+            print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"sd_t_s1_8", dt, 2e-9*tile6/dt))
+            totalflops += 2*tile6
+
+        if kernel<0 or kernel==9 :
+            tt0 = timer()
+            nttk_sd_t_s1_9(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t1, v2)
+            tt1 = timer()
+            dt = tt1-tt0
+            print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"sd_t_s1_9", dt, 2e-9*tile6/dt))
+            totalflops += 2*tile6
+
+        if kernel<0 or kernel==1 :
+            tt0 = timer()
+            nttk_sd_t_d1_1(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t2, v2)
+            tt1 = timer()
+            dt = tt1-tt0
+            print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"sd_t_d1_1", dt, 2e-9*tile7/dt))
+            totalflops += 2*tile7
+
+        if kernel<0 or kernel==2 :
+            tt0 = timer()
+            nttk_sd_t_d1_2(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t2, v2)
+            tt1 = timer()
+            dt = tt1-tt0
+            print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"sd_t_d1_2", dt, 2e-9*tile7/dt))
+            totalflops += 2*tile7
+
+        if kernel<0 or kernel==3 :
+            tt0 = timer()
+            nttk_sd_t_d1_3(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t2, v2)
+            tt1 = timer()
+            dt = tt1-tt0
+            print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"sd_t_d1_3", dt, 2e-9*tile7/dt))
+            totalflops += 2*tile7
+
+        if kernel<0 or kernel==4 :
+            tt0 = timer()
+            nttk_sd_t_d1_4(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t2, v2)
+            tt1 = timer()
+            dt = tt1-tt0
+            print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"sd_t_d1_4", dt, 2e-9*tile7/dt))
+            totalflops += 2*tile7
+
+        if kernel<0 or kernel==5 :
+            tt0 = timer()
+            nttk_sd_t_d1_5(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t2, v2)
+            tt1 = timer()
+            dt = tt1-tt0
+            print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"sd_t_d1_5", dt, 2e-9*tile7/dt))
+            totalflops += 2*tile7
+
+        if kernel<0 or kernel==6 :
+            tt0 = timer()
+            nttk_sd_t_d1_6(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t2, v2)
+            tt1 = timer()
+            dt = tt1-tt0
+            print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"sd_t_d1_6", dt, 2e-9*tile7/dt))
+            totalflops += 2*tile7
+
+        if kernel<0 or kernel==7 :
+            tt0 = timer()
+            nttk_sd_t_d1_7(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t2, v2)
+            tt1 = timer()
+            dt = tt1-tt0
+            print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"sd_t_d1_7", dt, 2e-9*tile7/dt))
+            totalflops += 2*tile7
+
+        if kernel<0 or kernel==8 :
+            tt0 = timer()
+            nttk_sd_t_d1_8(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t2, v2)
+            tt1 = timer()
+            dt = tt1-tt0
+            print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"sd_t_d1_8", dt, 2e-9*tile7/dt))
+            totalflops += 2*tile7
+
+        if kernel<0 or kernel==9 :
+            tt0 = timer()
+            nttk_sd_t_d1_9(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t2, v2)
+            tt1 = timer()
+            dt = tt1-tt0
+            print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"sd_t_d1_9", dt, 2e-9*tile7/dt))
+            totalflops += 2*tile7
+
+        if kernel<0 or kernel==1 :
+            tt0 = timer()
+            nttk_sd_t_d2_1(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t2, v2)
+            tt1 = timer()
+            dt = tt1-tt0
+            print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"sd_t_d2_1", dt, 2e-9*tile7/dt))
+            totalflops += 2*tile7
+
+        if kernel<0 or kernel==2 :
+            tt0 = timer()
+            nttk_sd_t_d2_2(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t2, v2)
+            tt1 = timer()
+            dt = tt1-tt0
+            print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"sd_t_d2_2", dt, 2e-9*tile7/dt))
+            totalflops += 2*tile7
+
+        if kernel<0 or kernel==3 :
+            tt0 = timer()
+            nttk_sd_t_d2_3(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t2, v2)
+            tt1 = timer()
+            dt = tt1-tt0
+            print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"sd_t_d2_3", dt, 2e-9*tile7/dt))
+            totalflops += 2*tile7
+
+        if kernel<0 or kernel==4 :
+            tt0 = timer()
+            nttk_sd_t_d2_4(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t2, v2)
+            tt1 = timer()
+            dt = tt1-tt0
+            print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"sd_t_d2_4", dt, 2e-9*tile7/dt))
+            totalflops += 2*tile7
+
+        if kernel<0 or kernel==5 :
+            tt0 = timer()
+            nttk_sd_t_d2_5(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t2, v2)
+            tt1 = timer()
+            dt = tt1-tt0
+            print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"sd_t_d2_5", dt, 2e-9*tile7/dt))
+            totalflops += 2*tile7
+
+        if kernel<0 or kernel==6 :
+            tt0 = timer()
+            nttk_sd_t_d2_6(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t2, v2)
+            tt1 = timer()
+            dt = tt1-tt0
+            print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"sd_t_d2_6", dt, 2e-9*tile7/dt))
+            totalflops += 2*tile7
+
+        if kernel<0 or kernel==7 :
+            tt0 = timer()
+            nttk_sd_t_d2_7(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t2, v2)
+            tt1 = timer()
+            dt = tt1-tt0
+            print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"sd_t_d2_7", dt, 2e-9*tile7/dt))
+            totalflops += 2*tile7
+
+        if kernel<0 or kernel==8 :
+            tt0 = timer()
+            nttk_sd_t_d2_8(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t2, v2)
+            tt1 = timer()
+            dt = tt1-tt0
+            print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"sd_t_d2_8", dt, 2e-9*tile7/dt))
+            totalflops += 2*tile7
+
+        if kernel<0 or kernel==9 :
+            tt0 = timer()
+            nttk_sd_t_d2_9(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t2, v2)
+            tt1 = timer()
+            dt = tt1-tt0
+            print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"sd_t_d2_9", dt, 2e-9*tile7/dt))
+            totalflops += 2*tile7
+
+        ttt1 = timer()
+        dt = ttt1-ttt0
+        print("{:1}: {:.10} time = {:10.5} s GF/s = {:10.5}".format(i,"total", dt, 1e-9*totalflops/dt))
 
     error = np.linalg.norm(np.reshape(t3l-t3t,tile6),ord=1)
+
     print("diff = ",error)
     print("END")
 
