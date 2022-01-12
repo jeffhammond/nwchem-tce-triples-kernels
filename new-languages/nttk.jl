@@ -5,19 +5,17 @@
 #using InteractiveUtils
 #using BenchmarkTools
 
+function diff6d(d1,d2,d3,d4,d5,d6,x,y)
+ r = 0.0
+ for i1 in 1:d1, i2 in 1:d2, i3 in 1:d3, i4 in 1:d4, i5 in 1:d5, i6 in 1:d6
+     @inbounds r += abs( x[i1,i2,i3,i4,i5,i6] - y[i1,i2,i3,i4,i5,i6] )
+ end
+ return r
+end
+
 function nttk_sd_t_s1_1(h3d,h2d,h1d,p6d,p5d,p4d,triplesx,t1sub,v2sub)
- for p4 in 1:p4d
-  for p5 in 1:p5d
-   for p6 in 1:p6d
-    for h1 in 1:h1d
-     for h2 in 1:h2d
-      for h3 in 1:h3d
-       @inbounds triplesx[h3,h2,h1,p6,p5,p4] += t1sub[p4,h1] * v2sub[h3,h2,p6,p5]
-      end
-     end
-    end
-   end
-  end
+ for p4 in 1:p4d, p5 in 1:p5d, p6 in 1:p6d, h1 in 1:h1d, h2 in 1:h2d, h3 in 1:h3d
+     @inbounds triplesx[h3,h2,h1,p6,p5,p4] += t1sub[p4,h1] * v2sub[h3,h2,p6,p5]
  end
 end
 
@@ -480,35 +478,35 @@ function tensor_sd_t_s1_1(h3d,h2d,h1d,p6d,p5d,p4d,triplesx,t1sub,v2sub)
 end
 
 function tensor_sd_t_s1_2(h3d,h2d,h1d,p6d,p5d,p4d,triplesx,t1sub,v2sub)
-                            @inbounds triplesx[h3,h1,h2,p6,p5,p4] -= t1sub[p4,h1] * v2sub[h3,h2,p6,p5]
+    @tensor triplesx[h3,h1,h2,p6,p5,p4] -= t1sub[p4,h1] * v2sub[h3,h2,p6,p5]
 end
 
 function tensor_sd_t_s1_3(h3d,h2d,h1d,p6d,p5d,p4d,triplesx,t1sub,v2sub)
-                            @inbounds triplesx[h1,h3,h2,p6,p5,p4] += t1sub[p4,h1] * v2sub[h3,h2,p6,p5]
+    @tensor triplesx[h1,h3,h2,p6,p5,p4] += t1sub[p4,h1] * v2sub[h3,h2,p6,p5]
 end
 
 function tensor_sd_t_s1_4(h3d,h2d,h1d,p6d,p5d,p4d,triplesx,t1sub,v2sub)
-                            @inbounds triplesx[h3,h2,h1,p6,p4,p5] -=  t1sub[p4,h1] * v2sub[h3,h2,p6,p5]
+    @tensor triplesx[h3,h2,h1,p6,p4,p5] -=  t1sub[p4,h1] * v2sub[h3,h2,p6,p5]
 end
 
 function tensor_sd_t_s1_5(h3d,h2d,h1d,p6d,p5d,p4d,triplesx,t1sub,v2sub)
-                            @inbounds triplesx[h3,h1,h2,p6,p4,p5] += t1sub[p4,h1] * v2sub[h3,h2,p6,p5]
+    @tensor triplesx[h3,h1,h2,p6,p4,p5] += t1sub[p4,h1] * v2sub[h3,h2,p6,p5]
 end
 
 function tensor_sd_t_s1_6(h3d,h2d,h1d,p6d,p5d,p4d,triplesx,t1sub,v2sub)
-                            @inbounds triplesx[h1,h3,h2,p6,p4,p5] -=  t1sub[p4,h1] * v2sub[h3,h2,p6,p5]
+    @tensor triplesx[h1,h3,h2,p6,p4,p5] -=  t1sub[p4,h1] * v2sub[h3,h2,p6,p5]
 end
 
 function tensor_sd_t_s1_7(h3d,h2d,h1d,p6d,p5d,p4d,triplesx,t1sub,v2sub)
-                            @inbounds triplesx[h3,h2,h1,p4,p6,p5] += t1sub[p4,h1] * v2sub[h3,h2,p6,p5]
+    @tensor triplesx[h3,h2,h1,p4,p6,p5] += t1sub[p4,h1] * v2sub[h3,h2,p6,p5]
 end
 
 function tensor_sd_t_s1_8(h3d,h2d,h1d,p6d,p5d,p4d,triplesx,t1sub,v2sub)
-                            @inbounds triplesx[h3,h1,h2,p4,p6,p5] -=  t1sub[p4,h1] * v2sub[h3,h2,p6,p5]
+    @tensor triplesx[h3,h1,h2,p4,p6,p5] -=  t1sub[p4,h1] * v2sub[h3,h2,p6,p5]
 end
 
 function tensor_sd_t_s1_9(h3d,h2d,h1d,p6d,p5d,p4d,triplesx,t1sub,v2sub)
-                            @inbounds triplesx[h1,h3,h2,p4,p6,p5] += t1sub[p4,h1] * v2sub[h3,h2,p6,p5]
+    @tensor triplesx[h1,h3,h2,p4,p6,p5] += t1sub[p4,h1] * v2sub[h3,h2,p6,p5]
 end
 
 function tensor_sd_t_d1_1(h3d,h2d,h1d,p6d,p5d,p4d,h7d,triplesx,t2sub,v2sub)
@@ -589,12 +587,10 @@ using Printf
 function main()
     println("NTTK Julia")
 
-    reps     =  5
+    precomp  = true
+    reps     =  3
     tilesize = 16
     kernel   = -1
-
-    tile6 = tilesize^6
-    tile7 = tilesize^7
 
     argv = map(x->parse(Int64,x),ARGS)
 
@@ -605,6 +601,9 @@ function main()
         kernel = argv[2]
     end
 
+    tile6 = tilesize^6
+    tile7 = tilesize^7
+
     println("testing NWChem CCSD(T) kernels with tilesize ", tilesize)
 
     tt0 = time_ns()
@@ -614,65 +613,67 @@ function main()
     tt1 = time_ns()
     println("allocation and initialization time =",(tt1-tt0)*1e-9," seconds")
 
-    tt0 = time_ns()
-    # loops
-    precompile(nttk_sd_t_s1_1,(Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,2},Array{Float64,4}))
-    precompile(nttk_sd_t_s1_2,(Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,2},Array{Float64,4}))
-    precompile(nttk_sd_t_s1_3,(Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,2},Array{Float64,4}))
-    precompile(nttk_sd_t_s1_4,(Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,2},Array{Float64,4}))
-    precompile(nttk_sd_t_s1_5,(Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,2},Array{Float64,4}))
-    precompile(nttk_sd_t_s1_6,(Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,2},Array{Float64,4}))
-    precompile(nttk_sd_t_s1_7,(Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,2},Array{Float64,4}))
-    precompile(nttk_sd_t_s1_8,(Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,2},Array{Float64,4}))
-    precompile(nttk_sd_t_s1_9,(Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,2},Array{Float64,4}))
-    precompile(nttk_sd_t_d1_1,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
-    precompile(nttk_sd_t_d1_2,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
-    precompile(nttk_sd_t_d1_3,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
-    precompile(nttk_sd_t_d1_4,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
-    precompile(nttk_sd_t_d1_5,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
-    precompile(nttk_sd_t_d1_6,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
-    precompile(nttk_sd_t_d1_7,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
-    precompile(nttk_sd_t_d1_8,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
-    precompile(nttk_sd_t_d1_9,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
-    precompile(nttk_sd_t_d2_1,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
-    precompile(nttk_sd_t_d2_2,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
-    precompile(nttk_sd_t_d2_3,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
-    precompile(nttk_sd_t_d2_4,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
-    precompile(nttk_sd_t_d2_5,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
-    precompile(nttk_sd_t_d2_6,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
-    precompile(nttk_sd_t_d2_7,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
-    precompile(nttk_sd_t_d2_8,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
-    precompile(nttk_sd_t_d2_9,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
-    # tensor
-    precompile(tensor_sd_t_s1_1,(Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,2},Array{Float64,4}))
-    precompile(tensor_sd_t_s1_2,(Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,2},Array{Float64,4}))
-    precompile(tensor_sd_t_s1_3,(Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,2},Array{Float64,4}))
-    precompile(tensor_sd_t_s1_4,(Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,2},Array{Float64,4}))
-    precompile(tensor_sd_t_s1_5,(Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,2},Array{Float64,4}))
-    precompile(tensor_sd_t_s1_6,(Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,2},Array{Float64,4}))
-    precompile(tensor_sd_t_s1_7,(Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,2},Array{Float64,4}))
-    precompile(tensor_sd_t_s1_8,(Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,2},Array{Float64,4}))
-    precompile(tensor_sd_t_s1_9,(Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,2},Array{Float64,4}))
-    precompile(tensor_sd_t_d1_1,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
-    precompile(tensor_sd_t_d1_2,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
-    precompile(tensor_sd_t_d1_3,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
-    precompile(tensor_sd_t_d1_4,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
-    precompile(tensor_sd_t_d1_5,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
-    precompile(tensor_sd_t_d1_6,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
-    precompile(tensor_sd_t_d1_7,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
-    precompile(tensor_sd_t_d1_8,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
-    precompile(tensor_sd_t_d1_9,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
-    precompile(tensor_sd_t_d2_1,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
-    precompile(tensor_sd_t_d2_2,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
-    precompile(tensor_sd_t_d2_3,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
-    precompile(tensor_sd_t_d2_4,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
-    precompile(tensor_sd_t_d2_5,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
-    precompile(tensor_sd_t_d2_6,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
-    precompile(tensor_sd_t_d2_7,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
-    precompile(tensor_sd_t_d2_8,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
-    precompile(tensor_sd_t_d2_9,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
-    tt1 = time_ns()
-    println("precompile time =",(tt1-tt0)*1e-9," seconds")
+    if precomp
+        tt0 = time_ns()
+        # loops
+        precompile(nttk_sd_t_s1_1,(Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,2},Array{Float64,4}))
+        precompile(nttk_sd_t_s1_2,(Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,2},Array{Float64,4}))
+        precompile(nttk_sd_t_s1_3,(Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,2},Array{Float64,4}))
+        precompile(nttk_sd_t_s1_4,(Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,2},Array{Float64,4}))
+        precompile(nttk_sd_t_s1_5,(Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,2},Array{Float64,4}))
+        precompile(nttk_sd_t_s1_6,(Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,2},Array{Float64,4}))
+        precompile(nttk_sd_t_s1_7,(Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,2},Array{Float64,4}))
+        precompile(nttk_sd_t_s1_8,(Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,2},Array{Float64,4}))
+        precompile(nttk_sd_t_s1_9,(Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,2},Array{Float64,4}))
+        precompile(nttk_sd_t_d1_1,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
+        precompile(nttk_sd_t_d1_2,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
+        precompile(nttk_sd_t_d1_3,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
+        precompile(nttk_sd_t_d1_4,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
+        precompile(nttk_sd_t_d1_5,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
+        precompile(nttk_sd_t_d1_6,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
+        precompile(nttk_sd_t_d1_7,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
+        precompile(nttk_sd_t_d1_8,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
+        precompile(nttk_sd_t_d1_9,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
+        precompile(nttk_sd_t_d2_1,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
+        precompile(nttk_sd_t_d2_2,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
+        precompile(nttk_sd_t_d2_3,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
+        precompile(nttk_sd_t_d2_4,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
+        precompile(nttk_sd_t_d2_5,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
+        precompile(nttk_sd_t_d2_6,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
+        precompile(nttk_sd_t_d2_7,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
+        precompile(nttk_sd_t_d2_8,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
+        precompile(nttk_sd_t_d2_9,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
+        # tensor
+        precompile(tensor_sd_t_s1_1,(Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,2},Array{Float64,4}))
+        precompile(tensor_sd_t_s1_2,(Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,2},Array{Float64,4}))
+        precompile(tensor_sd_t_s1_3,(Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,2},Array{Float64,4}))
+        precompile(tensor_sd_t_s1_4,(Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,2},Array{Float64,4}))
+        precompile(tensor_sd_t_s1_5,(Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,2},Array{Float64,4}))
+        precompile(tensor_sd_t_s1_6,(Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,2},Array{Float64,4}))
+        precompile(tensor_sd_t_s1_7,(Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,2},Array{Float64,4}))
+        precompile(tensor_sd_t_s1_8,(Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,2},Array{Float64,4}))
+        precompile(tensor_sd_t_s1_9,(Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,2},Array{Float64,4}))
+        precompile(tensor_sd_t_d1_1,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
+        precompile(tensor_sd_t_d1_2,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
+        precompile(tensor_sd_t_d1_3,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
+        precompile(tensor_sd_t_d1_4,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
+        precompile(tensor_sd_t_d1_5,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
+        precompile(tensor_sd_t_d1_6,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
+        precompile(tensor_sd_t_d1_7,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
+        precompile(tensor_sd_t_d1_8,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
+        precompile(tensor_sd_t_d1_9,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
+        precompile(tensor_sd_t_d2_1,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
+        precompile(tensor_sd_t_d2_2,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
+        precompile(tensor_sd_t_d2_3,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
+        precompile(tensor_sd_t_d2_4,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
+        precompile(tensor_sd_t_d2_5,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
+        precompile(tensor_sd_t_d2_6,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
+        precompile(tensor_sd_t_d2_7,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
+        precompile(tensor_sd_t_d2_8,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
+        precompile(tensor_sd_t_d2_9,(Int64,Int64,Int64,Int64,Int64,Int64,Int64,Array{Float64,6},Array{Float64,4},Array{Float64,4}))
+        tt1 = time_ns()
+        println("precompile time =",(tt1-tt0)*1e-9," seconds")
+    end
 
     # LOOPS
     @printf("\nSTARTING LOOPS KERNELS \n");
@@ -898,7 +899,7 @@ function main()
         end
         ttt1 = time_ns()
         dt = ttt1-ttt0
-        @printf("%d: total time = %lf s GF/s = %lf\n",i,dt*1e-9,(2*tile7)/dt)
+        @printf("%d: total time = %lf s GF/s = %lf\n",i,dt*1e-9,totalflops/dt)
     end
 
     # TENSOR
@@ -1125,8 +1126,11 @@ function main()
         end
         ttt1 = time_ns()
         dt = ttt1-ttt0
-        @printf("%d: total time = %lf s GF/s = %lf\n",i,dt*1e-9,(2*tile7)/dt)
+        @printf("%d: total time = %lf s GF/s = %lf\n",i,dt*1e-9,totalflops/dt)
     end
+
+    error = diff6d(tilesize, tilesize, tilesize, tilesize, tilesize, tilesize, t3l, t3t)
+    println("diff = ",error)
 
     println("END")
 end
