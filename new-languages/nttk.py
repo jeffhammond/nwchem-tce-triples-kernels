@@ -11,6 +11,9 @@ else:
 
 import numpy as np
 
+# optimize einsum (use BLAS)
+opt=False
+
 def nttk_sd_t_s1_1(d3,d2,d1,d6,d5,d4,triplesx,t1sub,v2sub):
     for h1,h2,h3,p4,p5,p6 in np.ndindex((d1,d2,d3,d4,d5,d6)):
         triplesx[h3,h2,h1,p6,p5,p4] += t1sub[p4,h1] * v2sub[h3,h2,p6,p5]
@@ -122,111 +125,111 @@ def nttk_sd_t_d2_9(d3,d2,d1,d6,d5,d4,d7,triplesx,t2sub,v2sub):
 
 def tensor_sd_t_s1_1(d3,d2,d1,d6,d5,d4,triplesx,t1sub,v2sub):
     #triplesx[h3,h2,h1,p6,p5,p4] += t1sub[p4,h1] * v2sub[h3,h2,p6,p5]
-    triplesx += np.einsum(t1sub,[4,1],v2sub,[3,2,6,5],[3,2,1,6,5,4])
+    triplesx += np.einsum(t1sub,[4,1],v2sub,[3,2,6,5],[3,2,1,6,5,4],optimize=opt)
 
 def tensor_sd_t_s1_2(d3,d2,d1,d6,d5,d4,triplesx,t1sub,v2sub):
     #triplesx[h3,h1,h2,p6,p5,p4] -= t1sub[p4,h1] * v2sub[h3,h2,p6,p5]
-    triplesx -= np.einsum(t1sub,[4,1],v2sub,[3,2,6,5],[3,1,2,6,5,4])
+    triplesx -= np.einsum(t1sub,[4,1],v2sub,[3,2,6,5],[3,1,2,6,5,4],optimize=opt)
 
 def tensor_sd_t_s1_3(d3,d2,d1,d6,d5,d4,triplesx,t1sub,v2sub):
     #triplesx[h1,h3,h2,p6,p5,p4] += t1sub[p4,h1] * v2sub[h3,h2,p6,p5]
-    triplesx += np.einsum(t1sub,[4,1],v2sub,[3,2,6,5],[1,3,2,6,5,4])
+    triplesx += np.einsum(t1sub,[4,1],v2sub,[3,2,6,5],[1,3,2,6,5,4],optimize=opt)
 
 def tensor_sd_t_s1_4(d3,d2,d1,d6,d5,d4,triplesx,t1sub,v2sub):
     #triplesx[h3,h2,h1,p6,p4,p5] -=  t1sub[p4,h1] * v2sub[h3,h2,p6,p5]
-    triplesx -= np.einsum(t1sub,[4,1],v2sub,[3,2,6,5],[3,2,1,6,4,5])
+    triplesx -= np.einsum(t1sub,[4,1],v2sub,[3,2,6,5],[3,2,1,6,4,5],optimize=opt)
 
 def tensor_sd_t_s1_5(d3,d2,d1,d6,d5,d4,triplesx,t1sub,v2sub):
     #triplesx[h3,h1,h2,p6,p4,p5] += t1sub[p4,h1] * v2sub[h3,h2,p6,p5]
-    triplesx += np.einsum(t1sub,[4,1],v2sub,[3,2,6,5],[3,1,2,6,4,5])
+    triplesx += np.einsum(t1sub,[4,1],v2sub,[3,2,6,5],[3,1,2,6,4,5],optimize=opt)
 
 def tensor_sd_t_s1_6(d3,d2,d1,d6,d5,d4,triplesx,t1sub,v2sub):
     #triplesx[h1,h3,h2,p6,p4,p5] -=  t1sub[p4,h1] * v2sub[h3,h2,p6,p5]
-    triplesx -= np.einsum(t1sub,[4,1],v2sub,[3,2,6,5],[1,3,2,6,4,5])
+    triplesx -= np.einsum(t1sub,[4,1],v2sub,[3,2,6,5],[1,3,2,6,4,5],optimize=opt)
 
 def tensor_sd_t_s1_7(d3,d2,d1,d6,d5,d4,triplesx,t1sub,v2sub):
     #triplesx[h3,h2,h1,p4,p6,p5] += t1sub[p4,h1] * v2sub[h3,h2,p6,p5]
-    triplesx += np.einsum(t1sub,[4,1],v2sub,[3,2,6,5],[3,2,1,4,6,5])
+    triplesx += np.einsum(t1sub,[4,1],v2sub,[3,2,6,5],[3,2,1,4,6,5],optimize=opt)
 
 def tensor_sd_t_s1_8(d3,d2,d1,d6,d5,d4,triplesx,t1sub,v2sub):
     #triplesx[h3,h1,h2,p4,p6,p5] -=  t1sub[p4,h1] * v2sub[h3,h2,p6,p5]
-    triplesx -= np.einsum(t1sub,[4,1],v2sub,[3,2,6,5],[3,1,2,4,6,5])
+    triplesx -= np.einsum(t1sub,[4,1],v2sub,[3,2,6,5],[3,1,2,4,6,5],optimize=opt)
 
 def tensor_sd_t_s1_9(d3,d2,d1,d6,d5,d4,triplesx,t1sub,v2sub):
     #triplesx[h1,h3,h2,p4,p6,p5] += t1sub[p4,h1] * v2sub[h3,h2,p6,p5]
-    triplesx += np.einsum(t1sub,[4,1],v2sub,[3,2,6,5],[1,3,2,4,6,5])
+    triplesx += np.einsum(t1sub,[4,1],v2sub,[3,2,6,5],[1,3,2,4,6,5],optimize=opt)
 
 def tensor_sd_t_d1_1(d3,d2,d1,d6,d5,d4,d7,triplesx,t2sub,v2sub):
     #triplesx[h3,h2,h1,p6,p5,p4] -= t2sub[h7,p4,p5,h1] * v2sub[h3,h2,p6,h7]
-    triplesx -= np.einsum(t2sub,[7,4,5,1],v2sub,[3,2,6,7],[3,2,1,6,5,4])
+    triplesx -= np.einsum(t2sub,[7,4,5,1],v2sub,[3,2,6,7],[3,2,1,6,5,4],optimize=opt)
 
 def tensor_sd_t_d1_2(d3,d2,d1,d6,d5,d4,d7,triplesx,t2sub,v2sub):
     #triplesx[h3,h1,h2,p6,p5,p4] += t2sub[h7,p4,p5,h1] * v2sub[h3,h2,p6,h7]
-    triplesx += np.einsum(t2sub,[7,4,5,1],v2sub,[3,2,6,7],[3,1,2,6,5,4])
+    triplesx += np.einsum(t2sub,[7,4,5,1],v2sub,[3,2,6,7],[3,1,2,6,5,4],optimize=opt)
 
 def tensor_sd_t_d1_3(d3,d2,d1,d6,d5,d4,d7,triplesx,t2sub,v2sub):
     #triplesx[h1,h3,h2,p6,p5,p4] -= t2sub[h7,p4,p5,h1] * v2sub[h3,h2,p6,h7]
-    triplesx -= np.einsum(t2sub,[7,4,5,1],v2sub,[3,2,6,7],[1,3,2,6,5,4])
+    triplesx -= np.einsum(t2sub,[7,4,5,1],v2sub,[3,2,6,7],[1,3,2,6,5,4],optimize=opt)
 
 def tensor_sd_t_d1_4(d3,d2,d1,d6,d5,d4,d7,triplesx,t2sub,v2sub):
     #triplesx[h3,h2,h1,p5,p4,p6] -= t2sub[h7,p4,p5,h1] * v2sub[h3,h2,p6,h7]
-    triplesx -= np.einsum(t2sub,[7,4,5,1],v2sub,[3,2,6,7],[3,2,1,5,4,6])
+    triplesx -= np.einsum(t2sub,[7,4,5,1],v2sub,[3,2,6,7],[3,2,1,5,4,6],optimize=opt)
 
 def tensor_sd_t_d1_5(d3,d2,d1,d6,d5,d4,d7,triplesx,t2sub,v2sub):
     #triplesx[h3,h1,h2,p5,p4,p6] += t2sub[h7,p4,p5,h1] * v2sub[h3,h2,p6,h7]
-    triplesx += np.einsum(t2sub,[7,4,5,1],v2sub,[3,2,6,7],[3,1,2,5,4,6])
+    triplesx += np.einsum(t2sub,[7,4,5,1],v2sub,[3,2,6,7],[3,1,2,5,4,6],optimize=opt)
 
 def tensor_sd_t_d1_6(d3,d2,d1,d6,d5,d4,d7,triplesx,t2sub,v2sub):
     #triplesx[h1,h3,h2,p5,p4,p6] -= t2sub[h7,p4,p5,h1] * v2sub[h3,h2,p6,h7]
-    triplesx -= np.einsum(t2sub,[7,4,5,1],v2sub,[3,2,6,7],[1,3,2,5,4,6])
+    triplesx -= np.einsum(t2sub,[7,4,5,1],v2sub,[3,2,6,7],[1,3,2,5,4,6],optimize=opt)
 
 def tensor_sd_t_d1_7(d3,d2,d1,d6,d5,d4,d7,triplesx,t2sub,v2sub):
     #triplesx[h3,h2,h1,p5,p6,p4] += t2sub[h7,p4,p5,h1] * v2sub[h3,h2,p6,h7]
-    triplesx += np.einsum(t2sub,[7,4,5,1],v2sub,[3,2,6,7],[3,2,1,5,6,4])
+    triplesx += np.einsum(t2sub,[7,4,5,1],v2sub,[3,2,6,7],[3,2,1,5,6,4],optimize=opt)
 
 def tensor_sd_t_d1_8(d3,d2,d1,d6,d5,d4,d7,triplesx,t2sub,v2sub):
     #triplesx[h3,h1,h2,p5,p6,p4] -= t2sub[h7,p4,p5,h1] * v2sub[h3,h2,p6,h7]
-    triplesx -= np.einsum(t2sub,[7,4,5,1],v2sub,[3,2,6,7],[3,1,2,5,6,4])
+    triplesx -= np.einsum(t2sub,[7,4,5,1],v2sub,[3,2,6,7],[3,1,2,5,6,4],optimize=opt)
 
 def tensor_sd_t_d1_9(d3,d2,d1,d6,d5,d4,d7,triplesx,t2sub,v2sub):
     #triplesx[h1,h3,h2,p5,p6,p4] += t2sub[h7,p4,p5,h1] * v2sub[h3,h2,p6,h7]
-    triplesx += np.einsum(t2sub,[7,4,5,1],v2sub,[3,2,6,7],[1,3,2,5,6,4])
+    triplesx += np.einsum(t2sub,[7,4,5,1],v2sub,[3,2,6,7],[1,3,2,5,6,4],optimize=opt)
 
 def tensor_sd_t_d2_1(d3,d2,d1,d6,d5,d4,d7,triplesx,t2sub,v2sub):
     #triplesx[h3,h2,h1,p6,p5,p4] -= t2sub[p7,p4,h1,h2] * v2sub[p7,h3,p6,p5]
-    triplesx -= np.einsum(t2sub,[7,4,1,2],v2sub,[7,3,6,5],[3,2,1,6,5,4])
+    triplesx -= np.einsum(t2sub,[7,4,1,2],v2sub,[7,3,6,5],[3,2,1,6,5,4],optimize=opt)
 
 def tensor_sd_t_d2_2(d3,d2,d1,d6,d5,d4,d7,triplesx,t2sub,v2sub):
     #triplesx[h2,h1,h3,p6,p5,p4] -= t2sub[p7,p4,h1,h2] * v2sub[p7,h3,p6,p5]
-    triplesx -= np.einsum(t2sub,[7,4,1,2],v2sub,[7,3,6,5],[2,1,3,6,5,4])
+    triplesx -= np.einsum(t2sub,[7,4,1,2],v2sub,[7,3,6,5],[2,1,3,6,5,4],optimize=opt)
 
 def tensor_sd_t_d2_3(d3,d2,d1,d6,d5,d4,d7,triplesx,t2sub,v2sub):
     #triplesx[h2,h3,h1,p6,p5,p4] += t2sub[p7,p4,h1,h2] * v2sub[p7,h3,p6,p5]
-    triplesx += np.einsum(t2sub,[7,4,1,2],v2sub,[7,3,6,5],[2,3,1,6,5,4])
+    triplesx += np.einsum(t2sub,[7,4,1,2],v2sub,[7,3,6,5],[2,3,1,6,5,4],optimize=opt)
 
 def tensor_sd_t_d2_4(d3,d2,d1,d6,d5,d4,d7,triplesx,t2sub,v2sub):
     #triplesx[h3,h2,h1,p6,p4,p5] += t2sub[p7,p4,h1,h2] * v2sub[p7,h3,p6,p5]
-    triplesx += np.einsum(t2sub,[7,4,1,2],v2sub,[7,3,6,5],[3,2,1,6,4,5])
+    triplesx += np.einsum(t2sub,[7,4,1,2],v2sub,[7,3,6,5],[3,2,1,6,4,5],optimize=opt)
 
 def tensor_sd_t_d2_5(d3,d2,d1,d6,d5,d4,d7,triplesx,t2sub,v2sub):
     #triplesx[h2,h1,h3,p6,p4,p5] += t2sub[p7,p4,h1,h2] * v2sub[p7,h3,p6,p5]
-    triplesx += np.einsum(t2sub,[7,4,1,2],v2sub,[7,3,6,5],[2,1,3,6,4,5])
+    triplesx += np.einsum(t2sub,[7,4,1,2],v2sub,[7,3,6,5],[2,1,3,6,4,5],optimize=opt)
 
 def tensor_sd_t_d2_6(d3,d2,d1,d6,d5,d4,d7,triplesx,t2sub,v2sub):
     #triplesx[h2,h3,h1,p6,p4,p5] -= t2sub[p7,p4,h1,h2] * v2sub[p7,h3,p6,p5]
-    triplesx -= np.einsum(t2sub,[7,4,1,2],v2sub,[7,3,6,5],[2,3,1,6,4,5])
+    triplesx -= np.einsum(t2sub,[7,4,1,2],v2sub,[7,3,6,5],[2,3,1,6,4,5],optimize=opt)
 
 def tensor_sd_t_d2_7(d3,d2,d1,d6,d5,d4,d7,triplesx,t2sub,v2sub):
     #triplesx[h3,h2,h1,p4,p6,p5] -= t2sub[p7,p4,h1,h2] * v2sub[p7,h3,p6,p5]
-    triplesx -= np.einsum(t2sub,[7,4,1,2],v2sub,[7,3,6,5],[3,2,1,4,6,5])
+    triplesx -= np.einsum(t2sub,[7,4,1,2],v2sub,[7,3,6,5],[3,2,1,4,6,5],optimize=opt)
 
 def tensor_sd_t_d2_8(d3,d2,d1,d6,d5,d4,d7,triplesx,t2sub,v2sub):
     #triplesx[h2,h1,h3,p4,p6,p5] -= t2sub[p7,p4,h1,h2] * v2sub[p7,h3,p6,p5]
-    triplesx -= np.einsum(t2sub,[7,4,1,2],v2sub,[7,3,6,5],[2,1,3,4,6,5])
+    triplesx -= np.einsum(t2sub,[7,4,1,2],v2sub,[7,3,6,5],[2,1,3,4,6,5],optimize=opt)
 
 def tensor_sd_t_d2_9(d3,d2,d1,d6,d5,d4,d7,triplesx,t2sub,v2sub):
     #triplesx[h2,h3,h1,p4,p6,p5] += t2sub[p7,p4,h1,h2] * v2sub[p7,h3,p6,p5]
-    triplesx += np.einsum(t2sub,[7,4,1,2],v2sub,[7,3,6,5],[2,3,1,4,6,5])
+    triplesx += np.einsum(t2sub,[7,4,1,2],v2sub,[7,3,6,5],[2,3,1,4,6,5],optimize=opt)
 
 def main():
     print("NTTK Python")
