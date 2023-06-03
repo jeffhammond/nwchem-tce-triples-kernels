@@ -25,6 +25,8 @@ Set TARGET to one of the following:
 * MAC (GCC)
 * INTEL
 * MIC (Intel)
+* NVHPC
+* ROCM
 
 Or just define your own new TARGET using the existing ones as a template.
 
