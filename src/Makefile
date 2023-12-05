@@ -46,7 +46,7 @@ ifeq ($(TARGET),NVHPC)
     LD       = $(CC)
     LDFLAGS  = $(CFLAGS)
     LIBS     = -fortranlibs
-    LIBS    += /opt/nvidia/hpc_sdk/Linux_x86_64/23.7/compilers/lib/libblas.a
+    #LIBS    += /opt/nvidia/hpc_sdk/Linux_x86_64/23.11/compilers/lib/libblas.a
     LIBS    += -lcublas
 endif
 
