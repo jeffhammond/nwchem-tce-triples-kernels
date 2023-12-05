@@ -34,7 +34,7 @@ void cutensor_driver(int reps, int kernel, int tilesize,
     if (s) fprintf(stderr,"cutensorInit\n");
 
     cutensorContractionFind_t f;
-    s = cutensorInitContractionFind(&h, &f, CUTENSOR_ALGO_DEFAULT);
+    s = cutensorInitContractionFind(&h, &f, CUTENSOR_ALGO_DEFAULT_PATIENT);
     if (s) fprintf(stderr,"cutensorInitContractionFind\n");
 
     int64_t eT1[2]={tilesize,tilesize};
