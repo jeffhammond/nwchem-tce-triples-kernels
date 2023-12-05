@@ -166,7 +166,7 @@ int main(int argc, char * argv[])
 
     /* approximate achievable peak by T3(ijk,abc) = T1(i,j)*V(k,abc) */
     eff_peak = cudger_gflops(tile2, tile4);
-    printf("CUBLASD DGER  GF/s of your processor is %lf \n", eff_peak);
+    printf("CUBLAS DGER  GF/s of your processor is %lf \n", eff_peak);
     fflush(stdout);
 
     /* approximate achievable peak by T3(ijk,abc) = T2(ijk,l)*V(l,abc) */
