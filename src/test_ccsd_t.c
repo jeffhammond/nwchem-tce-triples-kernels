@@ -11,6 +11,13 @@
 #include "safemalloc.h"
 #include "ccsd_t_kernels.h"
 
+#if DO_CUDA_KERNELS
+#include <cuda.h>
+#include <cuda_runtime.h>
+#include <cuda_runtime_api.h>
+#include "ccsd_t_kernels_cuda.h"
+#endif
+
 void cutensor_driver(int reps, int kernel, int tilesize,
                     long long tile6, long long tile7,
                     const double * pT1, const double * pT2, const double * pV2, double * pT3);
@@ -927,6 +934,250 @@ int main(int argc, char * argv[])
 #if DO_CUTENSOR_KERNELS
     double * t3s = safemalloc( tile6*sizeof(double) );
     cutensor_driver(reps, kernel, tilesize, tile6, tile7, t1, t2, v2, t3s);
+#endif
+
+#if DO_CUDA_KERNELS
+    dim3 dimBlock(tilesize,tilesize,tilesize);
+    dim3 dimGrid(tilesize,tilesize,tilesize);
+    double * t3u = safemalloc( tile6*sizeof(double) );
+    if (t3u==NULL) {
+      printf("skipping CUDA C kernels because memory could not be allocated. \n");
+    } else {
+      printf("\nSTARTING CUDA C KERNELS \n");
+      fflush(stdout);
+      for (int i=0; i<reps; i++)
+      {
+        long long totalflops = 0;
+        zero_array(tile6, t3u);
+        ttt0 = omp_get_wtime();
+#ifdef DO_S1
+        if (kernel<0 || kernel==1) {
+            tt0 = omp_get_wtime();
+            cuda_sd_t_s1_1<<<dimGrid, dimBlock>>>(tilesize, t3u, t1, v2);
+            tt1 = omp_get_wtime();
+            dt = tt1-tt0;
+            printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_s1_1", dt, (2e-9*tile6)/dt );
+            totalflops += 2*tile6;
+        }
+        if (kernel<0 || kernel==2) {
+            tt0 = omp_get_wtime();
+            cuda_sd_t_s1_2<<<dimGrid, dimBlock>>>(tilesize, t3u, t1, v2);
+            tt1 = omp_get_wtime();
+            dt = tt1-tt0;
+            printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_s1_2", dt, (2e-9*tile6)/dt );
+            totalflops += 2*tile6;
+        }
+        if (kernel<0 || kernel==3) {
+            tt0 = omp_get_wtime();
+            cuda_sd_t_s1_3<<<dimGrid, dimBlock>>>(tilesize, t3u, t1, v2);
+            tt1 = omp_get_wtime();
+            dt = tt1-tt0;
+            printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_s1_3", dt, (2e-9*tile6)/dt );
+            totalflops += 2*tile6;
+        }
+        if (kernel<0 || kernel==4) {
+            tt0 = omp_get_wtime();
+            cuda_sd_t_s1_4<<<dimGrid, dimBlock>>>(tilesize, t3u, t1, v2);
+            tt1 = omp_get_wtime();
+            dt = tt1-tt0;
+            printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_s1_4", dt, (2e-9*tile6)/dt );
+            totalflops += 2*tile6;
+        }
+        if (kernel<0 || kernel==5) {
+            tt0 = omp_get_wtime();
+            cuda_sd_t_s1_5<<<dimGrid, dimBlock>>>(tilesize, t3u, t1, v2);
+            tt1 = omp_get_wtime();
+            dt = tt1-tt0;
+            printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_s1_5", dt, (2e-9*tile6)/dt );
+            totalflops += 2*tile6;
+        }
+        if (kernel<0 || kernel==6) {
+            tt0 = omp_get_wtime();
+            cuda_sd_t_s1_6<<<dimGrid, dimBlock>>>(tilesize, t3u, t1, v2);
+            tt1 = omp_get_wtime();
+            dt = tt1-tt0;
+            printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_s1_6", dt, (2e-9*tile6)/dt );
+            totalflops += 2*tile6;
+        }
+        if (kernel<0 || kernel==7) {
+            tt0 = omp_get_wtime();
+            cuda_sd_t_s1_7<<<dimGrid, dimBlock>>>(tilesize, t3u, t1, v2);
+            tt1 = omp_get_wtime();
+            dt = tt1-tt0;
+            printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_s1_7", dt, (2e-9*tile6)/dt );
+            totalflops += 2*tile6;
+        }
+        if (kernel<0 || kernel==8) {
+            tt0 = omp_get_wtime();
+            cuda_sd_t_s1_8<<<dimGrid, dimBlock>>>(tilesize, t3u, t1, v2);
+            tt1 = omp_get_wtime();
+            dt = tt1-tt0;
+            printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_s1_8", dt, (2e-9*tile6)/dt );
+            totalflops += 2*tile6;
+        }
+        if (kernel<0 || kernel==9) {
+            tt0 = omp_get_wtime();
+            cuda_sd_t_s1_9<<<dimGrid, dimBlock>>>(tilesize, t3u, t1, v2);
+            tt1 = omp_get_wtime();
+            dt = tt1-tt0;
+            printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_s1_9", dt, (2e-9*tile6)/dt );
+            totalflops += 2*tile6;
+        }
+#endif
+#ifdef DO_D1
+        if (kernel<0 || kernel==1) {
+            tt0 = omp_get_wtime();
+            cuda_sd_t_d1_1<<<dimGrid, dimBlock>>>(tilesize, t3u, t2, v2);
+            tt1 = omp_get_wtime();
+            dt = tt1-tt0;
+            printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d1_1", dt, (2e-9*tile7)/dt );
+            totalflops += 2*tile7;
+        }
+        if (kernel<0 || kernel==2) {
+            tt0 = omp_get_wtime();
+            cuda_sd_t_d1_2<<<dimGrid, dimBlock>>>(tilesize, t3u, t2, v2);
+            tt1 = omp_get_wtime();
+            dt = tt1-tt0;
+            printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d1_2", dt, (2e-9*tile7)/dt );
+            totalflops += 2*tile7;
+        }
+        if (kernel<0 || kernel==3) {
+            tt0 = omp_get_wtime();
+            cuda_sd_t_d1_3<<<dimGrid, dimBlock>>>(tilesize, t3u, t2, v2);
+            tt1 = omp_get_wtime();
+            dt = tt1-tt0;
+            printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d1_3", dt, (2e-9*tile7)/dt );
+            totalflops += 2*tile7;
+        }
+        if (kernel<0 || kernel==4) {
+            tt0 = omp_get_wtime();
+            cuda_sd_t_d1_4<<<dimGrid, dimBlock>>>(tilesize, t3u, t2, v2);
+            tt1 = omp_get_wtime();
+            dt = tt1-tt0;
+            printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d1_4", dt, (2e-9*tile7)/dt );
+            totalflops += 2*tile7;
+        }
+        if (kernel<0 || kernel==5) {
+            tt0 = omp_get_wtime();
+            cuda_sd_t_d1_5<<<dimGrid, dimBlock>>>(tilesize, t3u, t2, v2);
+            tt1 = omp_get_wtime();
+            dt = tt1-tt0;
+            printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d1_5", dt, (2e-9*tile7)/dt );
+            totalflops += 2*tile7;
+        }
+        if (kernel<0 || kernel==6) {
+            tt0 = omp_get_wtime();
+            cuda_sd_t_d1_6<<<dimGrid, dimBlock>>>(tilesize, t3u, t2, v2);
+            tt1 = omp_get_wtime();
+            dt = tt1-tt0;
+            printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d1_6", dt, (2e-9*tile7)/dt );
+            totalflops += 2*tile7;
+        }
+        if (kernel<0 || kernel==7) {
+            tt0 = omp_get_wtime();
+            cuda_sd_t_d1_7<<<dimGrid, dimBlock>>>(tilesize, t3u, t2, v2);
+            tt1 = omp_get_wtime();
+            dt = tt1-tt0;
+            printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d1_7", dt, (2e-9*tile7)/dt );
+            totalflops += 2*tile7;
+        }
+        if (kernel<0 || kernel==8) {
+            tt0 = omp_get_wtime();
+            cuda_sd_t_d1_8<<<dimGrid, dimBlock>>>(tilesize, t3u, t2, v2);
+            tt1 = omp_get_wtime();
+            dt = tt1-tt0;
+            printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d1_8", dt, (2e-9*tile7)/dt );
+            totalflops += 2*tile7;
+        }
+        if (kernel<0 || kernel==9) {
+            tt0 = omp_get_wtime();
+            cuda_sd_t_d1_9<<<dimGrid, dimBlock>>>(tilesize, t3u, t2, v2);
+            tt1 = omp_get_wtime();
+            dt = tt1-tt0;
+            printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d1_9", dt, (2e-9*tile7)/dt );
+            totalflops += 2*tile7;
+        }
+#endif
+#ifdef DO_D2
+        if (kernel<0 || kernel==1) {
+            tt0 = omp_get_wtime();
+            cuda_sd_t_d2_1<<<dimGrid, dimBlock>>>(tilesize, t3u, t2, v2);
+            tt1 = omp_get_wtime();
+            dt = tt1-tt0;
+            printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d2_1", dt, (2e-9*tile7)/dt );
+            totalflops += 2*tile7;
+        }
+        if (kernel<0 || kernel==2) {
+            tt0 = omp_get_wtime();
+            cuda_sd_t_d2_2<<<dimGrid, dimBlock>>>(tilesize, t3u, t2, v2);
+            tt1 = omp_get_wtime();
+            dt = tt1-tt0;
+            printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d2_2", dt, (2e-9*tile7)/dt );
+            totalflops += 2*tile7;
+        }
+        if (kernel<0 || kernel==3) {
+            tt0 = omp_get_wtime();
+            cuda_sd_t_d2_3<<<dimGrid, dimBlock>>>(tilesize, t3u, t2, v2);
+            tt1 = omp_get_wtime();
+            dt = tt1-tt0;
+            printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d2_3", dt, (2e-9*tile7)/dt );
+            totalflops += 2*tile7;
+        }
+        if (kernel<0 || kernel==4) {
+            tt0 = omp_get_wtime();
+            cuda_sd_t_d2_4<<<dimGrid, dimBlock>>>(tilesize, t3u, t2, v2);
+            tt1 = omp_get_wtime();
+            dt = tt1-tt0;
+            printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d2_4", dt, (2e-9*tile7)/dt );
+            totalflops += 2*tile7;
+        }
+        if (kernel<0 || kernel==5) {
+            tt0 = omp_get_wtime();
+            cuda_sd_t_d2_5<<<dimGrid, dimBlock>>>(tilesize, t3u, t2, v2);
+            tt1 = omp_get_wtime();
+            dt = tt1-tt0;
+            printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d2_5", dt, (2e-9*tile7)/dt );
+            totalflops += 2*tile7;
+        }
+        if (kernel<0 || kernel==6) {
+            tt0 = omp_get_wtime();
+            cuda_sd_t_d2_6<<<dimGrid, dimBlock>>>(tilesize, t3u, t2, v2);
+            tt1 = omp_get_wtime();
+            dt = tt1-tt0;
+            printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d2_6", dt, (2e-9*tile7)/dt );
+            totalflops += 2*tile7;
+        }
+        if (kernel<0 || kernel==7) {
+            tt0 = omp_get_wtime();
+            cuda_sd_t_d2_7<<<dimGrid, dimBlock>>>(tilesize, t3u, t2, v2);
+            tt1 = omp_get_wtime();
+            dt = tt1-tt0;
+            printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d2_7", dt, (2e-9*tile7)/dt );
+            totalflops += 2*tile7;
+        }
+        if (kernel<0 || kernel==8) {
+            tt0 = omp_get_wtime();
+            cuda_sd_t_d2_8<<<dimGrid, dimBlock>>>(tilesize, t3u, t2, v2);
+            tt1 = omp_get_wtime();
+            dt = tt1-tt0;
+            printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d2_8", dt, (2e-9*tile7)/dt );
+            totalflops += 2*tile7;
+        }
+        if (kernel<0 || kernel==9) {
+            tt0 = omp_get_wtime();
+            cuda_sd_t_d2_9<<<dimGrid, dimBlock>>>(tilesize, t3u, t2, v2);
+            tt1 = omp_get_wtime();
+            dt = tt1-tt0;
+            printf("%d: %s time = %lf s GF/s = %lf \n", i, "sd_t_d2_9", dt, (2e-9*tile7)/dt );
+            totalflops += 2*tile7;
+        }
+#endif
+        ttt1 = omp_get_wtime();
+        dt = ttt1-ttt0;
+        printf("%d: %s time = %lf s GF/s = %lf \n", i, "total", dt, (1e-9*totalflops)/dt );
+        fflush(stdout);
+      }
+    }
 #endif
 
 #if DO_STDPAR_KERNELS
@@ -2196,6 +2447,11 @@ int main(int argc, char * argv[])
     double n4s = norm_array(tile6, t3s);
     printf("norm: t3s = %lf\n", n4s);
     safefree(t3s);
+#endif
+#if DO_CUDA_KERNELS
+    double n4u = norm_array(tile6, t3u);
+    printf("norm: t3u = %lf\n", n4u);
+    safefree(t3u);
 #endif
 
     safefree(t3o);

@@ -19,7 +19,8 @@ OPT = -DOMP_COLLAPSE_LEVEL=$(OMP_COLLAPSE_LEVEL)
 FAT_STACK = -Wl,-stack_size -Wl,100000000
 
 ifeq ($(TARGET),NVHPC)
-    ACTIVE  += -DDO_CUTENSOR_KERNELS
+    #ACTIVE  += -DDO_CUTENSOR_KERNELS
+    ACTIVE  += -DDO_CUDA_KERNELS
     CC       = nvc
     FC       = nvfortran
     OPT     += -DUSE_CUDA_UM -cuda
@@ -28,7 +29,7 @@ ifeq ($(TARGET),NVHPC)
     OPT     += -mp # OpenMP
     #OPT     += -target=multicore
     OPT     += -target=gpu	# Offload to GPU
-    OPT     += -gpu=managed	# Heap allocations uses CUDA memory
+    OPT     += -gpu=managed,nonvvm,keep
     OPT     += -cuda
     OPT     += -cudalib=cublas,curand,cutensor -DUSE_CUBLAS
     #OPT     += -cudaver=12.3
@@ -46,7 +47,7 @@ ifeq ($(TARGET),NVHPC)
     LD       = $(CC)
     LDFLAGS  = $(CFLAGS)
     LIBS     = -fortranlibs
-    LIBS    += /opt/nvidia/hpc_sdk/Linux_x86_64/23.7/compilers/lib/libblas.a
+    #LIBS    += /opt/nvidia/hpc_sdk/Linux_x86_64/23.7/compilers/lib/libblas.a
     LIBS    += -lcublas
 endif
 
@@ -359,3 +360,4 @@ clean:
 	$(RM) $(RMFLAGS) $(TESTS)
 	$(RM) $(RMFLAGS) $(EXTRATESTS)
 	-rm -rf *.dSYM
+	-rm -f *.gpu *.ptx *.bin *.fat *.fat.s *.cubin
