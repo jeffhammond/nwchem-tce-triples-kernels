@@ -6,7 +6,7 @@ ACTIVE  += -DDO_D2
 #ACTIVE  += -DDO_BLAS_KERNELS
 ACTIVE  += -DDO_STDPAR_KERNELS
 #ACTIVE  += -DDO_TARGET_KERNELS
-#ACTIVE  += -DDO_ACC_KERNELS
+ACTIVE  += -DDO_ACC_KERNELS
 ACTIVE  += -DDEBUG
 
 TARGET := NVHPC
@@ -24,16 +24,16 @@ ifeq ($(TARGET),NVHPC)
     FC       = nvfortran
     OPT     += -DUSE_CUDA_UM -cuda
     OPT     += -O3 -g
-    OPT     += -acc		# OpenACC
-    #OPT     += -Mlarge_arrays   # OpenACC overflows 32b offsets
-    OPT     += -mp		# OpenMP
+    OPT     += -acc # OpenACC
+    OPT     += -mp # OpenMP
     #OPT     += -target=multicore
     OPT     += -target=gpu	# Offload to GPU
     OPT     += -gpu=managed	# Heap allocations uses CUDA memory
     OPT     += -cuda
     OPT     += -cudalib=cublas,curand,cutensor -DUSE_CUBLAS
-    #OPT     += -cudaver=11.4
+    #OPT     += -cudaver=12.3
     OPT     += -Minfo=accel,mp,vect
+    #OPT     += -Mlarge_arrays   # OpenACC overflows 32b offsets
     OPT     += -g
     ASM      = -S -fsource-asm -fcode-asm
     CFLAGS   = $(OPT) -c99 $(ACTIVE)
@@ -46,7 +46,7 @@ ifeq ($(TARGET),NVHPC)
     LD       = $(CC)
     LDFLAGS  = $(CFLAGS)
     LIBS     = -fortranlibs
-    LIBS    += /opt/nvidia/hpc_sdk/Linux_x86_64/21.5/compilers/lib/libblas.a
+    LIBS    += /opt/nvidia/hpc_sdk/Linux_x86_64/23.7/compilers/lib/libblas.a
     LIBS    += -lcublas
 endif
 
