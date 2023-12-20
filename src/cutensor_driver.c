@@ -11,12 +11,16 @@
 #include "fake_omp.h"
 #endif
 
+#include <cuda_runtime.h>
+#include <cutensor.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 //#include "safemalloc.h"
 //void zero_array(long long n, double * a);
 void acc_zero_(int * restrict h3, int * restrict h2, int * restrict h1, int * restrict p6, int * restrict p5, int * restrict p4, double * restrict t3);
-
-#include <cuda_runtime.h>
-#include <cutensor.h>
 
 void cutensor_driver(int reps, int kernel, int tilesize,
                     long long tile6, long long tile7,
@@ -754,5 +758,9 @@ void cutensor_driver(int reps, int kernel, int tilesize,
     s2 = cudaStreamDestroy(stream);
     if (s2) fprintf(stderr, "cudaStreamDestroy\n");
 }
+
+#ifdef __cplusplus
+} // extern "C"
+#endif
 
 #endif
