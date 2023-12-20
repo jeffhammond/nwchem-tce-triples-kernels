@@ -41,31 +41,22 @@ void cutensor_driver(int reps, int kernel, int tilesize,
     s = cutensorCreatePlanPreference(h, &f, CUTENSOR_ALGO_DEFAULT_PATIENT, CUTENSOR_JIT_MODE_NONE);
     if (s) fprintf(stderr,"cutensorCreatePlanPreference\n");
 
+    // alignment requirements
+    uint32_t aT1=256,aT2=256,aV2=256,aT3=256;
+
     int64_t eT1[2]={tilesize,tilesize};
     int64_t eT2[4]={tilesize,tilesize,tilesize,tilesize};
     int64_t eV2[4]={tilesize,tilesize,tilesize,tilesize};
     int64_t eT3[6]={tilesize,tilesize,tilesize,tilesize,tilesize,tilesize};
     cutensorTensorDescriptor_t dT1,dT2,dV2,dT3;
-    s = cutensorCreateTensorDescriptor(h, &dT1, 2, eT1, NULL, CUTENSOR_R_64F, CUTENSOR_OP_IDENTITY);
+    s = cutensorCreateTensorDescriptor(h, &dT1, 2, eT1, NULL, CUTENSOR_R_64F, aT1);
     if (s) fprintf(stderr,"cutensorCreateTensorDescriptor\n");
-    s = cutensorCreateTensorDescriptor(h, &dT2, 4, eT2, NULL, CUTENSOR_R_64F, CUTENSOR_OP_IDENTITY);
+    s = cutensorCreateTensorDescriptor(h, &dT2, 4, eT2, NULL, CUTENSOR_R_64F, aT2);
     if (s) fprintf(stderr,"cutensorCreateTensorDescriptor\n");
-    s = cutensorCreateTensorDescriptor(h, &dV2, 4, eV2, NULL, CUTENSOR_R_64F, CUTENSOR_OP_IDENTITY);
+    s = cutensorCreateTensorDescriptor(h, &dV2, 4, eV2, NULL, CUTENSOR_R_64F, aV2);
     if (s) fprintf(stderr,"cutensorCreateTensorDescriptor\n");
-    s = cutensorCreateTensorDescriptor(h, &dT3, 6, eT3, NULL, CUTENSOR_R_64F, CUTENSOR_OP_IDENTITY);
+    s = cutensorCreateTensorDescriptor(h, &dT3, 6, eT3, NULL, CUTENSOR_R_64F, aT3);
     if (s) fprintf(stderr,"cutensorCreateTensorDescriptor\n");
-
-#if 0
-    uint32_t aT1,aT2,aV2,aT3;
-    s = cutensorGetAlignmentRequirement(&h, pT1, &dT1, &aT1);
-    if (s) fprintf(stderr,"cutensorGetAlignmentRequirement\n");
-    s = cutensorGetAlignmentRequirement(&h, pT2, &dT2, &aT2);
-    if (s) fprintf(stderr,"cutensorGetAlignmentRequirement\n");
-    s = cutensorGetAlignmentRequirement(&h, pV2, &dV2, &aV2);
-    if (s) fprintf(stderr,"cutensorGetAlignmentRequirement\n");
-    s = cutensorGetAlignmentRequirement(&h, pT3, &dT3, &aT3);
-    if (s) fprintf(stderr,"cutensorGetAlignmentRequirement\n");
-#endif
 
     cutensorOperationDescriptor_t dX[3][9];
     cutensorPlan_t pX[3][9];
