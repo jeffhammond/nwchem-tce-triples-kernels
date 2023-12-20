@@ -28,7 +28,7 @@ ifeq ($(TARGET),NVHPC)
     OPT     += -mp # OpenMP
     #OPT     += -target=multicore
     OPT     += -target=gpu	# Offload to GPU
-    OPT     += -gpu=managed	# Heap allocations uses CUDA memory
+    OPT     += -gpu=managed,nounified	# Heap allocations uses CUDA memory
     OPT     += -cuda
     OPT     += -cudalib=cublas,curand,cutensor -DUSE_CUBLAS
     #OPT     += -cudaver=12.3
@@ -36,7 +36,7 @@ ifeq ($(TARGET),NVHPC)
     #OPT     += -Mlarge_arrays   # OpenACC overflows 32b offsets
     OPT     += -g
     ASM      = -S -fsource-asm -fcode-asm
-    CFLAGS   = $(OPT) -c99 $(ACTIVE)
+    CFLAGS   = $(OPT) $(ACTIVE)
     FFLAGS   = $(OPT) -cpp
     #FFLAGS  += -stdpar          # Fortran DO CONCURRENT
     FFLAGS  += -stdpar=gpu
@@ -298,7 +298,7 @@ CCOBJECTS := ccsd_t_kernels_omp.o ccsd_t_kernels_ref.o \
              ccsd_t_kernels_1d.o ccsd_t_kernels_nd.o \
              ccsd_t_dts_kernels_ref.o ccsd_t_dts_kernels_omp.o \
 	     ccsd_t_kernels_stdpar.o ccsd_t_kernels_target.o \
-	     ccsd_t_kernels_acc.o cutensor_driver.o #ccsd_t_kernels_blas.o
+	     ccsd_t_kernels_acc.o cutensor2_driver.o #ccsd_t_kernels_blas.o
 HEADERS := safemalloc.h pragma_vendor.h pragma_openmp.h fake_omp.h blas.h
 CCHEADERS := ccsd_t_kernels.h ccsd_t_kernels_omp.h ccsd_t_kernels_ref.h ccsd_t_kernels_1d.h \
 	     ccsd_t_kernels_nd.h ccsd_t_kernels_stdpar.h ccsd_t_kernels_target.h \
