@@ -34,12 +34,12 @@ void cutensor_driver(int reps, int kernel, int tilesize,
 
     cutensorHandle_t h;
 
-    cutensorStatus_t s = cutensorInit(&h);
-    if (s) fprintf(stderr,"cutensorInit\n");
+    cutensorStatus_t s = cutensorCreate(&h);
+    if (s) fprintf(stderr,"cutensorCreate\n");
 
-    cutensorContractionFind_t f;
-    s = cutensorInitContractionFind(&h, &f, CUTENSOR_ALGO_DEFAULT_PATIENT);
-    if (s) fprintf(stderr,"cutensorInitContractionFind\n");
+    cutensorPlanPreference_t f;
+    s = cutensorCreatePlanPreference(h, &f, CUTENSOR_ALGO_DEFAULT_PATIENT, CUTENSOR_JIT_MODE_NONE);
+    if (s) fprintf(stderr,"cutensorInitPlanPreference\n");
 
     int64_t eT1[2]={tilesize,tilesize};
     int64_t eT2[4]={tilesize,tilesize,tilesize,tilesize};
