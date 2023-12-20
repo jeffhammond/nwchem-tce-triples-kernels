@@ -13,6 +13,7 @@ import numpy as np
 
 # optimize einsum (use BLAS)
 opt=False
+#opt=True # slower
 
 def nttk_sd_t_s1_1(d3,d2,d1,d6,d5,d4,triplesx,t1sub,v2sub):
     for h1,h2,h3,p4,p5,p6 in np.ndindex((d1,d2,d3,d4,d5,d6)):
